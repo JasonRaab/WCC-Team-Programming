@@ -1,1 +1,1 @@
-This is a repo for Android CPS 251
+This is a repo for Team Programming CPS298
