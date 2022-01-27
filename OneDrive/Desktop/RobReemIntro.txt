@@ -1,0 +1,16 @@
+Hi everyone, 
+
+I think you all know me but in case you forgot...
+
+I started my development journey in the fall of 2019. I took an online course through edx.com called Python for Everybody. 
+I fell in love with the feeling that comes when when the program FINALLY works... you know the one, arms up, possible fist pump, pure excitement.
+ I couldn't get enough. So I decided that I'd register for class in the winter term. I took Java 161 and had the pleasure of sitting next to 
+ Jason Raab. We became fast friends and decided that we'd take Advanced Java Concepts together. I have learned a lot over the years working with
+ Jason, we took at least one class together for the remainder of our journey. I landed an internship with a company called McCreadie Group and 
+ learned Visual Basic and Microsoft's .net framework. I also learned SQL while there and got a lot of experience well beyond what was taught
+ in the database class that is offered at WCC. After my internship ended I have stayed in school and continued to learn as much as possible. 
+ I'm looking forward to working with this team and I think we will all learn a lot from each other. 
+ 
+ Thank you for taking the time to read this lil intro...
+ 
+ dumpsterFire(List<Devs> us); forever
