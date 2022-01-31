@@ -1,0 +1,20 @@
+Hello, My name is John Bower. 
+
+I started my interest in programming in high school in 1998 with java 1.2, however, as a slacker, I never pursued it beyond some intro programs. I took a few classes at WCC starting in 2002, including: intro to computer science, intro to C++, and a few gen ed classes. 
+
+In 2005, I joined the United States Marine Corps, deploying to Iraq twice between 2006 to 2008 and once to Afghanistan in 2009.
+
+I returned to WCC in 2010, finished my gen ed classes, and earned degrees in Residential Construction and Occupational Studies (welding focus). I attended EMU for a few semesters, coming 3 classes short of a Bachelor's before my G.I.Bill ran out.
+
+After a 5 year hiatus, having a family, and the pandemic shut down, I got a renewed interest in computer programming. I started with teaching myself Java during the shut down and enrolled in the Java associate's program at WCC in fall 2020. I am currently finishing the Java program this semester with CPS298 - Team Programming and CPS251 - Android Programming.
+
+I am a father of three. I have a 6 year old son, 4 year old son, and a 5 month old daughter. I enjoy spending as much time with my kids as I can, playing minecraft with them, and watching movies/tv shows. In the warmer months of the year, I like to work my garden with my kids and go fishing when I can. I also have 5 indoor/outdoor cats as well. Four of them are great mousers (mice, shrews, snakes, squirrels/chipmunks, bats, birds, bunnies, etc...).
+
+Programming Language Repertoire:
+
+Java		=	Advanced
+PHP		=	Intermediate
+SQL		=	Intermediate
+HTML/CSS	=	Minimal
+Kotlin/Android	=	Beginning
+C++		=	Forgotten
