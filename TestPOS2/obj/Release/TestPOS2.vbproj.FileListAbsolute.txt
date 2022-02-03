@@ -1,0 +1,16 @@
+C:\Users\Jason\source\repos\TestPOS2\bin\Release\TestPOS2.exe.config
+C:\Users\Jason\source\repos\TestPOS2\bin\Release\TestPOS2.exe
+C:\Users\Jason\source\repos\TestPOS2\bin\Release\TestPOS2.pdb
+C:\Users\Jason\source\repos\TestPOS2\bin\Release\TestPOS2.xml
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\MainWindow.g.vb
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\Application.g.vb
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\TestPOS2_MarkupCompile.cache
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\TestPOS2_MarkupCompile.lref
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\MainWindow.baml
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\TestPOS2.g.resources
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\TestPOS2.Resources.resources
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\TestPOS2.vbproj.GenerateResource.cache
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\TestPOS2.vbproj.CoreCompileInputs.cache
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\TestPOS2.exe
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\TestPOS2.xml
+C:\Users\Jason\source\repos\TestPOS2\obj\Release\TestPOS2.pdb
