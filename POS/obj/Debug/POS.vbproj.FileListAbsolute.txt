@@ -19,7 +19,6 @@ C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\MainWindow.g.vb
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\Application.g.vb
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS_MarkupCompile.cache
-C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS_MarkupCompile.lref
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\MainWindow.baml
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS.g.resources
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS.Resources.resources

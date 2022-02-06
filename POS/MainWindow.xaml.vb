@@ -7,12 +7,12 @@
         posApp.PopulateItemButtons()
     End Sub
 
-    Private Sub LstBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstBox.SelectionChanged
+    Private Sub LstBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstBoxTicket.SelectionChanged
         posApp.LstBox_SelectionChanged(sender, e)
     End Sub
 
     Private Sub BtnDelete_Click(sender As Object, e As RoutedEventArgs) Handles btnDelete.Click
-        lstBox.Items.Remove(lstBox.SelectedItem)
+        lstBoxTicket.Items.Remove(lstBoxTicket.SelectedItem)
 
     End Sub
 

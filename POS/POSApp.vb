@@ -27,6 +27,7 @@ Public Class POSApp
         Me.MainWindow = MainWindow
         dao = New DAO("datasource=localhost;port=3306;username=hbstudent;password=hbstudent")
         lstAllItems = dao.GetAllItems()
+        MainWindow.lstBoxTicket.Items.Clear()
     End Sub
 
     Public Property lstAllItems() As List(Of Item)
@@ -101,36 +102,25 @@ Public Class POSApp
         Next
 
         lstSelectedItems.Add(selectedItem)
-        MainWindow.lstBox.Items.Add(selectedItem.Name)
-        'MainWindow.lstBox.Items.Add(selectedItem)
-        UpdateLables(selectedItem)
+        MainWindow.lstBoxTicket.Items.Add(selectedItem)
+        MainWindow.lstBoxTicket.SelectedItem = selectedItem
     End Sub
 
     Public Sub LstBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         'Runs when the list box's selection changes IF something is selected
-        Dim selectedItem As Item
 
-        If MainWindow.lstBox.SelectedItem IsNot Nothing Then
-            For Each item As Item In lstAllItems
-                If item.Name.Equals(MainWindow.lstBox.SelectedItem) Then
-                    selectedItem = New Item(item)
-                    Exit For
-                End If
-            Next
-
-            UpdateLables(selectedItem)
+        If TypeOf MainWindow.lstBoxTicket.SelectedItem Is Item Then
+            UpdateLables(MainWindow.lstBoxTicket.SelectedItem)
         End If
     End Sub
 
-    Public Sub UpdateLstBox()
-        MainWindow.lstBox.Items.Clear()
-    End Sub
-
     Public Sub UpdateLables(item As Item)
-        MainWindow.lblId.Content = item.Item_id
-        MainWindow.lblName.Content = item.Name
-        MainWindow.lblCategory.Content = item.Category
-        MainWindow.lblPrice.Content = item.Price
+        If TypeOf item Is Item Then
+            MainWindow.lblId.Content = item.Item_id
+            MainWindow.lblName.Content = item.Name
+            MainWindow.lblCategory.Content = item.Category
+            MainWindow.lblPrice.Content = item.Price
+        End If
     End Sub
 
 End Class

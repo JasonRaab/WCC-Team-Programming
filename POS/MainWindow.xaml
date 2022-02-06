@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestPOS2"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" Loaded="Window_Loaded">
     <Grid>
@@ -13,7 +12,23 @@
                 <GradientStop Color="White" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ListBox x:Name="lstBox" HorizontalAlignment="Left" Height="586" Margin="10,10,0,0" VerticalAlignment="Top" Width="369" FontSize="18"/>
+
+        <ListBox x:Name="lstBoxTicket" HorizontalAlignment="Left" Height="586" Margin="10,10,0,0" VerticalAlignment="Top" Width="369" FontSize="18">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <!--<ColumnDefinition Width="*" MinWidth="{Binding Width, ElementName=lstBoxTicket}"/> -->
+                            <ColumnDefinition Width="*" MinWidth="330"/>
+                            <ColumnDefinition  Width="25" MinWidth="25" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="{Binding Name}"></Label>
+                        <Label Content="{Binding Price}" HorizontalAlignment="Right"></Label>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <RadioButton Content="RadioButton" Height="100" Width="100"/>
+        </ListBox>
         <Label x:Name="lblName" Content="-" HorizontalAlignment="Left" Margin="442,458,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.803,-0.982"/>
         <Label x:Name="lblId" Content="-" HorizontalAlignment="Left" Margin="442,427,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblCategory" Content="-" HorizontalAlignment="Left" Margin="442,489,0,0" VerticalAlignment="Top"/>
@@ -45,6 +60,7 @@
             </Grid.ColumnDefinitions>
         </Grid>
         <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="402,10,0,0" VerticalAlignment="Top" Width="125" Height="125" RenderTransformOrigin="0.252,0.196" FontSize="18"/>
+        <ListBox HorizontalAlignment="Left" Height="78" Margin="10,601,0,0" VerticalAlignment="Top" Width="369"/>
 
     </Grid>
 </Window>
