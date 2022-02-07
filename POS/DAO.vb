@@ -30,14 +30,33 @@ Public Class DAO
         End Set
     End Property
 
+    ' This one is for Jason's local test database
+    'Public Function GetAllItems() As List(Of Item)
+    '    Dim lstItems As New List(Of Item)
+    '    connection.Open()
+    '    command.CommandText = "SELECT * FROM cps298.item"
+    '    Reader = command.ExecuteReader
+
+    '    While Reader.Read
+    '        lstItems.Add(New Item(Reader.GetInt32(0), Reader.GetString("name"), Reader.GetString("category"), Reader.GetDecimal(3)))
+    '    End While
+
+    '    For Each item As Item In lstItems
+    '        Console.WriteLine(item.Name & item.Item_id & item.Price & item.Category)
+    '    Next
+    '    Return lstItems
+
+    '    connection.Close()
+    'End Function
+
     Public Function GetAllItems() As List(Of Item)
         Dim lstItems As New List(Of Item)
         connection.Open()
-        command.CommandText = "SELECT * FROM cps298.item"
+        command.CommandText = "SELECT * FROM dumpster_fire.menu_item;"
         Reader = command.ExecuteReader
 
         While Reader.Read
-            lstItems.Add(New Item(Reader.GetInt32(0), Reader.GetString("name"), Reader.GetString("category"), Reader.GetDecimal(3)))
+            lstItems.Add(New Item(Reader.GetInt32(0), Reader.GetString("item_name"), Reader.GetString("item_category"), Reader.GetDecimal(5)))
         End While
 
         For Each item As Item In lstItems
@@ -47,5 +66,4 @@ Public Class DAO
 
         connection.Close()
     End Function
-
 End Class

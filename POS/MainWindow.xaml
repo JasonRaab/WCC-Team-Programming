@@ -13,7 +13,7 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <ListBox x:Name="lstBoxTicket" HorizontalAlignment="Left" Height="586" Margin="10,10,0,0" VerticalAlignment="Top" Width="369" FontSize="18">
+        <ListBox x:Name="lstBoxTicket" HorizontalAlignment="Left" Height="536" Margin="10,10,0,0" VerticalAlignment="Top" Width="369" FontSize="18">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -60,7 +60,8 @@
             </Grid.ColumnDefinitions>
         </Grid>
         <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="402,10,0,0" VerticalAlignment="Top" Width="125" Height="125" RenderTransformOrigin="0.252,0.196" FontSize="18"/>
-        <ListBox HorizontalAlignment="Left" Height="78" Margin="10,601,0,0" VerticalAlignment="Top" Width="369"/>
+        <ListBox x:Name="lstBoxTotals" HorizontalAlignment="Left" Height="128" Margin="10,551,0,0" VerticalAlignment="Top" Width="369" FontSize="18" HorizontalContentAlignment="Right"/>
+        <Button x:Name="btnDeleteAll" Content="Delete All" HorizontalAlignment="Left" Margin="402,140,0,0" VerticalAlignment="Top" Width="125" Height="125" RenderTransformOrigin="0.252,0.196" FontSize="18"/>
 
     </Grid>
 </Window>

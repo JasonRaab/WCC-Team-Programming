@@ -57,18 +57,16 @@ POS
 <member name="T:POS.POSApp">
  <summary>
  To Do Front End:
- Display individual item price in list box
-     The best way to do this might be to use a dataTemplate for the item class
-     Then, we would use the lstBox.Items as the list for the selecetd items
-     We would not have a sperate List(Of Item) for selected items. Still learning about this.
- Display sub total, tax, and total below list box
+ Display totals in a nicer way. Probably a dataTemplate like in lstBoxTicket
  Make sperate tabs for item categories
  
  To Do Backend:
- Store list of selected Items in a List(Of Item)
+ Hook up to the correct database
  Send orders to database
+     Should probably make an order object
  
  Other Notes:
+ lstSelectedItems might not need to exist, I'm not sure. We might just want to use lstBoxTicket.Items
  The logic for the event handlers on MainWindow should be in POSApp.
  Extra Functionality - Make it store menu in XML so that it can run without db connection.
  </summary>
