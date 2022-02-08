@@ -18,4 +18,12 @@
         MessageBox.Show("Make this an Are You Sure box")
         posApp.ClearTicket()
     End Sub
+
+    Private Sub btnTestOrder_Click(sender As Object, e As RoutedEventArgs) Handles btnTestOrder.Click
+        posApp.SendTestOrder()
+    End Sub
+
+    Private Sub btnSendOrder_Click(sender As Object, e As RoutedEventArgs) Handles btnSendOrder.Click
+        posApp.SendOrder()
+    End Sub
 End Class

@@ -19,32 +19,25 @@ Public Class POSApp
     Private mainWindowValue As MainWindow
     Private dao As DAO
     Private lstAllItemsValue As New List(Of Item)
-    Private lstSelectedItemsValue As New List(Of Item)
+    Private order As Order
 
     Public Sub New(MainWindow As MainWindow)
         Me.MainWindow = MainWindow
+        order = New Order()
         'dao = New DAO("datasource=localhost;port=3306;username=hbstudent;password=hbstudent")
         dao = New DAO("datasource=167.172.242.79;port=3306;username=testUser;password=test@password298")
-        lstAllItems = dao.GetAllItems()
+        LstAllItems = dao.GetAllItems()
         Me.MainWindow.lstBoxTicket.Items.Clear()
         PopulateItemButtons()
         PopulateLstBoxTotals()
     End Sub
 
-    Public Property lstAllItems() As List(Of Item)
+    Public Property LstAllItems() As List(Of Item)
         Get
             Return lstAllItemsValue
         End Get
         Set(value As List(Of Item))
             lstAllItemsValue = value
-        End Set
-    End Property
-    Public Property lstSelectedItems() As List(Of Item)
-        Get
-            Return lstSelectedItemsValue
-        End Get
-        Set(value As List(Of Item))
-            lstSelectedItemsValue = value
         End Set
     End Property
     Public Property MainWindow() As MainWindow
@@ -63,7 +56,7 @@ Public Class POSApp
         intColumn = 0
         intRow = 0
 
-        For Each item As Item In lstAllItems
+        For Each item As Item In LstAllItems
             Dim btn As New Button
             btn.Content = item.Name
             btn.Name = "btn" & item.Name
@@ -100,14 +93,14 @@ Public Class POSApp
         Dim selectedItem As Item
 
         'Finds which item was clicked using text on the button
-        For Each item As Item In lstAllItems
+        For Each item As Item In LstAllItems
             If item.Name.Equals(CType(sender, Button).Content) Then
                 selectedItem = New Item(item)
                 Exit For
             End If
         Next
 
-        lstSelectedItems.Add(selectedItem)
+        order.LstItems.Add(selectedItem)
         MainWindow.lstBoxTicket.Items.Add(selectedItem)
         MainWindow.lstBoxTicket.SelectedItem = selectedItem
         UpdateTotals()
@@ -125,6 +118,7 @@ Public Class POSApp
 
     Public Sub ClearTicket()
         MainWindow.lstBoxTicket.Items.Clear()
+        order.LstItems.Clear()
         ClearLables()
     End Sub
 
@@ -159,7 +153,16 @@ Public Class POSApp
         MainWindow.lstBoxTotals.Items.Add("SubTotal:                                 " & Math.Round(subTotal, 2).ToString)
         MainWindow.lstBoxTotals.Items.Add("Tax:                                        " & Math.Round(tax, 2).ToString)
         MainWindow.lstBoxTotals.Items.Add("Total:                                  " & Math.Round(total, 2).ToString)
-
+        order.SubTotal = subTotal
+        order.Tax = tax
+        order.Total = total
     End Sub
 
+    Public Sub SendTestOrder()
+        dao.SendTestOrder(order)
+    End Sub
+
+    Public Sub SendOrder()
+
+    End Sub
 End Class

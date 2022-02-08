@@ -29,14 +29,14 @@
             </ListBox.ItemTemplate>
             <RadioButton Content="RadioButton" Height="100" Width="100"/>
         </ListBox>
-        <Label x:Name="lblName" Content="-" HorizontalAlignment="Left" Margin="442,458,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.803,-0.982"/>
-        <Label x:Name="lblId" Content="-" HorizontalAlignment="Left" Margin="442,427,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblCategory" Content="-" HorizontalAlignment="Left" Margin="442,489,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblPrice" Content="-" HorizontalAlignment="Left" Margin="442,520,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblName_Copy" Content="Name" HorizontalAlignment="Left" Margin="384,458,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.803,-0.982"/>
-        <Label x:Name="lblId_Copy" Content="Item ID" HorizontalAlignment="Left" Margin="384,427,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblCategory_Copy" Content="Category" HorizontalAlignment="Left" Margin="384,489,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblPrice_Copy" Content="Price" HorizontalAlignment="Left" Margin="384,520,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblName" Content="-" HorizontalAlignment="Left" Margin="478,591,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.803,-0.982"/>
+        <Label x:Name="lblId" Content="-" HorizontalAlignment="Left" Margin="478,560,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblCategory" Content="-" HorizontalAlignment="Left" Margin="478,622,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblPrice" Content="-" HorizontalAlignment="Left" Margin="478,653,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblName_Copy" Content="Name" HorizontalAlignment="Left" Margin="420,591,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.803,-0.982"/>
+        <Label x:Name="lblId_Copy" Content="Item ID" HorizontalAlignment="Left" Margin="420,560,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblCategory_Copy" Content="Category" HorizontalAlignment="Left" Margin="420,622,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblPrice_Copy" Content="Price" HorizontalAlignment="Left" Margin="420,653,0,0" VerticalAlignment="Top"/>
         <Grid x:Name="gridPanel" HorizontalAlignment="Left" Height="669" Margin="549,10,0,0" VerticalAlignment="Top" Width="668">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -60,8 +60,10 @@
             </Grid.ColumnDefinitions>
         </Grid>
         <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="402,10,0,0" VerticalAlignment="Top" Width="125" Height="125" RenderTransformOrigin="0.252,0.196" FontSize="18"/>
-        <ListBox x:Name="lstBoxTotals" HorizontalAlignment="Left" Height="128" Margin="10,551,0,0" VerticalAlignment="Top" Width="369" FontSize="18" HorizontalContentAlignment="Right"/>
+        <ListBox x:Name="lstBoxTotals" HorizontalAlignment="Left" Height="128" Margin="10,551,0,0" VerticalAlignment="Top" Width="369" FontSize="18" HorizontalContentAlignment="Right" Focusable="False"/>
         <Button x:Name="btnDeleteAll" Content="Delete All" HorizontalAlignment="Left" Margin="402,140,0,0" VerticalAlignment="Top" Width="125" Height="125" RenderTransformOrigin="0.252,0.196" FontSize="18"/>
+        <Button x:Name="btnTestOrder" Content="Test Order" HorizontalAlignment="Left" Margin="402,270,0,0" VerticalAlignment="Top" Width="125" Height="125" RenderTransformOrigin="0.252,0.196" FontSize="18"/>
+        <Button x:Name="btnSendOrder" Content="Send Order" HorizontalAlignment="Left" Margin="402,400,0,0" VerticalAlignment="Top" Width="125" Height="125" RenderTransformOrigin="0.252,0.196" FontSize="18" IsEnabled="False"/>
 
     </Grid>
 </Window>
