@@ -54,6 +54,16 @@ POS
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="T:POS.OrderSelectionPage">
+<summary>
+OrderSelectionPage
+</summary>
+</member>
+<member name="M:POS.OrderSelectionPage.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
 <member name="T:POS.POSApp">
  <summary>
  To Do Front End:

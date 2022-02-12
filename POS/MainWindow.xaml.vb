@@ -1,5 +1,16 @@
 ﻿Class MainWindow
 
+    Private locationValue As String
+
+    Public Property Location
+        Get
+            Return locationValue
+        End Get
+        Set(value)
+            locationValue = value
+        End Set
+    End Property
+
     Dim posApp As POSApp
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
@@ -10,7 +21,7 @@
         posApp.LstBox_SelectionChanged(sender, e)
     End Sub
 
-    Private Sub BtnDelete_Click(sender As Object, e As RoutedEventArgs) Handles btnDelete.Click
+    Private Sub btnDelete_Click(sender As Object, e As RoutedEventArgs) Handles btnDelete.Click
         lstBoxTicket.Items.Remove(lstBoxTicket.SelectedItem)
     End Sub
 
@@ -19,11 +30,15 @@
         posApp.ClearTicket()
     End Sub
 
-    Private Sub btnTestOrder_Click(sender As Object, e As RoutedEventArgs) Handles btnTestOrder.Click
-        posApp.SendTestOrder()
-    End Sub
-
     Private Sub btnSendOrder_Click(sender As Object, e As RoutedEventArgs) Handles btnSendOrder.Click
         posApp.SendOrder()
+    End Sub
+
+    Private Sub btnTakePayment_Click(sender As Object, e As RoutedEventArgs) Handles btnTakePayment.Click
+        posApp.TakePayment()
+    End Sub
+
+    Private Sub btnExit_Click(sender As Object, e As RoutedEventArgs) Handles btnExit.Click
+        posApp.ExitOrderPage()
     End Sub
 End Class

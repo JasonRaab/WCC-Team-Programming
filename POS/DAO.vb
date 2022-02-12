@@ -29,25 +29,6 @@ Public Class DAO
         End Set
     End Property
 
-    ' This one is for Jason's local test database
-    'Public Function GetAllItems() As List(Of Item)
-    '    Dim lstItems As New List(Of Item)
-    '    connection.Open()
-    '    command.CommandText = "SELECT * FROM cps298.item"
-    '    Reader = command.ExecuteReader
-
-    '    While Reader.Read
-    '        lstItems.Add(New Item(Reader.GetInt32(0), Reader.GetString("name"), Reader.GetString("category"), Reader.GetDecimal(3)))
-    '    End While
-
-    '    For Each item As Item In lstItems
-    '        Console.WriteLine(item.Name & item.Item_id & item.Price & item.Category)
-    '    Next
-    '    Return lstItems
-
-    '    connection.Close()
-    'End Function
-
     Public Function GetAllItems() As List(Of Item)
         Dim lstItems As New List(Of Item)
         connection.Open()
@@ -61,6 +42,21 @@ Public Class DAO
         Reader.Close()
         connection.Close()
         Return lstItems
+    End Function
+
+    Public Function GetCategories() As List(Of String)
+        Dim lstCategories As New List(Of String)
+        connection.Open()
+        command.CommandText = "SELECT DISTINCT item_category FROM dumpster_fire.menu_item;"
+        Reader = command.ExecuteReader
+
+        While Reader.Read
+            lstCategories.Add(Reader.GetString("item_category"))
+        End While
+
+        Reader.Close()
+        connection.Close()
+        Return lstCategories
     End Function
 
     Public Sub SendTestOrder(order As Order)
