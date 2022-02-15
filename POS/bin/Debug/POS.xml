@@ -54,6 +54,26 @@ POS
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="T:POS.LoginPage">
+<summary>
+LoginPage
+</summary>
+</member>
+<member name="M:POS.LoginPage.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:POS.OrderPage">
+<summary>
+OrderPage
+</summary>
+</member>
+<member name="M:POS.OrderPage.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
 <member name="T:POS.OrderSelectionPage">
 <summary>
 OrderSelectionPage

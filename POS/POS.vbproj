@@ -69,11 +69,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LoginPage.xaml.vb">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Order.vb" />
+    <Compile Include="OrderPage.xaml.vb">
+      <DependentUpon>OrderPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrderSelectionPage.xaml.vb">
       <DependentUpon>OrderSelectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="POSApp.vb" />
+    <Page Include="LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,6 +98,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OrderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OrderSelectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

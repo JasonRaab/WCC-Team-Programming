@@ -16,13 +16,25 @@
 
 Public Class POSApp
 
+    Private loginPageValue As LoginPage
     Private mainWindowValue As MainWindow
     Private orderSelectionpageValue As OrderSelectionPage
     Private dao As DAO
     Private lstAllItemsValue As New List(Of Item)
     Private dctItemButtonsValue As New Dictionary(Of Button, Item)
-    Private order As Order
+    Private orderPage As OrderPage
+    Private lstOpenOrders As New List(Of Order)
+    Private lstClosedOrders As New List(Of Order)
+    Private selectedOrder As New Order
 
+    Public Property LoginPage() As LoginPage
+        Get
+            Return loginPageValue
+        End Get
+        Set(value As LoginPage)
+            loginPageValue = value
+        End Set
+    End Property
     Public Property DctItemButtons() As Dictionary(Of Button, Item)
         Get
             Return dctItemButtonsValue
@@ -57,16 +69,16 @@ Public Class POSApp
     End Property
 
     Public Sub New(MainWindow As MainWindow)
+        'Create all pages and dao. Populate various things for order page. Show login page.
         Me.MainWindow = MainWindow
-        OrderSelectionPage = New OrderSelectionPage()
-        order = New Order()
+        LoginPage = New LoginPage(Me)
+        OrderSelectionPage = New OrderSelectionPage(Me)
+        orderPage = New OrderPage(Me)
         dao = New DAO("datasource=167.172.242.79;port=3306;username=testUser;password=test@password298")
-        Me.MainWindow.lstBoxTicket.Items.Clear()
         PopulateCategoryButtons()
         PopulateItemButtons()
         PopulateLstBoxTotals()
-        UpdateCategory("Entree")
-        order.SubTotal = 0.00
+        MainWindow.Content = LoginPage
     End Sub
 
 
@@ -75,9 +87,9 @@ Public Class POSApp
         Dim intRow As Integer
         Dim lstCateGories As List(Of String)
         intRow = 0
-        lstCategories = dao.GetCategories()
+        lstCateGories = dao.GetCategories()
 
-        For Each category As String In lstCategories
+        For Each category As String In lstCateGories
             Dim btn As New Button
             btn.Content = category
             btn.Name = "btn" & category.Replace(" ", "")
@@ -86,7 +98,7 @@ Public Class POSApp
             btn.FontSize = 18
             AddHandler btn.Click, AddressOf CategoryBtn_Click
             Grid.SetRow(btn, intRow)
-            MainWindow.categoryGridPanel.Children.Add(btn)
+            orderPage.categoryGridPanel.Children.Add(btn)
             intRow += 1
         Next
 
@@ -114,9 +126,15 @@ Public Class POSApp
     End Sub
 
     Public Sub PopulateLstBoxTotals()
-        MainWindow.lstBoxTotals.Items.Add("SubTotal:")
-        MainWindow.lstBoxTotals.Items.Add("Tax:")
-        MainWindow.lstBoxTotals.Items.Add("Total:")
+        orderPage.lstBoxTotals.Items.Add("SubTotal:")
+        orderPage.lstBoxTotals.Items.Add("Tax:")
+        orderPage.lstBoxTotals.Items.Add("Total:")
+    End Sub
+
+    Public Sub PopulateOpenOrder(order As Order)
+        For Each item As Item In order.LstItems
+            orderPage.lstBoxTicket.Items.Add(item)
+        Next
     End Sub
 
     '''''''''' Updating Functions ''''''''''
@@ -129,15 +147,18 @@ Public Class POSApp
 
 
         'Remove all item buttons, change category header
-        MainWindow.itemGridPanel.Children.Clear()
-        MainWindow.lblCategoryHeader.Content = categoryName & "s"
+        'MainWindow.itemGridPanel.Children.Clear()
+        'MainWindow.lblCategoryHeader.Content = categoryName & "s"
+        orderPage.itemGridPanel.Children.Clear()
+        orderPage.lblCategoryHeader.Content = categoryName & "s"
 
         'If an item's category matches the string passed in then display its button
         For Each pair As KeyValuePair(Of Button, Item) In dctItemButtonsValue
             If pair.Value.Category.Equals(categoryName) Then
                 Grid.SetColumn(pair.Key, intColumn)
                 Grid.SetRow(pair.Key, intRow)
-                MainWindow.itemGridPanel.Children.Add(pair.Key)
+                'MainWindow.itemGridPanel.Children.Add(pair.Key)
+                orderPage.itemGridPanel.Children.Add(pair.Key)
                 intColumn += 1
                 If intColumn > 3 Then
                     intColumn = 0
@@ -153,32 +174,73 @@ Public Class POSApp
         Dim total As Decimal
         subTotal = 0.00
 
-        For Each item As Item In MainWindow.lstBoxTicket.Items
+        For Each item As Item In orderPage.lstBoxTicket.Items
             subTotal = subTotal + item.Price
         Next
         tax = subTotal * 0.06
         total = subTotal + tax
-        MainWindow.lstBoxTotals.Items.Clear()
-        MainWindow.lstBoxTotals.Items.Add("SubTotal:                                 " & Math.Round(subTotal, 2).ToString)
-        MainWindow.lstBoxTotals.Items.Add("Tax:                                        " & Math.Round(tax, 2).ToString)
-        MainWindow.lstBoxTotals.Items.Add("Total:                                  " & Math.Round(total, 2).ToString)
-        order.SubTotal = subTotal
-        order.Tax = tax
-        order.Total = total
+        orderPage.lstBoxTotals.Items.Clear()
+        orderPage.lstBoxTotals.Items.Add("SubTotal:                                 " & Math.Round(subTotal, 2).ToString)
+        orderPage.lstBoxTotals.Items.Add("Tax:                                        " & Math.Round(tax, 2).ToString)
+        orderPage.lstBoxTotals.Items.Add("Total:                                  " & Math.Round(total, 2).ToString)
+        selectedOrder.SubTotal = subTotal
+        selectedOrder.Tax = tax
+        selectedOrder.Total = total
     End Sub
 
     Private Sub UpdateLables(item As Item)
         If TypeOf item Is Item Then
-            MainWindow.lblId.Content = item.Item_id
-            MainWindow.lblName.Content = item.Name
-            MainWindow.lblCategory.Content = item.Category
-            MainWindow.lblPrice.Content = item.Price
+            orderPage.lblId.Content = item.Item_id
+            orderPage.lblName.Content = item.Name
+            orderPage.lblCategory.Content = item.Category
+            orderPage.lblPrice.Content = item.Price
         End If
     End Sub
 
-    Public Sub ViewOrderPage(location As String)
-        MainWindow.Content = MainWindow
+    '''''''''' Navigation Functions ''''''''''
+    Public Sub ExitOrderPage()
+        MainWindow.Content = OrderSelectionPage
     End Sub
+
+    Public Sub ExitOrderSelectionPage()
+        MainWindow.Content = LoginPage
+    End Sub
+
+    Public Sub LoginPageGo()
+        MainWindow.Content = OrderSelectionPage
+    End Sub
+
+    Public Sub ViewOrderPage(location As String)
+        Dim orderFound As Boolean = False
+        orderPage.lstBoxTicket.Items.Clear()
+
+        'If there is already an open order at that location then load that order
+        For Each order As Order In lstOpenOrders
+            If order.Location.Equals(location) Then
+                selectedOrder = order
+                PopulateOpenOrder(order)
+                orderFound = True
+                Debug.WriteLine("Order found location " & location)
+                Exit For
+            End If
+        Next
+
+        'If there is not an open order at that location then make one
+        If orderFound = False Then
+            Dim order As New Order(location)
+            lstOpenOrders.Add(order)
+            selectedOrder = order
+            Debug.WriteLine("No order found. New one created")
+        End If
+
+        'Either way, clean up and display the order page
+        UpdateCategory("Entree")
+        ClearLables()
+        UpdateTotals()
+        MainWindow.Content = orderPage
+    End Sub
+
+    ''''''''''' Other Functions '''''''''''''
 
     Public Sub CategoryBtn_Click(sender As Object, e As RoutedEventArgs)
         UpdateCategory(CType(sender, Button).Content)
@@ -193,9 +255,9 @@ Public Class POSApp
             End If
         Next
 
-        order.LstItems.Add(selectedItem)
-        MainWindow.lstBoxTicket.Items.Add(selectedItem)
-        MainWindow.lstBoxTicket.SelectedItem = selectedItem
+        selectedOrder.LstItems.Add(selectedItem)
+        orderPage.lstBoxTicket.Items.Add(selectedItem)
+        orderPage.lstBoxTicket.SelectedItem = selectedItem
         UpdateTotals()
     End Sub
 
@@ -203,31 +265,35 @@ Public Class POSApp
         'Rename this method
         'Runs when the list box's selection changes IF something is selected
 
-        If TypeOf MainWindow.lstBoxTicket.SelectedItem Is Item Then
-            UpdateLables(MainWindow.lstBoxTicket.SelectedItem)
+        If TypeOf orderPage.lstBoxTicket.SelectedItem Is Item Then
+            UpdateLables(orderPage.lstBoxTicket.SelectedItem)
         End If
     End Sub
 
     Public Sub ClearTicket()
-        MainWindow.lstBoxTicket.Items.Clear()
-        order.LstItems.Clear()
+        orderPage.lstBoxTicket.Items.Clear()
+        selectedOrder.LstItems.Clear()
         ClearLables()
+        UpdateTotals()
     End Sub
 
     Private Sub ClearLables()
-        MainWindow.lblId.Content = "-"
-        MainWindow.lblName.Content = "-"
-        MainWindow.lblCategory.Content = "-"
-        MainWindow.lblPrice.Content = "-"
+        orderPage.lblId.Content = "-"
+        orderPage.lblName.Content = "-"
+        orderPage.lblCategory.Content = "-"
+        orderPage.lblPrice.Content = "-"
+    End Sub
+
+    Public Sub DeleteItem()
+        selectedOrder.LstItems.Remove(orderPage.lstBoxTicket.SelectedItem)
+        orderPage.lstBoxTicket.Items.Remove(orderPage.lstBoxTicket.SelectedItem)
+        ClearLables()
+        UpdateTotals()
     End Sub
 
     Public Sub SendOrder()
         'dao.SendOrder(order)
-        dao.SendTestOrder(order)
-    End Sub
-
-    Public Sub ExitOrderPage()
-        MainWindow.Content = OrderSelectionPage
+        dao.SendTestOrder(selectedOrder)
     End Sub
 
     Public Sub TakePayment()

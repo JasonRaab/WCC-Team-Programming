@@ -4,6 +4,15 @@
     Private subTotalValue As Decimal
     Private taxValue As Decimal
     Private totalValue As Decimal
+    Private locationValue As String
+
+    Public Sub New()
+
+    End Sub
+
+    Public Sub New(Location As String)
+        Me.Location = Location
+    End Sub
 
     Public Property LstItems() As List(Of Item)
         Get
@@ -35,6 +44,14 @@
         End Get
         Set(value As Decimal)
             totalValue = value
+        End Set
+    End Property
+    Public Property Location() As String
+        Get
+            Return locationValue
+        End Get
+        Set(value As String)
+            locationValue = value
         End Set
     End Property
 
