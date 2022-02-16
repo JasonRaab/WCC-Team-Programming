@@ -28,3 +28,10 @@ C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS.exe
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS.xml
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS.pdb
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS_MarkupCompile.lref
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\OrderSelectionPage.g.vb
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\OrderSelectionPage.baml
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\OrderPage.g.vb
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\OrderPage.baml
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\LoginPage.g.vb
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\LoginPage.baml
