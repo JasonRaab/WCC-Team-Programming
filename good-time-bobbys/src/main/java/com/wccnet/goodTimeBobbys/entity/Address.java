@@ -1,16 +1,23 @@
 package com.wccnet.goodTimeBobbys.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "address")
 public class Address {
 
+	// to use table @manyToOne Address id -> user table
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_id")
@@ -28,6 +35,10 @@ public class Address {
 	@Column(name = "zip")
 	private String zip;
 
+	@ManyToMany
+	@JoinTable(name = "user_address", joinColumns = @JoinColumn(name = "address_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<User> users = new ArrayList<User>();
+
 	public Address() {
 
 	}
@@ -38,6 +49,16 @@ public class Address {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
+	}
+
+	public void addUser(User user) {
+		users.add(user);
+	}
+
+	// set isActive to 0
+	public void removeUser(User user) {
+		// Update this method to change the isActive column in the DB to 0 from 1
+		users.remove(user);
 	}
 
 	@Override

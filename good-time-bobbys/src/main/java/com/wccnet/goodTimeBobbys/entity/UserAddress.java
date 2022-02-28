@@ -9,10 +9,13 @@ import javax.persistence.Table;
 @Table(name = "user_address")
 public class UserAddress {
 
+	//this comes from the user table
 	@Id
 	@Column(name = "user_id")
 	private int userId;
 
+	
+	//this comes from the Address table
 	@Column(name = "address_id")
 	private int addressId;
 

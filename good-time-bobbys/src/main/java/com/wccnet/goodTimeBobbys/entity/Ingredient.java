@@ -19,6 +19,9 @@ public class Ingredient {
 	@Column(name = "ingredient_name")
 	private String ingredientName;
 
+	@Column(name="ingredient_category")
+	private String ingredientCategory;
+	
 	@Column(name = "ingredient_stock")
 	private int ingredientStock;
 
@@ -72,6 +75,14 @@ public class Ingredient {
 
 	public void setIngredientPrice(double ingredientPrice) {
 		this.ingredientPrice = ingredientPrice;
+	}
+
+	public String getIngredientCategory() {
+		return ingredientCategory;
+	}
+
+	public void setIngredientCategory(String ingredientCategory) {
+		this.ingredientCategory = ingredientCategory;
 	}
 
 }
