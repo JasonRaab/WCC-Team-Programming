@@ -16,6 +16,7 @@ import edu.wccnet.ctbriggs.springMVC.domain.IngredientItem;
 import edu.wccnet.ctbriggs.springMVC.domain.ItemSearch;
 import edu.wccnet.ctbriggs.springMVC.domain.MenuItem;
 import edu.wccnet.ctbriggs.springMVC.domain.OrderSearch;
+import edu.wccnet.ctbriggs.springMVC.domain.Stock;
 
 @Controller
 public class MainController {
@@ -63,6 +64,30 @@ public class MainController {
 	    return "orders";
 	}
 	
+	@RequestMapping("/stock")
+    public String stockList(Model model) {
+        Stock a = new Stock();
+        Stock b = new Stock();
+        
+        a.setCategory("Cookie");
+        a.setItem("Bobby's chocolate supreme");
+        a.setStock(14);
+        a.setUcAmount(2);
+        
+        b.setCategory("Burger Ingredient");
+        b.setItem("Tomato");
+        b.setStock(20);
+        b.setUcAmount(2.25);
+        
+        ArrayList<Stock> stockList = new ArrayList<>();
+        stockList.add(a);
+        stockList.add(b);
+        
+        model.addAttribute("stock", new Stock());
+        model.addAttribute("stockList", stockList);
+        
+        return "stock";
+    }
 	
 	//TODO implement employees class
 	@RequestMapping("/employees")
