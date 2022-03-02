@@ -1,9 +1,15 @@
 package com.wccnet.goodTimeBobbys.entity;
+//
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.Id;
+//import javax.persistence.Table;
 
+////dont need this entity as it is the lookup table in DB
 //@Entity
 //@Table(name = "menu_item_default_ingredient")
-public class MenuItemDefaultIngredient {
-
+//public class MenuItemDefaultIngredient {
+//
 //  //One MenuItem to many Ingredient(s)
 //  @Id
 //  @Column(name = "menu_item_id")
@@ -46,4 +52,4 @@ public class MenuItemDefaultIngredient {
 //      this.ingredientsId = ingredientsId;
 //  }
 
-}
+//}

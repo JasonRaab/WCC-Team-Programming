@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wccnet.goodTimeBobbys.dao.IRestaurantDAO;
+import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.User;
 
 @Controller
@@ -23,5 +24,20 @@ public class MainController {
         System.out.println("smelly CONTROLLER");
         return "showUsers";
     }
+    
+    @RequestMapping("fullIngredientList")
+	public String getIngerdientList(Model model, @ModelAttribute("ingredient") Ingredient ingredient, BindingResult result) {
+		model.addAttribute("ingredient", restaurantDAO.getIngredient());
+		System.out.println("in controller.getIngretientList");
+		
+		return "fullIngredientList";
+	}
+	
+	@RequestMapping("filteredIngredientList")
+	public String getFilteredIngredientList(Model model, @ModelAttribute("ingredients") Ingredient ingredient, BindingResult result) {
+		model.addAttribute("ingredient", restaurantDAO.getMenuItemIngredients());
+		System.out.println("Getting the filtered ingredient list");
+		return "filteredIngredientList";
+	}
 }
 

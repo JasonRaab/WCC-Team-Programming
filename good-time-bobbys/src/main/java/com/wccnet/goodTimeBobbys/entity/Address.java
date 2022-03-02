@@ -36,8 +36,12 @@ public class Address {
 	private String zip;
 
 	@ManyToMany
-	@JoinTable(name = "user_address", joinColumns = @JoinColumn(name = "address_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> users = new ArrayList<User>();
+	@JoinTable(
+			name = "user_address", 
+			joinColumns = @JoinColumn(name = "address_id"), 
+			inverseJoinColumns = @JoinColumn(name = "user_id")
+			)
+			private List<User> users = new ArrayList<User>();
 
 	public Address() {
 
