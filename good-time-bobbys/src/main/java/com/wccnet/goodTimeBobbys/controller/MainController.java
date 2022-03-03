@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wccnet.goodTimeBobbys.dao.IRestaurantDAO;
+import com.wccnet.goodTimeBobbys.entity.Address;
 import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.User;
 
 @Controller
 @RequestMapping("/")
 public class MainController {
-<<<<<<< HEAD
 	
 	@Autowired
 	private IRestaurantDAO restaurantDAO;
@@ -28,21 +28,6 @@ public class MainController {
 	
 	@RequestMapping("fullIngredientList")
 	public String getIngerdientList(Model model, @ModelAttribute("ingredients") Ingredient ingredient, BindingResult result) {
-=======
-
-    @Autowired
-    private IRestaurantDAO restaurantDAO;
- 
-    @RequestMapping("/")
-    public String home(Model model, @ModelAttribute("user") User user, BindingResult result) {
-        model.addAttribute("user", restaurantDAO.getUsers());
-        System.out.println("smelly CONTROLLER");
-        return "showUsers";
-    }
-    
-    @RequestMapping("fullIngredientList")
-	public String getIngerdientList(Model model, @ModelAttribute("ingredient") Ingredient ingredient, BindingResult result) {
->>>>>>> ef9be5a1e0220a02281f881c9f300ff8a9447d3e
 		model.addAttribute("ingredient", restaurantDAO.getIngredient());
 		System.out.println("in controller.getIngretientList");
 		
@@ -55,8 +40,13 @@ public class MainController {
 		System.out.println("Getting the filtered ingredient list");
 		return "filteredIngredientList";
 	}
-}
-<<<<<<< HEAD
-=======
+	
+	@RequestMapping("userAddress")
+	public String getUserAddress(Model model, @ModelAttribute("address") Address address, BindingResult result) {
+		model.addAttribute("address", restaurantDAO.getUserAddress());		
+		return "userAddress";
+	}
 
->>>>>>> ef9be5a1e0220a02281f881c9f300ff8a9447d3e
+
+
+}
