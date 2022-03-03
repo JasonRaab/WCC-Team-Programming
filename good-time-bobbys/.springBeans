@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
+<<<<<<< HEAD
 	<pluginVersion><![CDATA[3.9.18.202108161408-CI-B2817]]></pluginVersion>
+=======
+	<pluginVersion><![CDATA[3.9.18.202108161154-CI-B2817]]></pluginVersion>
+>>>>>>> ef9be5a1e0220a02281f881c9f300ff8a9447d3e
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>

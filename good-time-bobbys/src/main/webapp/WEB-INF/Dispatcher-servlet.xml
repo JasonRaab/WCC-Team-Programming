@@ -9,6 +9,10 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ef9be5a1e0220a02281f881c9f300ff8a9447d3e
 	<context:component-scan
 		base-package="com.wccnet.goodTimeBobbys">
 	</context:component-scan>
@@ -18,13 +22,21 @@
 		<property name="prefix" value="/WEB-INF/views/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+<<<<<<< HEAD
+=======
+
+>>>>>>> ef9be5a1e0220a02281f881c9f300ff8a9447d3e
 	<bean id="myDataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
 		<property name="user" value="testUser"></property>
 		<property name="password" value="test@password298"></property>
 		<property name="jdbcUrl"
+<<<<<<< HEAD
 			value="jdbc:mysql://167.172.242.79:3306/dumpster_fire?useSSL=false">
+=======
+			value="jdbc:mysql://167.172.242.79:3306/dumpster_fire">
+>>>>>>> ef9be5a1e0220a02281f881c9f300ff8a9447d3e
 		</property>
 		<property name="minPoolSize" value="5"></property>
 		<property name="maxPoolSize" value="20"></property>
@@ -49,4 +61,9 @@
 	</bean>
 	<tx:annotation-driven
 		transaction-manager="myTransactionManager" />
+<<<<<<< HEAD
 </beans>
+=======
+
+</beans>
+>>>>>>> ef9be5a1e0220a02281f881c9f300ff8a9447d3e
