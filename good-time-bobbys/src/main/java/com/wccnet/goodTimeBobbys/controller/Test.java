@@ -17,7 +17,7 @@ public class Test {
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
 				.addAnnotatedClass(Address.class).addAnnotatedClass(Ingredient.class).addAnnotatedClass(MenuItem.class)
 				.buildSessionFactory();
-
+		// This is DUMB AF
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 
