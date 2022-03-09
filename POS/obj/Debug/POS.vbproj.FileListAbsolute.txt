@@ -14,7 +14,6 @@ C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\bin\Debug\
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\bin\Debug\K4os.Compression.LZ4.dll
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\bin\Debug\K4os.Hash.xxHash.dll
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\bin\Debug\MySql.Data.xml
-C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS.vbprojAssemblyReference.cache
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS.exe.config
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\MainWindow.g.vb
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\Application.g.vb

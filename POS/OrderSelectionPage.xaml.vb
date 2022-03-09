@@ -15,10 +15,6 @@
 
     End Sub
 
-    Private Sub btn(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
     Private Sub btnExit_Click(sender As Object, e As RoutedEventArgs) Handles btnExit.Click
         posApp.ExitOrderSelectionPage()
     End Sub

@@ -26,6 +26,7 @@ Public Class POSApp
     Private lstOpenOrders As New List(Of Order)
     Private lstClosedOrders As New List(Of Order)
     Private selectedOrder As New Order
+    Private pin As String
 
     Public Property LoginPage() As LoginPage
         Get
@@ -199,11 +200,14 @@ Public Class POSApp
     End Sub
 
     Public Sub ExitOrderSelectionPage()
+        pin = ""
         MainWindow.Content = LoginPage
     End Sub
 
-    Public Sub LoginPageGo()
+    Public Sub LoginPageGo(pin As String)
         MainWindow.Content = OrderSelectionPage
+        Me.pin = pin
+        OrderSelectionPage.lblPin.Content = Me.pin
     End Sub
 
     Public Sub ViewOrderPage(location As String)

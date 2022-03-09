@@ -15,5 +15,6 @@
         <Button x:Name="btnTable2" Content="2" HorizontalAlignment="Left" Margin="818,184,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
         <Button x:Name="btnTable3" Content="3" HorizontalAlignment="Left" Margin="625,338,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
         <Button x:Name="btnTable4" Content="4" HorizontalAlignment="Left" Margin="818,338,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
+        <Label x:Name="lblPin" Content="No Pin Gotten" HorizontalAlignment="Left" Margin="1121,26,0,0" VerticalAlignment="Top" Height="44" Width="89"/>
     </Grid>
 </Page>
