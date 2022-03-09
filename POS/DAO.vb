@@ -86,6 +86,17 @@ Public Class DAO
     End Sub
 
     Public Sub SendOrder(order As Order)
+        connection.Open()
+        command.CommandText = "INSERT INTO `dumpster_fire`.`order_info` (`order_price`) VALUES ('" & order.Total.ToString & "');"
+        command.ExecuteNonQuery()
+        connection.Close()
 
+        For Each item As Item In order.LstItems
+            connection.Open()
+            command.CommandText = "INSERT INTO `dumpster_fire`.item_ordered` (`order_id, item_number, menu_item, ingredient_id, modification)
+                                    VALUES ('" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "')"
+            command.ExecuteNonQuery()
+            connection.Close()
+        Next
     End Sub
 End Class

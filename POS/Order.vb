@@ -1,5 +1,15 @@
-﻿Public Class Order
+﻿Imports System.Collections.ObjectModel
+Imports System.ComponentModel
 
+Public Class Order
+    Implements INotifyPropertyChanged
+    Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+
+    Public Overridable Sub OnPropertyChanged(ByVal propertyName As String)
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+    End Sub
+
+    Private lstItems2Value As New ObservableCollection(Of Item)
     Private lstItemsValue As New List(Of Item)
     Private subTotalValue As Decimal
     Private taxValue As Decimal
@@ -14,6 +24,15 @@
         Me.Location = Location
     End Sub
 
+    Public Property LstItems2() As ObservableCollection(Of Item)
+        Get
+            Return lstItems2Value
+        End Get
+        Set(value As ObservableCollection(Of Item))
+            lstItems2Value = value
+            OnPropertyChanged("LstItems2")
+        End Set
+    End Property
     Public Property LstItems() As List(Of Item)
         Get
             Return lstItemsValue

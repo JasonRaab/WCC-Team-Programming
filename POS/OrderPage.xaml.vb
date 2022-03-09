@@ -15,12 +15,10 @@
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As RoutedEventArgs) Handles btnDelete.Click
-        'lstBoxTicket.Items.Remove(lstBoxTicket.SelectedItem)
         posApp.DeleteItem()
     End Sub
 
     Private Sub btnDeleteAll_Click(sender As Object, e As RoutedEventArgs) Handles btnDeleteAll.Click
-        MessageBox.Show("Make this an Are You Sure box")
         posApp.ClearTicket()
     End Sub
 

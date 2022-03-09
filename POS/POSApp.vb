@@ -1,19 +1,19 @@
 ﻿''' <summary>
 ''' To Do Front End:
-''' Display totals in a nicer way. Probably a dataTemplate like in lstBoxTicket
-''' Make sperate tabs for item categories
+''' Display totals in a nicer way. Probably a dataTemplate like in ticket
+''' Make it so that sent items are highlighted and can no longer be deleted
 ''' 
-''' To Do Backend:
-''' Hook up to the correct database
+''' To Do Backend
 ''' Send orders to database
-'''     Should probably make an order object
+''' Change the itemSource of lstBoxTicket from lstBoxTicket.Items to selectedOrder.Items
+'''     This will require adjustments in a lot of functions
+''' Create PIN pad on login page
+'''     Bring user_id that is entered to where ever it is needed. Just in POSApp?
+''' Clean up OrderPage.XAML there are bits of old attempts to make sent items turn blue
+''' Make modifyer popup page when an item is selected
 ''' 
-''' Other Notes:
-''' lstSelectedItems might not need to exist, I'm not sure. We might just want to use lstBoxTicket.Items
-''' The logic for the event handlers on MainWindow should be in POSApp.
 ''' Extra Functionality - Make it store menu in XML so that it can run without db connection.
 ''' </summary>
-
 Public Class POSApp
 
     Private loginPageValue As LoginPage
@@ -144,11 +144,7 @@ Public Class POSApp
         intRow = 0
         intColumn = 0
 
-
-
         'Remove all item buttons, change category header
-        'MainWindow.itemGridPanel.Children.Clear()
-        'MainWindow.lblCategoryHeader.Content = categoryName & "s"
         orderPage.itemGridPanel.Children.Clear()
         orderPage.lblCategoryHeader.Content = categoryName & "s"
 
@@ -259,6 +255,7 @@ Public Class POSApp
         orderPage.lstBoxTicket.Items.Add(selectedItem)
         orderPage.lstBoxTicket.SelectedItem = selectedItem
         UpdateTotals()
+        'PrintItemListTest()
     End Sub
 
     Public Sub LstBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
@@ -271,10 +268,15 @@ Public Class POSApp
     End Sub
 
     Public Sub ClearTicket()
-        orderPage.lstBoxTicket.Items.Clear()
-        selectedOrder.LstItems.Clear()
-        ClearLables()
-        UpdateTotals()
+        Dim result As MessageBoxResult
+        result = MessageBox.Show("Delete All Items?", "Are You Sure?", MessageBoxButton.YesNo)
+
+        If result = MessageBoxResult.Yes Then
+            orderPage.lstBoxTicket.Items.Clear()
+            selectedOrder.LstItems.Clear()
+            ClearLables()
+            UpdateTotals()
+        End If
     End Sub
 
     Private Sub ClearLables()
@@ -292,12 +294,24 @@ Public Class POSApp
     End Sub
 
     Public Sub SendOrder()
-        'dao.SendOrder(order)
-        dao.SendTestOrder(selectedOrder)
+        'dao.SendOrder(Order)
+        'dao.SendTestOrder(selectedOrder)
+
+        CType(orderPage.lstBoxTicket.SelectedItem, Item).Sent = True
+        Debug.WriteLine(CType(orderPage.lstBoxTicket.SelectedItem, Item).Name)
+        Debug.WriteLine(CType(orderPage.lstBoxTicket.SelectedItem, Item).Sent)
     End Sub
 
     Public Sub TakePayment()
+        'Move selectedOrder from lstOpenOrders to lstClosedOrders
 
     End Sub
+
+    'Public Sub PrintItemListTest()
+    '    For Each item As Item In selectedOrder.LstItems2
+    '        Debug.WriteLine(item.Name)
+    '    Next
+    '    Debug.WriteLine("-------------")
+    'End Sub
 
 End Class

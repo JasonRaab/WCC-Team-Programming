@@ -10,6 +10,5 @@
     <Grid Background="White">
         <Button x:Name="btnGo" Content="GO" HorizontalAlignment="Left" Margin="619,377,0,0" VerticalAlignment="Top" Width="144" Height="63"/>
         <Label Content="Login Page&#xD;&#xA;Pin Pad Here" HorizontalAlignment="Left" Margin="591,223,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.346,0.346" Height="115" Width="324" FontSize="36"/>
-
     </Grid>
 </Page>

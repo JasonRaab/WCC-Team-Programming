@@ -87,17 +87,18 @@ InitializeComponent
 <member name="T:POS.POSApp">
  <summary>
  To Do Front End:
- Display totals in a nicer way. Probably a dataTemplate like in lstBoxTicket
- Make sperate tabs for item categories
+ Display totals in a nicer way. Probably a dataTemplate like in ticket
+ Make it so that sent items are highlighted and can no longer be deleted
  
- To Do Backend:
- Hook up to the correct database
+ To Do Backend
  Send orders to database
-     Should probably make an order object
+ Change the itemSource of lstBoxTicket from lstBoxTicket.Items to selectedOrder.Items
+     This will require adjustments in a lot of functions
+ Create PIN pad on login page
+     Bring user_id that is entered to where ever it is needed. Just in POSApp?
+ Clean up OrderPage.XAML there are bits of old attempts to make sent items turn blue
+ Make modifyer popup page when an item is selected
  
- Other Notes:
- lstSelectedItems might not need to exist, I'm not sure. We might just want to use lstBoxTicket.Items
- The logic for the event handlers on MainWindow should be in POSApp.
  Extra Functionality - Make it store menu in XML so that it can run without db connection.
  </summary>
 </member>
