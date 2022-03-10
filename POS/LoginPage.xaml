@@ -1,0 +1,29 @@
+﻿<Page x:Class="LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:POS"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LoginPage" Width="1272" Height="689">
+    <Grid Background="White">
+        <Rectangle Fill="#FF2222B8" HorizontalAlignment="Left" Height="651" Margin="331,25,0,0" Stroke="Black" VerticalAlignment="Top" Width="600"/>
+        <Button x:Name="btnGo" Content="GO" HorizontalAlignment="Left" Margin="331,614,0,0" VerticalAlignment="Top" Width="600" Height="62" Background="#FF7EDC49" FontFamily="Trebuchet MS" FontSize="36"/>
+        <Button x:Name="btn4" Content="4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="331,314,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
+        <Button x:Name="btn5" Content="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="531,314,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
+        <Button x:Name="btn6" Content="6" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="731,314,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
+        <Button x:Name="btn7" Content="7" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="331,414,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
+        <Button x:Name="btn8" Content="8" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="531,414,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
+        <Button x:Name="btn9" Content="9" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="731,414,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
+        <Button x:Name="btnClear" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="331,514,0,0" Height="100" FontFamily="Trebuchet MS" FontSize="36" Background="White" Content="Clear">
+        </Button>
+        <Button x:Name="btn0" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="531,514,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
+        <Button x:Name="btnBackSpace" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="731,514,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36" Content="Back Space">
+        </Button>
+        <Button x:Name="btn1" Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="331,214,0,0" Height="100" Background="White" FontSize="36" FontWeight="Bold" FontFamily="Trebuchet MS"/>
+        <Button x:Name="btn2" Content="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="531,214,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
+        <Button x:Name="btn3" Content="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="731,214,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
+        <Label x:Name="lblPin" Content="" HorizontalAlignment="Left" Margin="331,114,0,0" VerticalAlignment="Top" Background="White" Height="100" Width="600" FontFamily="Trebuchet MS" FontSize="72" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" BorderBrush="Black" Padding="0" Foreground="Black"/>
+    </Grid>
+</Page>
