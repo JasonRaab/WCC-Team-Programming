@@ -99,4 +99,21 @@ Public Class DAO
             connection.Close()
         Next
     End Sub
+
+    Public Function Login(pin As Integer) As User
+        Dim user As User
+
+        connection.Open()
+        command.CommandText = "SELECT * FROM dumpster_fire.user WHERE user_id=" & pin & ";"
+        Reader = command.ExecuteReader
+
+        If Reader.Read Then
+            user = New User(pin, Reader.GetString("first_name"), Reader.GetString("last_name"))
+            Debug.WriteLine("Pin was for " & user.FirstName)
+        End If
+
+        Reader.Close()
+        connection.Close()
+        Return user
+    End Function
 End Class

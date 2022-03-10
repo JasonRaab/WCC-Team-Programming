@@ -82,6 +82,7 @@
       <DependentUpon>OrderSelectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="POSApp.vb" />
+    <Compile Include="User.vb" />
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

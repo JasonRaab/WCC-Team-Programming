@@ -1,4 +1,5 @@
-﻿''' <summary>
+﻿Imports System.Drawing
+''' <summary>
 ''' To Do Front End:
 ''' Display totals in a nicer way. Probably a dataTemplate like in ticket
 ''' Make it so that sent items are highlighted and can no longer be deleted
@@ -26,8 +27,16 @@ Public Class POSApp
     Private lstOpenOrders As New List(Of Order)
     Private lstClosedOrders As New List(Of Order)
     Private selectedOrder As New Order
-    Private pin As String
+    Private userValue As User
 
+    Public Property User() As User
+        Get
+            Return userValue
+        End Get
+        Set(value As User)
+            userValue = value
+        End Set
+    End Property
     Public Property LoginPage() As LoginPage
         Get
             Return loginPageValue
@@ -200,20 +209,31 @@ Public Class POSApp
     End Sub
 
     Public Sub ExitOrderSelectionPage()
-        pin = ""
         MainWindow.Content = LoginPage
     End Sub
 
     Public Sub LoginPageGo(pin As String)
-        MainWindow.Content = OrderSelectionPage
-        Me.pin = pin
-        OrderSelectionPage.lblPin.Content = Me.pin
+        'Takes in pin from login page
+        'Calls DAO method to get user based on pin which is user_id
+
+        If pin.Equals("") Then
+            InvalidPin()
+        Else
+            If dao.Login(CType(pin, Integer)) IsNot Nothing Then
+                MainWindow.Content = OrderSelectionPage
+                User = New User(dao.Login(CType(pin, Integer)))
+            Else
+                InvalidPin()
+            End If
+        End If
+        OrderSelectionPage.lblUserName.Content = user.FirstName & " " & user.LastName
+
     End Sub
 
     Public Sub ViewOrderPage(location As String)
         Dim orderFound As Boolean = False
         orderPage.lstBoxTicket.Items.Clear()
-
+        orderPage.lblEmployeeName.Content = User.FirstName & " " & User.LastName
         'If there is already an open order at that location then load that order
         For Each order As Order In lstOpenOrders
             If order.Location.Equals(location) Then
@@ -317,5 +337,10 @@ Public Class POSApp
     '    Next
     '    Debug.WriteLine("-------------")
     'End Sub
+
+    Private Sub InvalidPin()
+        LoginPage.lblPin.Content = "Invalid Pin"
+        LoginPage.InvalidLoginAttempt = True
+    End Sub
 
 End Class

@@ -97,9 +97,7 @@
             </Grid.ColumnDefinitions>
         </Grid>
         <Label x:Name="lblCategoryHeader" Content="Category" HorizontalAlignment="Left" Margin="7.5,10,0,0" VerticalAlignment="Top" Height="82" Width="520" HorizontalContentAlignment="Center" FontSize="48" Grid.ColumnSpan="3" Grid.Column="1"/>
-        <Label x:Name="lblEmployeeName" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top" Height="82" Width="130" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3">
-            <TextBlock x:Name="lblEmployeeNameTxtBx" TextWrapping="WrapWithOverflow"><Run Text="Employee Name"/></TextBlock>
-        </Label>
+        <Label x:Name="lblEmployeeName" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top" Height="82" Width="130" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Content="test"/>
         <Button x:Name="btnTakePayment" Content="Take Payment" HorizontalAlignment="Left" Margin="402,419,0,0" VerticalAlignment="Top" Width="125" Height="125" RenderTransformOrigin="0.252,0.196" FontSize="18"/>
         <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="90,622,0,0" VerticalAlignment="Top" Width="130" Height="50" RenderTransformOrigin="0.252,0.196" FontSize="18" Grid.Column="3"/>
         <Label x:Name="lblLocation" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="23,622,0,0" VerticalAlignment="Top"/>

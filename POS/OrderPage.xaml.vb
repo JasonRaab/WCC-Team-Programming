@@ -6,10 +6,6 @@
         Me.posApp = posApp
     End Sub
 
-    Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
     Private Sub LstBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstBoxTicket.SelectionChanged
         posApp.LstBox_SelectionChanged(sender, e)
     End Sub

@@ -24,6 +24,6 @@
         <Button x:Name="btn1" Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="331,214,0,0" Height="100" Background="White" FontSize="36" FontWeight="Bold" FontFamily="Trebuchet MS"/>
         <Button x:Name="btn2" Content="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="531,214,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
         <Button x:Name="btn3" Content="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="731,214,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
-        <Label x:Name="lblPin" Content="" HorizontalAlignment="Left" Margin="331,114,0,0" VerticalAlignment="Top" Background="White" Height="100" Width="600" FontFamily="Trebuchet MS" FontSize="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="#FF5B4343"/>
+        <Label x:Name="lblPin" Content="" HorizontalAlignment="Left" Margin="331,114,0,0" VerticalAlignment="Top" Background="White" Height="100" Width="600" FontFamily="Trebuchet MS" FontSize="72" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" BorderBrush="Black" Padding="0" Foreground="Black"/>
     </Grid>
 </Page>
