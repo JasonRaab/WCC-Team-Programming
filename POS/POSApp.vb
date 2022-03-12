@@ -222,11 +222,11 @@ Public Class POSApp
             If dao.Login(CType(pin, Integer)) IsNot Nothing Then
                 MainWindow.Content = OrderSelectionPage
                 User = New User(dao.Login(CType(pin, Integer)))
+                OrderSelectionPage.lblUserName.Content = User.FirstName & " " & User.LastName
             Else
                 InvalidPin()
             End If
         End If
-        OrderSelectionPage.lblUserName.Content = user.FirstName & " " & user.LastName
 
     End Sub
 

@@ -161,7 +161,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="My Project\Resources\backSpaceBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backSpaceBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\xBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Resources\xBtn.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
