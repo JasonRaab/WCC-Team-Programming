@@ -64,6 +64,16 @@ LoginPage
 InitializeComponent
 </summary>
 </member>
+<member name="T:POS.ModifiersPopup">
+<summary>
+ModifiersPopup
+</summary>
+</member>
+<member name="M:POS.ModifiersPopup.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
 <member name="T:POS.OrderPage">
 <summary>
 OrderPage

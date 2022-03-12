@@ -17,6 +17,7 @@
 ''' </summary>
 Public Class POSApp
 
+    Private modifiersPopup As ModifiersPopup
     Private loginPageValue As LoginPage
     Private mainWindowValue As MainWindow
     Private orderSelectionpageValue As OrderSelectionPage
@@ -81,6 +82,7 @@ Public Class POSApp
     Public Sub New(MainWindow As MainWindow)
         'Create all pages and dao. Populate various things for order page. Show login page.
         Me.MainWindow = MainWindow
+        modifiersPopup = New ModifiersPopup
         LoginPage = New LoginPage(Me)
         OrderSelectionPage = New OrderSelectionPage(Me)
         orderPage = New OrderPage(Me)
@@ -141,7 +143,7 @@ Public Class POSApp
         orderPage.lstBoxTotals.Items.Add("Total:")
     End Sub
 
-    Public Sub PopulateOpenOrder(order As Order)
+    Public Sub DisplayOpenOrder(order As Order)
         For Each item As Item In order.LstItems
             orderPage.lstBoxTicket.Items.Add(item)
         Next
@@ -238,7 +240,7 @@ Public Class POSApp
         For Each order As Order In lstOpenOrders
             If order.Location.Equals(location) Then
                 selectedOrder = order
-                PopulateOpenOrder(order)
+                DisplayOpenOrder(order)
                 orderFound = True
                 Debug.WriteLine("Order found location " & location)
                 Exit For
@@ -274,6 +276,8 @@ Public Class POSApp
                 selectedItem = New Item(pair.Value)
             End If
         Next
+
+        modifiersPopup.Show()
 
         selectedOrder.LstItems.Add(selectedItem)
         orderPage.lstBoxTicket.Items.Add(selectedItem)
@@ -318,10 +322,14 @@ Public Class POSApp
     End Sub
 
     Public Sub SendOrder()
-        'dao.SendOrder(Order)
+        dao.SendOrder(selectedOrder, User.UserID)
         'dao.SendTestOrder(selectedOrder)
 
-        CType(orderPage.lstBoxTicket.SelectedItem, Item).Sent = True
+        For Each item As Item In selectedOrder.LstItems
+            If item.Sent = False Then
+                item.Sent = True
+            End If
+        Next
         Debug.WriteLine(CType(orderPage.lstBoxTicket.SelectedItem, Item).Name)
         Debug.WriteLine(CType(orderPage.lstBoxTicket.SelectedItem, Item).Sent)
     End Sub

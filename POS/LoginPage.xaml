@@ -22,7 +22,7 @@
         <Button x:Name="btn1" Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="337,162,0,0" Height="100" Background="White" FontSize="36" FontWeight="Bold" FontFamily="Trebuchet MS"/>
         <Button x:Name="btn2" Content="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="537,162,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
         <Button x:Name="btn3" Content="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="737,162,0,0" Height="100" Background="White" FontFamily="Trebuchet MS" FontSize="36"/>
-        <Label x:Name="lblPin" Content="" HorizontalAlignment="Left" Margin="337,62,0,0" VerticalAlignment="Top" Background="White" Height="100" Width="600" FontFamily="Trebuchet MS" FontSize="72" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" BorderBrush="Black" Padding="0" Foreground="Black" OpacityMask="Black"/>
+        <Label x:Name="lblPin" Content="" HorizontalAlignment="Left" Margin="337,62,0,0" VerticalAlignment="Top" Background="White" Height="100" Width="600" FontFamily="Trebuchet MS" FontSize="72" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" BorderBrush="Black" Padding="0" Foreground="Black"/>
         <Border BorderBrush="#FF707070" BorderThickness="1" HorizontalAlignment="Left" Height="100" Margin="337,62,0,0" VerticalAlignment="Top" Width="600" RenderTransformOrigin="0.497,0.51"/>
     </Grid>
 </Page>

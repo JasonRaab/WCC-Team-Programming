@@ -44,6 +44,12 @@ Public Class DAO
         Return lstItems
     End Function
 
+    Public Function GetAllIngredients() As List(Of Ingredient)
+        'return all ingredients
+        Dim lstIngredients As New List(Of Ingredient)
+        Return lstIngredients
+    End Function
+
     Public Function GetCategories() As List(Of String)
         Dim lstCategories As New List(Of String)
         connection.Open()
@@ -85,19 +91,28 @@ Public Class DAO
         'Next
     End Sub
 
-    Public Sub SendOrder(order As Order)
+    Public Sub SendOrder(order As Order, user_id As Integer)
+        Debug.WriteLine("DAO SendOrder called")
         connection.Open()
-        command.CommandText = "INSERT INTO `dumpster_fire`.`order_info` (`order_price`) VALUES ('" & order.Total.ToString & "');"
+        command.CommandText = "INSERT INTO `dumpster_fire`.`order_info` (`user_id`, `order_date`, `order_subtotal`, `order_tax`, `order_total`, `order_type`, `table_number`) VALUES ('" & user_id & "', '" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "', '" & order.SubTotal & "', '" & order.Tax & "', '" & order.Total & "', 'dine_in', '" & order.Location & "');"
         command.ExecuteNonQuery()
         connection.Close()
 
-        For Each item As Item In order.LstItems
-            connection.Open()
-            command.CommandText = "INSERT INTO `dumpster_fire`.item_ordered` (`order_id, item_number, menu_item, ingredient_id, modification)
-                                    VALUES ('" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "')"
-            command.ExecuteNonQuery()
-            connection.Close()
-        Next
+        Dim orderID As Integer
+        connection.Open()
+        command.CommandText = "Select MAX(order_id) FROM dumpster_fire.order_info"
+        Reader = command.ExecuteReader()
+        If Reader.Read Then
+            orderID = Reader.GetInt32(0)
+        End If
+        connection.Close()
+
+        'For Each item As Item In order.LstItems
+        '    connection.Open()
+        '    command.CommandText = "INSERT INTO `dumpster_fire`.item_ordered` (`order_id, item_number, menu_item, ingredient_id, modification) VALUES ('" & orderID & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "')"
+        '    command.ExecuteNonQuery()
+        '    connection.Close()
+        'Next
     End Sub
 
     Public Function Login(pin As Integer) As User

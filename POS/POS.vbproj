@@ -74,6 +74,9 @@
     <Compile Include="LoginPage.xaml.vb">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModifiersPopup.xaml.vb">
+      <DependentUpon>ModifiersPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Order.vb" />
     <Compile Include="OrderPage.xaml.vb">
       <DependentUpon>OrderPage.xaml</DependentUpon>
@@ -101,6 +104,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ModifiersPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
