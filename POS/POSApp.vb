@@ -25,6 +25,8 @@ Public Class POSApp
     Private lstAllItemsValue As New List(Of Item)
     Private dctItemButtonsValue As New Dictionary(Of Button, Item)
     Private orderPage As OrderPage
+    Private lstAllIngredients As New List(Of Ingredient)
+    Private lstRelevantIngredients As New List(Of Ingredient)
     Private lstOpenOrders As New List(Of Order)
     Private lstClosedOrders As New List(Of Order)
     Private selectedOrder As New Order
@@ -82,7 +84,6 @@ Public Class POSApp
     Public Sub New(MainWindow As MainWindow)
         'Create all pages and dao. Populate various things for order page. Show login page.
         Me.MainWindow = MainWindow
-        modifiersPopup = New ModifiersPopup
         LoginPage = New LoginPage(Me)
         OrderSelectionPage = New OrderSelectionPage(Me)
         orderPage = New OrderPage(Me)
@@ -95,6 +96,34 @@ Public Class POSApp
 
 
     '''''''''' Populating Functions ''''''''''
+    Public Sub PopulateIngredientButtons(category As String)
+        lstAllIngredients = dao.GetAllIngredients()
+        lstRelevantIngredients = FilterIngredientList(category)
+        Dim intRow As Integer
+        Dim intColumn As Integer
+        intColumn = 0
+        intRow = 0
+
+        For Each ingredient As Ingredient In lstRelevantIngredients
+            Dim btn As New Button
+            btn.Content = ingredient.Name
+            btn.Name = "btn" & ingredient.Name.Replace(" ", "")
+            btn.Height = 90
+            btn.Width = 90
+            btn.FontSize = 14
+            AddHandler btn.Click, AddressOf CategoryBtn_Click
+            Grid.SetRow(btn, intRow)
+            Grid.SetColumn(btn, intColumn)
+            modifiersPopup.ingredientGridPanel.Children.Add(btn)
+            intColumn += 1
+            If intColumn >= 5 Then
+                intRow += 1
+                intColumn = 0
+            End If
+        Next
+
+    End Sub
+
     Public Sub PopulateCategoryButtons()
         Dim intRow As Integer
         Dim lstCateGories As List(Of String)
@@ -119,10 +148,6 @@ Public Class POSApp
     Public Sub PopulateItemButtons()
         'Makes a button for each menu item
         'Adds the button and its item to DctItemButtons
-        Dim intColumn As Integer
-        Dim intRow As Integer
-        intColumn = 0
-        intRow = 0
 
         LstAllItems = dao.GetAllItems()
         For Each item As Item In LstAllItems
@@ -132,7 +157,7 @@ Public Class POSApp
             btn.Height = 125
             btn.Width = 125
             btn.FontSize = 18
-            AddHandler btn.Click, AddressOf AddItem
+            AddHandler btn.Click, AddressOf StartItem
             DctItemButtons.Add(btn, item)
         Next
     End Sub
@@ -181,6 +206,7 @@ Public Class POSApp
         Dim tax As Decimal
         Dim total As Decimal
         subTotal = 0.00
+
 
         For Each item As Item In orderPage.lstBoxTicket.Items
             subTotal = subTotal + item.Price
@@ -268,21 +294,36 @@ Public Class POSApp
         UpdateCategory(CType(sender, Button).Content)
     End Sub
 
-    Public Sub AddItem(sender As Object, e As RoutedEventArgs)
+    Public Sub AddItem(selectedItem As Item)
+        selectedOrder.LstItems.Add(selectedItem)
+        orderPage.lstBoxTicket.Items.Add(selectedItem)
+        orderPage.lstBoxTicket.SelectedItem = selectedItem
+        UpdateTotals()
+    End Sub
+
+    Public Sub StartItem(sender As Object, e As RoutedEventArgs)
         Dim selectedItem As Item
 
         For Each pair As KeyValuePair(Of Button, Item) In DctItemButtons
             If sender.Equals(pair.Key) Then
                 selectedItem = New Item(pair.Value)
+                Debug.WriteLine(selectedItem.Name)
+                modifiersPopup = New ModifiersPopup(Me, selectedItem)
+                PopulateIngredientButtons(selectedItem.Category)
+                modifiersPopup.Show()
+
+                'For Each ingredient As Ingredient In lstRelevantIngredients
+                '    Debug.WriteLine(ingredient.Id.ToString & " " & ingredient.Name & " " & ingredient.Category & " " & ingredient.Stock.ToString & " " & ingredient.Price.ToString & " " & ingredient.IsActive.ToString)
+                'Next
+
             End If
         Next
 
-        modifiersPopup.Show()
-
-        selectedOrder.LstItems.Add(selectedItem)
-        orderPage.lstBoxTicket.Items.Add(selectedItem)
-        orderPage.lstBoxTicket.SelectedItem = selectedItem
-        UpdateTotals()
+        'The top three lines below need to be moved to the "OK" button on the modifiers popup
+        'selectedOrder.LstItems.Add(selectedItem)
+        'orderPage.lstBoxTicket.Items.Add(selectedItem)
+        'orderPage.lstBoxTicket.SelectedItem = selectedItem
+        'UpdateTotals()
         'PrintItemListTest()
     End Sub
 
@@ -350,5 +391,15 @@ Public Class POSApp
         LoginPage.lblPin.Content = "Invalid Pin"
         LoginPage.InvalidLoginAttempt = True
     End Sub
+
+    Private Function FilterIngredientList(category As String) As List(Of Ingredient)
+        Dim lstIngredients As New List(Of Ingredient)
+        For Each ingredient As Ingredient In lstAllIngredients
+            If ingredient.Category.Equals(category) Then
+                lstIngredients.Add(ingredient)
+            End If
+        Next
+        Return lstIngredients
+    End Function
 
 End Class

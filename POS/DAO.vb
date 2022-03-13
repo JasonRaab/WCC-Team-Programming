@@ -47,6 +47,16 @@ Public Class DAO
     Public Function GetAllIngredients() As List(Of Ingredient)
         'return all ingredients
         Dim lstIngredients As New List(Of Ingredient)
+        connection.Open()
+        command.CommandText = "SELECT * FROM dumpster_fire.ingredient ORDER BY ingredient_name;"
+        Reader = command.ExecuteReader
+
+        While Reader.Read
+            lstIngredients.Add(New Ingredient(Reader.GetInt32(0), Reader.GetString("ingredient_name"), Reader.GetString("ingredient_category"), Reader.GetInt32(3), Reader.GetDecimal(4), Reader.GetInt32(5)))
+        End While
+
+        Reader.Close()
+        connection.Close()
         Return lstIngredients
     End Function
 

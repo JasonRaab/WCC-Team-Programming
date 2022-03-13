@@ -5,9 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POS"
         mc:Ignorable="d"
-        Title="ModifiersPopup" Height="450" Width="800">
+        Title="ModifiersPopup" Height="620" Width="800">
     <Grid>
-        <Label Content="Modifiers&#xD;&#xA;" HorizontalAlignment="Left" Margin="386,187,0,0" VerticalAlignment="Top" Height="73" Width="176"/>
-
+        <Grid x:Name="ingredientGridPanel" HorizontalAlignment="Left" Height="589" VerticalAlignment="Top" Width="792">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF2C2CEA" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnOk" Grid.Column="4" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Height="90" Content="OK"/>
+            <Button x:Name="btnCancel" Grid.Column="5" HorizontalAlignment="Left" Margin="21,0,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Height="90" Content="Cancel"/>
+        </Grid>
     </Grid>
 </Window>

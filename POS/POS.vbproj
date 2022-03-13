@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Ingredient.vb" />
     <Compile Include="LoginPage.xaml.vb">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
