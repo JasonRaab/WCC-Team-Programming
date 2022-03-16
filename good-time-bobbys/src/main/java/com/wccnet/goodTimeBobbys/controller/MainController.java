@@ -47,6 +47,11 @@ public class MainController {
 		return "userAddress";
 	}
 
-
+//	@RequestMapping("userAddress")
+//	public String getUserAddress(Model model, @ModelAttribute("address") Address address, BindingResult result) {
+//		model.addAttribute("address", restaurantDAO.getUserAddress());		
+//		return "userAddress";
+//	}
+//
 
 }
