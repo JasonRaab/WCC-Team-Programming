@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class Address {
 	private int addressId;
 
 	@Column(name = "street_address")
-	private String street_address;
+	private String streetAddress;
 
 	@Column(name = "city")
 	private String city;
@@ -35,7 +36,7 @@ public class Address {
 	@Column(name = "zip")
 	private String zip;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "user_address", 
 			joinColumns = @JoinColumn(name = "address_id"), 
@@ -49,7 +50,7 @@ public class Address {
 
 	public Address(String street_address, String city, String state, String zip) {
 		super();
-		this.street_address = street_address;
+		this.streetAddress = street_address;
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
@@ -67,7 +68,7 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return "{ Address Table }\naddress id: " + addressId + "\nstreet address: " + street_address + "\ncity: " + city
+		return "{ Address Table }\naddress id: " + addressId + "\nstreet address: " + streetAddress + "\ncity: " + city
 				+ "\nstate: " + state + "\nstate: " + state;
 	}
 
@@ -80,11 +81,11 @@ public class Address {
 	}
 
 	public String getStreet_address() {
-		return street_address;
+		return streetAddress;
 	}
 
 	public void setStreet_address(String street_address) {
-		this.street_address = street_address;
+		this.streetAddress = street_address;
 	}
 
 	public String getCity() {

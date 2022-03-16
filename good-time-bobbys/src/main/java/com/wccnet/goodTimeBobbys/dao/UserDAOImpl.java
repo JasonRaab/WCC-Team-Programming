@@ -10,46 +10,36 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wccnet.goodTimeBobbys.entity.Address;
-import com.wccnet.goodTimeBobbys.entity.Ingredient;
-import com.wccnet.goodTimeBobbys.entity.MenuItem;
 import com.wccnet.goodTimeBobbys.entity.User;
 
 @Repository
-public class RestaurantDAOImpl implements IRestaurantDAO {
+public class UserDAOImpl implements UserDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-
 	@Override
 	@Transactional
-	public List<MenuItem> getMenuItems() {
+	public User getUserByID(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<MenuItem> menuItems = session.createQuery("from MenuItem where itemId = 7", MenuItem.class);
-		return menuItems.getResultList();
-
+		return session.get(User.class, userId);
 	}
-
+	
 	@Override
 	@Transactional
-	public List<Ingredient> getIngredient() {
-		// TODO Auto-generated method stub
+	public List<User> getUsers() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Ingredient> query = session.createQuery("from Ingredient", Ingredient.class);
-		System.out.println("in impl getIngredient()");
+		Query<User> query = session.createQuery("from User", User.class);
+		System.out.println("smelly IMPLEMENTION");
 		return query.getResultList();
 	}
 
 	@Override
 	@Transactional
-	public List<Ingredient> getMenuItemIngredients() {
-
+	public List<Address> getAddress() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Ingredient> query = session.createQuery("from Ingredient where ingredient_category = 'appetizer'",
-				Ingredient.class);
-		System.out.println("in impl getFILTERED INGR()");
+		Query<Address> query = session.createQuery("from Address", Address.class);
+		System.out.println("smelly IMPLEMENTION");
 		return query.getResultList();
 	}
-
-
 }
