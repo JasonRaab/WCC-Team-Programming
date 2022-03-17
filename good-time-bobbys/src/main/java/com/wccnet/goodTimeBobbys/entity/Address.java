@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,9 +37,13 @@ public class Address {
 	@Column(name = "zip")
 	private String zip;
 
-	@ManyToMany
-	@JoinTable(name = "user_address", joinColumns = @JoinColumn(name = "address_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+//	@ManyToMany
+//	@JoinTable(name = "user_address", joinColumns = @JoinColumn(name = "address_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+//	private List<User> users = new ArrayList<User>();
+
+	@ManyToMany(mappedBy = "addresses", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private List<User> users = new ArrayList<User>();
+
 	
 	public void addUser(User user) {
 		users.add(user);

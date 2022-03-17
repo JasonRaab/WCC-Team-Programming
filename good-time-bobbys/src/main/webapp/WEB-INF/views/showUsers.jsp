@@ -10,19 +10,6 @@
 <title>Show Users</title>
 </head>
 <body>
-
-
-<!-- 	<div> -->
-<!-- 		<table class="table"> -->
-
-<%-- 			<c:forEach var="eachAddress" items="${address}"> --%>
-<!-- 				<tr> -->
-<%-- 					<td>${eachAddress.streetAddress}</td> --%>
-<!-- 				</tr> -->
-<%-- 			</c:forEach> --%>
-
-<!-- 		</table> -->
-<!-- 	</div> -->
 	
 	<div>
 		<table class="table">

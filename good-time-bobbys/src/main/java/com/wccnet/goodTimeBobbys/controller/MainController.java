@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wccnet.goodTimeBobbys.dao.IRestaurantDAO;
+import com.wccnet.goodTimeBobbys.entity.Address;
 import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.User;
 
@@ -39,4 +40,18 @@ public class MainController {
 		System.out.println("Getting the filtered ingredient list");
 		return "filteredIngredientList";
 	}
+	
+	@RequestMapping("userAddress")
+	public String getUserAddress(Model model, @ModelAttribute("address") Address address, BindingResult result) {
+		model.addAttribute("address", restaurantDAO.getUserAddress());		
+		return "userAddress";
+	}
+
+//	@RequestMapping("userAddress")
+//	public String getUserAddress(Model model, @ModelAttribute("address") Address address, BindingResult result) {
+//		model.addAttribute("address", restaurantDAO.getUserAddress());		
+//		return "userAddress";
+//	}
+//
+
 }
