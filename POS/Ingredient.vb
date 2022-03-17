@@ -6,6 +6,7 @@
     Private stockValue As Integer
     Private priceValue As Decimal
     Private isActiveValue As Boolean
+    Private modificationValue As Integer
 
     Public Sub New(Id As Integer, Name As String, Category As String, Stock As Integer, Price As Decimal, IsActive As Integer)
         Me.Id = Id
@@ -19,6 +20,20 @@
             Me.IsActive = False
         End If
     End Sub
+
+    Public Sub New(Id As Integer, Modification As Integer)
+        Me.Id = Id
+        Me.Modification = Modification
+    End Sub
+
+    Public Property Modification As Integer
+        Get
+            Return modificationValue
+        End Get
+        Set(value As Integer)
+            modificationValue = value
+        End Set
+    End Property
 
     Public Property Id As Integer
         Get

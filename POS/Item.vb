@@ -14,6 +14,7 @@ Public Class Item
     Private categoryValue As String
     Private priceValue As Decimal
 
+
     Public Property Sent() As Boolean
         Get
             Return sentValue

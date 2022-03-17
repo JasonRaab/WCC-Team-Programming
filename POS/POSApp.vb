@@ -17,6 +17,11 @@
 ''' </summary>
 Public Class POSApp
 
+    Private dctItemIngredientArray As New Dictionary(Of Item, List(Of Ingredient))
+    Private dctItemItemNumber As New Dictionary(Of Item, Integer)
+    Private dctIngredientButtons As New Dictionary(Of Button, Ingredient)
+    Private itemNumber As Integer
+    Private dctIngredientOnItem As New Dictionary(Of Ingredient, Integer)
     Private modifiersPopup As ModifiersPopup
     Private loginPageValue As LoginPage
     Private mainWindowValue As MainWindow
@@ -111,10 +116,11 @@ Public Class POSApp
             btn.Height = 90
             btn.Width = 90
             btn.FontSize = 14
-            AddHandler btn.Click, AddressOf CategoryBtn_Click
+            AddHandler btn.Click, AddressOf IngredientBtn_Click
             Grid.SetRow(btn, intRow)
             Grid.SetColumn(btn, intColumn)
             modifiersPopup.ingredientGridPanel.Children.Add(btn)
+            dctIngredientButtons.Add(btn, ingredient)
             intColumn += 1
             If intColumn >= 5 Then
                 intRow += 1
@@ -207,10 +213,10 @@ Public Class POSApp
         Dim total As Decimal
         subTotal = 0.00
 
-
         For Each item As Item In orderPage.lstBoxTicket.Items
             subTotal = subTotal + item.Price
         Next
+
         tax = subTotal * 0.06
         total = subTotal + tax
         orderPage.lstBoxTotals.Items.Clear()
@@ -290,15 +296,38 @@ Public Class POSApp
 
     ''''''''''' Other Functions '''''''''''''
 
+    Public Sub IngredientBtn_Click(sender As Object, e As RoutedEventArgs)
+        For Each pair As KeyValuePair(Of Button, Ingredient) In dctIngredientButtons
+            If sender.Equals(pair.Key) Then
+                dctIngredientOnItem.Add(pair.Value, itemNumber)
+            End If
+        Next
+    End Sub
+
     Public Sub CategoryBtn_Click(sender As Object, e As RoutedEventArgs)
         UpdateCategory(CType(sender, Button).Content)
     End Sub
 
     Public Sub AddItem(selectedItem As Item)
+        dctItemItemNumber.Clear()
+        itemNumber = 0
+
         selectedOrder.LstItems.Add(selectedItem)
         orderPage.lstBoxTicket.Items.Add(selectedItem)
         orderPage.lstBoxTicket.SelectedItem = selectedItem
         UpdateTotals()
+
+        For Each item As Object In orderPage.lstBoxTicket.Items
+            If TypeOf item Is Item Then
+                itemNumber += 1
+                dctItemItemNumber.Add(item, itemNumber)
+            End If
+        Next
+
+        For Each pair As KeyValuePair(Of Item, Integer) In dctItemItemNumber
+            Debug.WriteLine(pair.Key.Name & " is number " & pair.Value)
+        Next
+
     End Sub
 
     Public Sub StartItem(sender As Object, e As RoutedEventArgs)
@@ -307,7 +336,6 @@ Public Class POSApp
         For Each pair As KeyValuePair(Of Button, Item) In DctItemButtons
             If sender.Equals(pair.Key) Then
                 selectedItem = New Item(pair.Value)
-                Debug.WriteLine(selectedItem.Name)
                 modifiersPopup = New ModifiersPopup(Me, selectedItem)
                 PopulateIngredientButtons(selectedItem.Category)
                 modifiersPopup.Show()
