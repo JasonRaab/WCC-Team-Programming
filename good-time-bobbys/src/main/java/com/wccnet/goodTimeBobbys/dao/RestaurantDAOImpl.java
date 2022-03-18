@@ -23,23 +23,23 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@Override
-	@Transactional
-	public List<User> getUsers() {
-		Session session = sessionFactory.getCurrentSession();
-		Query<User> query = session.createQuery("from User", User.class);
-		System.out.println("smelly IMPLEMENTION");
-		return query.getResultList();
-	}
+//	@Override
+//	@Transactional
+//	public List<User> getUsers() {
+//		Session session = sessionFactory.getCurrentSession();
+//		Query<User> query = session.createQuery("from User", User.class);
+//		System.out.println("smelly IMPLEMENTION");
+//		return query.getResultList();
+//	}
 
-	@Override
-	@Transactional
-	public List<Address> getAddress() {
-		Session session = sessionFactory.getCurrentSession();
-		Query<Address> query = session.createQuery("from Address", Address.class);
-		System.out.println("smelly IMPLEMENTION");
-		return query.getResultList();
-	}
+//	@Override
+//	@Transactional
+//	public List<Address> getAddress() {
+//		Session session = sessionFactory.getCurrentSession();
+//		Query<Address> query = session.createQuery("from Address", Address.class);
+//		System.out.println("smelly IMPLEMENTION");
+//		return query.getResultList();
+//	}
 
 	// I think we need to allow for a way to return a User and an Address in our
 	// result set so we can then access the
@@ -47,23 +47,23 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	// just pass in the userId and then
 	// SOMEHOW filter by it in the result set.
 
-	@SuppressWarnings("deprecation")
-	@Override
-	@Transactional
-	public List<Address> getUserAddress() {
-
-		Session session = sessionFactory.getCurrentSession();
-
-		Criteria crit = session.createCriteria(User.class);
-		crit.createAlias("addresses", "addressesAlias");
-		crit.add(Restrictions.ilike("addressesAlias.streetAddress", "Hell"));
-		List<Address> results = crit.list();
-		
-		for (Address smellyAddress : results) {
-			System.out.println(smellyAddress);
-		}
-	
-		return results;
+//	@SuppressWarnings("deprecation")
+//	@Override
+//	@Transactional
+//	public List<Address> getUserAddress() {
+//
+//		Session session = sessionFactory.getCurrentSession();
+//
+//		Criteria crit = session.createCriteria(User.class);
+//		crit.createAlias("addresses", "addressesAlias");
+//		crit.add(Restrictions.ilike("addressesAlias.streetAddress", "Hell"));
+//		List<Address> results = crit.list();
+//		
+//		for (Address smellyAddress : results) {
+//			System.out.println(smellyAddress);
+//		}
+//	
+//		return results;
 		
 //		
 //		System.out.println("after create Alias");
@@ -122,15 +122,30 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 //			e.printStackTrace();
 //			return null;
 //		}
-	}
+//	}
 
+	private MenuItem menuItem;
+	
+	
 	@Override
 	@Transactional
 	public List<MenuItem> getMenuItems() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+        Query<MenuItem> menuItems = session.createQuery("from MenuItem where itemId = 7", MenuItem.class);
+        return menuItems.getResultList();
+
+	}
+	
+	
+	@Override
+	@Transactional
+	public MenuItem getMenuItemByID(int menuItemID) {
+		Session session = sessionFactory.getCurrentSession();
+        return session.get(MenuItem.class, menuItemID);
+
 	}
 
+	//Get all ingredients from the ingredient table
 	@Override
 	@Transactional
 	public List<Ingredient> getIngredient() {
@@ -141,15 +156,26 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 		return query.getResultList();
 	}
 
+	//Get Ingredients by Ingredient Category
 	@Override
 	@Transactional
-	public List<Ingredient> getMenuItemIngredients() {
+	public List<Ingredient> getIngredientsByIngredientCategory(String category) {
 
 		Session session = sessionFactory.getCurrentSession();
-		Query<Ingredient> query = session.createQuery("from Ingredient where ingredient_category = 'mexican'",
-				Ingredient.class);
+		Query<Ingredient> query = session.createQuery("from Ingredient where ingredient_category = :category",
+				Ingredient.class).setParameter("category", category);
 		System.out.println("in impl getFILTERED INGR()");
 		return query.getResultList();
+	}
+	
+	//Get MenuItem Ingredients by Menu Item ID
+	@Override
+	@Transactional
+	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID){
+		
+		Session session = sessionFactory.getCurrentSession();
+		menuItem = session.get(MenuItem.class, menuItemID);
+		return menuItem.getIngredients();
 	}
 
 }

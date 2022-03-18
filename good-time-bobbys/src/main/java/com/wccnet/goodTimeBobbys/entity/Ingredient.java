@@ -41,6 +41,14 @@ public class Ingredient {
 	@Column(name = "is_active")
 	private int isActive;
 
+	public List<MenuItem> getMenuItems() {
+		return menuItems;
+	}
+
+	public void setMenuItems(List<MenuItem> menuItems) {
+		this.menuItems = menuItems;
+	}
+
 	@ManyToMany
 	@JoinTable(name = "menu_item_default_ingredient", joinColumns = {
 			@JoinColumn(name = "ingredient_id") }, inverseJoinColumns = { @JoinColumn(name = "item_id") })

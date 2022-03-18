@@ -9,15 +9,19 @@ import com.wccnet.goodTimeBobbys.entity.User;
 
 public interface IRestaurantDAO {
 
-	public List<User> getUsers();
+//	public List<User> getUsers();
 	
 	public List<MenuItem> getMenuItems();
 	
 	public List<Ingredient> getIngredient(); //List Ingredients in ingredient Table
 	
-	public List<Ingredient> getMenuItemIngredients(); //List Ingredients for specific MenuItem - will this just be a list of String?
+	public MenuItem getMenuItemByID(int menuItemID);
+
+	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID);
+
+	public List<Ingredient> getIngredientsByIngredientCategory(String category);
 	
-	public List<Address> getAddress();
+//	public List<Address> getAddress();
 	
-	public List<Address> getUserAddress();
+//	public List<Address> getUserAddress();
 }

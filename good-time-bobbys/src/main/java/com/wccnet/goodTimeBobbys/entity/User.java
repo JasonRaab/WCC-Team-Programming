@@ -49,7 +49,7 @@ public class User {
 	@Column(name = "is_active")
 	private int isActive;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "user_address",
 			joinColumns = { @JoinColumn(name = "user_id") },
@@ -57,6 +57,14 @@ public class User {
 			)
 			List<Address> addresses = new ArrayList<Address>();
 	
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
+
 	public void addAddress(Address address) {
 		addresses.add(address);
 	}
