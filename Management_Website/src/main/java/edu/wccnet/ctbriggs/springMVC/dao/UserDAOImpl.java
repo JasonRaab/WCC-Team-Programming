@@ -24,4 +24,12 @@ public class UserDAOImpl implements UserDAO {
 		return query.getResultList();
 	}
 
+
+	@Override
+	public List<User> getEmployees() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<User> query = session.createQuery("from User where id = 3 order by firstName", User.class);	//id 3 is marked as employee
+		return query.getResultList();
+	}
+
 }

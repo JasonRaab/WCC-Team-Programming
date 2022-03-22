@@ -18,12 +18,17 @@ import edu.wccnet.ctbriggs.springMVC.domain.ItemSearch;
 import edu.wccnet.ctbriggs.springMVC.domain.MenuItem;
 import edu.wccnet.ctbriggs.springMVC.domain.OrderSearch;
 import edu.wccnet.ctbriggs.springMVC.domain.Stock;
+import edu.wccnet.ctbriggs.springMVC.domain.User;
 import edu.wccnet.ctbriggs.springMVC.service.StockService;
+import edu.wccnet.ctbriggs.springMVC.service.UserService;
 
 @Controller
 public class MainController {
 	@Autowired
 	private StockService stockService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/")
 	public String home() {
@@ -71,21 +76,6 @@ public class MainController {
 	
 	@RequestMapping("/stock")
     public String stockList(Model model) {
-//        Stock a = new Stock();
-//        Stock b = new Stock();
-//        
-//        a.setCategory("Cookie");
-//        a.setItem("Bobby's chocolate supreme");
-//        a.setStock(14);
-//       // a.setUcAmount(2);
-//        
-//        b.setCategory("Burger Ingredient");
-//        b.setItem("Tomato");
-//        b.setStock(20);
-//     //   b.setUcAmount(2.25);
-//        ArrayList<Stock> stockList = new ArrayList<>();
-//        stockList.add(a);
-//        stockList.add(b);
 		ArrayList<Stock> stockList = (ArrayList<Stock>) stockService.getStocks();
 		for(Stock s : stockList)
 		{
@@ -97,10 +87,15 @@ public class MainController {
         return "stock";
     }
 	
-	//TODO implement employees class
 	@RequestMapping("/employees")
-	public ModelAndView employees() {
-		return new ModelAndView("employees", "orderSearch", new OrderSearch());
+	public String employees(Model model) {
+		for(User e : userService.getUsers())
+		{
+			System.out.println(e);
+		}
+		model.addAttribute("employee", new User());
+		model.addAttribute("employeeList", userService.getUsers());
+		return "employees";
 	}
 	
 	@InitBinder

@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,22 +52,23 @@
 				</div>
 			</div>
 		</div>
-		<form:form action="processForm" modelAttribute="orderSearch">
+		<form:form action="processForm" modelAttribute="employee">
 			<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 				<div class="col-2">
-					<form:input path="fname" type="text" class="form-control"
+					<form:input path="firstName" type="text" class="form-control"
 						placeholder="First Name" />
 				</div>
 				<div class="col-2">
-					<form:input path="lname" type="text" class="form-control"
+					<form:input path="LastName" type="text" class="form-control"
 						placeholder="Last Name" />
 				</div>
 				<div class="col-2">
-					<form:input path="phone" type="text" class="form-control"
-						placeholder="Phone Number" />
+					<form:input path="email" type="text" class="form-control"
+						placeholder="Email" />
 				</div>
 				<div class="col-5">
-					<form:input path="orderID" type="text" class="form-control"
+
+					<form:input path="userId" type="text" class="form-control"
 						placeholder="Employee ID" />
 				</div>
 
@@ -76,30 +78,23 @@
 			</div>
 			<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 				<div class="col-3">
-						<h3>2 Clocked-in Employees</h3>
+					<h3>2 Clocked-in Employees</h3>
 				</div>
 			</div>
 		</form:form>
-		<div class="card mb-3">
-			<div class="card-body">
-				<h5 class="card-title">John Smith</h5>
-				<h6 class="card-subtitle mb-2 text-muted">(734)555-4213</h6>
-				<p class="card-text"></p>
-				<a href="#" class="card-link"><button class="btn btn-primary">More
-						Info</button></a> <a href="#" class="card-link"><button
-						class="btn btn-warning">Modify</button></a>
+		<c:forEach var="eachEmployee" items="${employeeList}">
+			<div class="card mb-3">
+				<div class="card-body">
+					<h5 class="card-title">${eachEmployee.firstName}
+						${eachEmployee.lastName}</h5>
+					<h6 class="card-subtitle mb-2 text-muted">${eachEmployee.email}</h6>
+					<p class="card-text"></p>
+					<a href="#" class="card-link"><button class="btn btn-primary">More
+							Info</button></a> <a href="#" class="card-link"><button
+							class="btn btn-warning">Modify</button></a>
+				</div>
 			</div>
-		</div>
-		<div class="card mb-3">
-			<div class="card-body">
-				<h5 class="card-title">Micheal Afton</h5>
-				<h6 class="card-subtitle mb-2 text-muted">(313)555-7931</h6>
-				<p class="card-text"></p>
-				<a href="#" class="card-link"><button class="btn btn-primary">More
-						Info</button></a> <a href="#" class="card-link"><button
-						class="btn btn-warning">Modify</button></a>
-			</div>
-		</div>
+		</c:forEach>
 	</div>
 </body>
 </html>
