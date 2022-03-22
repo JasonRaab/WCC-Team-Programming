@@ -78,11 +78,14 @@
 			</div>
 			<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 				<div class="col-3">
-					<h3>2 Clocked-in Employees</h3>
+					<h3>${employeeList.size()} Clocked-in Employees</h3>
 				</div>
 			</div>
 		</form:form>
 		<c:forEach var="eachEmployee" items="${employeeList}">
+			<c:url var="modifyLink" value="/updateEmployee">
+				<c:param name="employeeID" value="${eachEmployee.userId}" />
+			</c:url>
 			<div class="card mb-3">
 				<div class="card-body">
 					<h5 class="card-title">${eachEmployee.firstName}
@@ -90,7 +93,7 @@
 					<h6 class="card-subtitle mb-2 text-muted">${eachEmployee.email}</h6>
 					<p class="card-text"></p>
 					<a href="#" class="card-link"><button class="btn btn-primary">More
-							Info</button></a> <a href="#" class="card-link"><button
+							Info</button></a> <a href="${modifyLink}" class="card-link"><button
 							class="btn btn-warning">Modify</button></a>
 				</div>
 			</div>

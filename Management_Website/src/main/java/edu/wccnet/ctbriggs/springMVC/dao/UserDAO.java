@@ -7,4 +7,5 @@ import edu.wccnet.ctbriggs.springMVC.domain.User;
 public interface UserDAO {
 	public List<User> getUsers();
 	public List<User> getEmployees();
+	public User getUser(int id);
 }

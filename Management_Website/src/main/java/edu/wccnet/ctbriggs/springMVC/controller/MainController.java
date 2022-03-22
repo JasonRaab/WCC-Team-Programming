@@ -11,6 +11,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.wccnet.ctbriggs.springMVC.domain.IngredientItem;
@@ -89,13 +90,16 @@ public class MainController {
 	
 	@RequestMapping("/employees")
 	public String employees(Model model) {
-		for(User e : userService.getUsers())
-		{
-			System.out.println(e);
-		}
 		model.addAttribute("employee", new User());
 		model.addAttribute("employeeList", userService.getUsers());
 		return "employees";
+	}
+	
+	@RequestMapping("updateEmployee")
+	public String updateEmployee(Model model, @RequestParam("employeeID") int id) {
+		User employee = userService.getUser(id);
+		model.addAttribute("employee", employee);
+		return "editEmployee";
 	}
 	
 	@InitBinder

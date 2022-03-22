@@ -32,4 +32,11 @@ public class UserDAOImpl implements UserDAO {
 		return query.getResultList();
 	}
 
+
+	@Override
+	public User getUser(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(User.class, id);
+	}
+
 }
