@@ -77,13 +77,8 @@ public class MainController {
 	
 	@RequestMapping("/stock")
     public String stockList(Model model) {
-		ArrayList<Stock> stockList = (ArrayList<Stock>) stockService.getStocks();
-		for(Stock s : stockList)
-		{
-			System.out.println(s);
-		}
         model.addAttribute("stock", new Stock());
-        model.addAttribute("stockList", stockList);
+        model.addAttribute("stockList", stockService.getStocks());
         
         return "stock";
     }

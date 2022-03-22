@@ -57,14 +57,14 @@
 					<td class="d-table-cell"><form:input path="item" type="text"
 							placeholder="search" /></td>
 				</tr>
-				<c:forEach var="iterator" begin="0" end="${stockList.size() -1 }">
+				<c:forEach var="eachStock" items="${stockList}">
 					<tr>
 						<td class="d-table-cell"><c:out
-								value="${stockList.get(iterator).category}" /></td>
+								value="${eachStock.category}" /></td>
 						<td class="d-table-cell"><c:out
-								value="${stockList.get(iterator).item}" /></td>
+								value="${eachStock.item}" /></td>
 						<td class="d-table-cell"><c:out
-								value="${stockList.get(iterator).stock}" /></td>
+								value="${eachStock.stock}" /></td>
 						<td></td>
 						<td class="d-table-cell"><form:input path="stock" type="text"
 								placeholder="enter number" /></td>
