@@ -42,7 +42,48 @@
 	</nav>
 
 	<div class="container m-3 mx-auto">
-		${employee.userId}
+		<form:form action="processForm" modelAttribute="employee">
+			<div class="row g-2 mb-3 mt-3">
+				<div class="col">
+					<form:label path="firstName">First Name:</form:label>
+					<form:input path="firstName" type="text" class="form-control"
+						placeholder="First Name" />
+				</div>
+				<div class="col">
+					<form:label path="lastName">Last Name:</form:label>
+					<form:input path="lastName" type="text" class="form-control"
+						placeholder="Last Name" />
+				</div>
+			</div>
+			<div class="row g-2 mb-3 mt-3">
+				<div class="col">
+					<form:label path="email">Email:</form:label>
+					<form:input path="email" type="text" class="form-control"
+						placeholder="Email" />
+				</div>
+				<div class="col">
+					<form:label path="UserId">User ID:</form:label>
+					<form:input path="userId" type="text" class="form-control"
+						placeholder="userId" disabled="true" />
+				</div>
+			</div>
+			<div class="row g-2 mb-3 mt-3 justify-content-start">
+				<div class="col-4">
+					<form:label path="email">Password:</form:label>
+					<form:input path="password" type="text" class="form-control"
+						placeholder="Password" />
+				</div>
+				<div class="col-2 ms-4 mt-5">
+				<form:label path="isActive">Active:</form:label>
+					<form:checkbox path="isActive" class="form-check-input"
+						value="1"/>
+				</div>
+			</div>
+			<div class="row g-2 mb-3 mt-3">
+				<button type="button" class="btn btn-success">Update
+					Employee Info</button>
+			</div>
+		</form:form>
 	</div>
 </body>
 </html>

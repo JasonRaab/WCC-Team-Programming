@@ -92,9 +92,9 @@
 						${eachEmployee.lastName}</h5>
 					<h6 class="card-subtitle mb-2 text-muted">${eachEmployee.email}</h6>
 					<p class="card-text"></p>
-					<a href="#" class="card-link"><button class="btn btn-primary">More
-							Info</button></a> <a href="${modifyLink}" class="card-link"><button
-							class="btn btn-warning">Modify</button></a>
+					<a href="${modifyLink}" class="card-link">
+						<button class="btn btn-primary">Modify</button>
+					</a>
 				</div>
 			</div>
 		</c:forEach>
