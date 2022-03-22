@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 
 	<context:component-scan
@@ -18,4 +20,34 @@
 	<property name="prefix" value="/WEB-INF/views/"></property>
 	<property name="suffix" value=".jsp"></property>
 	</bean>
+	<bean id="myDataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+	<property name="user" value="testUser"></property>
+	<property name="password" value="test@password298"></property>
+	<property name="jdbcUrl"
+		value="jdbc:mysql://167.172.242.79/dumpster_fire?useSSL=false">
+	</property>
+	<property name="minPoolSize" value="5"></property>
+	<property name="maxPoolSize" value="20"></property>
+	<property name="maxIdleTime" value="30000"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	<property name="dataSource" ref="myDataSource"></property>
+	<property name="packagesToScan"
+		value="edu.wccnet.ctbriggs.springMVC.domain">
+	</property>
+	<property name="hibernateProperties">
+		<props>
+			<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+			<prop key="hibernate.show_sql">true</prop>
+		</props>
+	</property>
+	</bean>
+	<bean id="myTransactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="myTransactionManager" />
 </beans>
