@@ -20,6 +20,8 @@ public interface IRestaurantDAO {
 	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID);
 
 	public List<Ingredient> getIngredientsByIngredientCategory(String category);
+
+	public List<MenuItem> getMenuItemByCategory(String string);
 	
 //	public List<Address> getAddress();
 	

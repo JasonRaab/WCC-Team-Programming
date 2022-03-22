@@ -23,106 +23,7 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-//	@Override
-//	@Transactional
-//	public List<User> getUsers() {
-//		Session session = sessionFactory.getCurrentSession();
-//		Query<User> query = session.createQuery("from User", User.class);
-//		System.out.println("smelly IMPLEMENTION");
-//		return query.getResultList();
-//	}
 
-//	@Override
-//	@Transactional
-//	public List<Address> getAddress() {
-//		Session session = sessionFactory.getCurrentSession();
-//		Query<Address> query = session.createQuery("from Address", Address.class);
-//		System.out.println("smelly IMPLEMENTION");
-//		return query.getResultList();
-//	}
-
-	// I think we need to allow for a way to return a User and an Address in our
-	// result set so we can then access the
-	// User information along with the Address... Its worth noting that we COULD
-	// just pass in the userId and then
-	// SOMEHOW filter by it in the result set.
-
-//	@SuppressWarnings("deprecation")
-//	@Override
-//	@Transactional
-//	public List<Address> getUserAddress() {
-//
-//		Session session = sessionFactory.getCurrentSession();
-//
-//		Criteria crit = session.createCriteria(User.class);
-//		crit.createAlias("addresses", "addressesAlias");
-//		crit.add(Restrictions.ilike("addressesAlias.streetAddress", "Hell"));
-//		List<Address> results = crit.list();
-//		
-//		for (Address smellyAddress : results) {
-//			System.out.println(smellyAddress);
-//		}
-//	
-//		return results;
-		
-//		
-//		System.out.println("after create Alias");
-//		for (int i = 0; i < 100; i++) {
-//			System.out.println("in the for loop hehe");
-//		}
-//		
-//		@SuppressWarnings("unchecked")
-//		List<Address> userAddress = (List<Address>) crit;
-//		for (Address smellyAddress : userAddress) {
-//			System.out.println(smellyAddress);
-//		}
-
-
-//		Query<Address> query = session.createQuery("from Address a inner join a.users u where u.userId = 1004", Address.class);
-//		System.out.println("blah blah blah");
-//		List<Address> fuck =  query.getResultList();
-//		System.out.println("your mom");
-
-		// Query<Address> query = session.createQuery("from UserAddress ua Address a
-		// where ua.userId = 1004", Address.class);
-		// User user = new User();
-
-		// List<Address> userAddresses = user.getAddresses();
-
-		// Query<User> userQuery = session.createQuery("from UserAddress ua, Address a
-		// where ua.userId = 1004", User.class);
-		// Query<Address> query = session.createQuery("from Address a, User u where
-		// u.userId = 1004", Address.class);
-//		Query<Address> query = session.createQuery("select a.streetAddress, a.city, a.state, a.zip from UserAddress ua inner join ua.addressId a where userId = 1004", Address.class);
-		// @SuppressWarnings("unchecked")
-		// List<Object[]> list = query.list();
-
-//		for(Object[] arr : list) {
-//			System.out.println(Arrays.toString(arr));
-//		}
-		// List<User> list = userQuery.getResultList();
-//		System.out.println(list);
-//		System.out.println(query);
-//		return query.getResultList();
-
-		// return query.getResultList();
-//		String sql = "select a.street_address, a.city, a.state, a.zip "
-//				+ "	from user_address ua "
-//				+ "	inner join address a on a.address_id = ua.address_id "
-//				+ "	where ua.user_id = 1004;";
-
-//		try {
-//		NativeQuery<Address> query = session.createSQLQuery(sql);
-//		
-//		List<Address> result = query.getResultList();
-//		return result;
-//		
-//		//Query<Address> query = session.createQuery("from UserAddress as ua inner join ua.address_id", Address.class);
-//		} catch(Exception e){
-//			e.printStackTrace();
-//			return null;
-//		}
-//	}
 
 	private MenuItem menuItem;
 	
@@ -131,7 +32,7 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Transactional
 	public List<MenuItem> getMenuItems() {
 		Session session = sessionFactory.getCurrentSession();
-        Query<MenuItem> menuItems = session.createQuery("from MenuItem where itemId = 7", MenuItem.class);
+        Query<MenuItem> menuItems = session.createQuery("from MenuItem", MenuItem.class);
         return menuItems.getResultList();
 
 	}
@@ -144,6 +45,16 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
         return session.get(MenuItem.class, menuItemID);
 
 	}
+
+	@Override
+	@Transactional
+	public List<MenuItem> getMenuItemByCategory(String category) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<MenuItem> query = session.createQuery("from MenuItem where isActive = 1 AND itemCategory = :category", MenuItem.class).setParameter("category", category);
+		return query.getResultList();
+	}
+	
+	
 
 	//Get all ingredients from the ingredient table
 	@Override
@@ -178,4 +89,106 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 		return menuItem.getIngredients();
 	}
 
+
 }
+
+//@Override
+//@Transactional
+//public List<User> getUsers() {
+//	Session session = sessionFactory.getCurrentSession();
+//	Query<User> query = session.createQuery("from User", User.class);
+//	System.out.println("smelly IMPLEMENTION");
+//	return query.getResultList();
+//}
+
+//@Override
+//@Transactional
+//public List<Address> getAddress() {
+//	Session session = sessionFactory.getCurrentSession();
+//	Query<Address> query = session.createQuery("from Address", Address.class);
+//	System.out.println("smelly IMPLEMENTION");
+//	return query.getResultList();
+//}
+
+// I think we need to allow for a way to return a User and an Address in our
+// result set so we can then access the
+// User information along with the Address... Its worth noting that we COULD
+// just pass in the userId and then
+// SOMEHOW filter by it in the result set.
+
+//@SuppressWarnings("deprecation")
+//@Override
+//@Transactional
+//public List<Address> getUserAddress() {
+//
+//	Session session = sessionFactory.getCurrentSession();
+//
+//	Criteria crit = session.createCriteria(User.class);
+//	crit.createAlias("addresses", "addressesAlias");
+//	crit.add(Restrictions.ilike("addressesAlias.streetAddress", "Hell"));
+//	List<Address> results = crit.list();
+//	
+//	for (Address smellyAddress : results) {
+//		System.out.println(smellyAddress);
+//	}
+//
+//	return results;
+	
+//	
+//	System.out.println("after create Alias");
+//	for (int i = 0; i < 100; i++) {
+//		System.out.println("in the for loop hehe");
+//	}
+//	
+//	@SuppressWarnings("unchecked")
+//	List<Address> userAddress = (List<Address>) crit;
+//	for (Address smellyAddress : userAddress) {
+//		System.out.println(smellyAddress);
+//	}
+
+
+//	Query<Address> query = session.createQuery("from Address a inner join a.users u where u.userId = 1004", Address.class);
+//	System.out.println("blah blah blah");
+//	List<Address> fuck =  query.getResultList();
+//	System.out.println("your mom");
+
+	// Query<Address> query = session.createQuery("from UserAddress ua Address a
+	// where ua.userId = 1004", Address.class);
+	// User user = new User();
+
+	// List<Address> userAddresses = user.getAddresses();
+
+	// Query<User> userQuery = session.createQuery("from UserAddress ua, Address a
+	// where ua.userId = 1004", User.class);
+	// Query<Address> query = session.createQuery("from Address a, User u where
+	// u.userId = 1004", Address.class);
+//	Query<Address> query = session.createQuery("select a.streetAddress, a.city, a.state, a.zip from UserAddress ua inner join ua.addressId a where userId = 1004", Address.class);
+	// @SuppressWarnings("unchecked")
+	// List<Object[]> list = query.list();
+
+//	for(Object[] arr : list) {
+//		System.out.println(Arrays.toString(arr));
+//	}
+	// List<User> list = userQuery.getResultList();
+//	System.out.println(list);
+//	System.out.println(query);
+//	return query.getResultList();
+
+	// return query.getResultList();
+//	String sql = "select a.street_address, a.city, a.state, a.zip "
+//			+ "	from user_address ua "
+//			+ "	inner join address a on a.address_id = ua.address_id "
+//			+ "	where ua.user_id = 1004;";
+
+//	try {
+//	NativeQuery<Address> query = session.createSQLQuery(sql);
+//	
+//	List<Address> result = query.getResultList();
+//	return result;
+//	
+//	//Query<Address> query = session.createQuery("from UserAddress as ua inner join ua.address_id", Address.class);
+//	} catch(Exception e){
+//		e.printStackTrace();
+//		return null;
+//	}
+//}

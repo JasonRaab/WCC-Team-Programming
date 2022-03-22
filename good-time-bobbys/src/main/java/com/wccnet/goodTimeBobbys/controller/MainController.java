@@ -1,5 +1,7 @@
 package com.wccnet.goodTimeBobbys.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,8 +63,7 @@ public class MainController {
     
     //ADD THIS TO THE FUNCTION PARAMS WHEN WE ARE ABLE!!! @RequestParam("ingredientCatagory") String ingredientCategotry,
     @RequestMapping("/filteredIngredientList")
-    public String getFilteredIngredientList(Model model, @ModelAttribute("ingredients") Ingredient ingredient,
-    		@ModelAttribute("rowIndex") Ingredient rowIndex,
+    public String getFilteredIngredientList(Model model, @ModelAttribute("ingredients") Ingredient ingredient, 
             BindingResult result) {
         model.addAttribute("ingredients", restaurantDAO.getIngredientsByIngredientCategory("Burger"));
         //model.addAttribute("ingredientIndex", ingredient.getIngredientId());
@@ -78,10 +79,10 @@ public class MainController {
     	//display each items ingredients
     	
     	model.addAttribute("menuItem", restaurantDAO.getMenuItems());
+        //model.addAttribute("ingredients", restaurantDAO.getMenuItemIngredientsByMenuItemID(7));
+        
         //model.addAttribute("ingredients", menuItem.getIngredients());
 //        model.addAttribute("ingredients", restaurantDAO.getIngredients());
-        model.addAttribute("ingredients", restaurantDAO.getMenuItemIngredientsByMenuItemID(7));
-        
         System.out.println("in controller menu item list right before foreach");
         for (Ingredient ingredient : menuItem.getIngredients()) {
             System.out.println("\n" + ingredient);
@@ -90,6 +91,68 @@ public class MainController {
         System.out.println("right after foreach");
         return "menu";
     }
+    
+    
+    
+    
+    
+    
+    
+    public List<MenuItem> displayMenuItemsByCategory(Model model, @ModelAttribute("categoryItems") MenuItem menuItem, String category) {
+    	return restaurantDAO.getMenuItemByCategory(category);
+    }
+    
+    
+    
+    
+    
+    
+    @RequestMapping("/appetizerMenu")
+    public String getAppitizerMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) { // potential JSP layout: "Potato Skins" --- "potoats, chives, bacon" --- Add to Order --- Customize Item ---
+    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Appetizer"));
+    	return "appetizerMenu";
+    }
+    @RequestMapping("/saladMenu")
+    public String getSaladMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) {
+    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Salad"));
+    	return "saladMenu";
+    }
+    @RequestMapping("/sandwichMenu")
+    public String getSandwichMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) {
+    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Sandwich"));
+    	return "sandwichMenu";
+    }
+    @RequestMapping("/entreeMenu")
+    public String getEntreeMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) {
+    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Entree"));
+    	return "entreeMenu";
+    }
+    @RequestMapping("/dessertMenu")
+    public String getDessertMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) {
+    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Dessert"));
+    	return "dessertMenu";
+    }
+    @RequestMapping("/beverageMenu")
+    public String getBeverageMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) {
+    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Beverage"));
+    	return "beverageMenu";
+    }
+    @RequestMapping("/cart")
+    public String blahCart() {
+    	
+    	return "cart";
+    }
+    
+    @RequestMapping("/customizeOrderedItem")
+    public String getIngredientsForSelectedMenuItem(Model model) {
+    	
+    	return "customizeOrderedItem";
+    }
+    
+    
+    
+    
+    
 }
 
 //	@RequestMapping("userAddress")

@@ -22,5 +22,11 @@
 			class="btn btn-primary btn-sm active" role="button"
 			aria-pressed="true">Login</a>
 	</div>
+	<div>
+		<a href="${pageContext.request.contextPath}/menu"
+			class="btn btn-primary btn-sm active" role="button"
+			aria-pressed="true">View Menu</a>
+	</div>
+	
 </body>
 </html>

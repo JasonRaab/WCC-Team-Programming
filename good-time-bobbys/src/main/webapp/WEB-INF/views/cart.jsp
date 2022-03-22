@@ -8,7 +8,6 @@
 <head>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<meta charset="ISO-8859-1">
 <style>
 #table {
 	font-family: Arial, Helvetica, sans-serif;
@@ -39,35 +38,32 @@
 }
 </style>
 <meta charset="ISO-8859-1">
-<title>Show Filtered Ingredients</title>
+<title>Cart</title>
 </head>
 <body>
-
 	<div class="container">
 		<div class="card">
-			<table class="table">
-				<tr>
-					<th>Scorpion Burger Ingredients</th>
-				</tr>
-				<c:forEach var="eachIngredient" items="${ingredients}">
+			<form:form action="orderDetails" method="post"
+				modelAttribute="orderID">
+				<table class="table">
 					<tr>
-						<td>${eachIngredient.ingredientName}</td>
-						<td><input type="radio" name="${eachIngredient.ingredientId}" value="1" />Add To Item 
-							<input type="radio"	name="${eachIngredient.ingredientId}" value="0" />Remove From Item</td>
-
-						<!-- 			To get the radio buttons to work "horizontaly" we assigned the ingredientId to the name
-<!--			 so each row would have the same name.
-<!-- 			This ties the RB's to each other allowing the selection to be within the same table row.
-<!--			For RB's to work together they must be tied by group name. IE same name attribute.
-<!--			EDIT THIS COMMENT IF IT DOENS"T MAKE SENSE LATER (LoL) -->
-
+						<th style="text-align: center">Cart</th>
 					</tr>
-				</c:forEach>
-
-			</table>
-
+					<c:forEach var="eachCartItem" items="${menuItems}">
+						<tr>
+							<td></td>
+							<td><input type="submit" value="Checkout" name=""></td>
+							<td><a href="${pageContext.request.contextPath}/menu"
+								class="btn btn-primary btn-sm active" role="button"
+								aria-pressed="true">Order More</a></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</form:form>
+			<input type="button" value="Continue Shopping" name="back">
 		</div>
 	</div>
+
 
 </body>
 </html>

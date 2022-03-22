@@ -39,35 +39,31 @@
 }
 </style>
 <meta charset="ISO-8859-1">
-<title>Show Filtered Ingredients</title>
+<title>Appetizer Menu</title>
 </head>
 <body>
 
 	<div class="container">
 		<div class="card">
-			<table class="table">
-				<tr>
-					<th>Scorpion Burger Ingredients</th>
-				</tr>
-				<c:forEach var="eachIngredient" items="${ingredients}">
+			<form:form action="cart" method="post" modelAttribute="menuItemID">
+		
+				<table class="table">
 					<tr>
-						<td>${eachIngredient.ingredientName}</td>
-						<td><input type="radio" name="${eachIngredient.ingredientId}" value="1" />Add To Item 
-							<input type="radio"	name="${eachIngredient.ingredientId}" value="0" />Remove From Item</td>
-
-						<!-- 			To get the radio buttons to work "horizontaly" we assigned the ingredientId to the name
-<!--			 so each row would have the same name.
-<!-- 			This ties the RB's to each other allowing the selection to be within the same table row.
-<!--			For RB's to work together they must be tied by group name. IE same name attribute.
-<!--			EDIT THIS COMMENT IF IT DOENS"T MAKE SENSE LATER (LoL) -->
-
+						<th style="text-align:center">Appetizer Menu</th>
 					</tr>
-				</c:forEach>
-
-			</table>
-
+					<c:forEach var="eachAppetizer" items="${menuItems}">
+					<tr>
+						<td>${eachAppetizer.itemName}</td>
+						<td>${eachAppetizer.itemDescription}</td>
+						<td>${eachAppetizer.itemPrice}</td>
+						<td><input type="submit" value="Add To Cart" name="${eachAppetizer.itemId}"> </td>
+					</tr>
+					</c:forEach>
+				</table>
+			</form:form>
 		</div>
 	</div>
+
 
 </body>
 </html>
