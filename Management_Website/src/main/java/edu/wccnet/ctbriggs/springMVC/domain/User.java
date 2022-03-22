@@ -1,13 +1,30 @@
 package edu.wccnet.ctbriggs.springMVC.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Users {
+@Entity
+@Table(name= "users")
+public class User {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "user_id")
 	private int userId;
+	@Column(name = "first_name")
 	private String firstName;
+	@Column(name = "last_name")
 	private String lastName;
+	@Column(name = "email")
 	private String email;
+	@Column(name = "password")
 	private String password;
+	@Column(name = "role")
 	private String role;
+	@Column(name = "is_active")
 	private int isActive;
 	public int getUserId() {
 		return userId;
@@ -51,7 +68,7 @@ public class Users {
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
 	}
-	public Users(String firstName, String lastName, String email, String password, String role, int isActive) {
+	public User(String firstName, String lastName, String email, String password, String role, int isActive) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -60,5 +77,5 @@ public class Users {
 		this.role = role;
 		this.isActive = isActive;
 	}
-	public Users() {}
+	public User() {}
 }

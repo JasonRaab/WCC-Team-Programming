@@ -2,6 +2,7 @@ package edu.wccnet.ctbriggs.springMVC.controller;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +18,13 @@ import edu.wccnet.ctbriggs.springMVC.domain.ItemSearch;
 import edu.wccnet.ctbriggs.springMVC.domain.MenuItem;
 import edu.wccnet.ctbriggs.springMVC.domain.OrderSearch;
 import edu.wccnet.ctbriggs.springMVC.domain.Stock;
+import edu.wccnet.ctbriggs.springMVC.service.StockService;
 
 @Controller
 public class MainController {
+	@Autowired
+	private StockService stockService;
+	
 	@RequestMapping("/")
 	public String home() {
 		return "home";
@@ -66,23 +71,26 @@ public class MainController {
 	
 	@RequestMapping("/stock")
     public String stockList(Model model) {
-        Stock a = new Stock();
-        Stock b = new Stock();
-        
-        a.setCategory("Cookie");
-        a.setItem("Bobby's chocolate supreme");
-        a.setStock(14);
-        a.setUcAmount(2);
-        
-        b.setCategory("Burger Ingredient");
-        b.setItem("Tomato");
-        b.setStock(20);
-        b.setUcAmount(2.25);
-        
-        ArrayList<Stock> stockList = new ArrayList<>();
-        stockList.add(a);
-        stockList.add(b);
-        
+//        Stock a = new Stock();
+//        Stock b = new Stock();
+//        
+//        a.setCategory("Cookie");
+//        a.setItem("Bobby's chocolate supreme");
+//        a.setStock(14);
+//       // a.setUcAmount(2);
+//        
+//        b.setCategory("Burger Ingredient");
+//        b.setItem("Tomato");
+//        b.setStock(20);
+//     //   b.setUcAmount(2.25);
+//        ArrayList<Stock> stockList = new ArrayList<>();
+//        stockList.add(a);
+//        stockList.add(b);
+		ArrayList<Stock> stockList = (ArrayList<Stock>) stockService.getStocks();
+		for(Stock s : stockList)
+		{
+			System.out.println(s);
+		}
         model.addAttribute("stock", new Stock());
         model.addAttribute("stockList", stockList);
         

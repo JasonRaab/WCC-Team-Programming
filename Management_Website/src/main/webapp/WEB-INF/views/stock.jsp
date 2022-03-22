@@ -65,10 +65,9 @@
 								value="${stockList.get(iterator).item}" /></td>
 						<td class="d-table-cell"><c:out
 								value="${stockList.get(iterator).stock}" /></td>
-						<td class="d-table-cell"><c:out
-								value="${stockList.get(iterator).ucAmount}" /></td>
-						<td class="d-table-cell"><form:input path="mStock"
-								type="text" placeholder="enter number" /></td>
+						<td></td>
+						<td class="d-table-cell"><form:input path="stock" type="text"
+								placeholder="enter number" /></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -80,4 +79,5 @@
 		</form:form>
 	</div>
 </body>
-</html></html>
+</html>
+</html>
