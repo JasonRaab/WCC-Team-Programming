@@ -105,7 +105,7 @@
 								</h5>
 							<h6 class="card-subtitle mb-2 text-muted">` + employee.email + `</h6>
 							<p class="card-text"></p>
-							<a href="/Management_Website/updateEmployee?employeeID=` + employee.userId + `" class="card-link">
+							<a href="updateEmployee?employeeID=` + employee.userId + `" class="card-link">
 								<button class="btn btn-primary">Modify</button>
 							</a>
 						</div>
