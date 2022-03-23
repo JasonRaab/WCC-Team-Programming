@@ -60,8 +60,10 @@
 		</div>
 		
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
-				<input type="text" name="searchBar" id="searchBar"
-					placeholder="Search For Employee" />
+			<div class="col-6">
+				<input type="text" class="form-control" name="searchBar" id="searchBar"
+				placeholder="Search For Employee" />
+			</div>
 		</div>
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 		<!-- This is where the javascript puts the employee list-->
@@ -84,9 +86,9 @@
 		
 		    const filteredEmployees = employees.filter((employee) => {
 		        return (
-		            employee.firstName.toLowerCase().includes(searchString) ||
-		            employee.lastName.toLowerCase().includes(searchString) ||
-		            employee.email.toLowerCase().includes(searchString)
+		        	(employee.firstName + ' ' + employee.lastName).toLowerCase().includes(searchString) ||	//valid if result is in part of the first and/or last name
+		            employee.email.toLowerCase().includes(searchString)	//valid if result is in part of the email
+		            
 		        );
 		    });
 		    	displayEmployees(filteredEmployees);
