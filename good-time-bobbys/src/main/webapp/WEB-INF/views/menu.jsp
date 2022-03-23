@@ -94,6 +94,15 @@
 <title>Good Time Bobby's Menu</title>
 </head>
 <body>
+
+
+	<div class="container">
+		<div class="jumbotron text-center">
+			<h1>WELCOME TO GOOD TIME BOBBY'S
+				${user.firstName}&nbsp;${user.lastName}</h1>
+		</div>
+
+	</div>
 	<div>
 
 		<div class="tab">
@@ -113,11 +122,18 @@
 					<c:forEach var="eachItem" items="${menuItem}">
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Appetizer')}">
-
+							
+								<c:url var="addToCartLink" value="/cart">
+									<c:param name="userID" value="${user.userId}" />
+									<c:param name="menuItemID" value="${eachItem.itemId}" />
+								</c:url>
+								
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
-								<td><input type="submit"
-									class="btn btn-primary btn-sm active" value="Add to Order"></td>
+								<td>$${eachItem.itemPrice}</td>
+								<td><a href="${addToCartLink}"
+									class="btn btn-primary btn-sm active">Add to Order</a></td>
+								<td></td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -129,10 +145,12 @@
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
+						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Salad')}">
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td>$${eachItem.itemPrice}</td>
 								<td><input type="submit"
 									class="btn btn-primary btn-sm active" value="Add to Order"></td>
 							</c:if>
@@ -146,10 +164,12 @@
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
+						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Sandwich')}">
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td>$${eachItem.itemPrice}</td>
 								<td><input type="submit"
 									class="btn btn-primary btn-sm active" value="Add to Order"></td>
 							</c:if>
@@ -163,10 +183,12 @@
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
+						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Entree')}">
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td>$${eachItem.itemPrice}</td>
 								<td><input type="submit"
 									class="btn btn-primary btn-sm active" value="Add to Order"></td>
 
@@ -181,10 +203,12 @@
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
+						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Dessert')}">
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td>$${eachItem.itemPrice}</td>
 								<td><input type="submit"
 									class="btn btn-primary btn-sm active" value="Add to Order"></td>
 							</c:if>
@@ -198,10 +222,12 @@
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
+						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Side')}">
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td>$${eachItem.itemPrice}</td>
 								<td><input type="submit"
 									class="btn btn-primary btn-sm active" value="Add to Order"></td>
 							</c:if>
@@ -215,10 +241,12 @@
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
+						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Beverage')}">
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td>$${eachItem.itemPrice}</td>
 								<td><input type="submit"
 									class="btn btn-primary btn-sm active" value="Add to Order"></td>
 							</c:if>

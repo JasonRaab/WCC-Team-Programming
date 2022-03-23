@@ -28,19 +28,22 @@ public class MainController {
 
 	@RequestMapping("/")
     public String loginOne(Model model) {
+		model.addAttribute("users", userDAO.getUsers());
         return "loginOne";
     }
     
     @RequestMapping("/showUsers")
-    public String userHome(Model model, @ModelAttribute("user") User user, @ModelAttribute("lucifer") User alex, BindingResult result) {
+    public String userHome(Model model, @ModelAttribute("user") User user, @ModelAttribute("lucifer") User alex, @RequestParam(name = "userID", defaultValue = "0") int userID, BindingResult result) {
     	
         model.addAttribute("user", userDAO.getUsers());
         System.out.println("got the user list");
+        
         
         model.addAttribute("lucifer", userDAO.getUserByID(1004));
         
         System.out.println("Got Lucifer Address");
         System.out.println("smelly CONTROLLER");
+        System.out.println(userID);
         return "showUsers";
     }
 
@@ -73,70 +76,29 @@ public class MainController {
 
     //Display all Menu items and their ingredients
     @RequestMapping("/menu")
-    public String getMenuItems(Model model, @ModelAttribute("menuItems") MenuItem menuItem, @ModelAttribute("itemIngredients") MenuItem itemIngredients, BindingResult bindingResult) {
-        
+    public String getMenuItems(Model model, @ModelAttribute("menuItems") MenuItem menuItem, @ModelAttribute("itemIngredients") MenuItem itemIngredients, @RequestParam("userID") int userID, BindingResult bindingResult) {
     	//display all menu items
     	//display each items ingredients
-    	
+    	User user = userDAO.getUserByID(userID);
+    	model.addAttribute(user);
     	model.addAttribute("menuItem", restaurantDAO.getMenuItems());
-        //model.addAttribute("ingredients", restaurantDAO.getMenuItemIngredientsByMenuItemID(7));
+    	
+    	
+    	//WILL THIS IDEA WORK??? INVESTIGATE
+    	//model.addAttribute("menuItemIngredients", restaurantDAO.getMenuItemIngredientsByMenuItemID(menuItem.getItemId()));
         
+    	
+    	//model.addAttribute("ingredients", restaurantDAO.getMenuItemIngredientsByMenuItemID(7));
         //model.addAttribute("ingredients", menuItem.getIngredients());
 //        model.addAttribute("ingredients", restaurantDAO.getIngredients());
         System.out.println("in controller menu item list right before foreach");
         for (Ingredient ingredient : menuItem.getIngredients()) {
             System.out.println("\n" + ingredient);
         }
-        
         System.out.println("right after foreach");
         return "menu";
     }
     
-    
-    
-    
-    
-    
-    
-    public List<MenuItem> displayMenuItemsByCategory(Model model, @ModelAttribute("categoryItems") MenuItem menuItem, String category) {
-    	return restaurantDAO.getMenuItemByCategory(category);
-    }
-    
-    
-    
-    
-    
-    
-    @RequestMapping("/appetizerMenu")
-    public String getAppitizerMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) { // potential JSP layout: "Potato Skins" --- "potoats, chives, bacon" --- Add to Order --- Customize Item ---
-    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Appetizer"));
-    	return "appetizerMenu";
-    }
-    @RequestMapping("/saladMenu")
-    public String getSaladMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) {
-    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Salad"));
-    	return "saladMenu";
-    }
-    @RequestMapping("/sandwichMenu")
-    public String getSandwichMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) {
-    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Sandwich"));
-    	return "sandwichMenu";
-    }
-    @RequestMapping("/entreeMenu")
-    public String getEntreeMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) {
-    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Entree"));
-    	return "entreeMenu";
-    }
-    @RequestMapping("/dessertMenu")
-    public String getDessertMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) {
-    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Dessert"));
-    	return "dessertMenu";
-    }
-    @RequestMapping("/beverageMenu")
-    public String getBeverageMenu(Model model, @ModelAttribute MenuItem menuItem, BindingResult bindingResult) {
-    	model.addAttribute("menuItems", restaurantDAO.getMenuItemByCategory("Beverage"));
-    	return "beverageMenu";
-    }
     @RequestMapping("/cart")
     public String blahCart() {
     	

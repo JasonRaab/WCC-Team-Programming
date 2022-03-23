@@ -3,7 +3,6 @@ package com.wccnet.goodTimeBobbys.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -67,11 +66,11 @@ public class Address {
 		this.state = state;
 		this.zip = zip;
 	}
+	
 
 	@Override
 	public String toString() {
-		return "{ Address Table } \nAddress ID: " + addressId + "\nUser ID: " + "\nStreet Address: " + streetAddress
-				+ "\nCity: " + city + "\nState: " + state;
+			return "Street Address: " + streetAddress + " " + city + ", " +  state;
 	}
 
 	public int getAddressId() {
