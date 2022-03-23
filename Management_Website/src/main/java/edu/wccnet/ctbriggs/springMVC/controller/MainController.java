@@ -2,6 +2,8 @@ package edu.wccnet.ctbriggs.springMVC.controller;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -87,6 +89,10 @@ public class MainController {
 	public String employees(Model model) {
 		model.addAttribute("employee", new User());
 		model.addAttribute("employeeList", userService.getUsers());
+		JSONArray json = new JSONArray(userService.getUsers());
+		System.out.println(json);
+		String jsonStr = json.toString();
+		model.addAttribute("dataJson", jsonStr);  
 		return "employees";
 	}
 	

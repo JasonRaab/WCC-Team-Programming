@@ -52,52 +52,68 @@
 				</div>
 			</div>
 		</div>
-		<form:form action="processForm" modelAttribute="employee">
-			<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
-				<div class="col-2">
-					<form:input path="firstName" type="text" class="form-control"
-						placeholder="First Name" />
-				</div>
-				<div class="col-2">
-					<form:input path="LastName" type="text" class="form-control"
-						placeholder="Last Name" />
-				</div>
-				<div class="col-2">
-					<form:input path="email" type="text" class="form-control"
-						placeholder="Email" />
-				</div>
-				<div class="col-5">
 
-					<form:input path="userId" type="text" class="form-control"
-						placeholder="Employee ID" />
-				</div>
-
-				<div class="col-1">
-					<input type="submit" value="Search" class="btn btn-primary" />
-				</div>
+		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
+			<div class="col-3">
+				<h3>${employeeList.size()} Clocked-in Employees</h3>
 			</div>
-			<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
-				<div class="col-3">
-					<h3>${employeeList.size()} Clocked-in Employees</h3>
-				</div>
+		</div>
+		
+		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
+				<input type="text" name="searchBar" id="searchBar"
+					placeholder="Search For Employee" />
+		</div>
+		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
+		<!-- This is where the javascript puts the employee list-->
+			<div id="employeesList">
 			</div>
-		</form:form>
-		<c:forEach var="eachEmployee" items="${employeeList}">
-			<c:url var="modifyLink" value="/updateEmployee">
-				<c:param name="employeeID" value="${eachEmployee.userId}" />
-			</c:url>
-			<div class="card mb-3">
-				<div class="card-body">
-					<h5 class="card-title">${eachEmployee.firstName}
-						${eachEmployee.lastName}</h5>
-					<h6 class="card-subtitle mb-2 text-muted">${eachEmployee.email}</h6>
-					<p class="card-text"></p>
-					<a href="${modifyLink}" class="card-link">
-						<button class="btn btn-primary">Modify</button>
-					</a>
-				</div>
-			</div>
-		</c:forEach>
+		</div>
 	</div>
+	
+	<script>
+		/*
+		This script takes the employees json and creates the list of employees.
+		It's what allows the list to be searchable by first name last name or email
+		*/
+		const employeesList = document.getElementById('employeesList');
+		const searchBar = document.getElementById('searchBar');
+		var employees = JSON.parse('${dataJson}');
+
+		searchBar.addEventListener('keyup', (e) => {
+		    const searchString = e.target.value.toLowerCase();
+		
+		    const filteredEmployees = employees.filter((employee) => {
+		        return (
+		            employee.firstName.toLowerCase().includes(searchString) ||
+		            employee.lastName.toLowerCase().includes(searchString) ||
+		            employee.email.toLowerCase().includes(searchString)
+		        );
+		    });
+		    	displayEmployees(filteredEmployees);
+		});
+	
+
+		const displayEmployees = (employees) => {
+		    const htmlString = employees
+		        .map((employee) => {
+		            return `
+					<div class="card mb-3">
+						<div class="card-body">
+							<h5 class="card-title">` + employee.firstName + ' ' +employee.lastName + `
+								</h5>
+							<h6 class="card-subtitle mb-2 text-muted">` + employee.email + `</h6>
+							<p class="card-text"></p>
+							<a href="/Management_Website/updateEmployee?employeeID=` + employee.userId + `" class="card-link">
+								<button class="btn btn-primary">Modify</button>
+							</a>
+						</div>
+		            </div>
+		        `;
+		        })
+		        .join('');
+		    employeesList.innerHTML = htmlString;
+		};
+		displayEmployees(employees);
+	</script>
 </body>
 </html>
