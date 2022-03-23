@@ -27,23 +27,29 @@
 		<table class="table">
 
 			<c:forEach var="eachUser" items="${user}">
-				<tr>
-					<td>${eachUser.firstName}</td>
-					<td>${eachUser.lastName}</td>
-					<td>${eachUser.email}</td>
+				<c:forEach var="address" items="${lucifer.addresses}">
+					<%--             <c:param name="userID" value="${eachItem.itemId}" /> --%>
+					<tr>
+						<td>${eachUser.firstName}</td>
+						<td>${eachUser.lastName}</td>
+						<td>${eachUser.email}</td>
+						<td>${eachUser.getAddresses()}</td>
+						<td>${address.streetAddress}</td>
 
-				</tr>
+					</tr>
+				</c:forEach>
 			</c:forEach>
 
 		</table>
 	</div>
 
-	<div>
+
+	<%-- <div>
 		<table class="table">
 
 			<c:forEach var="address" items="${lucifer.addresses}">
 				<tr>
-					<td>${address.street_address}</td>
+					<td>${address.streetAddress}</td>
 					<td>${address.city}</td>
 					<td>${address.zip}</td>
 
@@ -52,6 +58,6 @@
 
 		</table>
 	</div>
-
+ --%>
 </body>
 </html>

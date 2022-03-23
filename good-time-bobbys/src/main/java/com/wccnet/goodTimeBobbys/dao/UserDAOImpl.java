@@ -13,7 +13,7 @@ import com.wccnet.goodTimeBobbys.entity.Address;
 import com.wccnet.goodTimeBobbys.entity.User;
 
 @Repository
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements IUserDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;

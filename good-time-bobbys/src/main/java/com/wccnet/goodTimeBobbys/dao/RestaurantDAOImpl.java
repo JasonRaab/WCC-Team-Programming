@@ -20,16 +20,36 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	private MenuItem menuItem;
 
 	@Override
 	@Transactional
 	public List<MenuItem> getMenuItems() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<MenuItem> menuItems = session.createQuery("from MenuItem where itemId = 7", MenuItem.class);
+		Query<MenuItem> menuItems = session.createQuery("from MenuItem", MenuItem.class);
 		return menuItems.getResultList();
 
 	}
 
+	@Override
+	@Transactional
+	public MenuItem getMenuItemByID(int menuItemID) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(MenuItem.class, menuItemID);
+
+	}
+
+	@Override
+	@Transactional
+	public List<MenuItem> getMenuItemByCategory(String category) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<MenuItem> query = session
+				.createQuery("from MenuItem where isActive = 1 AND itemCategory = :category", MenuItem.class)
+				.setParameter("category", category);
+		return query.getResultList();
+	}
+
+	// Get all ingredients from the ingredient table
 	@Override
 	@Transactional
 	public List<Ingredient> getIngredient() {
@@ -40,16 +60,27 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 		return query.getResultList();
 	}
 
+	// Get Ingredients by Ingredient Category
 	@Override
 	@Transactional
-	public List<Ingredient> getMenuItemIngredients() {
+	public List<Ingredient> getIngredientsByIngredientCategory(String category) {
 
 		Session session = sessionFactory.getCurrentSession();
-		Query<Ingredient> query = session.createQuery("from Ingredient where ingredient_category = 'appetizer'",
-				Ingredient.class);
+		Query<Ingredient> query = session
+				.createQuery("from Ingredient where ingredient_category = :category", Ingredient.class)
+				.setParameter("category", category);
 		System.out.println("in impl getFILTERED INGR()");
 		return query.getResultList();
 	}
 
+	// Get MenuItem Ingredients by Menu Item ID
+	@Override
+	@Transactional
+	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID) {
+
+		Session session = sessionFactory.getCurrentSession();
+		menuItem = session.get(MenuItem.class, menuItemID);
+		return menuItem.getIngredients();
+	}
 
 }

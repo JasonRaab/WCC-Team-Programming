@@ -5,27 +5,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-<div>
-		<table class="table">
 
-			<c:forEach var="eachItem" items="${menuItem}">
-				<tr>
-					<td>${eachItem.itemName}</td>
-				</tr>
-			</c:forEach>
-
-		</table>
-	</div>
 	<div>
 		<table class="table">
 
-			<c:forEach var="eachIngr" items="${menuItem}">
+			<c:forEach var="eachAddress" items="${address}">
 				<tr>
-					<td>${eachIngr.ingredientName}</td>
+					<td>${eachAddress.streetAddress}</td>
+					<td>${eachAddress.city}</td>
+					<td>${eachAddress.state}</td>
+					<td>${eachAddress.zip}</td>
 				</tr>
 			</c:forEach>
 

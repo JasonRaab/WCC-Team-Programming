@@ -41,14 +41,23 @@ public class Ingredient {
 	@Column(name = "is_active")
 	private int isActive;
 
+	public List<MenuItem> getMenuItems() {
+		return menuItems;
+	}
+
+	public void setMenuItems(List<MenuItem> menuItems) {
+		this.menuItems = menuItems;
+	}
+
 	@ManyToMany
 	@JoinTable(name = "menu_item_default_ingredient", joinColumns = {
-			@JoinColumn(name = "ingredient_id")}, inverseJoinColumns = {@JoinColumn(name = "item_id")})
+			@JoinColumn(name = "ingredient_id") }, inverseJoinColumns = { @JoinColumn(name = "item_id") })
 	List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
 	public Ingredient() {
 
 	}
+
 
 	public Ingredient(String ingredientName, int ingredientStock, double ingredientPrice) {
 		super();
@@ -70,11 +79,11 @@ public class Ingredient {
 	public void addMenuItem(MenuItem item) {
 		menuItems.add(item);
 	}
-	
+
 	public void removeMenuItem(MenuItem item) {
 		menuItems.remove(item);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "{ Ingredient Table }\nIngredient Id: " + ingredientId + "\nIngredient Name: " + ingredientName
@@ -96,7 +105,7 @@ public class Ingredient {
 	public void setIngredientName(String ingredientName) {
 		this.ingredientName = ingredientName;
 	}
-
+	
 	public int getIngredientStock() {
 		return ingredientStock;
 	}
@@ -144,5 +153,6 @@ public class Ingredient {
 	public void setIngredients(List<MenuItem> ingredients) {
 		this.menuItems = ingredients;
 	}
+
 
 }

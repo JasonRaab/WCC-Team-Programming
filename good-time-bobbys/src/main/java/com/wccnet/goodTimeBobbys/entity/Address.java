@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "address")
 public class Address {
 
-	// to use table @manyToOne Address id -> user table
+	// To user table @OneToMany AddressId -> User Address Table
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_id")
@@ -37,24 +37,11 @@ public class Address {
 	private String zip;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "user_address", 
-			joinColumns = @JoinColumn(name = "address_id"), 
-			inverseJoinColumns = @JoinColumn(name = "user_id")
-			)
-			private List<User> users = new ArrayList<User>();
+	@JoinTable(name = "user_address", joinColumns = @JoinColumn(name = "address_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<User> users = new ArrayList<User>();
 
-	public Address() {
-
-	}
-
-	public Address(String street_address, String city, String state, String zip) {
-		super();
-		this.streetAddress = street_address;
-		this.city = city;
-		this.state = state;
-		this.zip = zip;
-	}
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	private List<User> users = new ArrayList<User>();
 
 	public void addUser(User user) {
 		users.add(user);
@@ -66,10 +53,21 @@ public class Address {
 		users.remove(user);
 	}
 
+	public Address() {
+
+	}
+
+	public Address(String streetAddress, String city, String state, String zip) {
+		super();
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+	}
+
 	@Override
 	public String toString() {
-		return "{ Address Table }\naddress id: " + addressId + "\nstreet address: " + streetAddress + "\ncity: " + city
-				+ "\nstate: " + state + "\nstate: " + state;
+		return "Street Address: " + streetAddress + " " + city + ", " + state;
 	}
 
 	public int getAddressId() {
@@ -80,12 +78,12 @@ public class Address {
 		this.addressId = addressId;
 	}
 
-	public String getStreet_address() {
+	public String getStreetAddress() {
 		return streetAddress;
 	}
 
-	public void setStreet_address(String street_address) {
-		this.streetAddress = street_address;
+	public void setStreetAddress(String streetAddress) {
+		this.streetAddress = streetAddress;
 	}
 
 	public String getCity() {
