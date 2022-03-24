@@ -1,5 +1,6 @@
 package com.wccnet.goodTimeBobbys.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -87,6 +88,20 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 		Session session = sessionFactory.getCurrentSession();
 		menuItem = session.get(MenuItem.class, menuItemID);
 		return menuItem.getIngredients();
+	}
+
+
+	@Override
+	public List<MenuItem> getMenuItemByMenuItemID(ArrayList<Integer> menuItemID) {
+		Session session = sessionFactory.getCurrentSession();
+		ArrayList<Query<MenuItem>> list = new ArrayList<Query<MenuItem>>();
+		for (Integer integer : menuItemID) {
+			Query<MenuItem> query = session.createQuery("from MenuItem where itemId = :menuItemID", MenuItem.class).setParameter("menuItemID", menuItemID);
+			list.add(query.getResultList());
+		}
+		
+		
+		return null;
 	}
 
 

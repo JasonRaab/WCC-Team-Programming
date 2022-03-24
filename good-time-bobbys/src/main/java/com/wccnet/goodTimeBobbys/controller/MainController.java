@@ -1,6 +1,6 @@
 package com.wccnet.goodTimeBobbys.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,7 @@ import com.wccnet.goodTimeBobbys.dao.IRestaurantDAO;
 import com.wccnet.goodTimeBobbys.dao.IUserDAO;
 import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.MenuItem;
+import com.wccnet.goodTimeBobbys.entity.OrderListCreator;
 import com.wccnet.goodTimeBobbys.entity.User;
 
 @Controller
@@ -25,6 +26,10 @@ public class MainController {
 
 	@Autowired
 	private IUserDAO userDAO;
+	
+	@Autowired
+	private OrderListCreator orderListCreator; 
+
 
 	@RequestMapping("/")
     public String loginOne(Model model) {
@@ -76,37 +81,63 @@ public class MainController {
 
     //Display all Menu items and their ingredients
     @RequestMapping("/menu")
-    public String getMenuItems(Model model, @ModelAttribute("menuItems") MenuItem menuItem, @ModelAttribute("itemIngredients") MenuItem itemIngredients, @RequestParam("userID") int userID, BindingResult bindingResult) {
-    	//display all menu items
-    	//display each items ingredients
+    public String getMenuItems(Model model, @ModelAttribute("menuItems") MenuItem menuItem, 
+    		@RequestParam(name = "userID", defaultValue = "0") int userID, BindingResult bindingResult) {
     	User user = userDAO.getUserByID(userID);
     	model.addAttribute(user);
     	model.addAttribute("menuItem", restaurantDAO.getMenuItems());
-    	
-    	
-    	//WILL THIS IDEA WORK??? INVESTIGATE
-    	//model.addAttribute("menuItemIngredients", restaurantDAO.getMenuItemIngredientsByMenuItemID(menuItem.getItemId()));
-        
-    	
-    	//model.addAttribute("ingredients", restaurantDAO.getMenuItemIngredientsByMenuItemID(7));
-        //model.addAttribute("ingredients", menuItem.getIngredients());
-//        model.addAttribute("ingredients", restaurantDAO.getIngredients());
-        System.out.println("in controller menu item list right before foreach");
-        for (Ingredient ingredient : menuItem.getIngredients()) {
-            System.out.println("\n" + ingredient);
-        }
-        System.out.println("right after foreach");
         return "menu";
     }
     
-    @RequestMapping("/cart")
-    public String blahCart() {
+    
+    
+    @RequestMapping("/addMenuItemToCart")
+    public String addMenuItemToCart(Model model, @RequestParam(name = "userID") int userID, @RequestParam(name = "menuItemID") int menuItemID) {
+ 
+    	System.out.println(menuItemID);
+    	User user = userDAO.getUserByID(userID);
+    	model.addAttribute(user);
     	
-    	return "cart";
+    	orderListCreator.listCreator(menuItemID);
+    	model.addAttribute("itemIdList", orderListCreator.getItemList());
+    	
+    	for (Integer iterableElement : orderListCreator.getItemList()) {
+			System.out.println(iterableElement);
+		}
+    	
+		return "redirect:/menu";
+    	
     }
     
+    @RequestMapping("itemIdList")
+    public String itemIdList(Model model, @ModelAttribute(name = "itemIdList") ArrayList<Integer> itemIdList) {
+    	
+    	//itemIdList = orderListCreator.getItemList();
+    	
+    	for (Integer integer : orderListCreator.getItemList()) {
+			System.out.println(integer);
+		}
+    	
+    	
+    	model.addAttribute("itemIdList", orderListCreator.getItemList());
+    	return "cart";
+    	
+    }
+    
+
+    
+//    @RequestMapping("/processCheckout")
+//	public String checkout(Model model, @ModelAttribute("checkoutMenuItems") ArrayList<Integer> getMenuItems, BindingResult result) {
+//    	
+//    	//getMenuItems = getMenuItemsForCheckout();
+//    	model.addAttribute(getMenuItems);
+//    	return "cart";
+//    }
+    
+
+    
     @RequestMapping("/customizeOrderedItem")
-    public String getIngredientsForSelectedMenuItem(Model model) {
+    public String getIngredientsForSelectedMenuItem(Model model, BindingResult result) {
     	
     	return "customizeOrderedItem";
     }

@@ -41,6 +41,29 @@
 <title>Cart</title>
 </head>
 <body>
+
+
+	<div class="container">
+
+		<c:forEach var="eachCartItem" items="${itemIdList}">
+			<tr>
+				<td>${eachCartItem}</td>
+			</tr>
+		</c:forEach>
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
 	<div class="container">
 		<div class="card">
 			<form:form action="orderDetails" method="post"

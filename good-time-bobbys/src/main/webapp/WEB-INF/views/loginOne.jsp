@@ -71,24 +71,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Welcome to good time bobbys</h1>
-	<div class="container">
+	<h1 style="text-align: center;">Welcome to good time bobbys</h1>
+	<div class="container" style="text-align: center;">
 		<label for="uname"><b>Username</b></label> <input type="text"
 			placeholder="Enter Username" name="uname"> <br> <label
 			for="psw"><b>Password</b></label> <input type="password"
 			placeholder="Enter Password" name="psw">
 	</div>
 	<br>
-	<div>
+	<div style="text-align: center;">
 		<a href="${pageContext.request.contextPath}/showUsers"
 			class="btn btn-primary btn-sm active" role="button"
 			aria-pressed="true">Login</a>
-	</div>
-	<div>
-		<a href="${pageContext.request.contextPath}/menu"
+			<a href="${pageContext.request.contextPath}/menu"
 			class="btn btn-primary btn-sm active" role="button"
 			aria-pressed="true">View Menu</a>
 	</div>
+	<br>
+	<br>
 
 	<div>
 		<table class="table" style="text-align: center;">

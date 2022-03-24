@@ -17,6 +17,8 @@
 	overflow: hidden;
 	border: 1px solid #ccc;
 	background-color: #f1f1f1;
+	display: flex;
+	justify-content: center;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -46,6 +48,10 @@
 	padding: 6px 12px;
 	border: 1px solid #ccc;
 	border-top: none;
+}
+
+.header {
+	text-align: center;
 }
 
 #table td, #table th {
@@ -105,6 +111,7 @@
 	</div>
 	<div>
 
+
 		<div class="tab">
 			<button class="tablinks" onclick="openMenu(event, 'Apps')">Apps</button>
 			<button class="tablinks" onclick="openMenu(event, 'Salads')">Salads</button>
@@ -114,20 +121,21 @@
 			<button class="tablinks" onclick="openMenu(event, 'Beverages')">Beverages</button>
 		</div>
 
+
 		<!-- TAB CONTENT -->
 		<div id="Apps" class="tabcontent">
-			<h3>APPS</h3>
+			<h3 class="header">APPS</h3>
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
+
+						<c:url var="addToCartLink" value="/addMenuItemToCart">
+							<c:param name="userID" value="${user.userId}" />
+							<c:param name="menuItemID" value="${eachItem.itemId}" />
+						</c:url>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Appetizer')}">
-							
-								<c:url var="addToCartLink" value="/cart">
-									<c:param name="userID" value="${user.userId}" />
-									<c:param name="menuItemID" value="${eachItem.itemId}" />
-								</c:url>
-								
+								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
 								<td>$${eachItem.itemPrice}</td>
@@ -141,18 +149,22 @@
 			</div>
 		</div>
 		<div id="Salads" class="tabcontent">
-			<h3>SALADS</h3>
+			<h3 class="header">SALADS</h3>
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
-						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
+						<c:url var="addToCartLink" value="/addMenuItemToCart">
+							<c:param name="userID" value="${user.userId}" />
+							<c:param name="menuItemID" value="${eachItem.itemId}" />
+						</c:url>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Salad')}">
+								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
 								<td>$${eachItem.itemPrice}</td>
-								<td><input type="submit"
-									class="btn btn-primary btn-sm active" value="Add to Order"></td>
+								<td><a href="${addToCartLink}"
+									class="btn btn-primary btn-sm active">Add to Order</a></td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -160,18 +172,22 @@
 			</div>
 		</div>
 		<div id="Sandwiches" class="tabcontent">
-			<h3>SANDWICHES</h3>
+			<h3 class="header">SANDWICHES</h3>
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
-						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
+						<c:url var="addToCartLink" value="/addMenuItemToCart">
+							<c:param name="userID" value="${user.userId}" />
+							<c:param name="menuItemID" value="${eachItem.itemId}" />
+						</c:url>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Sandwich')}">
+								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
 								<td>$${eachItem.itemPrice}</td>
-								<td><input type="submit"
-									class="btn btn-primary btn-sm active" value="Add to Order"></td>
+								<td><a href="${addToCartLink}"
+									class="btn btn-primary btn-sm active">Add to Order</a></td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -179,18 +195,22 @@
 			</div>
 		</div>
 		<div id="Entrees" class="tabcontent">
-			<h3>ENTREES</h3>
+			<h3 class="header">ENTREES</h3>
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
-						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
+						<c:url var="addToCartLink" value="/addMenuItemToCart">
+							<c:param name="userID" value="${user.userId}" />
+							<c:param name="menuItemID" value="${eachItem.itemId}" />
+						</c:url>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Entree')}">
+								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
 								<td>$${eachItem.itemPrice}</td>
-								<td><input type="submit"
-									class="btn btn-primary btn-sm active" value="Add to Order"></td>
+								<td><a href="${addToCartLink}"
+									class="btn btn-primary btn-sm active">Add to Order</a></td>
 
 							</c:if>
 						</tr>
@@ -199,18 +219,22 @@
 			</div>
 		</div>
 		<div id="Desserts" class="tabcontent">
-			<h3>DESSERTS</h3>
+			<h3 class="header">DESSERTS</h3>
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
-						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
+						<c:url var="addToCartLink" value="/addMenuItemToCart">
+							<c:param name="userID" value="${user.userId}" />
+							<c:param name="menuItemID" value="${eachItem.itemId}" />
+						</c:url>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Dessert')}">
+								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
 								<td>$${eachItem.itemPrice}</td>
-								<td><input type="submit"
-									class="btn btn-primary btn-sm active" value="Add to Order"></td>
+								<td><a href="${addToCartLink}"
+									class="btn btn-primary btn-sm active">Add to Order</a></td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -218,18 +242,22 @@
 			</div>
 		</div>
 		<div id="Sides" class="tabcontent">
-			<h3>SIDES</h3>
+			<h3 class="header">SIDES</h3>
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
-						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
+						<c:url var="addToCartLink" value="/addMenuItemToCart">
+							<c:param name="userID" value="${user.userId}" />
+							<c:param name="menuItemID" value="${eachItem.itemId}" />
+						</c:url>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Side')}">
+								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
 								<td>$${eachItem.itemPrice}</td>
-								<td><input type="submit"
-									class="btn btn-primary btn-sm active" value="Add to Order"></td>
+								<td><a href="${addToCartLink}"
+									class="btn btn-primary btn-sm active">Add to Order</a></td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -237,23 +265,34 @@
 			</div>
 		</div>
 		<div id="Beverages" class="tabcontent">
-			<h3>BEVERAGES</h3>
+			<h3 class="header">BEVERAGES</h3>
 			<div class="card">
 				<table class="table">
 					<c:forEach var="eachItem" items="${menuItem}">
-						<%-- 						<c:param name="userID" value="${eachItem.itemId}" /> --%>
+						<c:url var="addToCartLink" value="/addMenuItemToCart">
+							<c:param name="userID" value="${user.userId}" />
+							<c:param name="menuItemID" value="${eachItem.itemId}" />
+						</c:url>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Beverage')}">
+								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
 								<td>$${eachItem.itemPrice}</td>
-								<td><input type="submit"
-									class="btn btn-primary btn-sm active" value="Add to Order"></td>
+								<td><a href="${addToCartLink}"
+									class="btn btn-primary btn-sm active">Add to Order</a></td>
 							</c:if>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
+		</div>
+		<div>
+				<c:url var="cart" value="/itemIdList">
+					<c:param name="userID" value="${user.userId}" />
+					<c:param name="itemIdList" value="${itemIdList}" />
+				</c:url>
+			<a href="${cart}" class="btn btn-primary btn-sm active">Checkout</a>
 		</div>
 	</div>
 </body>
