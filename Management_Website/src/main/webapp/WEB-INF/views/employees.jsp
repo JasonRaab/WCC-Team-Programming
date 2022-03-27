@@ -55,23 +55,29 @@
 
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-3">
-				<h3>${employeeList.size()} Clocked-in Employees</h3>
+				<h3>${employeeList.size()}Clocked-in Employees</h3>
 			</div>
 		</div>
-		
+
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-6">
-				<input type="text" class="form-control" name="searchBar" id="searchBar"
-				placeholder="Search For Employee" />
+				<input type="text" class="form-control" name="searchBar"
+					id="searchBar" placeholder="Search For Employee" />
 			</div>
 		</div>
-		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
-		<!-- This is where the javascript puts the employee list-->
-			<div id="employeesList">
+
+		<form action="addEmployee" method="post">
+			<div class="mb-3">
+				<button class="btn btn-success">+
+						Add New</button>
 			</div>
+		</form>
+
+		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
+			<!-- This is where the javascript puts the employee list-->
+			<div id="employeesList"></div>
 		</div>
 	</div>
-	
 	<script>
 		/*
 		This script takes the employees json and creates the list of employees.

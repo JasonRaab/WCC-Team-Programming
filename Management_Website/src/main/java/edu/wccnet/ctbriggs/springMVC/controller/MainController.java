@@ -3,15 +3,15 @@ package edu.wccnet.ctbriggs.springMVC.controller;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelExtensionsKt;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +26,7 @@ import edu.wccnet.ctbriggs.springMVC.service.StockService;
 import edu.wccnet.ctbriggs.springMVC.service.UserService;
 
 @Controller
+@RequestMapping("/management")
 public class MainController {
 	@Autowired
 	private StockService stockService;
@@ -33,10 +34,9 @@ public class MainController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/")
-	public String home() {
-		return "home";
-	}
+	/*
+	 * @RequestMapping("/") public String home() { return "home"; }
+	 */
 
 	@RequestMapping("/menu")
 	public ModelAndView showForm() {
@@ -85,7 +85,7 @@ public class MainController {
         return "stock";
     }
 	
-	@RequestMapping("/employees")
+	@GetMapping("/employees")
 	public String employees(Model model) {
 		model.addAttribute("employee", new User());
 		model.addAttribute("employeeList", userService.getUsers());
@@ -96,7 +96,22 @@ public class MainController {
 		return "employees";
 	}
 	
-	@RequestMapping("updateEmployee")
+	@PostMapping("/addEmployee")
+	public String addEmployee(Model model) {
+		User employee = new User();
+		model.addAttribute("employee", employee);
+		return "addNewEmployee";
+	}
+	
+	@PostMapping("/processEmployee")
+	public String processEmployee(
+			@ModelAttribute("employee") User employee) {
+		System.out.println(employee);
+		userService.saveUser(employee);
+		return "redirect:/management/employees";
+	}
+	
+	@RequestMapping("/updateEmployee")
 	public String updateEmployee(Model model, @RequestParam("employeeID") int id) {
 		User employee = userService.getUser(id);
 		model.addAttribute("employee", employee);

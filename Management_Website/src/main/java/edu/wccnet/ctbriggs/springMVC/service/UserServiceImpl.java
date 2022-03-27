@@ -32,4 +32,10 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getUser(id);
 	}
 
+	@Override
+	@Transactional
+	public void saveUser(User user) {
+		userDAO.saveUser(user);
+	}
+
 }
