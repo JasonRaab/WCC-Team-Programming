@@ -23,10 +23,7 @@ public interface IRestaurantDAO {
 	public List<Ingredient> getIngredientsByIngredientCategory(String category);
 
 	public List<MenuItem> getMenuItemByCategory(String string);
-	
 
-	
-//	public List<Address> getAddress();
-	
-//	public List<Address> getUserAddress();
+	public List<Double> getMenuItemPriceByID(Integer menuItemID);
+
 }

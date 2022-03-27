@@ -290,7 +290,6 @@
 		<div>
 				<c:url var="cart" value="/itemIdList">
 					<c:param name="userID" value="${user.userId}" />
-					<c:param name="itemIdList" value="${itemIdList}" />
 				</c:url>
 			<a href="${cart}" class="btn btn-primary btn-sm active">Checkout</a>
 		</div>

@@ -16,6 +16,7 @@ import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.MenuItem;
 import com.wccnet.goodTimeBobbys.entity.OrderListCreator;
 import com.wccnet.goodTimeBobbys.entity.User;
+import com.wccnet.goodTimeBobbys.service.IMenuService;
 
 @Controller
 @RequestMapping("/")
@@ -29,6 +30,9 @@ public class MainController {
 	
 	@Autowired
 	private OrderListCreator orderListCreator; 
+	
+	@Autowired
+	private IMenuService menuService;
 
 
 	@RequestMapping("/")
@@ -89,51 +93,63 @@ public class MainController {
         return "menu";
     }
     
+    @RequestMapping("/backToMenu")
+    public String backToMenu(Model model, @RequestParam(name = "userID") int userID) {
+    	int userId = userID;
+    	User user = userDAO.getUserByID(userId);
+
+    	model.addAttribute("user", user);
+    	model.addAttribute("menuItem", restaurantDAO.getMenuItems());
+        return "menu";
+    }
     
     
     @RequestMapping("/addMenuItemToCart")
     public String addMenuItemToCart(Model model, @RequestParam(name = "userID") int userID, @RequestParam(name = "menuItemID") int menuItemID) {
  
     	System.out.println(menuItemID);
-    	User user = userDAO.getUserByID(userID);
-    	model.addAttribute(user);
-    	
+    	int user = userID;
     	orderListCreator.listCreator(menuItemID);
-    	model.addAttribute("itemIdList", orderListCreator.getItemList());
     	
-    	for (Integer iterableElement : orderListCreator.getItemList()) {
-			System.out.println(iterableElement);
-		}
+    	model.addAttribute("userID", user);    	
+    	model.addAttribute("itemIdList", orderListCreator.getItemIdList());
     	
 		return "redirect:/menu";
     	
     }
     
     @RequestMapping("itemIdList")
-    public String itemIdList(Model model, @ModelAttribute(name = "itemIdList") ArrayList<Integer> itemIdList) {
+    public String itemIdList(Model model,@RequestParam(name = "userID") int userID, @ModelAttribute(name = "menuItemIdList") ArrayList<Integer> menuItemIdList,
+    		@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
+    		@ModelAttribute(name = "subtotal") String priceTotal, BindingResult bindingResult) {
+
+    	User user = userDAO.getUserByID(userID);
     	
-    	//itemIdList = orderListCreator.getItemList();
-    	
-    	for (Integer integer : orderListCreator.getItemList()) {
-			System.out.println(integer);
+    	for (Integer menuItemId : orderListCreator.getItemIdList()) {
+			menuItemList.add(restaurantDAO.getMenuItemByID(menuItemId));
 		}
     	
+    	model.addAttribute(user);
+//    	model.addAttribute("menuItemIdList", orderListCreator.getItemIdList());
+    	model.addAttribute("menuItemList", menuItemList);
+    	model.addAttribute("subtotal", menuService.getSubTotal(menuItemList));
     	
-    	model.addAttribute("itemIdList", orderListCreator.getItemList());
     	return "cart";
     	
     }
     
-
-    
-//    @RequestMapping("/processCheckout")
-//	public String checkout(Model model, @ModelAttribute("checkoutMenuItems") ArrayList<Integer> getMenuItems, BindingResult result) {
-//    	
-//    	//getMenuItems = getMenuItemsForCheckout();
-//    	model.addAttribute(getMenuItems);
-//    	return "cart";
-//    }
-    
+    @RequestMapping("/checkout")
+    public String checkout(Model model, @RequestParam(name = "userID") int userID,
+    		@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
+    		@ModelAttribute(name = "subtotal") String priceTotal,
+    		BindingResult bindingResult) {
+    	User user = userDAO.getUserByID(userID);
+    	model.addAttribute(user);
+    	model.addAttribute(menuItemList);
+    	model.addAttribute("priceTotal", priceTotal);
+    	
+    	return "checkout";
+    }
 
     
     @RequestMapping("/customizeOrderedItem")

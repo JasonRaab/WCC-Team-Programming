@@ -42,27 +42,13 @@
 </head>
 <body>
 
-
 	<div class="container">
-
-		<c:forEach var="eachCartItem" items="${itemIdList}">
-			<tr>
-				<td>${eachCartItem}</td>
-			</tr>
-		</c:forEach>
-
+		<div class="jumbotron text-center">
+			<h1>WELCOME TO GOOD TIME BOBBY'S
+				${user.firstName}&nbsp;${user.lastName}</h1>
+		</div>
 
 	</div>
-
-
-
-
-
-
-
-
-
-
 
 	<div class="container">
 		<div class="card">
@@ -72,18 +58,41 @@
 					<tr>
 						<th style="text-align: center">Cart</th>
 					</tr>
-					<c:forEach var="eachCartItem" items="${menuItems}">
+					<c:forEach var="eachMenuItem" items="${menuItemList}">
+						<c:url var="addMoreToOrder" value="/backToMenu">
+							<c:param name="userID" value="${user.userId}" />
+						</c:url>
 						<tr>
-							<td></td>
-							<td><input type="submit" value="Checkout" name=""></td>
-							<td><a href="${pageContext.request.contextPath}/menu"
-								class="btn btn-primary btn-sm active" role="button"
-								aria-pressed="true">Order More</a></td>
+							<td>${eachMenuItem.itemId}</td>
+							<td>${eachMenuItem.itemName}</td>
+							<td>${eachMenuItem.itemDescription}</td>
+							<td>${eachMenuItem.itemCategory}</td>
+							<td>$${eachMenuItem.itemPrice}</td>
+
 						</tr>
 					</c:forEach>
+					<tr>
+						<c:url var="checkout" value="/checkout">
+							<c:param name="userID" value="${user.userId}" />
+						</c:url>
+						<td></td>
+						<td></td>
+						<td style="text-align: right;"><a href="${checkout}" class="btn btn-sm active"
+							style="color: black; background-color: gray; font-size: medium;"
+							role="button" aria-pressed="true">Checkout</a></td>
+							
+							<td>SUBTOTAL:</td>
+							<td> ${subtotal}</td>
+					</tr>
 				</table>
 			</form:form>
-			<input type="button" value="Continue Shopping" name="back">
+			<c:url var="addMoreToOrder" value="/backToMenu">
+				<c:param name="userID" value="${user.userId}" />
+			</c:url>
+			<a href="${addMoreToOrder}" class="btn btn-sm active"
+				style="color: white; background-color: black; font-size: medium;"
+				role="button" aria-pressed="true">Continue Shopping</a>
+
 		</div>
 	</div>
 

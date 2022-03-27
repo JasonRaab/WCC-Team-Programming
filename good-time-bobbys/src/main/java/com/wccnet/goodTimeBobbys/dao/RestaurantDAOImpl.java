@@ -92,19 +92,27 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 
 
 	@Override
+	@Transactional
 	public List<MenuItem> getMenuItemByMenuItemID(ArrayList<Integer> menuItemID) {
 		Session session = sessionFactory.getCurrentSession();
-		ArrayList<Query<MenuItem>> list = new ArrayList<Query<MenuItem>>();
-		for (Integer integer : menuItemID) {
-			Query<MenuItem> query = session.createQuery("from MenuItem where itemId = :menuItemID", MenuItem.class).setParameter("menuItemID", menuItemID);
-			list.add(query.getResultList());
-		}
-		
-		
-		return null;
+		Query<MenuItem> query = session.createQuery("from MenuItem mi where itemId = :menuItemID", MenuItem.class).setParameter("menuItemID", menuItemID);
+		return query.getResultList();		
 	}
 
 
+	@Override
+	public List<Double> getMenuItemPriceByID(Integer menuItemID) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<MenuItem> query = session.createQuery("select mi.itemPrice from MenuItem mi where itemId = :menuItemID", MenuItem.class).setParameter("menuItemID", menuItemID);
+		List<MenuItem> list = query.getResultList();
+		ArrayList<Double> priceList = new ArrayList<>();
+		for (MenuItem menuItem : list) {
+			priceList.add((Double)menuItem.getItemPrice());
+		}
+		return priceList;
+	}
+	
+	
 }
 
 //@Override
