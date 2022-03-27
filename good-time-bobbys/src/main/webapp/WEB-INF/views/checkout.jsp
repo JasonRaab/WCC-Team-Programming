@@ -50,11 +50,51 @@
 
 	<div class="container">
 		<div class="card">
-			<form:form action="orderDetails" method="post"
-				modelAttribute="orderID">
-			</form:form>
+<%-- 			<form:form action="orderDetails" method="post" --%>
+<%-- 				modelAttribute="orderID"> --%>
+				<table>
+					<c:forEach var="eachIngredient" items="${ingredients}">
+						<tr>
+							<td>${eachIngredient.ingredientId}</td>
+							<td>${eachIngredient.ingredientName}</td>
+							<td>$${eachIngredient.ingredientPrice}</td>
+						</tr>
+					</c:forEach>
+					<!-- 				not sure how this is going to look - INVESTIGATE -->
+				</table>
+<%-- 			</form:form> --%>
 		</div>
 
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

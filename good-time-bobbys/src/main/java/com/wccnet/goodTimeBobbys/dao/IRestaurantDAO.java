@@ -16,7 +16,7 @@ public interface IRestaurantDAO {
 	
 	public MenuItem getMenuItemByID(int menuItemID);
 
-	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID);
+//	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID);
 	
 	public List<MenuItem> getMenuItemByMenuItemID(ArrayList<Integer> menuItemID);
 

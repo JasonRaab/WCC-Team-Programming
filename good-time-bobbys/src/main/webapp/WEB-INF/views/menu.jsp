@@ -273,6 +273,12 @@
 							<c:param name="userID" value="${user.userId}" />
 							<c:param name="menuItemID" value="${eachItem.itemId}" />
 						</c:url>
+						
+<%-- 						<c:url var="modifyItem" value="/modifyItem"> --%>
+<%-- 							<c:param name="userID" value="${user.userId}" /> --%>
+<%-- 							<c:param name="menuItemID" value="${eachItem.itemId}" /> --%>
+<%-- 							<c:param name="ingregientIDs" value="${eachItem.ingredients}" /> --%>
+<%-- 						</c:url> --%>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Beverage')}">
 								<td>${eachItem.itemId}</td>
@@ -281,6 +287,8 @@
 								<td>$${eachItem.itemPrice}</td>
 								<td><a href="${addToCartLink}"
 									class="btn btn-primary btn-sm active">Add to Order</a></td>
+<%-- 								<td><a href="${modifyItem}" --%>
+<!-- 									class="btn btn-primary btn-sm active">Modify Item</a></td> -->
 							</c:if>
 						</tr>
 					</c:forEach>

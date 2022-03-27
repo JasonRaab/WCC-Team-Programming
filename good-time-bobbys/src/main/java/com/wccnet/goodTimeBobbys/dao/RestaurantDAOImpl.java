@@ -26,7 +26,7 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 
 
 
-	private MenuItem menuItem;
+	//private MenuItem menuItem;
 	
 	
 	@Override
@@ -81,14 +81,14 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	}
 	
 	//Get MenuItem Ingredients by Menu Item ID
-	@Override
-	@Transactional
-	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID){
-		
-		Session session = sessionFactory.getCurrentSession();
-		menuItem = session.get(MenuItem.class, menuItemID);
-		return menuItem.getIngredients();
-	}
+//	@Override
+//	@Transactional
+//	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID){
+//		
+//		Session session = sessionFactory.getCurrentSession();
+//		menuItem = session.get(MenuItem.class, menuItemID);
+//		return menuItem.getIngredients();
+//	}
 
 
 	@Override

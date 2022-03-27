@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.wccnet.goodTimeBobbys.dao.IIngredientDAO;
 import com.wccnet.goodTimeBobbys.dao.IRestaurantDAO;
 import com.wccnet.goodTimeBobbys.dao.IUserDAO;
 import com.wccnet.goodTimeBobbys.entity.Ingredient;
@@ -29,10 +30,14 @@ public class MainController {
 	private IUserDAO userDAO;
 	
 	@Autowired
+	private IIngredientDAO ingredientDAO;
+	
+	@Autowired
 	private OrderListCreator orderListCreator; 
 	
 	@Autowired
 	private IMenuService menuService;
+	
 
 
 	@RequestMapping("/")
@@ -85,7 +90,8 @@ public class MainController {
 
     //Display all Menu items and their ingredients
     @RequestMapping("/menu")
-    public String getMenuItems(Model model, @ModelAttribute("menuItems") MenuItem menuItem, 
+    public String getMenuItems(Model model, @ModelAttribute("menuItems") MenuItem menuItem,
+    		@ModelAttribute("ingredientIDs") Ingredient ingredientID, 
     		@RequestParam(name = "userID", defaultValue = "0") int userID, BindingResult bindingResult) {
     	User user = userDAO.getUserByID(userID);
     	model.addAttribute(user);
@@ -105,7 +111,8 @@ public class MainController {
     
     
     @RequestMapping("/addMenuItemToCart")
-    public String addMenuItemToCart(Model model, @RequestParam(name = "userID") int userID, @RequestParam(name = "menuItemID") int menuItemID) {
+    public String addMenuItemToCart(Model model, @RequestParam(name = "userID") int userID,
+    		@RequestParam(name = "menuItemID") int menuItemID) {
  
     	System.out.println(menuItemID);
     	int user = userID;
@@ -130,7 +137,6 @@ public class MainController {
 		}
     	
     	model.addAttribute(user);
-//    	model.addAttribute("menuItemIdList", orderListCreator.getItemIdList());
     	model.addAttribute("menuItemList", menuItemList);
     	model.addAttribute("subtotal", menuService.getSubTotal(menuItemList));
     	
@@ -141,12 +147,14 @@ public class MainController {
     @RequestMapping("/checkout")
     public String checkout(Model model, @RequestParam(name = "userID") int userID,
     		@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
+    		@ModelAttribute(name = "ingredients") Ingredient ingredients,
     		@ModelAttribute(name = "subtotal") String priceTotal,
     		BindingResult bindingResult) {
     	User user = userDAO.getUserByID(userID);
     	model.addAttribute(user);
     	model.addAttribute(menuItemList);
     	model.addAttribute("priceTotal", priceTotal);
+    	model.addAttribute("ingredients", ingredientDAO.getIngredientListByMenuItemID(8));
     	
     	return "checkout";
     }
