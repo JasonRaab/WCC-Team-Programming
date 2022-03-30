@@ -101,31 +101,105 @@ Public Class POSApp
 
 
     '''''''''' Populating Functions ''''''''''
-    Public Sub PopulateIngredientButtons(category As String)
-        lstAllIngredients = dao.GetAllIngredients()
-        lstRelevantIngredients = FilterIngredientList(category)
+    'Public Sub PopulateIngredientButtons(category As String)
+    '    lstAllIngredients = dao.GetAllIngredients()
+    '    'lstRelevantIngredients = FilterIngredientList(category)
+    '    Dim intRow As Integer
+    '    Dim intColumn As Integer
+    '    intColumn = 0
+    '    intRow = 0
+
+    '    For Each ingredient As Ingredient In lstAllIngredients
+    '        Try
+    '            Dim btn As New Button
+    '            btn.Content = ingredient.Name.Replace(" ", Environment.NewLine)
+    '            btn.HorizontalContentAlignment = HorizontalAlignment.Center
+    '            btn.Name = "btn" & ingredient.Name.Replace(" ", "")
+    '            btn.Height = 90
+    '            btn.Width = 90
+    '            btn.FontSize = 14
+    '            AddHandler btn.Click, AddressOf IngredientBtn_Click
+    '            Grid.SetRow(btn, intRow)
+    '            Grid.SetColumn(btn, intColumn)
+    '            modifiersPopup.ingredientGridPanel.Children.Add(btn)
+    '            dctIngredientButtons.Add(btn, ingredient)
+    '            intColumn += 1
+    '            If intColumn >= 5 Then
+    '                intRow += 1
+    '                intColumn = 0
+    '            End If
+    '        Catch ex As Exception
+
+    '        End Try
+
+    '    Next
+
+    'End Sub
+
+    Public Sub PopulateIngredientButtons()
+        Dim lstIngredientCategories As New List(Of String)
         Dim intRow As Integer
         Dim intColumn As Integer
+        Dim currentCategory As String
+        currentCategory = "Vegetable"
+        intColumn = 0
+        intRow = 0
+        lstIngredientCategories = dao.GetIngredientCategories()
+        lstAllIngredients = dao.GetAllIngredients()
+
+        For Each cate As String In lstIngredientCategories
+            Debug.WriteLine(cate)
+            For Each category As String In lstIngredientCategories
+                Try
+                    Dim btn As New Button
+                    btn.Content = category.Replace(" ", Environment.NewLine)
+                    btn.HorizontalContentAlignment = HorizontalAlignment.Center
+                    btn.Name = "btn" & category.Replace(" ", "")
+                    btn.Height = 70
+                    btn.Width = 70
+                    btn.FontSize = 14
+                    AddHandler btn.Click, AddressOf IngredientBtn_Click
+                    Grid.SetRow(btn, intRow)
+                    Grid.SetColumn(btn, intColumn)
+                    modifiersPopup.categoryGridPanel.Children.Add(btn)
+                    intColumn += 1
+                    If intColumn >= 5 Then
+                        intRow += 1
+                        intColumn = 0
+                    End If
+                Catch ex As Exception
+
+                End Try
+
+            Next
+        Next
+
         intColumn = 0
         intRow = 0
 
-        For Each ingredient As Ingredient In lstRelevantIngredients
-            Dim btn As New Button
-            btn.Content = ingredient.Name
-            btn.Name = "btn" & ingredient.Name.Replace(" ", "")
-            btn.Height = 90
-            btn.Width = 90
-            btn.FontSize = 14
-            AddHandler btn.Click, AddressOf IngredientBtn_Click
-            Grid.SetRow(btn, intRow)
-            Grid.SetColumn(btn, intColumn)
-            modifiersPopup.ingredientGridPanel.Children.Add(btn)
-            dctIngredientButtons.Add(btn, ingredient)
-            intColumn += 1
-            If intColumn >= 5 Then
-                intRow += 1
-                intColumn = 0
-            End If
+        For Each ingredient As Ingredient In lstAllIngredients
+            Try
+                Dim btn As New Button
+                btn.Content = ingredient.Name.Replace(" ", Environment.NewLine)
+                btn.HorizontalContentAlignment = HorizontalAlignment.Center
+                btn.Name = "btn" & ingredient.Name.Replace(" ", "")
+                btn.Height = 70
+                btn.Width = 70
+                btn.FontSize = 14
+                AddHandler btn.Click, AddressOf IngredientBtn_Click
+                Grid.SetRow(btn, intRow)
+                Grid.SetColumn(btn, intColumn)
+                modifiersPopup.ingredientGridPanel.Children.Add(btn)
+                dctIngredientButtons.Add(btn, ingredient)
+                intColumn += 1
+                If intColumn >= 5 Then
+                    intRow += 1
+                    intColumn = 0
+                End If
+            Catch ex As Exception
+
+            End Try
+
         Next
 
     End Sub
@@ -134,7 +208,7 @@ Public Class POSApp
         Dim intRow As Integer
         Dim lstCateGories As List(Of String)
         intRow = 0
-        lstCateGories = dao.GetCategories()
+        lstCateGories = dao.GetItemCategories()
 
         For Each category As String In lstCateGories
             Dim btn As New Button
@@ -157,15 +231,23 @@ Public Class POSApp
 
         LstAllItems = dao.GetAllItems()
         For Each item As Item In LstAllItems
-            Dim btn As New Button
-            btn.Content = item.Name
-            btn.Name = "btn" & item.Name.Replace(" ", "")
-            btn.Height = 125
-            btn.Width = 125
-            btn.FontSize = 18
-            AddHandler btn.Click, AddressOf StartItem
-            DctItemButtons.Add(btn, item)
+            Try
+                Dim btn As New Button
+                btn.Content = item.Name.Replace(" ", Environment.NewLine)
+                btn.HorizontalContentAlignment = HorizontalAlignment.Center
+                btn.Name = "btn" & item.Name.Replace(" ", "")
+                btn.Height = 125
+                btn.Width = 125
+                btn.FontSize = 18
+                AddHandler btn.Click, AddressOf StartItem
+                DctItemButtons.Add(btn, item)
+            Catch ex As Exception
+
+            End Try
+
         Next
+
+
     End Sub
 
     Public Sub PopulateLstBoxTotals()
@@ -332,12 +414,11 @@ Public Class POSApp
 
     Public Sub StartItem(sender As Object, e As RoutedEventArgs)
         Dim selectedItem As Item
-
         For Each pair As KeyValuePair(Of Button, Item) In DctItemButtons
             If sender.Equals(pair.Key) Then
                 selectedItem = New Item(pair.Value)
                 modifiersPopup = New ModifiersPopup(Me, selectedItem)
-                PopulateIngredientButtons(selectedItem.Category)
+                PopulateIngredientButtons()
                 modifiersPopup.Show()
 
                 'For Each ingredient As Ingredient In lstRelevantIngredients

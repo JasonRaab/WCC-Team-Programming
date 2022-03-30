@@ -60,7 +60,7 @@ Public Class DAO
         Return lstIngredients
     End Function
 
-    Public Function GetCategories() As List(Of String)
+    Public Function GetItemCategories() As List(Of String)
         Dim lstCategories As New List(Of String)
         connection.Open()
         command.CommandText = "SELECT DISTINCT item_category FROM dumpster_fire.menu_item;"
@@ -68,6 +68,24 @@ Public Class DAO
 
         While Reader.Read
             lstCategories.Add(Reader.GetString("item_category"))
+        End While
+
+        Reader.Close()
+        connection.Close()
+        For Each str As String In lstCategories
+            Debug.WriteLine(str)
+        Next
+        Return lstCategories
+    End Function
+
+    Public Function GetIngredientCategories() As List(Of String)
+        Dim lstCategories As New List(Of String)
+        connection.Open()
+        command.CommandText = "SELECT DISTINCT ingredient_category FROM dumpster_fire.ingredient;"
+        Reader = command.ExecuteReader
+
+        While Reader.Read
+            lstCategories.Add(Reader.GetString("ingredient_category"))
         End While
 
         Reader.Close()
@@ -117,12 +135,13 @@ Public Class DAO
         End If
         connection.Close()
 
-        'For Each item As Item In order.LstItems
-        '    connection.Open()
-        '    command.CommandText = "INSERT INTO `dumpster_fire`.item_ordered` (`order_id, item_number, menu_item, ingredient_id, modification) VALUES ('" & orderID & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "')"
-        '    command.ExecuteNonQuery()
-        '    connection.Close()
-        'Next
+        For Each item As Item In order.LstItems
+            connection.Open()
+            'command.CommandText = "INSERT INTO `dumpster_fire`.item_ordered` (`order_id, item_number, menu_item, ingredient_id, modification) VALUES ('" & orderID & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "')"
+            command.CommandText = "INSERT INTO `dumpster_fire`.`item_ordered` (`order_id`, `item_number`, `menu_item`) VALUES ('" & orderID & "', '" & order.LstItems.IndexOf(item) + 1 & "', '" & item.Item_id & "')"
+            command.ExecuteNonQuery()
+            connection.Close()
+        Next
     End Sub
 
     Public Function Login(pin As Integer) As User

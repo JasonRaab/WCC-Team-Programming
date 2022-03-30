@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ModifiersPopup" Height="620" Width="800">
     <Grid>
-        <Grid x:Name="ingredientGridPanel" HorizontalAlignment="Left" Height="589" VerticalAlignment="Top" Width="792">
+        <Grid x:Name="ingredientGridPanel" HorizontalAlignment="Left" Height="383" VerticalAlignment="Top" Width="792">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -15,12 +15,11 @@
                 </LinearGradientBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="130*"/>
@@ -30,8 +29,22 @@
                 <ColumnDefinition Width="130*"/>
                 <ColumnDefinition Width="130*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnOk" Grid.Column="4" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Height="90" Content="OK"/>
-            <Button x:Name="btnCancel" Grid.Column="5" HorizontalAlignment="Left" Margin="21,0,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Height="90" Content="Cancel"/>
+        </Grid>
+        <Grid x:Name="categoryGridPanel" HorizontalAlignment="Left" Height="150" Margin="0,439,0,0" VerticalAlignment="Top" Width="792" Background="#FF1834E6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnOk" Grid.Column="4" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="OK" Grid.Row="1"/>
+            <Button x:Name="btnCancel" Grid.Column="5" HorizontalAlignment="Left" Margin="35,5,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Cancel" Grid.Row="1"/>
         </Grid>
     </Grid>
 </Window>
