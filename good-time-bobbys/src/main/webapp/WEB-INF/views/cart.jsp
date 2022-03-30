@@ -66,8 +66,25 @@
 							<td>${eachMenuItem.itemId}</td>
 							<td>${eachMenuItem.itemName}</td>
 							<td>${eachMenuItem.itemDescription}</td>
-							<td>${eachMenuItem.itemCategory}</td>
+							<td><c:forEach var="eachIngredient"
+									items="${eachMenuItem.getIngredients()}">
+									<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+								</c:forEach></td>
 							<td>$${eachMenuItem.itemPrice}</td>
+							
+							<c:url var="modify" value="/modify">
+								<c:param name="userID" value="${user.userId}" />
+								<c:param name="menuItemID" value="${eachMenuItem.itemId}"/>
+							</c:url>
+							
+							<td><td style="text-align: right;"><a href="${modify}"
+								class="btn btn-sm active"
+								style="color: black; background-color: gray; font-size: medium;"
+								role="button" aria-pressed="true">Modify Item</a></td>
+
 
 						</tr>
 					</c:forEach>
@@ -77,12 +94,15 @@
 						</c:url>
 						<td></td>
 						<td></td>
-						<td style="text-align: right;"><a href="${checkout}" class="btn btn-sm active"
+
+						<td></td>
+						<td></td>
+						<td>SUBTOTAL: </td>
+						<td align="right">${subtotal}</td>
+						<td style="text-align: right;"><a href="${checkout}"
+							class="btn btn-sm active"
 							style="color: black; background-color: gray; font-size: medium;"
 							role="button" aria-pressed="true">Checkout</a></td>
-							
-							<td>SUBTOTAL:</td>
-							<td> ${subtotal}</td>
 					</tr>
 				</table>
 			</form:form>

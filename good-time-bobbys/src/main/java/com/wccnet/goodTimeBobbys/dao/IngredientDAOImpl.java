@@ -1,5 +1,6 @@
 package com.wccnet.goodTimeBobbys.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -21,17 +22,22 @@ public class IngredientDAOImpl implements IIngredientDAO {
 	@Transactional
 	public List<Ingredient> getIngredientListByMenuItemID(int menuItemID) {
 		
-			System.out.println("entering the method");
 			Session session = sessionFactory.getCurrentSession();
 		
-			System.out.println("got the session");
 			MenuItem menuItem = session.get(MenuItem.class, menuItemID);
 
-			System.out.println("got the menuItem");
 			List<Ingredient> listOfIngredients = menuItem.getIngredients();
-
-			System.out.println("got the listOfIngredients");
-			return listOfIngredients;
+			List<Ingredient> activeIngredients = new ArrayList<>();
+			
+			for (Ingredient ingredient : listOfIngredients) {
+				if (ingredient.getIsActive() == 1) {
+					activeIngredients.add(ingredient);
+				}
+			}
+			
+			return activeIngredients;
 	}
 
+	
+	
 }

@@ -34,6 +34,7 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	public List<MenuItem> getMenuItems() {
 		Session session = sessionFactory.getCurrentSession();
         Query<MenuItem> menuItems = session.createQuery("from MenuItem", MenuItem.class);
+        
         return menuItems.getResultList();
 
 	}
@@ -63,7 +64,7 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	public List<Ingredient> getIngredient() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		Query<Ingredient> query = session.createQuery("from Ingredient", Ingredient.class);
+		Query<Ingredient> query = session.createQuery("from Ingredient i where i.isActive = 1", Ingredient.class);
 		System.out.println("in impl getIngredient()");
 		return query.getResultList();
 	}

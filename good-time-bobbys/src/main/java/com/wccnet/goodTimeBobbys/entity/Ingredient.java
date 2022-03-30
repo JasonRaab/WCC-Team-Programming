@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -84,10 +83,15 @@ public class Ingredient {
 		menuItems.remove(item);
 	}
 
+//	@Override
+//	public String toString() {
+//		return "{ Ingredient Table }\nIngredient Id: " + ingredientId + "\nIngredient Name: " + ingredientName
+//				+ "\nIngredient Stock: " + ingredientStock + "\nIngredient Price: " + ingredientPrice;
+//	}
+	
 	@Override
-	public String toString() {
-		return "{ Ingredient Table }\nIngredient Id: " + ingredientId + "\nIngredient Name: " + ingredientName
-				+ "\nIngredient Stock: " + ingredientStock + "\nIngredient Price: " + ingredientPrice;
+	public String toString() {	
+		return ingredientName;
 	}
 
 	public int getIngredientId() {

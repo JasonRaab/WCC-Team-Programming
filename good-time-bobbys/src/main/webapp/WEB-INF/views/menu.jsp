@@ -109,6 +109,17 @@
 		</div>
 
 	</div>
+	<div style="text-align: center;">
+		<c:url var="cart" value="/itemIdList">
+			<c:param name="userID" value="${user.userId}" />
+		</c:url>
+		<a href="${cart}" style="text-align: center;"
+			class="btn btn-primary btn-lg active">View Cart</a>
+	</div>
+	<div style="text-align: center;">
+		<h6>View Cart to modify item*</h6>
+	</div>
+	<br>
 	<div>
 
 
@@ -138,6 +149,13 @@
 								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td><c:forEach var="eachIngredient"
+										items="${eachItem.getIngredients()}">
+										<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+									</c:forEach></td>
 								<td>$${eachItem.itemPrice}</td>
 								<td><a href="${addToCartLink}"
 									class="btn btn-primary btn-sm active">Add to Order</a></td>
@@ -162,6 +180,12 @@
 								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<c:forEach var="eachIngredient"
+									items="${eachItem.getIngredients()}">
+									<c:if test="${eachIngredient.isActive == 1}">
+										<td>${eachIngredient.ingredientName}</td>
+									</c:if>
+								</c:forEach>
 								<td>$${eachItem.itemPrice}</td>
 								<td><a href="${addToCartLink}"
 									class="btn btn-primary btn-sm active">Add to Order</a></td>
@@ -185,6 +209,13 @@
 								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td><c:forEach var="eachIngredient"
+										items="${eachItem.getIngredients()}">
+										<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+									</c:forEach></td>
 								<td>$${eachItem.itemPrice}</td>
 								<td><a href="${addToCartLink}"
 									class="btn btn-primary btn-sm active">Add to Order</a></td>
@@ -208,6 +239,13 @@
 								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td><c:forEach var="eachIngredient"
+										items="${eachItem.getIngredients()}">
+										<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+									</c:forEach></td>
 								<td>$${eachItem.itemPrice}</td>
 								<td><a href="${addToCartLink}"
 									class="btn btn-primary btn-sm active">Add to Order</a></td>
@@ -232,6 +270,13 @@
 								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td><c:forEach var="eachIngredient"
+										items="${eachItem.getIngredients()}">
+										<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+									</c:forEach></td>
 								<td>$${eachItem.itemPrice}</td>
 								<td><a href="${addToCartLink}"
 									class="btn btn-primary btn-sm active">Add to Order</a></td>
@@ -255,6 +300,13 @@
 								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td><c:forEach var="eachIngredient"
+										items="${eachItem.getIngredients()}">
+										<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+									</c:forEach></td>
 								<td>$${eachItem.itemPrice}</td>
 								<td><a href="${addToCartLink}"
 									class="btn btn-primary btn-sm active">Add to Order</a></td>
@@ -273,34 +325,41 @@
 							<c:param name="userID" value="${user.userId}" />
 							<c:param name="menuItemID" value="${eachItem.itemId}" />
 						</c:url>
-						
-<%-- 						<c:url var="modifyItem" value="/modifyItem"> --%>
-<%-- 							<c:param name="userID" value="${user.userId}" /> --%>
-<%-- 							<c:param name="menuItemID" value="${eachItem.itemId}" /> --%>
-<%-- 							<c:param name="ingregientIDs" value="${eachItem.ingredients}" /> --%>
-<%-- 						</c:url> --%>
+
+						<%-- 						<c:url var="modifyItem" value="/modifyItem"> --%>
+						<%-- 							<c:param name="userID" value="${user.userId}" /> --%>
+						<%-- 							<c:param name="menuItemID" value="${eachItem.itemId}" /> --%>
+						<%-- 							<c:param name="ingregientIDs" value="${eachItem.ingredients}" /> --%>
+						<%-- 						</c:url> --%>
 						<tr>
 							<c:if test="${eachItem.itemCategory.equals('Beverage')}">
 								<td>${eachItem.itemId}</td>
 								<td>${eachItem.itemName}</td>
 								<td>${eachItem.itemDescription}</td>
+								<td><c:forEach var="eachIngredient"
+										items="${eachItem.getIngredients()}">
+										<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+									</c:forEach></td>
 								<td>$${eachItem.itemPrice}</td>
 								<td><a href="${addToCartLink}"
 									class="btn btn-primary btn-sm active">Add to Order</a></td>
-<%-- 								<td><a href="${modifyItem}" --%>
-<!-- 									class="btn btn-primary btn-sm active">Modify Item</a></td> -->
+								<%-- 								<td><a href="${modifyItem}" --%>
+								<!-- 									class="btn btn-primary btn-sm active">Modify Item</a></td> -->
 							</c:if>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 		</div>
-		<div>
-				<c:url var="cart" value="/itemIdList">
-					<c:param name="userID" value="${user.userId}" />
-				</c:url>
-			<a href="${cart}" class="btn btn-primary btn-sm active">Checkout</a>
-		</div>
+		<!-- 		<div> -->
+		<%-- 			<c:url var="cart" value="/itemIdList"> --%>
+		<%-- 				<c:param name="userID" value="${user.userId}" /> --%>
+		<%-- 			</c:url> --%>
+		<%-- 			<a href="${cart}" class="btn btn-primary btn-sm active">Checkout</a> --%>
+		<!-- 		</div> -->
 	</div>
 </body>
 </html>

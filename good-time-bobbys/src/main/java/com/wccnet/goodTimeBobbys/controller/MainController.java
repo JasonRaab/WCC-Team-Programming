@@ -126,7 +126,8 @@ public class MainController {
     }
     
     @RequestMapping("itemIdList")
-    public String itemIdList(Model model,@RequestParam(name = "userID") int userID, @ModelAttribute(name = "menuItemIdList") ArrayList<Integer> menuItemIdList,
+    public String itemIdList(Model model,@RequestParam(name = "userID") int userID,
+    		@ModelAttribute(name = "menuItemIdList") ArrayList<Integer> menuItemIdList,
     		@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
     		@ModelAttribute(name = "subtotal") String priceTotal, BindingResult bindingResult) {
 
@@ -142,6 +143,17 @@ public class MainController {
     	
     	return "cart";
     	
+    }
+    
+    @RequestMapping("/modify")
+    public String modifyItem(Model model, @RequestParam(name = "userID") int userID, 
+    		@RequestParam(name = "menuItemID") int menuItemID) {
+    	
+    	User user = userDAO.getUserByID(userID);
+    	MenuItem menuItem = restaurantDAO.getMenuItemByID(menuItemID);
+    	model.addAttribute(user);
+    	model.addAttribute(menuItem);
+    	return "modify";
     }
     
     @RequestMapping("/checkout")
