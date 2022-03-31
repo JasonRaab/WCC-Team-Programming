@@ -41,8 +41,9 @@
 		</div>
 	</nav>
 	<div class="container m-3 mx-auto">
-		<form:form action="processForm" modelAttribute="stock">
-			<table class="table table-bordered table-primary">
+		
+			<table class="table table-bordered table-striped">
+				<thead>
 				<tr>
 					<th class="d-table-cell">Category</th>
 					<th class="d-table-cell">Item</th>
@@ -50,33 +51,41 @@
 					<th class="d-table-cell" rowspan="2">Amount in Uncompleted
 						Orders</th>
 					<th class="d-table-cell" rowspan="2">Modify Stock</th>
-				</tr>
-				<tr>
-					<td class="d-table-cell"><form:input path="category"
-							type="text" placeholder="search" /></td>
-					<td class="d-table-cell"><form:input path="item" type="text"
-							placeholder="search" /></td>
-				</tr>
-				<c:forEach var="eachStock" items="${stockList}">
 					<tr>
-						<td class="d-table-cell"><c:out
-								value="${eachStock.category}" /></td>
-						<td class="d-table-cell"><c:out
-								value="${eachStock.item}" /></td>
-						<td class="d-table-cell"><c:out
-								value="${eachStock.stock}" /></td>
-						<td></td>
-						<td class="d-table-cell"><form:input path="stock" type="text"
-								placeholder="enter number" /></td>
+					<tr>
+					<form:form action="processForm" modelAttribute="stock">
+
+						<td class="d-table-cell"><form:input path="category"
+								type="text" placeholder="search" /></td>
+						<td class="d-table-cell"><form:input path="item" type="text"
+								placeholder="search" /></td>
+					</form:form>
 					</tr>
-				</c:forEach>
+				</thead>
+				<tbody>
+					<c:forEach var="eachStock" items="${stockList}">
+					<form:form action="${pageContext.request.contextPath}/management/updateStock" modelAttribute="stock" method="POST">
+					<c:url var = "updateLink"  value="/management/updateStock">
+						<c:param name="stockId" value="${eachStock.id}"/>
+						
+					</c:url>
+						<tr>
+							<td class="d-table-cell"><c:out
+									value="${eachStock.category}" /></td>
+							<td class="d-table-cell"><c:out value="${eachStock.item}" /></td>
+							<td class="d-table-cell"><c:out value="${eachStock.stock}" /></td>
+							<td></td>
+							<td class="d-table-cell">
+								<form:input path="stock" name="newCount" type="number" placeholder="enter number" />
+								<input type=hidden name="stockId" value="${eachStock.id}">
+								<input type="submit" value="Update"/>
+							</td>
+							
+						</tr>
+						</form:form>
+					</c:forEach>
+				</tbody>
 			</table>
-			<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
-				<div class="col-1">
-					<input type="submit" value="Modify Stock" class="btn btn-primary" />
-				</div>
-			</div>
-		</form:form>
 	</div>
 </body>
 </html>

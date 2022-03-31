@@ -85,6 +85,15 @@ public class MainController {
         return "stock";
     }
 	
+	@RequestMapping("/updateStock")
+	public String updateStock(Model model, @RequestParam("stockId") int stockId, @RequestParam("stock") String newCount){
+		int count = Integer.parseInt(newCount);
+		System.out.println("StockId: " + stockId);
+		System.out.println("New Count:" + newCount);
+		stockService.updateCount(stockId, count);
+		return "redirect:/management/stock";
+	}
+	
 	@GetMapping("/employees")
 	public String employees(Model model) {
 		model.addAttribute("employee", new User());

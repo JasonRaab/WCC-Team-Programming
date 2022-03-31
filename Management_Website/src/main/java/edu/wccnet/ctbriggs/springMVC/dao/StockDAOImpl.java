@@ -23,4 +23,12 @@ public class StockDAOImpl implements StockDAO {
 		return query.getResultList();
 	}
 
+	@Override
+	public void updateCount(int stockId, int count) {
+		Session session = sessionFactory.getCurrentSession();
+		Stock stock = session.get(Stock.class, stockId);
+		stock.setStock(count);
+		session.saveOrUpdate(stock);
+	}
+
 }

@@ -19,19 +19,12 @@ public class Stock {
 	@Column(name = "ingredient_name")
     private String item;
 	@Column(name = "ingredient_stock")
-    private double stock;
-/*	 TODO: Figure out how to deal with the two following variables
-	 Hibernate requires all variables in an entity class to be linked to a column in the table
-	 ucAmount is derived from looking at orders and finding the sum of ingredients used.
-	 It might be best to put that off for now.
-	 */
-//   private double ucAmount;
-//   private String mStock;
+    private int stock;
     
  
 
     public Stock() {}
-	public Stock(String category, String item, double stock) {
+	public Stock(String category, String item, int stock) {
 	super();
 	this.category = category;
 	this.item = item;
@@ -55,10 +48,10 @@ public class Stock {
     public void setItem(String item) {
         this.item = item;
     }
-    public double getStock() {
+    public int getStock() {
         return stock;
     }
-    public void setStock(double stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 	@Override

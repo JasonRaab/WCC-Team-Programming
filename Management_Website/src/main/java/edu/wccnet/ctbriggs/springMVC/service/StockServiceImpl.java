@@ -18,5 +18,12 @@ public class StockServiceImpl implements StockService {
 	public List<Stock> getStocks() {
 		return stockDAO.getStocks();
 	}
+	
+	@Override
+	@Transactional
+	public void updateCount(int stockId, int count) {
+		stockDAO.updateCount(stockId, count);
+		
+	}
 
 }
