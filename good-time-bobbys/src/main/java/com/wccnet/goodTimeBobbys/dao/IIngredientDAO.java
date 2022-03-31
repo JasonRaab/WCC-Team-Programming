@@ -8,4 +8,5 @@ public interface IIngredientDAO {
 	
 	public List<Ingredient> getIngredientListByMenuItemID(int menuItemID);
 
+	public List<Ingredient> getAllIngredients();
 }

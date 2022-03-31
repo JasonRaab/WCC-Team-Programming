@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,7 @@ public class IngredientDAOImpl implements IIngredientDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
 	@Override
 	@Transactional
 	public List<Ingredient> getIngredientListByMenuItemID(int menuItemID) {
@@ -37,7 +39,18 @@ public class IngredientDAOImpl implements IIngredientDAO {
 			
 			return activeIngredients;
 	}
+	
+	@Override
+	@Transactional
+	public List<Ingredient> getAllIngredients() {
+		
+		Session session = sessionFactory.getCurrentSession();
 
+		Query<Ingredient> query = session.createQuery("from Ingredient", Ingredient.class);
+		
+		return query.getResultList();
+}
+	
 	
 	
 }

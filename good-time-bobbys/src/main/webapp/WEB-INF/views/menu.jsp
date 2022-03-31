@@ -122,244 +122,245 @@
 	<br>
 	<div>
 
+		<div class="container">
+			<div class="tab">
+				<button class="tablinks" onclick="openMenu(event, 'Apps')">Apps</button>
+				<button class="tablinks" onclick="openMenu(event, 'Salads')">Salads</button>
+				<button class="tablinks" onclick="openMenu(event, 'Sides')">Sides</button>
+				<button class="tablinks" onclick="openMenu(event, 'Sandwiches')">Sandwiches</button>
+				<button class="tablinks" onclick="openMenu(event, 'Entrees')">Entrees</button>
+				<button class="tablinks" onclick="openMenu(event, 'Desserts')">Desserts</button>
+				<button class="tablinks" onclick="openMenu(event, 'Beverages')">Beverages</button>
+			</div>
 
-		<div class="tab">
-			<button class="tablinks" onclick="openMenu(event, 'Apps')">Apps</button>
-			<button class="tablinks" onclick="openMenu(event, 'Salads')">Salads</button>
-			<button class="tablinks" onclick="openMenu(event, 'Sandwiches')">Sandwiches</button>
-			<button class="tablinks" onclick="openMenu(event, 'Desserts')">Desserts</button>
-			<button class="tablinks" onclick="openMenu(event, 'Entrees')">Entrees</button>
-			<button class="tablinks" onclick="openMenu(event, 'Beverages')">Beverages</button>
-		</div>
 
-
-		<!-- TAB CONTENT -->
-		<div id="Apps" class="tabcontent">
-			<h3 class="header">APPS</h3>
-			<div class="card">
-				<table class="table">
-					<c:forEach var="eachItem" items="${menuItem}">
-
-						<c:url var="addToCartLink" value="/addMenuItemToCart">
-							<c:param name="userID" value="${user.userId}" />
-							<c:param name="menuItemID" value="${eachItem.itemId}" />
-						</c:url>
-						<tr>
-							<c:if test="${eachItem.itemCategory.equals('Appetizer')}">
-								<td>${eachItem.itemId}</td>
-								<td>${eachItem.itemName}</td>
-								<td>${eachItem.itemDescription}</td>
-								<td><c:forEach var="eachIngredient"
-										items="${eachItem.getIngredients()}">
-										<c:if test="${eachIngredient.isActive == 1}">
+			<!-- TAB CONTENT -->
+			<div id="Apps" class="tabcontent">
+				<h3 class="header">APPS</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItem" items="${menuItem}">
+							<c:url var="addToCartLink" value="/addMenuItemToCart">
+								<c:param name="userID" value="${user.userId}" />
+								<c:param name="menuItemID" value="${eachItem.itemId}" />
+							</c:url>
+							<tr>
+								<c:if test="${eachItem.itemCategory.equals('Appetizer')}">
+									<td>${eachItem.itemId}</td>
+									<td>${eachItem.itemName}</td>
+									<td>${eachItem.itemDescription}</td>
+									<td><c:forEach var="eachIngredient"
+											items="${eachItem.getIngredients()}">
+											<c:if test="${eachIngredient.isActive == 1}">
 									
 											${eachIngredient.ingredientName},
 									</c:if>
-									</c:forEach></td>
-								<td>$${eachItem.itemPrice}</td>
-								<td><a href="${addToCartLink}"
-									class="btn btn-primary btn-sm active">Add to Order</a></td>
-								<td></td>
-							</c:if>
-						</tr>
-					</c:forEach>
-				</table>
+										</c:forEach></td>
+									<td>$${eachItem.itemPrice}</td>
+									<td><a href="${addToCartLink}"
+										class="btn btn-primary btn-sm active">Add to Order</a></td>
+									<td></td>
+								</c:if>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
 			</div>
-		</div>
-		<div id="Salads" class="tabcontent">
-			<h3 class="header">SALADS</h3>
-			<div class="card">
-				<table class="table">
-					<c:forEach var="eachItem" items="${menuItem}">
-						<c:url var="addToCartLink" value="/addMenuItemToCart">
-							<c:param name="userID" value="${user.userId}" />
-							<c:param name="menuItemID" value="${eachItem.itemId}" />
-						</c:url>
-						<tr>
-							<c:if test="${eachItem.itemCategory.equals('Salad')}">
-								<td>${eachItem.itemId}</td>
-								<td>${eachItem.itemName}</td>
-								<td>${eachItem.itemDescription}</td>
-								<c:forEach var="eachIngredient"
-									items="${eachItem.getIngredients()}">
-									<c:if test="${eachIngredient.isActive == 1}">
-										<td>${eachIngredient.ingredientName}</td>
-									</c:if>
-								</c:forEach>
-								<td>$${eachItem.itemPrice}</td>
-								<td><a href="${addToCartLink}"
-									class="btn btn-primary btn-sm active">Add to Order</a></td>
-							</c:if>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-		</div>
-		<div id="Sandwiches" class="tabcontent">
-			<h3 class="header">SANDWICHES</h3>
-			<div class="card">
-				<table class="table">
-					<c:forEach var="eachItem" items="${menuItem}">
-						<c:url var="addToCartLink" value="/addMenuItemToCart">
-							<c:param name="userID" value="${user.userId}" />
-							<c:param name="menuItemID" value="${eachItem.itemId}" />
-						</c:url>
-						<tr>
-							<c:if test="${eachItem.itemCategory.equals('Sandwich')}">
-								<td>${eachItem.itemId}</td>
-								<td>${eachItem.itemName}</td>
-								<td>${eachItem.itemDescription}</td>
-								<td><c:forEach var="eachIngredient"
+			<div id="Salads" class="tabcontent">
+				<h3 class="header">SALADS</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItem" items="${menuItem}">
+							<c:url var="addToCartLink" value="/addMenuItemToCart">
+								<c:param name="userID" value="${user.userId}" />
+								<c:param name="menuItemID" value="${eachItem.itemId}" />
+							</c:url>
+							<tr>
+								<c:if test="${eachItem.itemCategory.equals('Salad')}">
+									<td>${eachItem.itemId}</td>
+									<td>${eachItem.itemName}</td>
+									<td>${eachItem.itemDescription}</td>
+									<c:forEach var="eachIngredient"
 										items="${eachItem.getIngredients()}">
 										<c:if test="${eachIngredient.isActive == 1}">
+											<td>${eachIngredient.ingredientName}</td>
+										</c:if>
+									</c:forEach>
+									<td>$${eachItem.itemPrice}</td>
+									<td><a href="${addToCartLink}"
+										class="btn btn-primary btn-sm active">Add to Order</a></td>
+								</c:if>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+			</div>
+			<div id="Sandwiches" class="tabcontent">
+				<h3 class="header">SANDWICHES</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItem" items="${menuItem}">
+							<c:url var="addToCartLink" value="/addMenuItemToCart">
+								<c:param name="userID" value="${user.userId}" />
+								<c:param name="menuItemID" value="${eachItem.itemId}" />
+							</c:url>
+							<tr>
+								<c:if test="${eachItem.itemCategory.equals('Sandwich')}">
+									<td>${eachItem.itemId}</td>
+									<td>${eachItem.itemName}</td>
+									<td>${eachItem.itemDescription}</td>
+									<td><c:forEach var="eachIngredient"
+											items="${eachItem.getIngredients()}">
+											<c:if test="${eachIngredient.isActive == 1}">
 									
 											${eachIngredient.ingredientName},
 									</c:if>
-									</c:forEach></td>
-								<td>$${eachItem.itemPrice}</td>
-								<td><a href="${addToCartLink}"
-									class="btn btn-primary btn-sm active">Add to Order</a></td>
-							</c:if>
-						</tr>
-					</c:forEach>
-				</table>
+										</c:forEach></td>
+									<td>$${eachItem.itemPrice}</td>
+									<td><a href="${addToCartLink}"
+										class="btn btn-primary btn-sm active">Add to Order</a></td>
+								</c:if>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
 			</div>
-		</div>
-		<div id="Entrees" class="tabcontent">
-			<h3 class="header">ENTREES</h3>
-			<div class="card">
-				<table class="table">
-					<c:forEach var="eachItem" items="${menuItem}">
-						<c:url var="addToCartLink" value="/addMenuItemToCart">
-							<c:param name="userID" value="${user.userId}" />
-							<c:param name="menuItemID" value="${eachItem.itemId}" />
-						</c:url>
-						<tr>
-							<c:if test="${eachItem.itemCategory.equals('Entree')}">
-								<td>${eachItem.itemId}</td>
-								<td>${eachItem.itemName}</td>
-								<td>${eachItem.itemDescription}</td>
-								<td><c:forEach var="eachIngredient"
-										items="${eachItem.getIngredients()}">
-										<c:if test="${eachIngredient.isActive == 1}">
+			<div id="Entrees" class="tabcontent">
+				<h3 class="header">ENTREES</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItem" items="${menuItem}">
+							<c:url var="addToCartLink" value="/addMenuItemToCart">
+								<c:param name="userID" value="${user.userId}" />
+								<c:param name="menuItemID" value="${eachItem.itemId}" />
+							</c:url>
+							<tr>
+								<c:if test="${eachItem.itemCategory.equals('Entree')}">
+									<td>${eachItem.itemId}</td>
+									<td>${eachItem.itemName}</td>
+									<td>${eachItem.itemDescription}</td>
+									<td><c:forEach var="eachIngredient"
+											items="${eachItem.getIngredients()}">
+											<c:if test="${eachIngredient.isActive == 1}">
 									
 											${eachIngredient.ingredientName},
 									</c:if>
-									</c:forEach></td>
-								<td>$${eachItem.itemPrice}</td>
-								<td><a href="${addToCartLink}"
-									class="btn btn-primary btn-sm active">Add to Order</a></td>
+										</c:forEach></td>
+									<td>$${eachItem.itemPrice}</td>
+									<td><a href="${addToCartLink}"
+										class="btn btn-primary btn-sm active">Add to Order</a></td>
 
-							</c:if>
-						</tr>
-					</c:forEach>
-				</table>
+								</c:if>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
 			</div>
-		</div>
-		<div id="Desserts" class="tabcontent">
-			<h3 class="header">DESSERTS</h3>
-			<div class="card">
-				<table class="table">
-					<c:forEach var="eachItem" items="${menuItem}">
-						<c:url var="addToCartLink" value="/addMenuItemToCart">
-							<c:param name="userID" value="${user.userId}" />
-							<c:param name="menuItemID" value="${eachItem.itemId}" />
-						</c:url>
-						<tr>
-							<c:if test="${eachItem.itemCategory.equals('Dessert')}">
-								<td>${eachItem.itemId}</td>
-								<td>${eachItem.itemName}</td>
-								<td>${eachItem.itemDescription}</td>
-								<td><c:forEach var="eachIngredient"
-										items="${eachItem.getIngredients()}">
-										<c:if test="${eachIngredient.isActive == 1}">
+			<div id="Desserts" class="tabcontent">
+				<h3 class="header">DESSERTS</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItem" items="${menuItem}">
+							<c:url var="addToCartLink" value="/addMenuItemToCart">
+								<c:param name="userID" value="${user.userId}" />
+								<c:param name="menuItemID" value="${eachItem.itemId}" />
+							</c:url>
+							<tr>
+								<c:if test="${eachItem.itemCategory.equals('Dessert')}">
+									<td>${eachItem.itemId}</td>
+									<td>${eachItem.itemName}</td>
+									<td>${eachItem.itemDescription}</td>
+									<td><c:forEach var="eachIngredient"
+											items="${eachItem.getIngredients()}">
+											<c:if test="${eachIngredient.isActive == 1}">
 									
 											${eachIngredient.ingredientName},
 									</c:if>
-									</c:forEach></td>
-								<td>$${eachItem.itemPrice}</td>
-								<td><a href="${addToCartLink}"
-									class="btn btn-primary btn-sm active">Add to Order</a></td>
-							</c:if>
-						</tr>
-					</c:forEach>
-				</table>
+										</c:forEach></td>
+									<td>$${eachItem.itemPrice}</td>
+									<td><a href="${addToCartLink}"
+										class="btn btn-primary btn-sm active">Add to Order</a></td>
+								</c:if>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
 			</div>
-		</div>
-		<div id="Sides" class="tabcontent">
-			<h3 class="header">SIDES</h3>
-			<div class="card">
-				<table class="table">
-					<c:forEach var="eachItem" items="${menuItem}">
-						<c:url var="addToCartLink" value="/addMenuItemToCart">
-							<c:param name="userID" value="${user.userId}" />
-							<c:param name="menuItemID" value="${eachItem.itemId}" />
-						</c:url>
-						<tr>
-							<c:if test="${eachItem.itemCategory.equals('Side')}">
-								<td>${eachItem.itemId}</td>
-								<td>${eachItem.itemName}</td>
-								<td>${eachItem.itemDescription}</td>
-								<td><c:forEach var="eachIngredient"
-										items="${eachItem.getIngredients()}">
-										<c:if test="${eachIngredient.isActive == 1}">
+			<div id="Sides" class="tabcontent">
+				<h3 class="header">SIDES</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItem" items="${menuItem}">
+							<c:url var="addToCartLink" value="/addMenuItemToCart">
+								<c:param name="userID" value="${user.userId}" />
+								<c:param name="menuItemID" value="${eachItem.itemId}" />
+							</c:url>
+							<tr>
+								<c:if test="${eachItem.itemCategory.equals('Side')}">
+									<td>${eachItem.itemId}</td>
+									<td>${eachItem.itemName}</td>
+									<td>${eachItem.itemDescription}</td>
+									<td><c:forEach var="eachIngredient"
+											items="${eachItem.getIngredients()}">
+											<c:if test="${eachIngredient.isActive == 1}">
 									
 											${eachIngredient.ingredientName},
 									</c:if>
-									</c:forEach></td>
-								<td>$${eachItem.itemPrice}</td>
-								<td><a href="${addToCartLink}"
-									class="btn btn-primary btn-sm active">Add to Order</a></td>
-							</c:if>
-						</tr>
-					</c:forEach>
-				</table>
+										</c:forEach></td>
+									<td>$${eachItem.itemPrice}</td>
+									<td><a href="${addToCartLink}"
+										class="btn btn-primary btn-sm active">Add to Order</a></td>
+								</c:if>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
 			</div>
-		</div>
-		<div id="Beverages" class="tabcontent">
-			<h3 class="header">BEVERAGES</h3>
-			<div class="card">
-				<table class="table">
-					<c:forEach var="eachItem" items="${menuItem}">
-						<c:url var="addToCartLink" value="/addMenuItemToCart">
-							<c:param name="userID" value="${user.userId}" />
-							<c:param name="menuItemID" value="${eachItem.itemId}" />
-						</c:url>
+			<div id="Beverages" class="tabcontent">
+				<h3 class="header">BEVERAGES</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItem" items="${menuItem}">
+							<c:url var="addToCartLink" value="/addMenuItemToCart">
+								<c:param name="userID" value="${user.userId}" />
+								<c:param name="menuItemID" value="${eachItem.itemId}" />
+							</c:url>
 
-						<%-- 						<c:url var="modifyItem" value="/modifyItem"> --%>
-						<%-- 							<c:param name="userID" value="${user.userId}" /> --%>
-						<%-- 							<c:param name="menuItemID" value="${eachItem.itemId}" /> --%>
-						<%-- 							<c:param name="ingregientIDs" value="${eachItem.ingredients}" /> --%>
-						<%-- 						</c:url> --%>
-						<tr>
-							<c:if test="${eachItem.itemCategory.equals('Beverage')}">
-								<td>${eachItem.itemId}</td>
-								<td>${eachItem.itemName}</td>
-								<td>${eachItem.itemDescription}</td>
-								<td><c:forEach var="eachIngredient"
-										items="${eachItem.getIngredients()}">
-										<c:if test="${eachIngredient.isActive == 1}">
+							<%-- 						<c:url var="modifyItem" value="/modifyItem"> --%>
+							<%-- 							<c:param name="userID" value="${user.userId}" /> --%>
+							<%-- 							<c:param name="menuItemID" value="${eachItem.itemId}" /> --%>
+							<%-- 							<c:param name="ingregientIDs" value="${eachItem.ingredients}" /> --%>
+							<%-- 						</c:url> --%>
+							<tr>
+								<c:if test="${eachItem.itemCategory.equals('Beverage')}">
+									<td>${eachItem.itemId}</td>
+									<td>${eachItem.itemName}</td>
+									<td>${eachItem.itemDescription}</td>
+									<td><c:forEach var="eachIngredient"
+											items="${eachItem.getIngredients()}">
+											<c:if test="${eachIngredient.isActive == 1}">
 									
 											${eachIngredient.ingredientName},
 									</c:if>
-									</c:forEach></td>
-								<td>$${eachItem.itemPrice}</td>
-								<td><a href="${addToCartLink}"
-									class="btn btn-primary btn-sm active">Add to Order</a></td>
-								<%-- 								<td><a href="${modifyItem}" --%>
-								<!-- 									class="btn btn-primary btn-sm active">Modify Item</a></td> -->
-							</c:if>
-						</tr>
-					</c:forEach>
-				</table>
+										</c:forEach></td>
+									<td>$${eachItem.itemPrice}</td>
+									<td><a href="${addToCartLink}"
+										class="btn btn-primary btn-sm active">Add to Order</a></td>
+									<%-- 								<td><a href="${modifyItem}" --%>
+									<!-- 									class="btn btn-primary btn-sm active">Modify Item</a></td> -->
+								</c:if>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
 			</div>
+			<!-- 		<div> -->
+			<%-- 			<c:url var="cart" value="/itemIdList"> --%>
+			<%-- 				<c:param name="userID" value="${user.userId}" /> --%>
+			<%-- 			</c:url> --%>
+			<%-- 			<a href="${cart}" class="btn btn-primary btn-sm active">Checkout</a> --%>
+			<!-- 		</div> -->
 		</div>
-		<!-- 		<div> -->
-		<%-- 			<c:url var="cart" value="/itemIdList"> --%>
-		<%-- 				<c:param name="userID" value="${user.userId}" /> --%>
-		<%-- 			</c:url> --%>
-		<%-- 			<a href="${cart}" class="btn btn-primary btn-sm active">Checkout</a> --%>
-		<!-- 		</div> -->
 	</div>
 </body>
 </html>

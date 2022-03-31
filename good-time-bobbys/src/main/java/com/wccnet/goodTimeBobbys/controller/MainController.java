@@ -1,6 +1,7 @@
 package com.wccnet.goodTimeBobbys.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -80,7 +81,8 @@ public class MainController {
     
     //ADD THIS TO THE FUNCTION PARAMS WHEN WE ARE ABLE!!! @RequestParam("ingredientCatagory") String ingredientCategotry,
     @RequestMapping("/filteredIngredientList")
-    public String getFilteredIngredientList(Model model, @ModelAttribute("ingredients") Ingredient ingredient, 
+    public String getFilteredIngredientList(Model model,
+    		@ModelAttribute("ingredients") Ingredient ingredient, 
             BindingResult result) {
         model.addAttribute("ingredients", restaurantDAO.getIngredientsByIngredientCategory("Burger"));
         //model.addAttribute("ingredientIndex", ingredient.getIngredientId());
@@ -147,12 +149,16 @@ public class MainController {
     
     @RequestMapping("/modify")
     public String modifyItem(Model model, @RequestParam(name = "userID") int userID, 
-    		@RequestParam(name = "menuItemID") int menuItemID) {
+    		@RequestParam(name = "menuItemID") int menuItemID,
+    		@ModelAttribute(name = "ingredients") Ingredient ingredients,
+    		BindingResult bindingResult){
     	
     	User user = userDAO.getUserByID(userID);
     	MenuItem menuItem = restaurantDAO.getMenuItemByID(menuItemID);
+
     	model.addAttribute(user);
     	model.addAttribute(menuItem);
+    	model.addAttribute("ingredients", ingredientDAO.getAllIngredients());
     	return "modify";
     }
     
