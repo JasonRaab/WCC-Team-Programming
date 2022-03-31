@@ -71,7 +71,7 @@
 							<td class="d-table-cell"><c:out value="${eachStock.stock}" /></td>
 							<td></td>
 							<td class="d-table-cell">
-								<form:input path="stock" name="newCount" type="number" placeholder="enter number" />
+								<form:input path="stock" name="newCount" type="number" placeholder="enter number" value="${eachStock.stock}"/>
 								<input type=hidden name="stockId" value="${eachStock.id}">
 								<input type="submit" value="Update"/>
 							</td>
