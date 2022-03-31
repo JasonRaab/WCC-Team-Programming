@@ -46,10 +46,10 @@
 				<thead>
 				<form:form action="processForm" modelAttribute="stock">
 				<tr>
-					<th class="d-table-cell">Category <form:input path="category"
+					<th class="d-table-cell">Category&nbsp;&nbsp;<form:input path="category"
 								type="text" placeholder="search"/></th>
 					
-					<th class="d-table-cell">Item <form:input path="item" type="text"
+					<th class="d-table-cell">Item&nbsp;&nbsp;<form:input path="item" type="text"
 								placeholder="search" /></th>
 					<th class="d-table-cell" rowspan="2">Stock</th>
 					<th class="d-table-cell" rowspan="2">Amount in Uncompleted

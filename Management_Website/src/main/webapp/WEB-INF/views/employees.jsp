@@ -55,7 +55,7 @@
 
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-3">
-				<h3>${employeeList.size()}Clocked-in Employees</h3>
+				<h3>${employeeList.size()}&nbsp;Clocked-in Employees</h3>
 			</div>
 		</div>
 
