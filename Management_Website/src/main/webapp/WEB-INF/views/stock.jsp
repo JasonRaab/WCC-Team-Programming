@@ -44,23 +44,18 @@
 		
 			<table class="table table-bordered table-striped">
 				<thead>
+				<form:form action="processForm" modelAttribute="stock">
 				<tr>
-					<th class="d-table-cell">Category</th>
-					<th class="d-table-cell">Item</th>
+					<th class="d-table-cell">Category <form:input path="category"
+								type="text" placeholder="search"/></th>
+					
+					<th class="d-table-cell">Item <form:input path="item" type="text"
+								placeholder="search" /></th>
 					<th class="d-table-cell" rowspan="2">Stock</th>
 					<th class="d-table-cell" rowspan="2">Amount in Uncompleted
 						Orders</th>
 					<th class="d-table-cell" rowspan="2">Modify Stock</th>
-					<tr>
-					<tr>
-					<form:form action="processForm" modelAttribute="stock">
-
-						<td class="d-table-cell"><form:input path="category"
-								type="text" placeholder="search" /></td>
-						<td class="d-table-cell"><form:input path="item" type="text"
-								placeholder="search" /></td>
 					</form:form>
-					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="eachStock" items="${stockList}">
