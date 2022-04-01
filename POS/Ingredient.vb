@@ -8,6 +8,7 @@
     Private isActiveValue As Boolean
     Private modificationValue As Integer
 
+
     Public Sub New(Id As Integer, Name As String, Category As String, Stock As Integer, Price As Decimal, IsActive As Integer)
         Me.Id = Id
         Me.Name = Name
@@ -83,4 +84,5 @@
             isActiveValue = value
         End Set
     End Property
+
 End Class

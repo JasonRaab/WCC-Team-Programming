@@ -72,16 +72,13 @@ Public Class DAO
 
         Reader.Close()
         connection.Close()
-        For Each str As String In lstCategories
-            Debug.WriteLine(str)
-        Next
         Return lstCategories
     End Function
 
     Public Function GetIngredientCategories() As List(Of String)
         Dim lstCategories As New List(Of String)
         connection.Open()
-        command.CommandText = "SELECT DISTINCT ingredient_category FROM dumpster_fire.ingredient;"
+        command.CommandText = "SELECT DISTINCT `ingredient_category` FROM dumpster_fire.ingredient;"
         Reader = command.ExecuteReader
 
         While Reader.Read
@@ -93,34 +90,7 @@ Public Class DAO
         Return lstCategories
     End Function
 
-    Public Sub SendTestOrder(order As Order)
-        'Order goes into order_info table
-        connection.Open()
-        command.CommandText = "INSERT INTO `dumpster_fire`.`order_info` (`order_type`, `order_price`) VALUES ('test', '" & order.Total.ToString & "');"
-        command.ExecuteNonQuery()
-        connection.Close()
-
-        'Get the Primary key from new order_info table, it is used in the next inserts
-        Dim orderID As Integer
-        connection.Open()
-        command.CommandText = "Select order_id FROM dumpster_fire.order_info ORDER BY order_id DESC LIMIT 1;"
-        Reader = command.ExecuteReader
-        If Reader.Read Then
-            orderID = Reader.GetInt32(0)
-        End If
-        connection.Close()
-
-        'Insert into item_ordered for each item in the order
-        'For Each item As Item In order.LstItems
-        '    connection.Open()
-        '    command.CommandText = "INSERT INTO `dumpster_fire`.`item_ordered` (`order_id`, `menu_item_options_id`) VALUES ('" & orderID & "', '" & item.Item_id & "');"
-        '    command.ExecuteNonQuery()
-        '    connection.Close()
-        'Next
-    End Sub
-
     Public Sub SendOrder(order As Order, user_id As Integer)
-        Debug.WriteLine("DAO SendOrder called")
         connection.Open()
         command.CommandText = "INSERT INTO `dumpster_fire`.`order_info` (`user_id`, `order_date`, `order_subtotal`, `order_tax`, `order_total`, `order_type`, `table_number`) VALUES ('" & user_id & "', '" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "', '" & order.SubTotal & "', '" & order.Tax & "', '" & order.Total & "', 'dine_in', '" & order.Location & "');"
         command.ExecuteNonQuery()
@@ -136,11 +106,19 @@ Public Class DAO
         connection.Close()
 
         For Each item As Item In order.LstItems
-            connection.Open()
-            'command.CommandText = "INSERT INTO `dumpster_fire`.item_ordered` (`order_id, item_number, menu_item, ingredient_id, modification) VALUES ('" & orderID & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "', '" & item.Item_id & "')"
-            command.CommandText = "INSERT INTO `dumpster_fire`.`item_ordered` (`order_id`, `item_number`, `menu_item`) VALUES ('" & orderID & "', '" & order.LstItems.IndexOf(item) + 1 & "', '" & item.Item_id & "')"
-            command.ExecuteNonQuery()
-            connection.Close()
+            If item.Modifications.Count = 0 Then
+                connection.Open()
+                command.CommandText = "INSERT INTO `dumpster_fire`.`item_ordered` (`order_id`, `item_number`, `menu_item`) VALUES ('" & orderID & "', '" & order.LstItems.IndexOf(item) + 1 & "', '" & item.Item_id & "')"
+                command.ExecuteNonQuery()
+                connection.Close()
+            Else
+                For Each modification As Ingredient In item.Modifications
+                    connection.Open()
+                    command.CommandText = "INSERT INTO `dumpster_fire`.`item_ordered` (`order_id`, `item_number`, `menu_item`, `ingredient_id`) VALUES ('" & orderID & "', '" & order.LstItems.IndexOf(item) + 1 & "', '" & item.Item_id & "', '" & modification.Id & "')"
+                    command.ExecuteNonQuery()
+                    connection.Close()
+                Next
+            End If
         Next
     End Sub
 
@@ -153,7 +131,6 @@ Public Class DAO
 
         If Reader.Read Then
             user = New User(pin, Reader.GetString("first_name"), Reader.GetString("last_name"))
-            Debug.WriteLine("Pin was for " & user.FirstName)
         End If
 
         Reader.Close()

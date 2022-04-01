@@ -17,12 +17,12 @@
 ''' </summary>
 Public Class POSApp
 
-    Private dctItemIngredientArray As New Dictionary(Of Item, List(Of Ingredient))
+
+    Private selectedItem As Item
     Private dctItemItemNumber As New Dictionary(Of Item, Integer)
     Private dctIngredientButtons As New Dictionary(Of Button, Ingredient)
     Private itemNumber As Integer
-    Private dctIngredientOnItem As New Dictionary(Of Ingredient, Integer)
-    Private modifiersPopup As ModifiersPopup
+    'Private modifiersPopup As ModifiersPopup
     Private loginPageValue As LoginPage
     Private mainWindowValue As MainWindow
     Private orderSelectionpageValue As OrderSelectionPage
@@ -36,6 +36,7 @@ Public Class POSApp
     Private lstClosedOrders As New List(Of Order)
     Private selectedOrder As New Order
     Private userValue As User
+    Private modifiersPopupValue As ModifiersPopup
 
     Public Property User() As User
         Get
@@ -85,6 +86,14 @@ Public Class POSApp
             orderSelectionpageValue = value
         End Set
     End Property
+    Public Property ModifiersPopup() As ModifiersPopup
+        Get
+            Return modifiersPopupValue
+        End Get
+        Set(value As ModifiersPopup)
+            modifiersPopupValue = value
+        End Set
+    End Property
 
     Public Sub New(MainWindow As MainWindow)
         'Create all pages and dao. Populate various things for order page. Show login page.
@@ -92,8 +101,9 @@ Public Class POSApp
         LoginPage = New LoginPage(Me)
         OrderSelectionPage = New OrderSelectionPage(Me)
         orderPage = New OrderPage(Me)
+        ModifiersPopup = New ModifiersPopup(Me)
         dao = New DAO("datasource=167.172.242.79;port=3306;username=testUser;password=test@password298")
-        PopulateCategoryButtons()
+        PopulateItemCategoryButtons()
         PopulateItemButtons()
         PopulateLstBoxTotals()
         MainWindow.Content = LoginPage
@@ -101,110 +111,28 @@ Public Class POSApp
 
 
     '''''''''' Populating Functions ''''''''''
-    'Public Sub PopulateIngredientButtons(category As String)
-    '    lstAllIngredients = dao.GetAllIngredients()
-    '    'lstRelevantIngredients = FilterIngredientList(category)
-    '    Dim intRow As Integer
-    '    Dim intColumn As Integer
-    '    intColumn = 0
-    '    intRow = 0
-
-    '    For Each ingredient As Ingredient In lstAllIngredients
-    '        Try
-    '            Dim btn As New Button
-    '            btn.Content = ingredient.Name.Replace(" ", Environment.NewLine)
-    '            btn.HorizontalContentAlignment = HorizontalAlignment.Center
-    '            btn.Name = "btn" & ingredient.Name.Replace(" ", "")
-    '            btn.Height = 90
-    '            btn.Width = 90
-    '            btn.FontSize = 14
-    '            AddHandler btn.Click, AddressOf IngredientBtn_Click
-    '            Grid.SetRow(btn, intRow)
-    '            Grid.SetColumn(btn, intColumn)
-    '            modifiersPopup.ingredientGridPanel.Children.Add(btn)
-    '            dctIngredientButtons.Add(btn, ingredient)
-    '            intColumn += 1
-    '            If intColumn >= 5 Then
-    '                intRow += 1
-    '                intColumn = 0
-    '            End If
-    '        Catch ex As Exception
-
-    '        End Try
-
-    '    Next
-
-    'End Sub
 
     Public Sub PopulateIngredientButtons()
         Dim lstIngredientCategories As New List(Of String)
         Dim intRow As Integer
         Dim intColumn As Integer
-        Dim currentCategory As String
-        currentCategory = "Vegetable"
-        intColumn = 0
-        intRow = 0
-        lstIngredientCategories = dao.GetIngredientCategories()
         lstAllIngredients = dao.GetAllIngredients()
 
-        For Each cate As String In lstIngredientCategories
-            Debug.WriteLine(cate)
-            For Each category As String In lstIngredientCategories
-                Try
-                    Dim btn As New Button
-                    btn.Content = category.Replace(" ", Environment.NewLine)
-                    btn.HorizontalContentAlignment = HorizontalAlignment.Center
-                    btn.Name = "btn" & category.Replace(" ", "")
-                    btn.Height = 70
-                    btn.Width = 70
-                    btn.FontSize = 14
-                    AddHandler btn.Click, AddressOf IngredientBtn_Click
-                    Grid.SetRow(btn, intRow)
-                    Grid.SetColumn(btn, intColumn)
-                    modifiersPopup.categoryGridPanel.Children.Add(btn)
-                    intColumn += 1
-                    If intColumn >= 5 Then
-                        intRow += 1
-                        intColumn = 0
-                    End If
-                Catch ex As Exception
-
-                End Try
-
-            Next
-        Next
-
-        intColumn = 0
-        intRow = 0
-
+        'Create a button for each ingredient and add it to the dctIngredientButtons Dictonary
         For Each ingredient As Ingredient In lstAllIngredients
-            Try
-                Dim btn As New Button
-                btn.Content = ingredient.Name.Replace(" ", Environment.NewLine)
-                btn.HorizontalContentAlignment = HorizontalAlignment.Center
-                btn.Name = "btn" & ingredient.Name.Replace(" ", "")
-                btn.Height = 70
-                btn.Width = 70
-                btn.FontSize = 14
-                AddHandler btn.Click, AddressOf IngredientBtn_Click
-                Grid.SetRow(btn, intRow)
-                Grid.SetColumn(btn, intColumn)
-                modifiersPopup.ingredientGridPanel.Children.Add(btn)
-                dctIngredientButtons.Add(btn, ingredient)
-                intColumn += 1
-                If intColumn >= 5 Then
-                    intRow += 1
-                    intColumn = 0
-                End If
-            Catch ex As Exception
-
-            End Try
-
+            Dim btn As New Button
+            btn.Content = ingredient.Name.Replace(" ", Environment.NewLine)
+            btn.HorizontalContentAlignment = HorizontalAlignment.Center
+            btn.Name = "btn" & ingredient.Name.Replace(" ", "")
+            btn.Height = 70
+            btn.Width = 70
+            btn.FontSize = 14
+            AddHandler btn.Click, AddressOf IngredientBtn_Click
+            dctIngredientButtons.Add(btn, ingredient)
         Next
-
     End Sub
 
-    Public Sub PopulateCategoryButtons()
+    Public Sub PopulateItemCategoryButtons()
         Dim intRow As Integer
         Dim lstCateGories As List(Of String)
         intRow = 0
@@ -379,11 +307,9 @@ Public Class POSApp
     ''''''''''' Other Functions '''''''''''''
 
     Public Sub IngredientBtn_Click(sender As Object, e As RoutedEventArgs)
-        For Each pair As KeyValuePair(Of Button, Ingredient) In dctIngredientButtons
-            If sender.Equals(pair.Key) Then
-                dctIngredientOnItem.Add(pair.Value, itemNumber)
-            End If
-        Next
+        If dctIngredientButtons.ContainsKey(CType(sender, Button)) Then
+            selectedItem.Modifications.Add(dctIngredientButtons.Item(CType(sender, Button)))
+        End If
     End Sub
 
     Public Sub CategoryBtn_Click(sender As Object, e As RoutedEventArgs)
@@ -391,8 +317,8 @@ Public Class POSApp
     End Sub
 
     Public Sub AddItem(selectedItem As Item)
-        dctItemItemNumber.Clear()
-        itemNumber = 0
+        'dctItemItemNumber.Clear()
+        'itemNumber = 0
 
         selectedOrder.LstItems.Add(selectedItem)
         orderPage.lstBoxTicket.Items.Add(selectedItem)
@@ -406,34 +332,50 @@ Public Class POSApp
             End If
         Next
 
-        For Each pair As KeyValuePair(Of Item, Integer) In dctItemItemNumber
-            Debug.WriteLine(pair.Key.Name & " is number " & pair.Value)
+        For Each item As Item In selectedOrder.LstItems
+            Debug.WriteLine("ITEM NAME: " & item.Name)
+            For Each ingredient As Ingredient In item.Modifications
+                Debug.WriteLine(item.Name & " INGREDIENT: " & ingredient.Name)
+            Next
         Next
-
     End Sub
 
-    Public Sub StartItem(sender As Object, e As RoutedEventArgs)
-        Dim selectedItem As Item
-        For Each pair As KeyValuePair(Of Button, Item) In DctItemButtons
-            If sender.Equals(pair.Key) Then
-                selectedItem = New Item(pair.Value)
-                modifiersPopup = New ModifiersPopup(Me, selectedItem)
-                PopulateIngredientButtons()
-                modifiersPopup.Show()
+    Public Sub StartItem(clickedBtn As Object, e As RoutedEventArgs)
 
-                'For Each ingredient As Ingredient In lstRelevantIngredients
-                '    Debug.WriteLine(ingredient.Id.ToString & " " & ingredient.Name & " " & ingredient.Category & " " & ingredient.Stock.ToString & " " & ingredient.Price.ToString & " " & ingredient.IsActive.ToString)
-                'Next
+        'Uses DctItemButtons to find and create the correct item to use based on which button was clicked
+        If DctItemButtons.ContainsKey(clickedBtn) Then
+            selectedItem = New Item(DctItemButtons.Item(clickedBtn))
+            ModifiersPopup.SelectedItem = selectedItem
+            PopulateIngredientButtons()
+            FilterIngredientCategory("Vegetable")
+            ModifiersPopup.ShowDialog()
+        End If
+    End Sub
 
+    Public Sub FilterIngredientCategory(category As String)
+        ModifiersPopup.ingredientGridPanel.Children.Clear()
+        Dim intColumn As Integer = 0
+        Dim intRow As Integer = 0
+
+        For Each pair As KeyValuePair(Of Button, Ingredient) In dctIngredientButtons
+            'Break down name of ingredient category to the first word only
+            'If pair.Value.Category.Contains(" ") Then
+            '    ingredientCategory = pair.Value.Category.Substring(0, category.IndexOf(" "))
+            'Else
+            '    ingredientCategory = pair.Value.Category
+            'End If
+            If pair.Value.Category.Equals(category) Then
+                Grid.SetRow(pair.Key, intRow)
+                Grid.SetColumn(pair.Key, intColumn)
+                ModifiersPopup.ingredientGridPanel.Children.Add(pair.Key)
+                intColumn += 1
+                If intColumn >= 4 Then
+                    intRow += 1
+                    intColumn = 0
+                End If
             End If
         Next
 
-        'The top three lines below need to be moved to the "OK" button on the modifiers popup
-        'selectedOrder.LstItems.Add(selectedItem)
-        'orderPage.lstBoxTicket.Items.Add(selectedItem)
-        'orderPage.lstBoxTicket.SelectedItem = selectedItem
-        'UpdateTotals()
-        'PrintItemListTest()
     End Sub
 
     Public Sub LstBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
