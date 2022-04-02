@@ -13,18 +13,23 @@ public class OrderListCreator {
 	ArrayList<Integer> ingredientIdList = new ArrayList<>();
 	
 
-	Set<Integer> defaultIngredientIdList = new HashSet<>();
-	Set<Integer> modifyIngredientIdList = new HashSet<>();
+	Set<Integer> defaultIngredientIdSet = new HashSet<>();
+	Set<Integer> modifiedIngredientIdSet = new HashSet<>();
 	
+	ArrayList<Integer> editedMenuItems = new ArrayList<>();
 	
-	public Set<Integer> getDefaultIngredientIdList() {
-		return defaultIngredientIdList;
+	public Set<Integer> compareDefaultWithUserChosenEdits(){
+		return defaultIngredientIdSet;
+	}	
+	
+	public Set<Integer> getDefaultIngredientIdSet() {
+		return defaultIngredientIdSet;
 	}
 
-	public Set<Integer> getModifyIngredientIdList() {
-		return modifyIngredientIdList;
+	public Set<Integer> getModifiedIngredientIdSet() {
+		return modifiedIngredientIdSet;
 	}
-
+	
 	//change to MenuItemListCreator(Integer itemID)
 	public void listCreator(Integer itemID) {
 		itemIdList.add(itemID);
@@ -36,7 +41,7 @@ public class OrderListCreator {
 	
 	//This is used when checked checkboxes are collected and added to this Set
 	public void ingredientIdSetCreator(Integer ingredientID) {
-		modifyIngredientIdList.add(ingredientID);
+		modifiedIngredientIdSet.add(ingredientID);
 	}
 
 	public ArrayList<Integer> getItemIdList() {

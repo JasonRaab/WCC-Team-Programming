@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.MenuItem;
+import com.wccnet.goodTimeBobbys.entity.OrderInfo;
 
 public interface IRestaurantDAO {
 
@@ -25,5 +26,7 @@ public interface IRestaurantDAO {
 	public List<MenuItem> getMenuItemByCategory(String string);
 
 	public List<Double> getMenuItemPriceByID(Integer menuItemID);
+
+	void saveOrderID(OrderInfo order);
 
 }

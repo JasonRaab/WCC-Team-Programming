@@ -56,15 +56,13 @@ public class OrderInfo {
 	 * @param orderTotal
 	 * @param orderType
 	 */
-	public OrderInfo(int userId, String orderDate, Double orderSubtotal, Double orderTax, Double orderTotal,
-			String orderType) {
+	public OrderInfo(int userId, String orderDate, Double orderSubtotal, Double orderTax, Double orderTotal) {
 		super();
 		this.userId = userId;
 		this.orderDate = orderDate;
 		this.orderSubtotal = orderSubtotal;
 		this.orderTax = orderTax;
 		this.orderTotal = orderTotal;
-		this.orderType = orderType;
 	}
 
 	public int getOrderId() {

@@ -117,7 +117,7 @@
 				<button class="tablinks" onclick="openMenu(event, 'Condiments')">Condiments</button>
 			</div>
 		</div>
-		<form>
+		<form action="testing" method="post">
 			<fieldset>
 				<legend> Choose Ingredients to Add: </legend>
 				<div id="Breads" class="tabcontent">
@@ -236,8 +236,8 @@
 										<td>${eachIngredient.ingredientId}</td>
 										<td>${eachIngredient.ingredientName}</td>
 										<td>$${eachIngredient.ingredientPrice}</td>
-										<td><input type="checkbox"
-											id="${eachIngredient.ingredientName}" name="ingredientAdded"
+										<td><input type="checkbox" name="ingredientAdded"
+											id="${eachIngredient.ingredientName}"
 											value="${eachIngredient.ingredientId}"> <label
 											for="ingredientAdded">Add Ingredient</label></td>
 									</c:if>
@@ -247,10 +247,11 @@
 					</div>
 				</div>
 				<div>
-					<button type="submit">Submit Changes</button>
+					<input type="submit" value="submit" name="submit"/>
 				</div>
 			</fieldset>
 		</form>
+		
 	</div>
 </body>
 </html>

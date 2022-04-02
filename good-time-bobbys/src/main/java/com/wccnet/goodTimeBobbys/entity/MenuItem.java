@@ -56,17 +56,6 @@ public class MenuItem {
 
 	}
 	
-//	public void blah() {
-//		List<Ingredient>
-//		for (Ingredient ingredient : ingredients) {
-//			if (ingredient.getIsActive() == 1) {
-//				
-//			}
-//		}
-//	}
-	
-
-
 	public MenuItem(String itemName, String itemDescription, String itemCategory, int itemStock, Double itemPrice,
 			int isActive) {
 		super();

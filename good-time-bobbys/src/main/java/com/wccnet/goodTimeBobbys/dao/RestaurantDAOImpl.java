@@ -5,18 +5,15 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.wccnet.goodTimeBobbys.entity.Address;
 import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.MenuItem;
-import com.wccnet.goodTimeBobbys.entity.User;
+import com.wccnet.goodTimeBobbys.entity.OrderInfo;
 
 @Repository
 public class RestaurantDAOImpl implements IRestaurantDAO {
@@ -90,6 +87,17 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 //		menuItem = session.get(MenuItem.class, menuItemID);
 //		return menuItem.getIngredients();
 //	}
+	@Override
+	@Transactional
+	public void saveOrderID(OrderInfo order) {
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(order);
+	}
+	
+	public OrderInfo getOrder(int orderID) {
+		
+		return null;
+	}
 
 
 	@Override

@@ -106,6 +106,7 @@
 		<div class="jumbotron text-center">
 			<h1>WELCOME TO GOOD TIME BOBBY'S
 				${user.firstName}&nbsp;${user.lastName}</h1>
+				<h2>Order ID: ${newOrder.orderId}</h2>
 		</div>
 
 	</div>
@@ -325,12 +326,6 @@
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
 							</c:url>
-
-							<%-- 						<c:url var="modifyItem" value="/modifyItem"> --%>
-							<%-- 							<c:param name="userID" value="${user.userId}" /> --%>
-							<%-- 							<c:param name="menuItemID" value="${eachItem.itemId}" /> --%>
-							<%-- 							<c:param name="ingregientIDs" value="${eachItem.ingredients}" /> --%>
-							<%-- 						</c:url> --%>
 							<tr>
 								<c:if test="${eachItem.itemCategory.equals('Beverage')}">
 									<td>${eachItem.itemId}</td>
@@ -339,27 +334,18 @@
 									<td><c:forEach var="eachIngredient"
 											items="${eachItem.getIngredients()}">
 											<c:if test="${eachIngredient.isActive == 1}">
-									
 											${eachIngredient.ingredientName},
 									</c:if>
 										</c:forEach></td>
 									<td>$${eachItem.itemPrice}</td>
 									<td><a href="${addToCartLink}"
 										class="btn btn-primary btn-sm active">Add to Order</a></td>
-									<%-- 								<td><a href="${modifyItem}" --%>
-									<!-- 									class="btn btn-primary btn-sm active">Modify Item</a></td> -->
 								</c:if>
 							</tr>
 						</c:forEach>
 					</table>
 				</div>
 			</div>
-			<!-- 		<div> -->
-			<%-- 			<c:url var="cart" value="/itemIdList"> --%>
-			<%-- 				<c:param name="userID" value="${user.userId}" /> --%>
-			<%-- 			</c:url> --%>
-			<%-- 			<a href="${cart}" class="btn btn-primary btn-sm active">Checkout</a> --%>
-			<!-- 		</div> -->
 		</div>
 	</div>
 </body>

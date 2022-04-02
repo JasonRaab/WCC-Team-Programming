@@ -42,13 +42,6 @@
 </head>
 <body>
 	<div class="container">
-		<div class="jumbotron text-center">
-			<h1>WELCOME TO GOOD TIME BOBBY'S
-				${user.firstName}&nbsp;${user.lastName}</h1>
-		</div>
-	</div>
-
-	<div class="container">
 		<div class="card">
 			<%-- 			<form:form action="orderDetails" method="post" --%>
 			<%-- 				modelAttribute="orderID"> --%>
@@ -67,53 +60,26 @@
 					</td>
 				</tr>
 			</table>
-
-
-
-
-			<table>
-				<c:forEach var="eachIngredient" items="${ingredients}">
-					<tr>
-						<td>${eachIngredient.ingredientId}</td>
-						<td>${eachIngredient.ingredientName}</td>
-						<td>$${eachIngredient.ingredientPrice}</td>
-					</tr>
-				</c:forEach>
-				<!-- 				not sure how this is going to look - INVESTIGATE -->
-			</table>
-			<%-- 			</form:form> --%>
 		</div>
 
 	</div>
+	<div class="container">
+		<div class="card">
+			<%-- 			<form:form action="orderDetails" method="post" --%>
+			<%-- 				modelAttribute="orderID"> --%>
+			<table>
+				<tr>
+					<td>
+						<c:forEach var="eachCheckbox" items="${ingredientAdded}">
+							<tr>
+								<td>${eachCheckbox}</td>
+							</tr>
+						</c:forEach>
+					</td>
+				</tr>
+			</table>
+		</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	</div>
 </body>
 </html>

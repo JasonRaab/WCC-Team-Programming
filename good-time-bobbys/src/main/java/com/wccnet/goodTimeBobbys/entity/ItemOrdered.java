@@ -1,18 +1,19 @@
 package com.wccnet.goodTimeBobbys.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //@Entity
 //@Table(name = "item_ordered")
 public class ItemOrdered {
 
 	// One OrderInfo to many menuItem(s)
-	@Id
 	@Column(name = "order_id")
 	private int orderId;
 
@@ -31,6 +32,10 @@ public class ItemOrdered {
 	// This is a True = 1, False = 0
 	@Column(name = "modification")
 	private int modification;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "orderInfo")
+	private List<OrderInfo> orderInfoList;
 
 	public ItemOrdered() {
 
