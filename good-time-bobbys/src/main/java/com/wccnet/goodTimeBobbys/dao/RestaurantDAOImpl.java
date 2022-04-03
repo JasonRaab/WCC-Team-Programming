@@ -21,27 +21,23 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	// private MenuItem menuItem;
 
-
-	//private MenuItem menuItem;
-	
-	
 	@Override
 	@Transactional
 	public List<MenuItem> getMenuItems() {
 		Session session = sessionFactory.getCurrentSession();
-        Query<MenuItem> menuItems = session.createQuery("from MenuItem", MenuItem.class);
-        
-        return menuItems.getResultList();
+		Query<MenuItem> menuItems = session.createQuery("from MenuItem", MenuItem.class);
+
+		return menuItems.getResultList();
 
 	}
-	
-	
+
 	@Override
 	@Transactional
 	public MenuItem getMenuItemByID(int menuItemID) {
 		Session session = sessionFactory.getCurrentSession();
-        return session.get(MenuItem.class, menuItemID);
+		return session.get(MenuItem.class, menuItemID);
 
 	}
 
@@ -49,13 +45,13 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Transactional
 	public List<MenuItem> getMenuItemByCategory(String category) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<MenuItem> query = session.createQuery("from MenuItem where isActive = 1 AND itemCategory = :category", MenuItem.class).setParameter("category", category);
+		Query<MenuItem> query = session
+				.createQuery("from MenuItem where isActive = 1 AND itemCategory = :category", MenuItem.class)
+				.setParameter("category", category);
 		return query.getResultList();
 	}
-	
-	
 
-	//Get all ingredients from the ingredient table
+	// Get all ingredients from the ingredient table
 	@Override
 	@Transactional
 	public List<Ingredient> getIngredient() {
@@ -66,19 +62,20 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 		return query.getResultList();
 	}
 
-	//Get Ingredients by Ingredient Category
+	// Get Ingredients by Ingredient Category
 	@Override
 	@Transactional
 	public List<Ingredient> getIngredientsByIngredientCategory(String category) {
 
 		Session session = sessionFactory.getCurrentSession();
-		Query<Ingredient> query = session.createQuery("from Ingredient where ingredient_category = :category",
-				Ingredient.class).setParameter("category", category);
+		Query<Ingredient> query = session
+				.createQuery("from Ingredient where ingredient_category = :category", Ingredient.class)
+				.setParameter("category", category);
 		System.out.println("in impl getFILTERED INGR()");
 		return query.getResultList();
 	}
-	
-	//Get MenuItem Ingredients by Menu Item ID
+
+	// Get MenuItem Ingredients by Menu Item ID
 //	@Override
 //	@Transactional
 //	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID){
@@ -89,39 +86,44 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 //	}
 	@Override
 	@Transactional
-	public void saveOrderID(OrderInfo order) {
+	public void saveOrder(OrderInfo order) {
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(order);
 	}
-	
-	public OrderInfo getOrder(int orderID) {
-		
-		return null;
-	}
 
+	@Override
+	@Transactional
+	public OrderInfo getOrderInfoByID(int orderID) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<OrderInfo> query = session.createQuery("from OrderInfo oi where orderId = :orderID", OrderInfo.class).setParameter("orderID", orderID);
+		
+		return query.getSingleResult();
+	}
 
 	@Override
 	@Transactional
 	public List<MenuItem> getMenuItemByMenuItemID(ArrayList<Integer> menuItemID) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<MenuItem> query = session.createQuery("from MenuItem mi where itemId = :menuItemID", MenuItem.class).setParameter("menuItemID", menuItemID);
-		return query.getResultList();		
+		Query<MenuItem> query = session.createQuery("from MenuItem mi where itemId = :menuItemID", MenuItem.class)
+				.setParameter("menuItemID", menuItemID);
+		return query.getResultList();
 	}
-
 
 	@Override
 	public List<Double> getMenuItemPriceByID(Integer menuItemID) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<MenuItem> query = session.createQuery("select mi.itemPrice from MenuItem mi where itemId = :menuItemID", MenuItem.class).setParameter("menuItemID", menuItemID);
+		Query<MenuItem> query = session
+				.createQuery("select mi.itemPrice from MenuItem mi where itemId = :menuItemID", MenuItem.class)
+				.setParameter("menuItemID", menuItemID);
 		List<MenuItem> list = query.getResultList();
 		ArrayList<Double> priceList = new ArrayList<>();
 		for (MenuItem menuItem : list) {
-			priceList.add((Double)menuItem.getItemPrice());
+			priceList.add((Double) menuItem.getItemPrice());
 		}
 		return priceList;
 	}
-	
-	
+
+
 }
 
 //@Override
@@ -165,7 +167,7 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 //	}
 //
 //	return results;
-	
+
 //	
 //	System.out.println("after create Alias");
 //	for (int i = 0; i < 100; i++) {
@@ -178,35 +180,34 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 //		System.out.println(smellyAddress);
 //	}
 
-
 //	Query<Address> query = session.createQuery("from Address a inner join a.users u where u.userId = 1004", Address.class);
 //	System.out.println("blah blah blah");
 //	List<Address> fuck =  query.getResultList();
 //	System.out.println("your mom");
 
-	// Query<Address> query = session.createQuery("from UserAddress ua Address a
-	// where ua.userId = 1004", Address.class);
-	// User user = new User();
+// Query<Address> query = session.createQuery("from UserAddress ua Address a
+// where ua.userId = 1004", Address.class);
+// User user = new User();
 
-	// List<Address> userAddresses = user.getAddresses();
+// List<Address> userAddresses = user.getAddresses();
 
-	// Query<User> userQuery = session.createQuery("from UserAddress ua, Address a
-	// where ua.userId = 1004", User.class);
-	// Query<Address> query = session.createQuery("from Address a, User u where
-	// u.userId = 1004", Address.class);
+// Query<User> userQuery = session.createQuery("from UserAddress ua, Address a
+// where ua.userId = 1004", User.class);
+// Query<Address> query = session.createQuery("from Address a, User u where
+// u.userId = 1004", Address.class);
 //	Query<Address> query = session.createQuery("select a.streetAddress, a.city, a.state, a.zip from UserAddress ua inner join ua.addressId a where userId = 1004", Address.class);
-	// @SuppressWarnings("unchecked")
-	// List<Object[]> list = query.list();
+// @SuppressWarnings("unchecked")
+// List<Object[]> list = query.list();
 
 //	for(Object[] arr : list) {
 //		System.out.println(Arrays.toString(arr));
 //	}
-	// List<User> list = userQuery.getResultList();
+// List<User> list = userQuery.getResultList();
 //	System.out.println(list);
 //	System.out.println(query);
 //	return query.getResultList();
 
-	// return query.getResultList();
+// return query.getResultList();
 //	String sql = "select a.street_address, a.city, a.state, a.zip "
 //			+ "	from user_address ua "
 //			+ "	inner join address a on a.address_id = ua.address_id "

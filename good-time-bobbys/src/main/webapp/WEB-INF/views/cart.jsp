@@ -61,6 +61,7 @@
 					<c:forEach var="eachMenuItem" items="${menuItemList}">
 						<c:url var="addMoreToOrder" value="/backToMenu">
 							<c:param name="userID" value="${user.userId}" />
+							<c:param name="orderID" value="${orderID}" />
 						</c:url>
 						<tr>
 							<td>${eachMenuItem.itemId}</td>
@@ -74,13 +75,15 @@
 									</c:if>
 								</c:forEach></td>
 							<td>$${eachMenuItem.itemPrice}</td>
-							
+
 							<c:url var="modify" value="/modify">
 								<c:param name="userID" value="${user.userId}" />
-								<c:param name="menuItemID" value="${eachMenuItem.itemId}"/>
+								<c:param name="menuItemID" value="${eachMenuItem.itemId}" />
+								<c:param name="orderID" value="${orderID}" />
 							</c:url>
-							
-							<td><td style="text-align: right;"><a href="${modify}"
+
+							<td>
+							<td style="text-align: right;"><a href="${modify}"
 								class="btn btn-sm active"
 								style="color: black; background-color: gray; font-size: medium;"
 								role="button" aria-pressed="true">Modify Item</a></td>
@@ -91,13 +94,13 @@
 					<tr>
 						<c:url var="checkout" value="/checkout">
 							<c:param name="userID" value="${user.userId}" />
+							<c:param name="orderID" value="${orderID}" />
 						</c:url>
 						<td></td>
 						<td></td>
-
 						<td></td>
 						<td></td>
-						<td>SUBTOTAL: </td>
+						<td>SUBTOTAL:</td>
 						<td align="right">${subtotal}</td>
 						<td style="text-align: right;"><a href="${checkout}"
 							class="btn btn-sm active"
@@ -108,6 +111,7 @@
 			</form:form>
 			<c:url var="addMoreToOrder" value="/backToMenu">
 				<c:param name="userID" value="${user.userId}" />
+				<c:param name="orderID" value="${orderID}" />
 			</c:url>
 			<a href="${addMoreToOrder}" class="btn btn-sm active"
 				style="color: white; background-color: black; font-size: medium;"

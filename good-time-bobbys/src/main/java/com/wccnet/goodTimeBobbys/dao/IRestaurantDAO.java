@@ -27,6 +27,8 @@ public interface IRestaurantDAO {
 
 	public List<Double> getMenuItemPriceByID(Integer menuItemID);
 
-	void saveOrderID(OrderInfo order);
+	void saveOrder(OrderInfo order);
+
+	public OrderInfo getOrderInfoByID(int orderID);
 
 }

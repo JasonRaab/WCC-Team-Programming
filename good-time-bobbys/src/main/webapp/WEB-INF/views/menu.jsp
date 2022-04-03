@@ -106,13 +106,15 @@
 		<div class="jumbotron text-center">
 			<h1>WELCOME TO GOOD TIME BOBBY'S
 				${user.firstName}&nbsp;${user.lastName}</h1>
-				<h2>Order ID: ${newOrder.orderId}</h2>
+			<h2>Order ID: ${orderID}</h2>
+			<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
 		</div>
 
 	</div>
 	<div style="text-align: center;">
 		<c:url var="cart" value="/itemIdList">
 			<c:param name="userID" value="${user.userId}" />
+			<c:param name="orderID" value="${orderID}" />
 		</c:url>
 		<a href="${cart}" style="text-align: center;"
 			class="btn btn-primary btn-lg active">View Cart</a>
@@ -122,7 +124,6 @@
 	</div>
 	<br>
 	<div>
-
 		<div class="container">
 			<div class="tab">
 				<button class="tablinks" onclick="openMenu(event, 'Apps')">Apps</button>
@@ -134,7 +135,6 @@
 				<button class="tablinks" onclick="openMenu(event, 'Beverages')">Beverages</button>
 			</div>
 
-
 			<!-- TAB CONTENT -->
 			<div id="Apps" class="tabcontent">
 				<h3 class="header">APPS</h3>
@@ -144,6 +144,7 @@
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
+								<c:param name="orderID" value="${orderID}" />
 							</c:url>
 							<tr>
 								<c:if test="${eachItem.itemCategory.equals('Appetizer')}">
@@ -159,7 +160,9 @@
 										</c:forEach></td>
 									<td>$${eachItem.itemPrice}</td>
 									<td><a href="${addToCartLink}"
-										class="btn btn-primary btn-sm active">Add to Order</a></td>
+										class="btn btn-primary btn-sm active">Add to Order</a> <input
+										type="hidden" id="orderID" name="orderID"
+										value="${order.orderId}"></td>
 									<td></td>
 								</c:if>
 							</tr>
@@ -175,6 +178,7 @@
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
+								<c:param name="orderID" value="${orderID}" />
 							</c:url>
 							<tr>
 								<c:if test="${eachItem.itemCategory.equals('Salad')}">
@@ -204,6 +208,7 @@
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
+								<c:param name="orderID" value="${orderID}" />
 							</c:url>
 							<tr>
 								<c:if test="${eachItem.itemCategory.equals('Sandwich')}">
@@ -234,6 +239,7 @@
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
+								<c:param name="orderID" value="${orderID}" />
 							</c:url>
 							<tr>
 								<c:if test="${eachItem.itemCategory.equals('Entree')}">
@@ -265,6 +271,7 @@
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
+								<c:param name="orderID" value="${orderID}" />
 							</c:url>
 							<tr>
 								<c:if test="${eachItem.itemCategory.equals('Dessert')}">
@@ -295,6 +302,7 @@
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
+								<c:param name="orderID" value="${orderID}" />
 							</c:url>
 							<tr>
 								<c:if test="${eachItem.itemCategory.equals('Side')}">
@@ -325,6 +333,7 @@
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
+								<c:param name="orderID" value="${orderID}" />
 							</c:url>
 							<tr>
 								<c:if test="${eachItem.itemCategory.equals('Beverage')}">

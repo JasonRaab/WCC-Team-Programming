@@ -104,6 +104,7 @@
 			<h1>WELCOME TO GOOD TIME BOBBY'S
 				${user.firstName}&nbsp;${user.lastName}</h1>
 			<h2>${menuItem.itemName}</h2>
+			<h3>${orderID}</h3>
 		</div>
 	</div>
 	<div class="container">
@@ -131,10 +132,29 @@
 										<td>${eachIngredient.ingredientId}</td>
 										<td>${eachIngredient.ingredientName}</td>
 										<td>$${eachIngredient.ingredientPrice}</td>
-										<td><input type="checkbox"
-											id="${eachIngredient.ingredientName}" name="ingredientAdded"
-											value="${eachIngredient.ingredientId}"> <label
-											for="ingredientAdded">Add Ingredient</label></td>
+										<td><c:forEach var="defaultIngredientList"
+												items="${defaultIngredientList}">
+												<c:if
+													test="${defaultIngredientList.ingredientCategory.equals('Bread')}">
+													<c:choose>
+														<c:when
+															test="${eachIngredient.ingredientId == defaultIngredientList.ingredientId}">
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}" checked>
+															<label for="ingredientAdded">Remove Ingredient</label>
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}">
+															<label for="ingredientAdded">Add Ingredient</label>
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+											</c:forEach></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -152,10 +172,29 @@
 										<td>${eachIngredient.ingredientId}</td>
 										<td>${eachIngredient.ingredientName}</td>
 										<td>$${eachIngredient.ingredientPrice}</td>
-										<td><input type="checkbox"
-											id="${eachIngredient.ingredientName}" name="ingredientAdded"
-											value="${eachIngredient.ingredientId}"> <label
-											for="ingredientAdded">Add Ingredient</label></td>
+										<td><c:forEach var="defaultIngredientList"
+												items="${defaultIngredientList}">
+												<c:if
+													test="${defaultIngredientList.ingredientCategory.equals('Vegetable')}">
+													<c:choose>
+														<c:when
+															test="${eachIngredient.ingredientId == defaultIngredientList.ingredientId}">
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}" checked>
+															<label for="ingredientAdded">Remove Ingredient</label>
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}">
+															<label for="ingredientAdded">Add Ingredient</label>
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+											</c:forEach></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -173,10 +212,29 @@
 										<td>${eachIngredient.ingredientId}</td>
 										<td>${eachIngredient.ingredientName}</td>
 										<td>$${eachIngredient.ingredientPrice}</td>
-										<td><input type="checkbox"
-											id="${eachIngredient.ingredientName}" name="ingredientAdded"
-											value="${eachIngredient.ingredientId}"> <label
-											for="ingredientAdded">Add Ingredient</label></td>
+										<td><c:forEach var="defaultIngredientList"
+												items="${defaultIngredientList}">
+												<c:if
+													test="${defaultIngredientList.ingredientCategory.equals('Protein')}">
+													<c:choose>
+														<c:when
+															test="${eachIngredient.ingredientId == defaultIngredientList.ingredientId}">
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}" checked>
+															<label for="ingredientAdded">Remove Ingredient</label>
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}">
+															<label for="ingredientAdded">Add Ingredient</label>
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+											</c:forEach></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -194,10 +252,29 @@
 										<td>${eachIngredient.ingredientId}</td>
 										<td>${eachIngredient.ingredientName}</td>
 										<td>$${eachIngredient.ingredientPrice}</td>
-										<td><input type="checkbox"
-											id="${eachIngredient.ingredientName}" name="ingredientAdded"
-											value="${eachIngredient.ingredientId}"> <label
-											for="ingredientAdded">Add Ingredient</label></td>
+										<td><c:forEach var="defaultIngredientList"
+												items="${defaultIngredientList}">
+												<c:if
+													test="${defaultIngredientList.ingredientCategory.equals('Fruit')}">
+													<c:choose>
+														<c:when
+															test="${eachIngredient.ingredientId == defaultIngredientList.ingredientId}">
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}" checked>
+															<label for="ingredientAdded">Remove Ingredient</label>
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}">
+															<label for="ingredientAdded">Add Ingredient</label>
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+											</c:forEach></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -215,10 +292,29 @@
 										<td>${eachIngredient.ingredientId}</td>
 										<td>${eachIngredient.ingredientName}</td>
 										<td>$${eachIngredient.ingredientPrice}</td>
-										<td><input type="checkbox"
-											id="${eachIngredient.ingredientName}" name="ingredientAdded"
-											value="${eachIngredient.ingredientId}"> <label
-											for="ingredientAdded">Add Ingredient</label></td>
+										<td><c:forEach var="defaultIngredientList"
+												items="${defaultIngredientList}">
+												<c:if
+													test="${defaultIngredientList.ingredientCategory.equals('Dairy')}">
+													<c:choose>
+														<c:when
+															test="${eachIngredient.ingredientId == defaultIngredientList.ingredientId}">
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}" checked>
+															<label for="ingredientAdded">Remove Ingredient</label>
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}">
+															<label for="ingredientAdded">Add Ingredient</label>
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+											</c:forEach></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -236,10 +332,29 @@
 										<td>${eachIngredient.ingredientId}</td>
 										<td>${eachIngredient.ingredientName}</td>
 										<td>$${eachIngredient.ingredientPrice}</td>
-										<td><input type="checkbox" name="ingredientAdded"
-											id="${eachIngredient.ingredientName}"
-											value="${eachIngredient.ingredientId}"> <label
-											for="ingredientAdded">Add Ingredient</label></td>
+										<td><c:forEach var="defaultIngredientList"
+												items="${defaultIngredientList}">
+												<c:if
+													test="${defaultIngredientList.ingredientCategory.equals('Condiment')}">
+													<c:choose>
+														<c:when
+															test="${eachIngredient.ingredientId == defaultIngredientList.ingredientId}">
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}" checked>
+															<label for="ingredientAdded">Remove Ingredient</label>
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox"
+																id="${eachIngredient.ingredientName}"
+																name="ingredientAdded"
+																value="${eachIngredient.ingredientId}">
+															<label for="ingredientAdded">Add Ingredient</label>
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+											</c:forEach></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -247,11 +362,11 @@
 					</div>
 				</div>
 				<div>
-					<input type="submit" value="submit" name="submit"/>
+					<input type="submit" value="submit" name="submit" />
 				</div>
 			</fieldset>
 		</form>
-		
+
 	</div>
 </body>
 </html>

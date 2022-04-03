@@ -1,6 +1,7 @@
 package com.wccnet.goodTimeBobbys.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,97 +46,128 @@ public class MainController {
 
 	@RequestMapping("/")
     public String loginOne(Model model) {
+		OrderInfo order = new OrderInfo();
+    	restaurantDAO.saveOrder(order);
+    	System.out.println(order.getOrderId());
 		model.addAttribute("users", userDAO.getUsers());
+		model.addAttribute("order", order);
         return "login";
     }
 	
-	
-	
-    //Displays all users and Addresses - prolly will never use
-    @RequestMapping("/showUsers")
-    public String userHome(Model model, @ModelAttribute("user") User user, @ModelAttribute("lucifer") User alex, @RequestParam(name = "userID", defaultValue = "0") int userID, BindingResult result) {
-    	
-        model.addAttribute("user", userDAO.getUsers());
-        System.out.println("got the user list");
-        
-        
-        model.addAttribute("lucifer", userDAO.getUserByID(1004));
-        
-        System.out.println("Got Lucifer Address");
-        System.out.println("smelly CONTROLLER");
-        System.out.println(userID);
-        return "showUsers";
-    }
-
-    @RequestMapping("/fullIngredientList")
-    public String getIngerdientList(Model model, @ModelAttribute("ingredient") Ingredient ingredient,
-            BindingResult result) {
-        model.addAttribute("ingredient", restaurantDAO.getIngredient());
-        System.out.println("in controller.getIngretientList");
-
-        return "fullIngredientList";
-    }
-
-    //Get Ingredients by IngredientCategory
-    //Used for when a menu item is selected,
-    //in the .jsp it will show all available ingredients for that menu item based on its menu item category.
-    //we would like to be able to have the ingredients that already exist on that item be checked
-    //and the ones that are available for add-on will be unchecked with add-on price displayed.
-    //Allowing the user to add items to their menu item
-    
-    
-    //ADD THIS TO THE FUNCTION PARAMS WHEN WE ARE ABLE!!! @RequestParam("ingredientCatagory") String ingredientCategotry,
-    @RequestMapping("/filteredIngredientList")
-    public String getFilteredIngredientList(Model model,
-    		@ModelAttribute("ingredients") Ingredient ingredient, 
-            BindingResult result) {
-        model.addAttribute("ingredients", restaurantDAO.getIngredientsByIngredientCategory("Burger"));
-        //model.addAttribute("ingredientIndex", ingredient.getIngredientId());
-        System.out.println("Getting the filtered ingredient list");
-        return "filteredIngredientList";
-    }
-
-    //Display all Menu items and their ingredients
+	  //Display all Menu items and their ingredients
     @RequestMapping("/menu")
     public String getMenuItems(Model model, 
     		@RequestParam(name = "userID", defaultValue = "0") int userID,
+    		@RequestParam(name = "orderID") int orderID,
     		@ModelAttribute("menuItems") MenuItem menuItem,
-    		@ModelAttribute("newOrder") OrderInfo newOrder,
     		@ModelAttribute("ingredientIDs") Ingredient ingredientID,
     		 BindingResult bindingResult) {
     	User user = userDAO.getUserByID(userID);
-    	OrderInfo order = new OrderInfo();
-    	restaurantDAO.saveOrderID(order);
-    	model.addAttribute("newOrder", order);
+    	OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
+    	
+    	int orderIDint = orderInfo.getOrderId();
+    	//OrderInfo order = restaurantDAO.getOrderInfoByID(orderID);
+    	
     	model.addAttribute(user);
+    	model.addAttribute("orderID", orderIDint);
     	model.addAttribute("menuItem", restaurantDAO.getMenuItems());
         return "menu";
     }
-    
-    @RequestMapping("/backToMenu")
-    public String backToMenu(Model model, @RequestParam(name = "userID") int userID) {
-    	int userId = userID;
-    	User user = userDAO.getUserByID(userId);
-
-    	model.addAttribute("user", user);
-    	model.addAttribute("menuItem", restaurantDAO.getMenuItems());
-        return "menu";
-    }
-    
-    
+	
     @RequestMapping("/addMenuItemToCart")
-    public String addMenuItemToCart(Model model, @RequestParam(name = "userID") int userID,
-    		@RequestParam(name = "menuItemID") int menuItemID) {
+    public String addMenuItemToCart(Model model,
+    		@RequestParam(name = "userID") int userID,
+    		@RequestParam(name = "menuItemID") int menuItemID,
+    		@RequestParam(name = "orderID") int orderID) {
     	int user = userID;
+    	int orderIDint = orderID; 
+    	
+    	//OrderInfo order = restaurantDAO.getOrderInfoByID(orderID);
     	orderListCreator.listCreator(menuItemID);
     	
-    	model.addAttribute("userID", user);    	
+    	model.addAttribute("userID", user); 
+    	model.addAttribute("orderID", orderIDint);
     	model.addAttribute("itemIdList", orderListCreator.getItemIdList());
     	
 		return "redirect:/menu";
     	
     }
+    
+    @RequestMapping("itemIdList")
+    public String itemIdList(Model model,@RequestParam(name = "userID") int userID,
+    		@RequestParam(name = "orderID") int orderID,
+    		@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
+    		@ModelAttribute(name = "subtotal") String priceTotal, BindingResult bindingResult) {
 
+    	User user = userDAO.getUserByID(userID);
+    	OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
+    	int orderIDint = orderInfo.getOrderId();
+    	
+    	for (Integer menuItemId : orderListCreator.getItemIdList()) {
+			menuItemList.add(restaurantDAO.getMenuItemByID(menuItemId));
+		}
+
+    	model.addAttribute("user", user);
+    	model.addAttribute("orderID", orderIDint);
+    	model.addAttribute("menuItemList", menuItemList);
+    	model.addAttribute("subtotal", menuService.getSubTotal(menuItemList));
+    	
+    	return "cart";
+    	
+    }
+    
+    @RequestMapping("/modify")
+    public String modifyItem(Model model, @RequestParam(name = "userID") int userID, 
+    		@RequestParam(name = "menuItemID") int menuItemID,
+    		@RequestParam(name = "orderID") int orderID,
+    		@ModelAttribute(name = "defaultIngredientList") Ingredient defaultIngredientList,
+    		@ModelAttribute(name = "ingredients") Ingredient ingredients,
+    		//@ModelAttribute(name = "comparisonSet") Set<Integer> comparisonSet,
+    		BindingResult bindingResult){
+    	
+    	User user = userDAO.getUserByID(userID);
+    	MenuItem menuItem = restaurantDAO.getMenuItemByID(menuItemID);
+    	OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
+    	int orderIDint = orderInfo.getOrderId();
+       	//Set<Integer> results = ingredientDAO.compareDefaultAndChosenIngredients(menuItemID);
+    	List<Ingredient> defaultIngredientIDList = ingredientDAO.getIngredientListByMenuItemID(menuItemID);
+    	List<Ingredient> fullIngredientList = ingredientDAO.getAllIngredients();
+    	
+//    	ArrayList<Ingredient> fullArray = (ArrayList<Ingredient>) fullIngredientList;
+//    	ArrayList<Ingredient> defaultArray = (ArrayList<Ingredient>) defaultIngredientIDList;
+//    	ArrayList<Integer> ingredientIdListToBeChecked = new ArrayList<>();
+//    	
+//    	for (Ingredient defaultIngredient : defaultArray) {
+//    		for (Ingredient ingredient : fullArray) {
+//    			if (defaultIngredient.getIngredientName().contains(ingredient.getIngredientName())) {
+//    				//checkbox.checked();
+////    				ingredientIdListToBeChecked.add(defaultIngredient.getIngredientId());
+//    			}
+//    		}
+//			
+//		}
+//    	
+//    	
+//    	if (fullArray.contains(defaultArray)) {
+//    		
+//    	}
+//    	
+//    	
+//    	for (Ingredient ingredient : fullIngredientList) {
+//			if (ingredient.getIngredientId(); == )
+//		}
+    	//if fullIngredientList[1].ingredientID is contained within defaultIngredientIDList then check box  
+    	
+    	model.addAttribute(user);
+    	model.addAttribute(menuItem);
+    	model.addAttribute("orderID", orderIDint);
+    	model.addAttribute("defaultIngredientList", ingredientDAO.getIngredientListByMenuItemID(menuItemID));
+    	model.addAttribute("ingredients", ingredientDAO.getAllIngredients());
+    	//model.addAttribute("comparisonSet", results);
+    	
+    	return "modify";
+    }
+    
     @RequestMapping("/addChangesToItem")
     public String addChangesToItem(Model model, @RequestParam(name = "userID") int userID,
     		@RequestParam(name = "ingredientAdded") String[] checkboxValue,
@@ -162,80 +194,63 @@ public class MainController {
     	return "redirect:/cart";
     }
     
-
-    
-    
-    @RequestMapping("itemIdList")
-    public String itemIdList(Model model,@RequestParam(name = "userID") int userID,
-    		@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
-    		@ModelAttribute(name = "orderID") int orderID,
-    		@ModelAttribute(name = "subtotal") String priceTotal, BindingResult bindingResult) {
-
-    	User user = userDAO.getUserByID(userID);
-    	OrderInfo order = new OrderInfo();
+    @RequestMapping("/backToMenu")
+    public String backToMenu(Model model, @RequestParam(name = "userID") int userID,
+    		@RequestParam(name = "orderID") int orderID) {
+    	int userId = userID;
+    	User user = userDAO.getUserByID(userId);
     	
-    	for (Integer menuItemId : orderListCreator.getItemIdList()) {
-			menuItemList.add(restaurantDAO.getMenuItemByID(menuItemId));
-		}
+    	OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
+    	int orderIDint = orderInfo.getOrderId();
     	
-    	model.addAttribute("userID", user);
-    	model.addAttribute("menuItemList", menuItemList);
-    	model.addAttribute("subtotal", menuService.getSubTotal(menuItemList));
-    	
-    	return "cart";
-    	
+    	model.addAttribute("orderID", orderIDint);
+    	model.addAttribute("user", user);
+    	model.addAttribute("menuItem", restaurantDAO.getMenuItems());
+        return "menu";
     }
     
 
-    
-    
-    @RequestMapping("/modify")
-    public String modifyItem(Model model, @RequestParam(name = "userID") int userID, 
-    		@RequestParam(name = "menuItemID") int menuItemID,
-    		@ModelAttribute(name = "defaultIngredientList") Ingredient defaultIngredientList,
-    		@ModelAttribute(name = "ingredients") Ingredient ingredients,
-    		//@ModelAttribute(name = "comparisonSet") Set<Integer> comparisonSet,
-    		BindingResult bindingResult){
-    	
-    	User user = userDAO.getUserByID(userID);
-    	MenuItem menuItem = restaurantDAO.getMenuItemByID(menuItemID);
-       	//Set<Integer> results = ingredientDAO.compareDefaultAndChosenIngredients(menuItemID);
-    	
-    	
-    	model.addAttribute(user);
-    	model.addAttribute(menuItem);
-    	model.addAttribute("defaultIngredientList", ingredientDAO.getIngredientListByMenuItemID(menuItemID));
-    	model.addAttribute("ingredients", ingredientDAO.getAllIngredients());
-    	//model.addAttribute("comparisonSet", results);
-    	
-    	return "modify";
+    @RequestMapping("/fullIngredientList")
+    public String getIngerdientList(Model model, @ModelAttribute("ingredient") Ingredient ingredient,
+            BindingResult result) {
+        model.addAttribute("ingredient", restaurantDAO.getIngredient());
+        System.out.println("in controller.getIngretientList");
+
+        return "fullIngredientList";
     }
     
     
-    
+    //ADD THIS TO THE FUNCTION PARAMS WHEN WE ARE ABLE!!! @RequestParam("ingredientCatagory") String ingredientCategotry,
+    @RequestMapping("/filteredIngredientList")
+    public String getFilteredIngredientList(Model model,
+    		@ModelAttribute("ingredients") Ingredient ingredient, 
+            BindingResult result) {
+        model.addAttribute("ingredients", restaurantDAO.getIngredientsByIngredientCategory("Burger"));
+        //model.addAttribute("ingredientIndex", ingredient.getIngredientId());
+        System.out.println("Getting the filtered ingredient list");
+        return "filteredIngredientList";
+    }
     
     @RequestMapping("/checkout")
     public String checkout(Model model, @RequestParam(name = "userID") int userID,
+    		@RequestParam(name = "orderID") int orderID,
     		@RequestParam(name = "comparisonSet") Set<Integer> comparisonSet,
     		@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
     		@ModelAttribute(name = "ingredients") Ingredient ingredients,
     		@ModelAttribute(name = "subtotal") String priceTotal,
     		BindingResult bindingResult) {
     	User user = userDAO.getUserByID(userID);
+    	OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
+    	int orderIDint = orderInfo.getOrderId();
+    	
     	model.addAttribute(user);
+    	model.addAttribute("orderID", orderIDint);
     	model.addAttribute(menuItemList);
     	model.addAttribute(comparisonSet);
     	model.addAttribute("priceTotal", priceTotal);
     	model.addAttribute("ingredients", ingredientDAO.getIngredientListByMenuItemID(8));
     	
     	return "checkout";
-    }
-
-    
-    @RequestMapping("/customizeOrderedItem")
-    public String getIngredientsForSelectedMenuItem(Model model, BindingResult result) {
-    	
-    	return "customizeOrderedItem";
     }
     
     @RequestMapping(value = "/testing", method = RequestMethod.POST)
@@ -261,17 +276,6 @@ public class MainController {
 		}
     	
     	return "testing";
-    }
-    
-    
-    
-    
-    
+    }    
 }
 
-//	@RequestMapping("userAddress")
-//	public String getUserAddress(Model model, @ModelAttribute("address") Address address, BindingResult result) {
-//		model.addAttribute("address", restaurantDAO.getUserAddress());		
-//		return "userAddress";
-//	}
-//

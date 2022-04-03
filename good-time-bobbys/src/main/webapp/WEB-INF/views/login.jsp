@@ -95,6 +95,7 @@
 			<c:forEach var="eachUser" items="${users}">
 				<c:url var="loginLink" value="menu">
 					<c:param name="userID" value="${eachUser.userId}" />
+					<c:param name="orderID" value="${order.orderId}" />
 				</c:url>
 				<tr>
 					<td><a href="${loginLink}">Login as ${eachUser.firstName}
