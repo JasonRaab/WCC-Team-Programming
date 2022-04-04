@@ -72,7 +72,7 @@
 					<td>
 						<c:forEach var="eachCheckbox" items="${ingredientAdded}">
 							<tr>
-								<td>${eachCheckbox}</td>
+								<td>${eachCheckbox.getIngredientName}</td>
 							</tr>
 						</c:forEach>
 					</td>
