@@ -14,4 +14,6 @@ public interface IIngredientDAO {
 	Set<Integer> getDefaultIngredientIDs(int menuItemID);
 
 	public int compareDefaultAndChosenIngredients(int menuItemID);
+	
+	public Ingredient getIngredientByID(int ingredientID);
 }

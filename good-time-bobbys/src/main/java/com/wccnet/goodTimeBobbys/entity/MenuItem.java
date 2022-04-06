@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "menu_item")
@@ -45,6 +46,9 @@ public class MenuItem {
 
 	@Column(name = "is_active")
 	private int isActive;
+	
+	@Transient
+	private List<Ingredient> modifiedIngredients;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_item_default_ingredient", joinColumns = {

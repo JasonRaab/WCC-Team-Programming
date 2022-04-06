@@ -118,7 +118,12 @@
 				<button class="tablinks" onclick="openMenu(event, 'Condiments')">Condiments</button>
 			</div>
 		</div>
-		<form action="testing" method="post">
+		<c:url var="testing" value="testing">
+			<c:param name="userID" value="${user.userId}"></c:param>
+			<c:param name="orderID" value="${orderID}"></c:param>
+			<c:param name="menuItemID" value="${menuItem.itemId}"></c:param>
+		</c:url>
+		<form:form action="${testing}" modelAttribute="user" method="post">
 			<fieldset>
 				<legend> Choose Ingredients to Add: </legend>
 				<div id="Breads" class="tabcontent">
@@ -371,7 +376,7 @@
 					<input type="submit" value="submit" name="submit" />
 				</div>
 			</fieldset>
-		</form>
+		</form:form>
 
 	</div>
 </body>

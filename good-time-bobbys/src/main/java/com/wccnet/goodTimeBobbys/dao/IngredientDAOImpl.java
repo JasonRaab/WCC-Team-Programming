@@ -114,6 +114,7 @@ public class IngredientDAOImpl implements IIngredientDAO {
 		return 1;
 	}
 
+	@Transactional
 	public void createOrderInfo(int userID, double subtotal, int orderId, int itemNumber, int menuItemID, int ingredientID, int isAdded) {
 		Session session = sessionFactory.getCurrentSession();
 		Date now = new Date();
@@ -135,6 +136,16 @@ public class IngredientDAOImpl implements IIngredientDAO {
 		Query<Ingredient> query = session.createQuery("from Ingredient", Ingredient.class);
 
 		return query.getResultList();
+	}
+
+	@Override
+	@Transactional
+	public Ingredient getIngredientByID(int ingredientID) {
+
+		Session session = sessionFactory.getCurrentSession();
+		Query<Ingredient> query = session.createQuery("from Ingredient i where i.ingredientId = :ingredientID", Ingredient.class).setParameter("ingredientID", ingredientID);
+		
+		return query.getSingleResult();
 	}
 
 }
