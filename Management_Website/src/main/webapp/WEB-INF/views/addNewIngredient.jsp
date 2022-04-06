@@ -39,27 +39,31 @@
 	</nav>
 
 	<div class="container m-3 mx-auto">
-		<form:form action="processForm" modelAttribute="ingredientItem">
+		<form:form action="processIngredient" modelAttribute="ingredientItem">
+		<form:hidden path="isActive" value="1"/>
+			<form:hidden path="stock" value="0"/>
 			<div class="row g-2 mb-3 mt-3">
 				<div class="col">
+					<form:label path="name">Name</form:label>
 					<form:input path="name" type="text" class="form-control"
 						placeholder="Ingredient name" />
 				</div>
 				<div class="col">
+				<form:label path="price">Price to add:</form:label>
 					<form:input path="price" type="text" class="form-control"
 						placeholder="Price to add extra" />
 				</div>
 			</div>
 			<div class="row g-2 mb-3 mt-3">
 				<div class="col">
+				<form:label path="category">Category</form:label>
 					<form:input path="category" type="text" class="form-control"
 						placeholder="Category" />
 				</div>
 			</div>
 
 			<div class="row g-2 mb-3 mt-3">
-				<button type="button" class="btn btn-success">Add New
-					Ingredient</button>
+				<input type="submit" class="btn btn-success" value="Add New Ingredient"/>
 			</div>
 		</form:form>
 	</div>

@@ -70,24 +70,17 @@
 			<a href="addNewMenuItem"><button class="btn btn-success">+
 					Add New</button></a>
 		</div>
+		<c:forEach var="eachItem" items="${menuItems}">
 		<div class="card mb-3">
 			<div class="card-body">
-				<h5 class="card-title">Pad Thai</h5>
-				<h6 class="card-subtitle mb-2 text-muted">Noodles</h6>
-				<p class="card-text">Created by ManagerName</p>
-				<a href="#" class="card-link"><button class="btn btn-primary">Modify</button></a>
+				<h5 class="card-title">${eachItem.name}</h5>
+				<h6 class="card-subtitle mb-2 text-muted">${eachItem.category}</h6>
+				<p class="card-text">${eachItem.description}</p>
+				<a href="#" class="card-link"><button class="btn btn-primary">More Info</button></a>
 				<a href="#" class="card-link"><button class="btn btn-danger">Delete</button></a>
 			</div>
 		</div>
-		<div class="card">
-			<div class="card-body">
-				<h5 class="card-title">Double Cheese Burger</h5>
-				<h6 class="card-subtitle mb-2 text-muted">Burger</h6>
-				<p class="card-text">Created by ManagerName</p>
-				<a href="#" class="card-link"><button class="btn btn-primary">Modify</button></a>
-				<a href="#" class="card-link"><button class="btn btn-danger">Delete</button></a>
-			</div>
-		</div>
+		</c:forEach>
 	</div>
 </body>
 </html>

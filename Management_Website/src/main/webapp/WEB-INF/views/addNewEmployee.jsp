@@ -43,6 +43,7 @@
 
 	<div class="container m-3 mx-auto">
 		<form:form action="processEmployee" modelAttribute="employee" method="post">
+		<form:hidden path="role" value="3"/>
 			<div class="row g-2 mb-3 mt-3">
 				<div class="col">
 					<form:label path="firstName">First Name:</form:label>
@@ -80,8 +81,7 @@
 				</div>
 			</div>
 			<div class="row g-2 mb-3 mt-3">
-				<input type="submit" value="Add
-					Employee Info" class="btn btn-success"/>
+				<input type="submit" value="Add Employee Info" class="btn btn-success"/>
 			</div>
 		</form:form>
 	</div>

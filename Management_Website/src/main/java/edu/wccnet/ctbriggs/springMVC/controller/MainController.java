@@ -1,6 +1,7 @@
 package edu.wccnet.ctbriggs.springMVC.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import edu.wccnet.ctbriggs.springMVC.domain.MenuItem;
 import edu.wccnet.ctbriggs.springMVC.domain.OrderSearch;
 import edu.wccnet.ctbriggs.springMVC.domain.Stock;
 import edu.wccnet.ctbriggs.springMVC.domain.User;
+import edu.wccnet.ctbriggs.springMVC.service.IngredientService;
+import edu.wccnet.ctbriggs.springMVC.service.MenuService;
 import edu.wccnet.ctbriggs.springMVC.service.StockService;
 import edu.wccnet.ctbriggs.springMVC.service.UserService;
 
@@ -34,18 +37,30 @@ public class MainController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private MenuService menuService;
+	
+	@Autowired
+	private IngredientService ingredientService;
+	
 	/*
 	 * @RequestMapping("/") public String home() { return "home"; }
 	 */
 
 	@RequestMapping("/menu")
-	public ModelAndView showForm() {
-		return new ModelAndView("menuList", "itemSearch", new ItemSearch());
+	public String showForm(Model model) {
+		List<MenuItem> menuItems = menuService.getMenu();
+		model.addAttribute("itemSearch", new ItemSearch());
+		model.addAttribute("menuItems", menuItems);
+		return "menuList";
 	}
 	
 	@RequestMapping("/ingredients")
-	public ModelAndView showIngredients() {
-		return new ModelAndView("ingredientList", "itemSearch", new ItemSearch());
+	public String showIngredients(Model model) {
+		List<IngredientItem> ingredientList = ingredientService.getIngredients();
+		model.addAttribute("itemSearch", new ItemSearch());
+		model.addAttribute("ingredientList", ingredientList);
+		return "ingredientList";
 	}
 	
 	@RequestMapping("/addNewMenuItem")
@@ -55,6 +70,13 @@ public class MainController {
 	@RequestMapping("/addNewIngredient")
 	public ModelAndView addNeIngredient() {
 		return new ModelAndView("addNewIngredient", "ingredientItem", new IngredientItem());
+	}
+	
+	@RequestMapping("/processIngredient")
+	public String processIngredient(Model model, @ModelAttribute("ingredientItem") IngredientItem newIngredient){
+		System.out.println(newIngredient);
+		ingredientService.add(newIngredient);
+		return "redirect:/management/ingredients";
 	}
 	
 	@RequestMapping("/orders")

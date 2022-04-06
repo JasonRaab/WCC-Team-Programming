@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -68,24 +69,16 @@
 			<a href="addNewIngredient"><button class="btn btn-success">+
 					Add New</button></a>
 		</div>
+		<c:forEach var="eachItem" items="${ingredientList}">
 		<div class="card mb-3">
 			<div class="card-body">
-				<h5 class="card-title">Egg Noodles</h5>
-				<h6 class="card-subtitle mb-2 text-muted">Noodles</h6>
-				<p class="card-text">Created by ManagerName</p>
+				<h5 class="card-title">${eachItem.name}</h5>
+				<h6 class="card-subtitle mb-2 text-muted">${eachItem.category}</h6>
 				<a href="#" class="card-link"><button class="btn btn-primary">Modify</button></a>
 				<a href="#" class="card-link"><button class="btn btn-danger">Delete</button></a>
 			</div>
 		</div>
-		<div class="card">
-			<div class="card-body">
-				<h5 class="card-title">Burger Meat</h5>
-				<h6 class="card-subtitle mb-2 text-muted">Burger</h6>
-				<p class="card-text">Created by ManagerName</p>
-				<a href="#" class="card-link"><button class="btn btn-primary">Modify</button></a>
-				<a href="#" class="card-link"><button class="btn btn-danger">Delete</button></a>
-			</div>
-		</div>
+		</c:forEach>
 	</div>
 </body>
 </html>

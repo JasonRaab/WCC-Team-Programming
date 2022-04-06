@@ -52,8 +52,7 @@
 					<th class="d-table-cell">Item&nbsp;&nbsp;<form:input path="item" type="text"
 								placeholder="search" /></th>
 					<th class="d-table-cell" rowspan="2">Stock</th>
-					<th class="d-table-cell" rowspan="2">Amount in Uncompleted
-						Orders</th>
+
 					<th class="d-table-cell" rowspan="2">Modify Stock</th>
 					</form:form>
 				</thead>
@@ -69,7 +68,6 @@
 									value="${eachStock.category}" /></td>
 							<td class="d-table-cell"><c:out value="${eachStock.item}" /></td>
 							<td class="d-table-cell"><c:out value="${eachStock.stock}" /></td>
-							<td></td>
 							<td class="d-table-cell">
 								<form:input path="stock" name="newCount" type="number" placeholder="enter number" value="${eachStock.stock}"/>
 								<input type=hidden name="stockId" value="${eachStock.id}">
