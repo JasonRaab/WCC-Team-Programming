@@ -105,6 +105,7 @@
 				${user.firstName}&nbsp;${user.lastName}</h1>
 			<h2>${menuItem.itemName}</h2>
 			<h3>${orderID}</h3>
+			<h4>${itemNumber}</h4>
 		</div>
 	</div>
 	<div class="container">
@@ -122,6 +123,7 @@
 			<c:param name="userID" value="${user.userId}"></c:param>
 			<c:param name="orderID" value="${orderID}"></c:param>
 			<c:param name="menuItemID" value="${menuItem.itemId}"></c:param>
+			<c:param name="itemNumber" value="${menuItem.itemNumber}"></c:param>
 		</c:url>
 		<form:form action="${testing}" modelAttribute="user" method="post">
 			<fieldset>

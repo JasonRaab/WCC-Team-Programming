@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "order_info")
@@ -43,6 +44,11 @@ public class OrderInfo {
 	//This is the table # for in-store orders
 	@Column(name = "table_number")
 	private String tableNumber;
+	
+	//this column is allowing us to track if the order is open = 1 or closed = 0
+	@Transient
+	//@Column(name = "is_open")
+	private int isOpen;
 
 	public OrderInfo() {
 
@@ -63,6 +69,8 @@ public class OrderInfo {
 		this.orderSubtotal = orderSubtotal;
 		this.orderTax = orderTax;
 		this.orderTotal = orderTotal;
+		this.orderType = "pickup";
+		//this.isOpen = 1;
 	}
 
 	public int getOrderId() {

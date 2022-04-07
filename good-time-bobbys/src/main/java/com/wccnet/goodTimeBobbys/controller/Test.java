@@ -1,22 +1,90 @@
 package com.wccnet.goodTimeBobbys.controller;
 
-import java.util.Date;
+import java.util.ArrayList;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.wccnet.goodTimeBobbys.dao.IngredientDAOImpl;
+import com.wccnet.goodTimeBobbys.dao.RestaurantDAOImpl;
+import com.wccnet.goodTimeBobbys.entity.Ingredient;
+import com.wccnet.goodTimeBobbys.entity.MenuItem;
 
 public class Test {
 
 //	public void addItemOrdered(int orderId, int itemNumber, int menuItemID, int ingredientID, int isAdded) {
 //		ItemOrdered itemOrdered = new ItemOrdered(orderId, itemNumber, menuItemID, ingredientID, isAdded);
 //	}
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		Date now = new Date();
-		
-		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-			String currentTime = sdf.format(now);
+//		Date now = new Date();
+//		
+//		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//
+//			String currentTime = sdf.format(now);
+//			
+//			System.out.println(currentTime);
+//		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(MenuItem.class).addAnnotatedClass(Ingredient.class).buildSessionFactory();
+//
+//		Session session = sessionFactory.getCurrentSession();
+//		session.beginTransaction();
+//			
+//			RestaurantDAOImpl restaurantDAO = new RestaurantDAOImpl();
+//			IngredientDAOImpl ingredientDAO = new IngredientDAOImpl();
+//			
+//			
+			MenuItem menuItem = new MenuItem(1, "fart burger", "Tastes like SHIT!", "Entree", 33, 12.35);
+			Ingredient ingredient = new Ingredient(1, "Cheese", 12, 12.43);
+//			
+//		menuItem = restaurantDAO.getMenuItemByID(33);
+//			ingredient = ingredientDAO.getIngredientByID(12);
 			
-			System.out.println(currentTime);
+			ArrayList<Object> blah = new ArrayList<>();
+			
+			blah.add(menuItem);
+			blah.add(ingredient);
+			blah.add("Hello World");
+			blah.add(1);
+			blah.add(123);
+			blah.add(15.32);
+			blah.add(12335);
+			blah.add("Holy fuck it worked!");
+			
+			
+			for (Object object : blah) {
+				System.out.println(object);
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 
 //		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
 //				.addAnnotatedClass(Address.class).addAnnotatedClass(Ingredient.class).addAnnotatedClass(MenuItem.class)

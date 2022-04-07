@@ -49,6 +49,9 @@ public class MenuItem {
 	
 	@Transient
 	private List<Ingredient> modifiedIngredients;
+	
+	@Transient
+	private int itemNumber;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_item_default_ingredient", joinColumns = {
@@ -70,6 +73,20 @@ public class MenuItem {
 		this.itemPrice = itemPrice;
 		this.isActive = isActive;
 	}
+	
+	public MenuItem(int itemId,
+			String itemName,
+			String itemDescription,
+			String itemCategory,
+			int itemStock,
+			Double itemPrice) {
+		super();
+		this.itemName = itemName;
+		this.itemDescription = itemDescription;
+		this.itemCategory = itemCategory;
+		this.itemStock = itemStock;
+		this.itemPrice = itemPrice;
+	}
 
 	public void addIngredient(Ingredient ingredient) {
 		if (ingredient.getIsActive() == 1) {
@@ -79,6 +96,14 @@ public class MenuItem {
 
 	public void removeIngredient(Ingredient ingredient) {
 		ingredients.remove(ingredient);
+	}
+
+	public int getItemNumber() {
+		return itemNumber;
+	}
+
+	public void setItemNumber(int itemNumber) {
+		this.itemNumber = itemNumber;
 	}
 
 	@Override

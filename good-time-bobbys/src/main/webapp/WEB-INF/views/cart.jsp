@@ -58,12 +58,13 @@
 					<tr>
 						<th style="text-align: center">Cart</th>
 					</tr>
-					<c:forEach var="eachMenuItem" items="${menuItemList}">
+					<c:forEach var="eachMenuItem" items="${menuItemList}" varStatus="myIndex">
 						<c:url var="addMoreToOrder" value="/backToMenu">
 							<c:param name="userID" value="${user.userId}" />
 							<c:param name="orderID" value="${orderID}" />
 						</c:url>
 						<tr>
+							<td>Item Number: ${eachMenuItem.itemNumber}</td>
 							<td>${eachMenuItem.itemId}</td>
 							<td>${eachMenuItem.itemName}</td>
 							<td>${eachMenuItem.itemDescription}</td>
@@ -80,6 +81,7 @@
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachMenuItem.itemId}" />
 								<c:param name="orderID" value="${orderID}" />
+								<c:param name="itemNumber" value="${eachMenuItem.itemNumber}" />
 							</c:url>
 
 							<td>

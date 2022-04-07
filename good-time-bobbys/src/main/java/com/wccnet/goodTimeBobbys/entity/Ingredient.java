@@ -64,6 +64,15 @@ public class Ingredient {
 		this.ingredientStock = ingredientStock;
 		this.ingredientPrice = ingredientPrice;
 	}
+	public Ingredient(int ingredientId,
+			String ingredientName,
+			int ingredientStock,
+			double ingredientPrice) {
+		super();
+		this.ingredientName = ingredientName;
+		this.ingredientStock = ingredientStock;
+		this.ingredientPrice = ingredientPrice;
+	}
 
 	public Ingredient(String ingredientName, String ingredientCategory, int ingredientStock, double ingredientPrice,
 			int isActive) {
@@ -91,7 +100,7 @@ public class Ingredient {
 	
 	@Override
 	public String toString() {	
-		return ingredientName;
+		return "Ingredient Name: " + ingredientName + " \n" + "Price: " + ingredientPrice;
 	}
 
 	public int getIngredientId() {

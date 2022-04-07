@@ -40,5 +40,17 @@ public class MenuServiceIMPL implements IMenuService {
 		
 		return "$" + subTotal;
 	}
+	
+	@Override
+	public int getItemNumber(ArrayList<MenuItem> menuItemList) {
+		
+		int itemNumber = 0;
+		for (MenuItem menuItem : menuItemList) {
+			itemNumber = menuItem.getItemNumber();
+		}
+		
+		
+		return itemNumber;
+	}
 
 }

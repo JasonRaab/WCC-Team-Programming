@@ -45,6 +45,8 @@ public class MainController {
 	@Autowired
 	private IMenuService menuService;
 
+	int itemNumber = 0;
+
 	@RequestMapping("/")
 	public String loginOne(Model model) {
 		OrderInfo order = new OrderInfo();
@@ -57,9 +59,12 @@ public class MainController {
 
 	// Display all Menu items and their ingredients
 	@RequestMapping("/menu")
-	public String getMenuItems(Model model, @RequestParam(name = "userID", defaultValue = "0") int userID,
-			@RequestParam(name = "orderID") int orderID, @ModelAttribute("menuItems") MenuItem menuItem,
-			@ModelAttribute("ingredientIDs") Ingredient ingredientID, BindingResult bindingResult) {
+	public String getMenuItems(Model model,
+			@RequestParam(name = "userID", defaultValue = "0") int userID,
+			@RequestParam(name = "orderID") int orderID,
+			@ModelAttribute("menuItems") MenuItem menuItem,
+			@ModelAttribute("ingredientIDs") Ingredient ingredientID,
+			BindingResult bindingResult) {
 		User user = userDAO.getUserByID(userID);
 		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
 
@@ -73,14 +78,18 @@ public class MainController {
 	}
 
 	@RequestMapping("/addMenuItemToCart")
-	public String addMenuItemToCart(Model model, @RequestParam(name = "userID") int userID,
-			@RequestParam(name = "menuItemID") int menuItemID, @RequestParam(name = "orderID") int orderID) {
+	public String addMenuItemToCart(Model model,
+			@RequestParam(name = "userID") int userID,
+			@RequestParam(name = "menuItemID") int menuItemID,
+			@RequestParam(name = "orderID") int orderID) {
 		int user = userID;
 		int orderIDint = orderID;
-
+		
+		itemNumber += 1;
 		// OrderInfo order = restaurantDAO.getOrderInfoByID(orderID);
 		orderListCreator.listCreator(menuItemID);
 
+		model.addAttribute("itemNumber", itemNumber);
 		model.addAttribute("userID", user);
 		model.addAttribute("orderID", orderIDint);
 		model.addAttribute("itemIdList", orderListCreator.getItemIdList());
@@ -90,21 +99,29 @@ public class MainController {
 	}
 
 	@RequestMapping("itemIdList")
-	public String itemIdList(Model model, @RequestParam(name = "userID") int userID,
+	public String itemIdList(Model model,
+			@RequestParam(name = "userID") int userID,
 			@RequestParam(name = "orderID") int orderID,
 			@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
-			@ModelAttribute(name = "subtotal") String priceTotal, BindingResult bindingResult) {
+			@ModelAttribute(name = "subtotal") String priceTotal,
+			BindingResult bindingResult) {
 
 		User user = userDAO.getUserByID(userID);
 		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
+		
 		int orderIDint = orderInfo.getOrderId();
-
+		int index = 0;
+		
 		for (Integer menuItemId : orderListCreator.getItemIdList()) {
-			menuItemList.add(restaurantDAO.getMenuItemByID(menuItemId));
+			MenuItem menuItemHolder = restaurantDAO.getMenuItemByID(menuItemId);
+			index += 1;
+			menuItemHolder.setItemNumber(index);
+			menuItemList.add(menuItemHolder);
 		}
 
 		model.addAttribute("user", user);
 		model.addAttribute("orderID", orderIDint);
+		model.addAttribute("itemNumber", menuService.getItemNumber(menuItemList));
 		model.addAttribute("menuItemList", menuItemList);
 		model.addAttribute("subtotal", menuService.getSubTotal(menuItemList));
 
@@ -114,7 +131,10 @@ public class MainController {
 
 	@RequestMapping("/modify")
 	public String modifyItem(Model model, @RequestParam(name = "userID") int userID,
-			@RequestParam(name = "menuItemID") int menuItemID, @RequestParam(name = "orderID") int orderID,
+			@RequestParam(name = "menuItemID") int menuItemID,
+			@RequestParam(name = "orderID") int orderID,
+			@RequestParam(name = "itemNumber") int itemNumber,
+			//@RequestParam(name = "subtotal") int priceTotal,
 			@ModelAttribute(name = "defaultIngredientList") Ingredient defaultIngredientList,
 			@ModelAttribute(name = "ingredients") Ingredient ingredients,
 			// @ModelAttribute(name = "comparisonSet") Set<Integer> comparisonSet,
@@ -139,10 +159,13 @@ public class MainController {
 			}
 		}
 			fullIngredientList.removeAll(ingredientsToRemove);
-	
+
+
 		model.addAttribute(user);
 		model.addAttribute("menuItem", menuItem);
+		model.addAttribute("itemNumber", itemNumber);
 		model.addAttribute("orderID", orderIDint);
+		//model.addAttribute("subtotal", priceTotal);
 		model.addAttribute("defaultIngredientList", ingredientDAO.getIngredientListByMenuItemID(menuItemID));
 		model.addAttribute("ingredients",  fullIngredientList);
 		// model.addAttribute("comparisonSet", results);
@@ -232,12 +255,24 @@ public class MainController {
 		return "checkout";
 	}
 
+//	 Model model,
+//	@RequestParam(name = "userID") int userID,
+//	@RequestParam(name = "orderID") int orderID,
+//	@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
+//	@ModelAttribute(name = "subtotal") String priceTotal, BindingResult bindingResult
+	
+	
+	
+	
 	@RequestMapping(value = "/testing", method = RequestMethod.POST)
 	public String usedForTesting(Model model,
 			@RequestParam(name = "userID") int userID,
 			@RequestParam(name = "menuItemID") int menuItemID,
 			@RequestParam(name = "ingredientAdded") String[] checkboxValue,
 			@RequestParam(name = "orderID") int orderID,
+			@RequestParam(name = "itemNumber") int itemNumber,
+			//@RequestParam(name = "subtotal") int priceTotal,
+			@RequestParam(name = "menuItemList") ArrayList<MenuItem> menuItemList,
 			RedirectAttributes redirectAttribute) {
 		
 		int userIdInt = userID;
@@ -248,28 +283,26 @@ public class MainController {
 		
 		MenuItem menuItem = restaurantDAO.getMenuItemByID(menuItemID);
 		
-		
 		for (String string : checkboxValue) {
 			System.out.println(string);
 			Integer ingredientID = Integer.parseInt(string);
 			orderListCreator.ingredientIdSetCreator(ingredientID);
 		}
 
-
 		for (Integer ingSet : orderListCreator.getModifiedIngredientIdSet()) {
 			int ingredientID = ingSet;
 			orderListCreator.modifiedIngredientList(ingredientDAO.getIngredientByID(ingredientID));
 		}
 		
-		
-
 		model.addAttribute("user", user);
 		model.addAttribute("menuItem", menuItem);
 		model.addAttribute("orderID", orderIDint);
+		//model.addAttribute("subtotal", priceTotal);
 		model.addAttribute("ingredientAdded", orderListCreator.getModifiedIngredientList());
+		model.addAttribute("menuItemList", menuItemList);
 		//model.addAttribute("modifiedIngredientSet", orderListCreator.getModifiedIngredientIdSet());
 		//redirectAttribute.addAttribute("poopy", user).addFlashAttribute("message", "Account created!");
 		   
-		return "testing";
+		return "redirect:/itemIdList";
 	}
 }
