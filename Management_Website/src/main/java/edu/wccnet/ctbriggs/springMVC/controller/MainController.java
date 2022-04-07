@@ -64,8 +64,17 @@ public class MainController {
 	}
 	
 	@RequestMapping("/addNewMenuItem")
-	public ModelAndView addNewMenuItem() {
-		return new ModelAndView("addNewMenuItem", "menuItem", new MenuItem());
+	public String addNewMenuItem(Model model) {
+		model.addAttribute("menuItem", new MenuItem());
+		model.addAttribute("ingredientList", ingredientService.getIngredients());
+		List<List<IngredientItem> > categorizedIngredients= new ArrayList<List<IngredientItem>>();
+		List<String> ingredientCategories = ingredientService.getCategories();
+		for(String s : ingredientCategories) {
+			categorizedIngredients.add(ingredientService.getIngredients(s));
+		}
+		model.addAttribute("categories", ingredientCategories);
+		model.addAttribute("categorizedIngredients", categorizedIngredients);
+		return "addNewMenuItem";
 	}
 	@RequestMapping("/addNewIngredient")
 	public ModelAndView addNewIngredient() {

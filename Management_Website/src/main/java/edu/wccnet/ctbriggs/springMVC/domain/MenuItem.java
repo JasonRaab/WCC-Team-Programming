@@ -1,10 +1,17 @@
 package edu.wccnet.ctbriggs.springMVC.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +33,12 @@ public class MenuItem {
 	private double price;
 	@Column(name = "is_active")
 	private int isActive;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "menu_item_default_ingredient", joinColumns = {
+			@JoinColumn(name = "menu_item_id") }, inverseJoinColumns = { @JoinColumn(name = "ingredient_id") })
+	List<IngredientItem> ingredients = new ArrayList<IngredientItem>();
+	
 	public MenuItem() {
 	}
 	public MenuItem(String name, String description, String category, int stock, double price, int isActive) {
@@ -37,6 +50,15 @@ public class MenuItem {
 		this.price = price;
 		this.isActive = isActive;
 	}
+	
+	public void addIngredient(IngredientItem ingredient) {
+		ingredients.add(ingredient);
+	}
+
+	public void removeIngredient(IngredientItem ingredient) {
+		ingredients.remove(ingredient);
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -79,11 +101,20 @@ public class MenuItem {
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
 	}
+	
+	public List<IngredientItem> getIngredients() {
+		return ingredients;
+	}
+	public void setIngredients(List<IngredientItem> ingredients) {
+		this.ingredients = ingredients;
+	}
 	@Override
 	public String toString() {
 		return "MenuItem [id=" + id + ", name=" + name + ", description=" + description + ", category=" + category
-				+ ", stock=" + stock + ", price=" + price + ", isActive=" + isActive + "]";
+				+ ", stock=" + stock + ", price=" + price + ", isActive=" + isActive + ", ingredients=" + ingredients
+				+ "]";
 	}
+	
 	
 
 }

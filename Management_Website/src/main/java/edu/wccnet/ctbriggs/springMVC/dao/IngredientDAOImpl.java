@@ -1,5 +1,6 @@
 package edu.wccnet.ctbriggs.springMVC.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -33,6 +34,27 @@ public class IngredientDAOImpl implements IngredientDAO {
 	public IngredientItem getIngredient(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(IngredientItem.class, id);
+	}
+
+	//tbh this is sketchy but works
+	@Override
+	public List<String> getCategories() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Object> query = session.createQuery("Select DISTINCT category from IngredientItem order by category", Object.class);
+		List<Object> results = query.getResultList();
+		List<String> stringResults = new ArrayList<String>();
+		for(Object o :results) {
+			stringResults.add(o.toString());
+		}
+		return stringResults;
+	}
+
+	@Override
+	public List<IngredientItem> getIngredients(String category) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<IngredientItem> query = session.createQuery("from IngredientItem where category = :category order by name", IngredientItem.class);
+		query.setParameter("category", category);
+		return query.getResultList();
 	}
 
 }

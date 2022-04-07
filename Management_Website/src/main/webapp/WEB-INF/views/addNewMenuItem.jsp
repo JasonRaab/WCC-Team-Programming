@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,52 +43,40 @@
 	<form:form action="processForm" modelAttribute="menuItem">
 		<div class="row g-2 mb-3 mt-3">
 			<div class="col">
+			<form:label path="name">Name</form:label>
 				<form:input path="name" type="text" class="form-control"
 					placeholder="Menu item name" />
 			</div>
 			<div class="col">
+			<form:label path="price">Price to Add</form:label>
 				<form:input path="price" type="text" class="form-control"
-					placeholder="Price" />
+					placeholder="enter a number value" />
 			</div>
 		</div>
 		<div class="row g-2 mb-3 mt-3">
+			<form:label path="description">Description</form:label>
 			<form:textarea path="description" type="text" class="form-control"
 				placeholder="Description" />
 		</div>
 		<div class="row g-2 mb-3 mt-3">
-			<form:label path="Image">Upload Image</form:label>
-			<form:input path="Image" class="form-control" type="file"
-				accepts="image/png, image/jpeg" />
-		</div>
-		<div class="row g-2 mb-3 mt-3">
 			<div class="col">
+			<form:label path="category">Category</form:label>
 				<form:input path="category" type="text" class="form-control"
 					placeholder="Category" />
 			</div>
-			<div class="col md-2">
-				<input type="submit" value="Search" class="btn btn-primary" />
-			</div>
 		</div>
 		<div class="row g-2 mb-3 mt-3">
-			<div class="col">
-				<form:label path="ingredients">Tomato</form:label>
-				<form:checkbox path="ingredients" value="Tomato" />
-			</div>
-			<div class="col">
-				<form:label path="ingredients">Red Pasta Sauce</form:label>
-				<form:checkbox path="ingredients" value="Red Pasta Sauce" />
-			</div>
-			<div class="col">
-				<form:label path="ingredients">Grilled Chicken</form:label>
-				<form:checkbox path="ingredients" value="Grilled Chicken" />
-			</div>
-			<div class="col">
-				<form:label path="ingredients">Basil</form:label>
-				<form:checkbox path="ingredients" value="Basil" />
-			</div>
-			<div class="row g-2 mb-3 mt-3">
-				<button type="button" class="btn btn-success">Add Menu Item</button>
-			</div>
+			<c:forEach var="iterator" begin="0" end="${categories.size() -1 }">
+				<div class="row g-2 mb-3 mt-3">
+					<h2>${categories.get(iterator)}</h2>
+					<c:forEach var="eachIngredient" items="${categorizedIngredients.get(iterator)}">
+					<div class="col-6">
+						<form:checkbox path="ingredients" value="${eachIngredient}" />
+						<form:label path="ingredients">${eachIngredient.name}</form:label>
+					</div>
+					</c:forEach>
+				</div>
+			</c:forEach>
 		</div>
 
 

@@ -1,10 +1,16 @@
 package edu.wccnet.ctbriggs.springMVC.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +30,12 @@ public class IngredientItem {
 	private double price;
 	@Column(name = "is_active")
 	private int isActive;
+	
+	@ManyToMany
+	@JoinTable(name = "menu_item_default_ingredient", joinColumns = {
+			@JoinColumn(name = "ingredient_id") }, inverseJoinColumns = { @JoinColumn(name = "item_id") })
+	List<MenuItem> menuItems = new ArrayList<MenuItem>();
+	
 	public IngredientItem() {
 	}
 	public IngredientItem(String name, String category, int stock, double price, int isActive) {
@@ -34,6 +46,15 @@ public class IngredientItem {
 		this.price = price;
 		this.isActive = isActive;
 	}
+
+	public void addMenuItem(MenuItem item) {
+		menuItems.add(item);
+	}
+
+	public void removeMenuItem(MenuItem item) {
+		menuItems.remove(item);
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -69,6 +90,13 @@ public class IngredientItem {
 	}
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
+	}
+	
+	public List<MenuItem> getMenuItems() {
+		return menuItems;
+	}
+	public void setMenuItems(List<MenuItem> menuItems) {
+		this.menuItems = menuItems;
 	}
 	@Override
 	public String toString() {

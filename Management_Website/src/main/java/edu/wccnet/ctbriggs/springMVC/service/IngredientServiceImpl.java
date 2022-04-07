@@ -33,6 +33,18 @@ public class IngredientServiceImpl implements IngredientService{
 	public IngredientItem getIngredient(int id) {
 		return ingredientDAO.getIngredient(id);
 	}
+
+	@Override
+	@Transactional
+	public List<String> getCategories() {
+		return ingredientDAO.getCategories();
+	}
+
+	@Override
+	@Transactional
+	public List<IngredientItem> getIngredients(String category) {
+		return ingredientDAO.getIngredients(category);
+	}
 	
 
 }
