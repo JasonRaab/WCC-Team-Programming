@@ -68,8 +68,13 @@ public class MainController {
 		return new ModelAndView("addNewMenuItem", "menuItem", new MenuItem());
 	}
 	@RequestMapping("/addNewIngredient")
-	public ModelAndView addNeIngredient() {
+	public ModelAndView addNewIngredient() {
 		return new ModelAndView("addNewIngredient", "ingredientItem", new IngredientItem());
+	}
+	@RequestMapping("/modifyIngredient")
+	public String modifyIngredient(Model model, @RequestParam("ingredientId") int id) {
+		model.addAttribute("ingredientItem", ingredientService.getIngredient(id));
+		return "addNewIngredient";
 	}
 	
 	@RequestMapping("/processIngredient")

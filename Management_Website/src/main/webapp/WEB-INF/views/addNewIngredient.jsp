@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,8 +41,9 @@
 
 	<div class="container m-3 mx-auto">
 		<form:form action="processIngredient" modelAttribute="ingredientItem">
-		<form:hidden path="isActive" value="1"/>
-			<form:hidden path="stock" value="0"/>
+			<form:hidden path="id"/>
+			<form:hidden path="isActive" value="1"/>
+			<form:hidden path="stock"/>
 			<div class="row g-2 mb-3 mt-3">
 				<div class="col">
 					<form:label path="name">Name</form:label>
@@ -63,7 +65,7 @@
 			</div>
 
 			<div class="row g-2 mb-3 mt-3">
-				<input type="submit" class="btn btn-success" value="Add New Ingredient"/>
+				<input type="submit" class="btn btn-success" value='${ingredientItem.id==0 ? "Add New Ingredient" : "Update Ingredient"}'/>
 			</div>
 		</form:form>
 	</div>

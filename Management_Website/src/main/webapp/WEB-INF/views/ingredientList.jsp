@@ -74,8 +74,14 @@
 			<div class="card-body">
 				<h5 class="card-title">${eachItem.name}</h5>
 				<h6 class="card-subtitle mb-2 text-muted">${eachItem.category}</h6>
-				<a href="#" class="card-link"><button class="btn btn-primary">Modify</button></a>
-				<a href="#" class="card-link"><button class="btn btn-danger">Delete</button></a>
+				<c:url var="modifyLink" value="/management/modifyIngredient">
+					<c:param name="ingredientId" value="${eachItem.id}"/>
+				</c:url>
+				<c:url var="deactivateLink" value="/management/deactivateIngredient">
+					<c:param name="ingredientId" value="${eachItem.id}"/>
+				</c:url>
+				<a href="${modifyLink}" class="card-link"><button class="btn btn-primary">Modify</button></a>
+				<a href="${deactivateLink}" class="card-link"><button class="btn btn-danger">Deactivate</button></a>
 			</div>
 		</div>
 		</c:forEach>
