@@ -14,5 +14,7 @@ public interface IngredientDAO {
 	public IngredientItem getIngredient(int id);
 	
 	public List<String> getCategories();
+
+	public void updateStock(int id, int count);
 	
 }

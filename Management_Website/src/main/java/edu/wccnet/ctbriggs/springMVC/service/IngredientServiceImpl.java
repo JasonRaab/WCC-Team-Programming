@@ -45,6 +45,13 @@ public class IngredientServiceImpl implements IngredientService{
 	public List<IngredientItem> getIngredients(String category) {
 		return ingredientDAO.getIngredients(category);
 	}
+
+	@Override
+	@Transactional
+	public void updateStock(int id, int count) {
+		ingredientDAO.updateStock(id, count);
+		
+	}
 	
 
 }

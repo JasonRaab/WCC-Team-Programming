@@ -41,7 +41,15 @@
 		</div>
 	</nav>
 	<div class="container m-3 mx-auto">
-		
+	<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
+			<div class="col-3">
+				<div class="btn-group">
+			<!-- changes whats selected based on the value of the type get variable -->
+					<a href="stock?type=MenuItem" class='btn btn-outline-primary <c:if test='<%= request.getParameter("type").equals("MenuItem")%>'>active</c:if>'>Menu Items</a>
+					<a href="stock?type=IngredientItem" class='btn btn-outline-primary <c:if test='<%= request.getParameter("type").equals("IngredientItem")%>'>active</c:if>'>Ingredients</a>
+				</div>
+			</div>
+		</div>
 			<table class="table table-bordered table-striped">
 				<thead>
 				<form:form action="processForm" modelAttribute="stock">
@@ -66,11 +74,12 @@
 						<tr>
 							<td class="d-table-cell"><c:out
 									value="${eachStock.category}" /></td>
-							<td class="d-table-cell"><c:out value="${eachStock.item}" /></td>
+							<td class="d-table-cell"><c:out value="${eachStock.name}" /></td>
 							<td class="d-table-cell"><c:out value="${eachStock.stock}" /></td>
 							<td class="d-table-cell">
 								<form:input path="stock" name="newCount" type="number" placeholder="enter number" value="${eachStock.stock}"/>
 								<input type=hidden name="stockId" value="${eachStock.id}">
+								<input type="hidden" name="type" value="${eachStock.getClass().getSimpleName()}"/>
 								<input type="submit" value="Update"/>
 							</td>
 							

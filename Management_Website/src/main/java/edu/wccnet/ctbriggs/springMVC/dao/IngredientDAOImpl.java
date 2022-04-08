@@ -57,4 +57,13 @@ public class IngredientDAOImpl implements IngredientDAO {
 		return query.getResultList();
 	}
 
+	@Override
+	public void updateStock(int id, int count) {
+		Session session = sessionFactory.getCurrentSession();
+		IngredientItem ingredient = session.get(IngredientItem.class, id);
+		ingredient.setStock(count);
+		session.saveOrUpdate(ingredient);
+		
+	}
+
 }

@@ -15,4 +15,6 @@ public IngredientItem getIngredient(int id);
 public void add(IngredientItem newIngredient);
 
 public List<String> getCategories();
+
+public void updateStock(int id, int count);
 }

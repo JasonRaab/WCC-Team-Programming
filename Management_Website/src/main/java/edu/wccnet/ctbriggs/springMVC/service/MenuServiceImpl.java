@@ -20,4 +20,18 @@ public class MenuServiceImpl implements MenuService {
 		return menuDAO.getMenu();
 	}
 
+	@Override
+	@Transactional
+	public void save(MenuItem newMenuItem) {
+		menuDAO.save(newMenuItem);
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateStock(int id, int count) {
+		menuDAO.updateStock(id, count);
+		
+	}
+
 }

@@ -40,15 +40,17 @@
 	</nav>
 
 	<div class="container m-3 mx-auto">
-	<form:form action="processForm" modelAttribute="menuItem">
+	<form:form action="processNewItem" modelAttribute="menuItem">
 		<div class="row g-2 mb-3 mt-3">
 			<div class="col">
+			<form:hidden path="id"/>
+			<form:hidden path="isActive" value="1"/>
 			<form:label path="name">Name</form:label>
 				<form:input path="name" type="text" class="form-control"
 					placeholder="Menu item name" />
 			</div>
 			<div class="col">
-			<form:label path="price">Price to Add</form:label>
+			<form:label path="price">Price</form:label>
 				<form:input path="price" type="text" class="form-control"
 					placeholder="enter a number value" />
 			</div>
@@ -71,14 +73,14 @@
 					<h2>${categories.get(iterator)}</h2>
 					<c:forEach var="eachIngredient" items="${categorizedIngredients.get(iterator)}">
 					<div class="col-6">
-						<form:checkbox path="ingredients" value="${eachIngredient}" />
+						<input type="checkbox" name="ingredientList" value="${eachIngredient.id}" />
 						<form:label path="ingredients">${eachIngredient.name}</form:label>
 					</div>
 					</c:forEach>
 				</div>
 			</c:forEach>
 		</div>
-
+	<input type="submit" class="btn btn-success" value='${menuItem.id==0 ? "Add New Menu Item" : "Update Menu Item"}'/>
 
 	</form:form>
 	</div>

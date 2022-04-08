@@ -22,4 +22,20 @@ public class MenuDAOImpl implements MenuDAO {
 		return query.getResultList();
 	}
 
+	@Override
+	public void save(MenuItem newMenuItem) {
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(newMenuItem);
+		
+	}
+
+	@Override
+	public void updateStock(int id, int count) {
+		Session session = sessionFactory.getCurrentSession();
+		MenuItem item = session.get(MenuItem.class, id);
+		item.setStock(count);
+		session.saveOrUpdate(item);
+		
+	}
+
 }

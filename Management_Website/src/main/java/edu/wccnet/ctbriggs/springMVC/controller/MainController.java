@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.cj.xdevapi.JsonArray;
+import com.mysql.cj.xdevapi.JsonValue;
+
 import edu.wccnet.ctbriggs.springMVC.domain.IngredientItem;
 import edu.wccnet.ctbriggs.springMVC.domain.ItemSearch;
 import edu.wccnet.ctbriggs.springMVC.domain.MenuItem;
@@ -76,6 +79,20 @@ public class MainController {
 		model.addAttribute("categorizedIngredients", categorizedIngredients);
 		return "addNewMenuItem";
 	}
+	
+	@RequestMapping("/processNewItem")
+	public String processNewItem(Model model, @ModelAttribute("menuItem") MenuItem newMenuItem, @RequestParam("ingredientList") ArrayList<Integer> ingredients) {
+		System.out.println(newMenuItem);
+		System.out.println(ingredients);
+		for(Integer i : ingredients) {
+			IngredientItem ingredient = ingredientService.getIngredient(i);
+			newMenuItem.addIngredient(ingredient);
+		}
+		menuService.save(newMenuItem);
+		System.out.println(newMenuItem);
+		return "redirect:/management/menu";
+	}
+	
 	@RequestMapping("/addNewIngredient")
 	public ModelAndView addNewIngredient() {
 		return new ModelAndView("addNewIngredient", "ingredientItem", new IngredientItem());
@@ -114,20 +131,44 @@ public class MainController {
 	}
 	
 	@RequestMapping("/stock")
-    public String stockList(Model model) {
+	public String stockList(Model model, @RequestParam(name = "type", required = false, defaultValue = "MenuItem") String itemType) {
         model.addAttribute("stock", new Stock());
-        model.addAttribute("stockList", stockService.getStocks());
+		if(itemType.equals(IngredientItem.class.getSimpleName())) {	
+			 model.addAttribute("stockList", ingredientService.getIngredients());
+		}
+		else{
+			 model.addAttribute("stockList", menuService.getMenu());
+		}
+       
         
         return "stock";
     }
 	
+	@RequestMapping("/stockMenu")
+    public String stockMenuList(Model model) {
+        model.addAttribute("stock", new Stock());
+        model.addAttribute("stockList", menuService.getMenu());
+        
+        return "stock";
+    }
 	@RequestMapping("/updateStock")
-	public String updateStock(Model model, @RequestParam("stockId") int stockId, @RequestParam("stock") String newCount){
+	public String updateStock(Model model, @RequestParam("stockId") int stockId, @RequestParam("stock") String newCount, @RequestParam("type") String itemType){
 		int count = Integer.parseInt(newCount);
 		System.out.println("StockId: " + stockId);
 		System.out.println("New Count:" + newCount);
+		System.out.println("ItemType:" + itemType);
+		
+		//determines whether to call menuService or IngredientService
+		if(itemType.equals(IngredientItem.class.getSimpleName())) {	
+			System.out.println("this is a ingredient");
+			ingredientService.updateStock(stockId, count);
+		}
+		else if(itemType.equals(MenuItem.class.getSimpleName())){
+			System.out.println("this is a menu item");
+			menuService.updateStock(stockId, count);
+		}
 		stockService.updateCount(stockId, count);
-		return "redirect:/management/stock";
+		return "redirect:/management/stock?type="+itemType;
 	}
 	
 	@GetMapping("/employees")
