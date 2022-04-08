@@ -29,7 +29,7 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="orders">Orders</a></li>
-					<li class="nav-item"><a class="nav-link" href="stock">Stock</a></li>
+					<li class="nav-item"><a class="nav-link" href="stock?type=MenuItem">Stock</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="menu">Menu</a></li>
 					<li class="nav-item"><a class="nav-link" href="employees">Employees</a>

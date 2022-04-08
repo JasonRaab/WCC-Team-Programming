@@ -32,7 +32,7 @@
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="orders">Orders</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="stock">Stock</a></li>
+						aria-current="page" href="stock?type=<%= request.getParameter("type")%>">Stock</a></li>
 					<li class="nav-item"><a class="nav-link" href="menu">Menu</a></li>
 					<li class="nav-item"><a class="nav-link" href="employees">Employees</a>
 					</li>

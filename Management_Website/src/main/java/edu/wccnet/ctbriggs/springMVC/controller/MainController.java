@@ -82,8 +82,6 @@ public class MainController {
 	
 	@RequestMapping("/processNewItem")
 	public String processNewItem(Model model, @ModelAttribute("menuItem") MenuItem newMenuItem, @RequestParam("ingredientList") ArrayList<Integer> ingredients) {
-		System.out.println(newMenuItem);
-		System.out.println(ingredients);
 		for(Integer i : ingredients) {
 			IngredientItem ingredient = ingredientService.getIngredient(i);
 			newMenuItem.addIngredient(ingredient);
@@ -131,7 +129,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/stock")
-	public String stockList(Model model, @RequestParam(name = "type", required = false, defaultValue = "MenuItem") String itemType) {
+	public String stockList(Model model, @RequestParam(name = "type", required = true, defaultValue = "MenuItem") String itemType) {
         model.addAttribute("stock", new Stock());
 		if(itemType.equals(IngredientItem.class.getSimpleName())) {	
 			 model.addAttribute("stockList", ingredientService.getIngredients());

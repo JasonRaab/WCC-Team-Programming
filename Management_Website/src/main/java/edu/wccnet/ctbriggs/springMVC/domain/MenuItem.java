@@ -34,7 +34,7 @@ public class MenuItem {
 	@Column(name = "is_active")
 	private int isActive;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "menu_item_default_ingredient", joinColumns = {
 			@JoinColumn(name = "menu_item_id") }, inverseJoinColumns = { @JoinColumn(name = "ingredient_id") })
 	List<IngredientItem> ingredients = new ArrayList<IngredientItem>();
