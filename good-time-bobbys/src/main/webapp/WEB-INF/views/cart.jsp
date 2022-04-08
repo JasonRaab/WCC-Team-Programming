@@ -82,6 +82,7 @@
 								<c:param name="menuItemID" value="${eachMenuItem.itemId}" />
 								<c:param name="orderID" value="${orderID}" />
 								<c:param name="itemNumber" value="${eachMenuItem.itemNumber}" />
+<%-- 								<c:param name="menuItemList" value="${menuItemList}" /> --%>
 							</c:url>
 
 							<td>
@@ -89,8 +90,6 @@
 								class="btn btn-sm active"
 								style="color: black; background-color: gray; font-size: medium;"
 								role="button" aria-pressed="true">Modify Item</a></td>
-
-
 						</tr>
 					</c:forEach>
 					<tr>

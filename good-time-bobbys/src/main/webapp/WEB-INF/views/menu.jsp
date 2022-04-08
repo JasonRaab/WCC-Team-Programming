@@ -140,7 +140,7 @@
 				<h3 class="header">APPS</h3>
 				<div class="card">
 					<table class="table">
-						<c:forEach var="eachItem" items="${menuItem}">
+						<c:forEach var="eachItem" items="${fullMenuItemList}">
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
@@ -174,7 +174,7 @@
 				<h3 class="header">SALADS</h3>
 				<div class="card">
 					<table class="table">
-						<c:forEach var="eachItem" items="${menuItem}">
+						<c:forEach var="eachItem" items="${fullMenuItemList}">
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
@@ -204,7 +204,7 @@
 				<h3 class="header">SANDWICHES</h3>
 				<div class="card">
 					<table class="table">
-						<c:forEach var="eachItem" items="${menuItem}">
+						<c:forEach var="eachItem" items="${fullMenuItemList}">
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
@@ -235,7 +235,7 @@
 				<h3 class="header">ENTREES</h3>
 				<div class="card">
 					<table class="table">
-						<c:forEach var="eachItem" items="${menuItem}">
+						<c:forEach var="eachItem" items="${fullMenuItemList}">
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
@@ -267,7 +267,7 @@
 				<h3 class="header">DESSERTS</h3>
 				<div class="card">
 					<table class="table">
-						<c:forEach var="eachItem" items="${menuItem}">
+						<c:forEach var="eachItem" items="${fullMenuItemList}">
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
@@ -298,7 +298,7 @@
 				<h3 class="header">SIDES</h3>
 				<div class="card">
 					<table class="table">
-						<c:forEach var="eachItem" items="${menuItem}">
+						<c:forEach var="eachItem" items="${fullMenuItemList}">
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />
@@ -329,7 +329,7 @@
 				<h3 class="header">BEVERAGES</h3>
 				<div class="card">
 					<table class="table">
-						<c:forEach var="eachItem" items="${menuItem}">
+						<c:forEach var="eachItem" items="${fullMenuItemList}">
 							<c:url var="addToCartLink" value="/addMenuItemToCart">
 								<c:param name="userID" value="${user.userId}" />
 								<c:param name="menuItemID" value="${eachItem.itemId}" />

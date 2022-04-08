@@ -87,11 +87,27 @@
 			</table>
 		</div>
 	</div>
-
+	
 	<div class="container">
 		<div class="card">
+		<h3>Ingredients ADDED</h3>
 			<table>
-				<c:forEach var="eachIngredientAdded" items="${ingredientAdded}">
+				<c:forEach var="eachIngredientAdded" items="${addedIngredientsByUser}">
+					<tr>
+						<td>${eachIngredientAdded.ingredientId}</td>
+						<td>${eachIngredientAdded.ingredientName}</td>
+						<td>${eachIngredientAdded.ingredientPrice}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="card">
+		<h3>Ingredients REMOVED</h3>
+			<table>
+				<c:forEach var="eachIngredientAdded" items="${removedIngredientsByUser}">
 					<tr>
 						<td>${eachIngredientAdded.ingredientId}</td>
 						<td>${eachIngredientAdded.ingredientName}</td>

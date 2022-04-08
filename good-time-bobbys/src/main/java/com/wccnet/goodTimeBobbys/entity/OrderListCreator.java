@@ -11,9 +11,19 @@ import org.springframework.stereotype.Component;
 public class OrderListCreator {
 
 	ArrayList<Integer> itemIdList = new ArrayList<>();
+
+	public void menuItemIdListCreator(Integer itemID) {
+		itemIdList.add(itemID);
+	}
+	
 	ArrayList<Integer> ingredientIdList = new ArrayList<>();
 
 	Set<Integer> defaultIngredientIdSet = new HashSet<>();
+	
+	public void addToDefaultIngredientIdSet(int ingredientID) {
+		defaultIngredientIdSet.add(ingredientID);
+	}
+	
 	Set<Integer> modifiedIngredientIdSet = new HashSet<>();
 
 	List<Ingredient> modifiedIngredientList = new ArrayList<>();
@@ -53,10 +63,7 @@ public class OrderListCreator {
 		return modifiedIngredientIdSet;
 	}
 
-	// change to MenuItemListCreator(Integer itemID)
-	public void listCreator(Integer itemID) {
-		itemIdList.add(itemID);
-	}
+
 
 	public void ingredientIdListCreator(Integer ingredientID) {
 		ingredientIdList.add(ingredientID);
