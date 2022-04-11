@@ -1,41 +1,60 @@
 package com.wccnet.goodTimeBobbys.entity;
 
-import java.util.List;
+import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+@Entity
+@Table(name = "item_ordered")
+public class ItemOrdered implements Serializable{
 
-//@Entity
-//@Table(name = "item_ordered")
-public class ItemOrdered {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
+	 */
 
 	// One OrderInfo to many menuItem(s)
-	@Column(name = "order_id")
-	private int orderId;
+//	@Id
+//	@Column(name = "order_id")
+//	private int orderId;
+	@Id
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+	@JoinColumn(name = "order_id")
+	private OrderInfo orderInfo;
 
-	//This differentiates one "burger" from the next (in case they both have the same topping)
+	// This differentiates one "burger" from the next (in case they both have the
+	// same topping)
 	@Column(name = "item_number")
 	private int itemNumber;
 
 	// One MenuItem to many ItemOrdered
-	@Column(name = "menu_item_id")
-	private int menuItemId;
+//	@Id
+//	@Column(name = "menu_item")
+//	private int menuItemId;
 
-	//Not sure how to link this up to the datebase **************************************************************
+	@Id
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+	@JoinColumn(name = "menu_item")
+	private MenuItem menuItem;
+
+	// Not sure how to link this up to the datebase
+	// **************************************************************
 	@Column(name = "ingredient_id")
 	private int ingredientId;
 
 	// This is a True = 1, False = 0
 	@Column(name = "modification")
 	private int modification;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "orderInfo")
-	private List<OrderInfo> orderInfoList;
 
 	public ItemOrdered() {
 
@@ -48,29 +67,21 @@ public class ItemOrdered {
 	 * @param ingredientId
 	 * @param modification
 	 */
-	public ItemOrdered(int orderId, int itemNumber, int menuItemId, int ingredientId, int modification) {
+	public ItemOrdered(OrderInfo orderInfo, int itemNumber, MenuItem menuItem, int ingredientId, int modification) {
 		super();
-		this.orderId = orderId;
+		this.orderInfo = orderInfo;
 		this.itemNumber = itemNumber;
-		this.menuItemId = menuItemId;
+		this.menuItem = menuItem;
 		this.ingredientId = ingredientId;
 		this.modification = modification;
 	}
-
+	
 	public int getItemNumber() {
 		return itemNumber;
 	}
 
 	public void setItemNumber(int itemNumber) {
 		this.itemNumber = itemNumber;
-	}
-
-	public int getMenuItemId() {
-		return menuItemId;
-	}
-
-	public void setMenuItemId(int menuItemId) {
-		this.menuItemId = menuItemId;
 	}
 
 	public int getIngredientId() {
@@ -89,18 +100,26 @@ public class ItemOrdered {
 		this.modification = modification;
 	}
 
-	public int getOrderId() {
-		return orderId;
+	public OrderInfo getOrderInfo() {
+		return orderInfo;
 	}
 
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setOrderInfo(OrderInfo orderInfo) {
+		this.orderInfo = orderInfo;
+	}
+
+	public MenuItem getMenuItem() {
+		return menuItem;
+	}
+
+	public void setMenuItem(MenuItem menuItem) {
+		this.menuItem = menuItem;
 	}
 
 	@Override
 	public String toString() {
-		return " { ItemOrdered } Order ID: " + orderId + " /nItem Number: " + itemNumber + " /nMenu Item Id: " + menuItemId
-				+ " /nIngredient ID: " + ingredientId + " /nModification: " + modification;
+		return " { ItemOrdered } Order ID: " + orderInfo.getOrderId() + " /nItem Number: " + itemNumber + " /nMenu Item Id: "
+				+ menuItem.getItemId() + " /nIngredient ID: " + ingredientId + " /nModification: " + modification;
 	}
 
 }

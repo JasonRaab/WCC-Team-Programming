@@ -3,6 +3,7 @@ package com.wccnet.goodTimeBobbys.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,8 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "menu_item")
@@ -58,6 +62,24 @@ public class MenuItem {
 			@JoinColumn(name = "menu_item_id") }, inverseJoinColumns = { @JoinColumn(name = "ingredient_id") })
 	List<Ingredient> ingredients = new ArrayList<Ingredient>();
 	
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "menuItem", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+	private List<ItemOrdered> itemsOrdered;
+	
+	
+	public void addItemsOrdered(ItemOrdered itemOrdered) {
+		itemsOrdered.add(itemOrdered);
+		itemOrdered.setMenuItem(this);
+	}
+	
+	public void removeItemsOrdered(ItemOrdered itemOrdered) {
+		itemsOrdered.remove(itemOrdered);
+	}
+	
+	public void clearItemsOrderedList() {
+		itemsOrdered.clear();
+	}
 
 	public MenuItem() {
 

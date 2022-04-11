@@ -83,6 +83,7 @@
 					<td>USER ID: ${user.userId}</td>
 					<td>ORDER ID: ${orderID}</td>
 					<td>MENU ITEM NAME: ${menuItem.itemName}</td>
+					<td>MENU ITEM NUMBER: ${itemNumber}</td>
 				</tr>
 			</table>
 		</div>
@@ -117,6 +118,13 @@
 			</table>
 		</div>
 	</div>
+	<c:url var="backToCart" value="/backToCart">
+				<c:param name="userID" value="${user.userId}" />
+				<c:param name="orderID" value="${orderID}" />
+			</c:url>
+	<a href="${backToCart}" class="btn btn-sm active"
+				style="color: white; background-color: black; font-size: medium;"
+				role="button" aria-pressed="true">Back to Menu!</a>
 
 
 	<!-- 	<div class="container"> -->

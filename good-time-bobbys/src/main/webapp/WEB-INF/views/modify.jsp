@@ -99,13 +99,63 @@
 </head>
 <body>
 
+
+
+<!-- //	@RequestMapping("/modify") -->
+<!-- //    public String modifyItem(Model model, @RequestParam(name = "userID") int userID, -->
+<!-- //            @RequestParam(name = "menuItemID") int menuItemID, -->
+<!-- //            @RequestParam(name = "orderID") int orderID, -->
+<!-- //            @RequestParam(name = "itemNumber") int itemNumber, -->
+<!-- //            //@RequestParam(name = "subtotal") int priceTotal, -->
+<!-- //            @ModelAttribute(name = "defaultIngredientList") Ingredient defaultIngredientList, -->
+<!-- //            @ModelAttribute(name = "ingredients") Ingredient ingredients, -->
+<!-- //            // @ModelAttribute(name = "comparisonSet") Set<Integer> comparisonSet, -->
+<!-- //            BindingResult bindingResult) { -->
+<!-- // -->
+<!-- //        User user = userDAO.getUserByID(userID); -->
+<!-- //        MenuItem menuItem = restaurantDAO.getMenuItemByID(menuItemID); -->
+<!-- //        OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID); -->
+<!-- //        int menuItemNumber = itemNumber; -->
+<!-- //        int orderIDint = orderInfo.getOrderId(); -->
+<!-- //        // Set<Integer> results = -->
+<!-- //        // ingredientDAO.compareDefaultAndChosenIngredients(menuItemID); -->
+<!-- //        List<Ingredient> defaultIngredientIDList = ingredientDAO.getIngredientListByMenuItemID(menuItemID); -->
+<!-- //        List<Ingredient> fullIngredientList = ingredientDAO.getAllIngredients(); -->
+<!-- //        List<Ingredient> ingredientsToRemove= new ArrayList<Ingredient>(); -->
+<!-- //for (Ingredient ingredient : fullIngredientList) { -->
+<!-- //            for (Ingredient defaultIngredient : defaultIngredientIDList) { -->
+<!-- // -->
+<!-- //                if (ingredient.getIngredientId() == defaultIngredient.getIngredientId()) { -->
+<!-- //                    ingredientsToRemove.add(ingredient); -->
+<!-- //                } -->
+<!-- //            } -->
+<!-- //        } -->
+<!-- //            fullIngredientList.removeAll(ingredientsToRemove); -->
+<!-- // -->
+<!-- //        model.addAttribute(user); -->
+<!-- //        model.addAttribute("menuItem", menuItem); -->
+<!-- //        model.addAttribute("itemNumber", menuItemNumber); -->
+<!-- //        model.addAttribute("orderID", orderIDint); -->
+<!-- //        //model.addAttribute("subtotal", priceTotal); -->
+<!-- //        model.addAttribute("defaultIngredientList", ingredientDAO.getIngredientListByMenuItemID(menuItemID)); -->
+<!-- //        model.addAttribute("ingredients",  fullIngredientList); -->
+<!-- //        // model.addAttribute("comparisonSet", results); -->
+<!-- // -->
+<!-- //        return "modify"; -->
+<!-- //    } -->
+<!-- //	 -->
+
+
+
+
+
 	<div class="container">
 		<div class="jumbotron text-center">
 			<h1>WELCOME TO GOOD TIME BOBBY'S
 				${user.firstName}&nbsp;${user.lastName}</h1>
 			<h2>${menuItem.itemName}</h2>
 			<h3>${orderID}</h3>
-			<h4>${menuItem.itemNumber}</h4>
+			<h4>${itemNumber}</h4>
 		</div>
 	</div>
 	<div class="container">
@@ -122,9 +172,9 @@
 		<c:url var="testing" value="testing">
 			<c:param name="userID" value="${user.userId}"></c:param>
 			<c:param name="orderID" value="${orderID}"></c:param>
-			<c:param name="menuItemID" value="${menuItem.itemId}"></c:param>
-			<c:param name="itemNumber" value="${menuItem.itemNumber}"></c:param>
-			<c:param name="menuItemList" value="${menuItemList}"></c:param>
+			<c:param name="menuItemID" value="${menuItemID}"></c:param>
+			<c:param name="itemNumber" value="${itemNumber}"></c:param>
+<%-- 			<c:param name="menuItem" value="${menuItem}"></c:param> --%>
 		</c:url>
 		<form:form action="${testing}" modelAttribute="user" method="post">
 			<fieldset>

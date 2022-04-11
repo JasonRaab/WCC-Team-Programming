@@ -27,7 +27,7 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Transactional
 	public List<MenuItem> getMenuItems() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<MenuItem> menuItems = session.createQuery("from MenuItem", MenuItem.class);
+		Query<MenuItem> menuItems = session.createQuery("from MenuItem mi where mi.isActive = 1", MenuItem.class);
 
 		return menuItems.getResultList();
 

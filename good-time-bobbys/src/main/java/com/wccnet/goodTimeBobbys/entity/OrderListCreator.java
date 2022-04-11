@@ -34,14 +34,14 @@ public class OrderListCreator {
 //	ArrayList<Object> fullOrderBuilder = new ArrayList<>();
 //	ArrayList<Object> fullOrder = new ArrayList<>();
 	
-	public void addItemToOrder(int orderID, int itemNumber, int menuItemID, int ingredientID, int modification) {
-		ItemOrdered itemOrdered = new ItemOrdered();
-		itemOrdered.setIngredientId(ingredientID);
-		itemOrdered.setItemNumber(itemNumber);
-		itemOrdered.setMenuItemId(menuItemID);
-		itemOrdered.setModification(modification);
-		itemOrdered.setOrderId(orderID);
-	}
+//	public void addItemToOrder(int orderID, int itemNumber, int menuItemID, int ingredientID, int modification) {
+//		ItemOrdered itemOrdered = new ItemOrdered();
+//		itemOrdered.setIngredientId(ingredientID);
+//		itemOrdered.setItemNumber(itemNumber);
+//		itemOrdered.setMenuItemId(menuItemID);
+//		itemOrdered.setModification(modification);
+//		itemOrdered.setOrderId(orderID);
+//	}
 
 	public List<Ingredient> getModifiedIngredientList() {
 		return modifiedIngredientList;

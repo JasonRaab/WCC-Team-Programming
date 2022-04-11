@@ -55,8 +55,10 @@ public class IngredientDAOImpl implements IIngredientDAO {
 
 		Session session = sessionFactory.getCurrentSession();
 		MenuItem menuItem = session.get(MenuItem.class, menuItemID);
-		Set<Integer> setOfDefaultIngredientIds = new HashSet<>();
+		
 		List<Ingredient> listOfIngredients = menuItem.getIngredients();
+
+		Set<Integer> setOfDefaultIngredientIds = new HashSet<>();
 
 		for (Ingredient ingredient : listOfIngredients) {
 			if (ingredient.getIsActive() == 1) {
@@ -85,31 +87,31 @@ public class IngredientDAOImpl implements IIngredientDAO {
 		// Will be set as menuItem's default IngredientId's
 		Set<Integer> defaultIngredientIds = getDefaultIngredientIDs(menuItemID);
 
-		for (Integer ingredientID : defaultIngredientIds) {
-			if (!modifiedIngredientsList.contains(ingredientID)) {
-//				/* ... this object was removed ... */
-//					modification = false;
-				ItemOrdered itemOrdered = new ItemOrdered();
-//	        	itemOrdered.setOrderId(3); 
-				itemOrdered.setItemNumber(1);
-				itemOrdered.setMenuItemId(menuItemID);
-				itemOrdered.setIngredientId(ingredientID);
-				itemOrdered.setModification(0);
-			}
-		}
-//
-		for (Integer ingredientID : modifiedIngredientsList) {
-			if (!defaultIngredientIds.contains(ingredientID)) {
-//				/* ... this object was added ... */
-//					modification = true;
-				ItemOrdered itemOrdered = new ItemOrdered();
-//	        	itemOrdered.setOrderId(3); 
-				itemOrdered.setItemNumber(1);
-				itemOrdered.setMenuItemId(menuItemID);
-				itemOrdered.setIngredientId(ingredientID);
-				itemOrdered.setModification(1);
-			}
-		}
+//		for (Integer ingredientID : defaultIngredientIds) {
+//			if (!modifiedIngredientsList.contains(ingredientID)) {
+////				/* ... this object was removed ... */
+////					modification = false;
+//				ItemOrdered itemOrdered = new ItemOrdered();
+////	        	itemOrdered.setOrderId(3); 
+//				itemOrdered.setItemNumber(1);
+//				itemOrdered.setMenuItem(menuItemID);
+//				itemOrdered.setIngredientId(ingredientID);
+//				itemOrdered.setModification(0);
+//			}
+//		}
+////
+//		for (Integer ingredientID : modifiedIngredientsList) {
+//			if (!defaultIngredientIds.contains(ingredientID)) {
+////				/* ... this object was added ... */
+////					modification = true;
+//				ItemOrdered itemOrdered = new ItemOrdered();
+////	        	itemOrdered.setOrderId(3); 
+//				itemOrdered.setItemNumber(1);
+//				itemOrdered.setMenuItemId(menuItemID);
+//				itemOrdered.setIngredientId(ingredientID);
+//				itemOrdered.setModification(1);
+//			}
+//		}
 
 		return 1;
 	}

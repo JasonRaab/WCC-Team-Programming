@@ -112,7 +112,7 @@
 
 	</div>
 	<div style="text-align: center;">
-		<c:url var="cart" value="/itemIdList">
+		<c:url var="cart" value="/cart">
 			<c:param name="userID" value="${user.userId}" />
 			<c:param name="orderID" value="${orderID}" />
 		</c:url>

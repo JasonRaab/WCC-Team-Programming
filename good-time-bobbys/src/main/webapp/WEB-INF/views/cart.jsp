@@ -44,8 +44,9 @@
 
 	<div class="container">
 		<div class="jumbotron text-center">
-			<h1>WELCOME TO GOOD TIME BOBBY'S
-				${user.firstName}&nbsp;${user.lastName}</h1>
+			<h1>WELCOME TO GOOD TIME BOBBY'S</h1>
+				<h1>${user.firstName}&nbsp;${user.lastName}</h1>
+				<h2>${orderID}</h2>
 		</div>
 
 	</div>

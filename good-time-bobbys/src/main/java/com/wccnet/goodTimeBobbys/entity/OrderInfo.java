@@ -1,12 +1,18 @@
 package com.wccnet.goodTimeBobbys.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "order_info")
@@ -46,10 +52,29 @@ public class OrderInfo {
 	private String tableNumber;
 	
 	//this column is allowing us to track if the order is open = 1 or closed = 0
-	@Transient
-	//@Column(name = "is_open")
+	
+	@Column(name = "is_open")
 	private int isOpen;
-
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "orderInfo", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+	private List<ItemOrdered> itemsOrdered;
+	
+	public void addItemsOrdered(ItemOrdered itemOrdered) {
+		itemsOrdered.add(itemOrdered);
+		itemOrdered.setOrderInfo(this);
+	}
+	
+	public void removeItemsOrdered(ItemOrdered itemOrdered) {
+		itemsOrdered.remove(itemOrdered);
+	}
+	
+	public void clearItemsOrderedList() {
+		itemsOrdered.clear();
+	}
+	
+	
+	
 	public OrderInfo() {
 
 	}
@@ -97,21 +122,6 @@ public class OrderInfo {
 		this.userId = userId;
 	}
 
-	public String getOrder_date() {
-		return orderDate;
-	}
-
-	public void setOrder_date(String orderDate) {
-		this.orderDate = orderDate;
-	}
-
-	public Double getOrder_subtotal() {
-		return orderSubtotal;
-	}
-
-	public void setOrder_subtotal(Double orderSubtotal) {
-		this.orderSubtotal = orderSubtotal;
-	}
 
 	public Double getOrderTax() {
 		return orderTax;
@@ -130,6 +140,38 @@ public class OrderInfo {
 	}
 	
 	
+
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public Double getOrderSubtotal() {
+		return orderSubtotal;
+	}
+
+	public void setOrderSubtotal(Double orderSubtotal) {
+		this.orderSubtotal = orderSubtotal;
+	}
+
+	public int getIsOpen() {
+		return isOpen;
+	}
+
+	public void setIsOpen(int isOpen) {
+		this.isOpen = isOpen;
+	}
+
+	public List<ItemOrdered> getItemsOrdered() {
+		return itemsOrdered;
+	}
+
+	public void setItemsOrdered(List<ItemOrdered> itemsOrdered) {
+		this.itemsOrdered = itemsOrdered;
+	}
 
 	public String getTableNumber() {
 		return tableNumber;
