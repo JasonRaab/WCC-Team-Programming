@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +31,7 @@ public class ItemOrdered implements Serializable{
 	@Id
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
 	@JoinColumn(name = "order_id")
+	@OrderColumn(name = "order_id")
 	private OrderInfo orderInfo;
 
 	// This differentiates one "burger" from the next (in case they both have the
@@ -56,6 +58,7 @@ public class ItemOrdered implements Serializable{
 	@Column(name = "modification")
 	private int modification;
 
+	
 	public ItemOrdered() {
 
 	}

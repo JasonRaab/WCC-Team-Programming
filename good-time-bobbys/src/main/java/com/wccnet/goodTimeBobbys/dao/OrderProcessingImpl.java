@@ -1,6 +1,7 @@
 package com.wccnet.goodTimeBobbys.dao;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.wccnet.goodTimeBobbys.entity.ItemOrdered;
+import com.wccnet.goodTimeBobbys.entity.MenuItem;
 import com.wccnet.goodTimeBobbys.entity.OrderInfo;
 
 @Repository
@@ -18,20 +20,63 @@ public class OrderProcessingImpl {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	ArrayList<MenuItem> menuItemInCart = new ArrayList<>();
+	
+	public void addMenuItemInCart(MenuItem menuItem) {
+		menuItemInCart.add(menuItem);
+	}
+	
+	public ArrayList<MenuItem> getMenuItemInCart() {
+		return menuItemInCart;
+	}
 
-	@Transactional
-	public void addItemOrderedToDatabase(ItemOrdered itemOrdered) {
+	public void setMenuItemInCart(ArrayList<MenuItem> menuItemInCart) {
+		this.menuItemInCart = menuItemInCart;
+	}
 
-		Session session = sessionFactory.getCurrentSession();
 
+
+	ArrayList<ItemOrdered> itemOrderedHolder = new ArrayList<ItemOrdered>();
+	
+	public void addItemOrderedToList(ItemOrdered itemOrdered) {
 		if (itemOrdered != null) {
-			session.persist(itemOrdered);
+			itemOrderedHolder.add(itemOrdered);
 		} else {
 			System.out.println("Hey DINGUS your ItemOrdered is NULL!!!");
 		}
+	}
+	
+	public void processItemsOrdered(ArrayList<ItemOrdered> itemOrderedArrayList) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		for (ItemOrdered itemOrdered : itemOrderedArrayList) {
+			session.persist(itemOrdered);
+		}
+	}
+	
 
+	public ArrayList<ItemOrdered> getItemOrderedHolder() {
+		return itemOrderedHolder;
 	}
 
+	public void setItemOrderedHolder(ArrayList<ItemOrdered> itemOrderedHolder) {
+		this.itemOrderedHolder = itemOrderedHolder;
+	}
+
+//	@Transactional
+//	public void addItemOrderedToDatabase(ItemOrdered itemOrdered) {
+//
+//		Session session = sessionFactory.getCurrentSession();
+//
+//		if (itemOrdered != null) {
+//			session.persist(itemOrdered);
+//		} else {
+//			System.out.println("Hey DINGUS your ItemOrdered is NULL!!!");
+//		}
+//
+//	}
+	//This happens upon User Log-in
 	@Transactional
 	public void createOrderInfo(int orderID, int userID) {
 		Session session = sessionFactory.getCurrentSession();

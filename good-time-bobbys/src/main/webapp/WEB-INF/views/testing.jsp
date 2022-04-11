@@ -124,7 +124,7 @@
 			</c:url>
 	<a href="${backToCart}" class="btn btn-sm active"
 				style="color: white; background-color: black; font-size: medium;"
-				role="button" aria-pressed="true">Back to Menu!</a>
+				role="button" aria-pressed="true">Back to Cart!</a>
 
 
 	<!-- 	<div class="container"> -->

@@ -14,8 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.IndexColumn;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -64,6 +69,7 @@ public class MenuItem {
 	
 	
 	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "menuItem", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
 	private List<ItemOrdered> itemsOrdered;
 	
