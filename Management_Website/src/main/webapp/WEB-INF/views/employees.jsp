@@ -32,7 +32,8 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="orders">Orders</a></li>
-					<li class="nav-item"><a class="nav-link" href="stock?type=MenuItem">Stock</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="stock?type=MenuItem">Stock</a></li>
 					<li class="nav-item"><a class="nav-link" href="menu">Menu</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="employees">Employees</a></li>
@@ -45,17 +46,17 @@
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-3">
 				<div class="btn-group">
-					<a href="#" class="btn btn-primary active" aria-current="page">Clocked-in
-						Employees</a> <a href="#" class="btn btn-outline-primary">Current
-						Employees</a> <a href="#" class="btn btn-outline-primary">Previous
-						Employees</a>
+					<!-- <a href="#" class="btn btn-primary active" aria-current="page">Clocked-in
+						Employees</a> -->
+					<a href="#" class="btn btn-outline-primary" aria-current="page">Current Employees</a> <a
+						href="#" class="btn btn-outline-primary">Previous Employees</a>
 				</div>
 			</div>
 		</div>
 
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-3">
-				<h3>${employeeList.size()}&nbsp;Clocked-in Employees</h3>
+				<h3>${employeeList.size()}&nbsp;Clocked-inEmployees</h3>
 			</div>
 		</div>
 
@@ -68,8 +69,7 @@
 
 		<form action="addEmployee" method="post">
 			<div class="mb-3">
-				<button class="btn btn-success">+
-						Add New</button>
+				<button class="btn btn-success">+ Add New</button>
 			</div>
 		</form>
 
@@ -113,6 +113,12 @@
 							<p class="card-text"></p>
 							<a href="updateEmployee?employeeID=` + employee.userId + `" class="card-link">
 								<button class="btn btn-primary">Modify</button>
+							</a>
+							<a href="activateEmployee?employeeID=` + employee.userId + `" class="card-link">
+								<button class="btn btn-primary">Activate</button>
+							</a>
+							<a href="deactivateEmployee?employeeID=` + employee.userId + `" class="card-link">
+								<button class="btn btn-warning">Deactivate</button>
 							</a>
 						</div>
 		            </div>

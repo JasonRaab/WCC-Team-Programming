@@ -187,7 +187,7 @@ public class MainController {
 		return "addNewEmployee";
 	}
 	
-	@PostMapping("/processEmployee")
+	@RequestMapping("/processEmployee")
 	public String processEmployee(
 			@ModelAttribute("employee") User employee) {
 		System.out.println(employee);
@@ -200,6 +200,22 @@ public class MainController {
 		User employee = userService.getUser(id);
 		model.addAttribute("employee", employee);
 		return "editEmployee";
+	}
+	
+	@RequestMapping("/activateEmployee")
+	public String activateEmployee(Model model, @RequestParam("employeeID") int id) {
+		User employee = userService.getUser(id);
+		employee.setIsActive(1);
+		userService.saveUser(employee);
+		return "redirect:/management/employees";
+	}
+	
+	@RequestMapping("/deactivateEmployee")
+	public String deactivateEmployee(Model model, @RequestParam("employeeID") int id) {
+		User employee = userService.getUser(id);
+		employee.setIsActive(0);
+		userService.saveUser(employee);
+		return "redirect:/management/employees";
 	}
 	
 	@InitBinder
