@@ -27,6 +27,14 @@
         Me.Modification = Modification
     End Sub
 
+    Public Sub New(ingredient As Ingredient)
+        Me.Id = ingredient.Id
+        Me.Name = ingredient.Name
+        Me.Category = ingredient.Category
+        Me.Price = ingredient.Price
+        Me.Modification = ingredient.Modification
+    End Sub
+
     Public Property Modification As Integer
         Get
             Return modificationValue

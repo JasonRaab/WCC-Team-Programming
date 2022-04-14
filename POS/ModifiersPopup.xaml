@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POS"
         mc:Ignorable="d"
-        Title="ModifiersPopup" Height="620" Width="800">
+        Title="ModifiersPopup" Height="620" Width="800" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
         <Grid x:Name="ingredientGridPanel" HorizontalAlignment="Left" Height="383" VerticalAlignment="Top" Width="792">
             <Grid.Background>
@@ -42,16 +42,24 @@
                 <ColumnDefinition Width="130*"/>
                 <ColumnDefinition Width="130*"/>
                 <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnOk" Grid.Column="4" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="OK" Grid.Row="1"/>
-            <Button x:Name="btnCancel" Grid.Column="5" HorizontalAlignment="Left" Margin="35,5,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Cancel" Grid.Row="1"/>
+            <Button x:Name="btnOk" Grid.Column="5" HorizontalAlignment="Left" Margin="19,5,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="OK" Grid.Row="1"/>
+            <Button x:Name="btnCancel" Grid.Column="6" HorizontalAlignment="Left" Margin="24,0,0,0" VerticalAlignment="Bottom" Width="70" Height="70" Content="Cancel" Grid.Row="1"/>
             <Button x:Name="btnVegetable" HorizontalAlignment="Left" Margin="31,0,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Vegetable"/>
-            <Button x:Name="btnProtein" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Protein" Grid.Column="1"/>
-            <Button x:Name="btnCondiment" HorizontalAlignment="Left" Margin="31,0,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Condiment" Grid.Column="2"/>
-            <Button x:Name="btnDairy" HorizontalAlignment="Left" Margin="31,0,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Dairy" Grid.Column="3"/>
-            <Button x:Name="btnBread" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Bread" Grid.Column="4"/>
-            <Button x:Name="btnFruit" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Fruit" Grid.Column="5"/>
+            <Button x:Name="btnProtein" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Protein" Grid.Column="1"/>
+            <Button x:Name="btnCondiment" HorizontalAlignment="Left" Margin="28,0,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Condiment" Grid.Column="2"/>
+            <Button x:Name="btnDairy" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Dairy" Grid.Column="1" Grid.Row="1"/>
+            <Button x:Name="btnBread" HorizontalAlignment="Left" Margin="28,5,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Bread" Grid.Column="2" Grid.Row="1"/>
+            <Button x:Name="btnFruit" HorizontalAlignment="Left" Margin="21,0,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Fruit" Grid.Column="3"/>
             <Button x:Name="btnDessert" HorizontalAlignment="Left" Margin="31,5,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Dessert" RenderTransformOrigin="0.343,2.071" Grid.Row="1"/>
+            <Button x:Name="btnDefault" HorizontalAlignment="Left" Margin="21,5,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Default" RenderTransformOrigin="0.343,2.071" Grid.Column="3" Grid.Row="1"/>
+            <Button x:Name="btnAddRemove" Grid.Column="6" HorizontalAlignment="Left" Margin="24,5,0,0" VerticalAlignment="Top" Width="70" Height="70" Content="Add" BorderBrush="#FFBBBBBB">
+                <Button.Background>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
+                </Button.Background>
+            </Button>
         </Grid>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="150" Margin="497,439,0,0" Stroke="Black" VerticalAlignment="Top" Width="58"/>
     </Grid>
 </Window>

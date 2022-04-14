@@ -29,4 +29,8 @@
     Private Sub btnExit_Click(sender As Object, e As RoutedEventArgs) Handles btnExit.Click
         posApp.ExitOrderPage()
     End Sub
+
+    Private Sub lstBoxTicket_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles lstBoxTicket.MouseDoubleClick
+        posApp.EditItem()
+    End Sub
 End Class

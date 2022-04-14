@@ -1,4 +1,5 @@
-﻿Imports System.Drawing
+﻿'Imports System.Drawing
+Imports System.Windows.Media.Brushes
 ''' <summary>
 ''' To Do Front End:
 ''' Display totals in a nicer way. Probably a dataTemplate like in ticket
@@ -17,12 +18,7 @@
 ''' </summary>
 Public Class POSApp
 
-
-    Private selectedItem As Item
-    Private dctItemItemNumber As New Dictionary(Of Item, Integer)
     Private dctIngredientButtons As New Dictionary(Of Button, Ingredient)
-    Private itemNumber As Integer
-    'Private modifiersPopup As ModifiersPopup
     Private loginPageValue As LoginPage
     Private mainWindowValue As MainWindow
     Private orderSelectionpageValue As OrderSelectionPage
@@ -31,12 +27,11 @@ Public Class POSApp
     Private dctItemButtonsValue As New Dictionary(Of Button, Item)
     Private orderPage As OrderPage
     Private lstAllIngredients As New List(Of Ingredient)
-    Private lstRelevantIngredients As New List(Of Ingredient)
     Private lstOpenOrders As New List(Of Order)
-    Private lstClosedOrders As New List(Of Order)
     Private selectedOrder As New Order
     Private userValue As User
     Private modifiersPopupValue As ModifiersPopup
+    Private addIngredientMode As Boolean = True
 
     Public Property User() As User
         Get
@@ -113,12 +108,16 @@ Public Class POSApp
     '''''''''' Populating Functions ''''''''''
 
     Public Sub PopulateIngredientButtons()
+        dctIngredientButtons.Clear()
+        Dim lstDefaultIngredientIds As New List(Of Integer)
         Dim lstIngredientCategories As New List(Of String)
         Dim intRow As Integer
         Dim intColumn As Integer
         lstAllIngredients = dao.GetAllIngredients()
+        lstDefaultIngredientIds = dao.GetDefaultIngredientIds(ModifiersPopup.SelectedItem)
 
         'Create a button for each ingredient and add it to the dctIngredientButtons Dictonary
+        'If the ingredient is inlcuded on the item by default, make it green. Else, make it red.
         For Each ingredient As Ingredient In lstAllIngredients
             Dim btn As New Button
             btn.Content = ingredient.Name.Replace(" ", Environment.NewLine)
@@ -127,6 +126,11 @@ Public Class POSApp
             btn.Height = 70
             btn.Width = 70
             btn.FontSize = 14
+            If lstDefaultIngredientIds.Contains(ingredient.Id) Then
+                btn.Background = Brushes.Green
+            Else
+                btn.Background = Brushes.Red
+            End If
             AddHandler btn.Click, AddressOf IngredientBtn_Click
             dctIngredientButtons.Add(btn, ingredient)
         Next
@@ -223,8 +227,13 @@ Public Class POSApp
         Dim total As Decimal
         subTotal = 0.00
 
-        For Each item As Item In orderPage.lstBoxTicket.Items
+        For Each item As Item In selectedOrder.LstItems
             subTotal = subTotal + item.Price
+            For Each ingredient As Ingredient In item.Modifications
+                If ingredient.Modification = 1 Then
+                    subTotal = subTotal + ingredient.Price
+                End If
+            Next
         Next
 
         tax = subTotal * 0.06
@@ -278,6 +287,7 @@ Public Class POSApp
         Dim orderFound As Boolean = False
         orderPage.lstBoxTicket.Items.Clear()
         orderPage.lblEmployeeName.Content = User.FirstName & " " & User.LastName
+
         'If there is already an open order at that location then load that order
         For Each order As Order In lstOpenOrders
             If order.Location.Equals(location) Then
@@ -294,7 +304,9 @@ Public Class POSApp
             Dim order As New Order(location)
             lstOpenOrders.Add(order)
             selectedOrder = order
-            Debug.WriteLine("No order found. New one created")
+            dao.CreateOrder(selectedOrder, User.UserID)
+            selectedOrder.OrderId = dao.GetHighestOrderId()
+            Debug.WriteLine("No order found. New one created with id " & selectedOrder.OrderId)
         End If
 
         'Either way, clean up and display the order page
@@ -306,10 +318,71 @@ Public Class POSApp
 
     ''''''''''' Other Functions '''''''''''''
 
-    Public Sub IngredientBtn_Click(sender As Object, e As RoutedEventArgs)
-        If dctIngredientButtons.ContainsKey(CType(sender, Button)) Then
-            selectedItem.Modifications.Add(dctIngredientButtons.Item(CType(sender, Button)))
+    Public Sub ToggleAddRemove()
+        If addIngredientMode = True Then
+            addIngredientMode = False
+            ModifiersPopup.btnAddRemove.Background = Brushes.Red
+            ModifiersPopup.btnAddRemove.Content = "Remove"
+        Else
+            addIngredientMode = True
+            ModifiersPopup.btnAddRemove.Background = Brushes.Green
+            ModifiersPopup.btnAddRemove.Content = "Add"
         End If
+    End Sub
+
+    Public Sub IngredientBtn_Click(sender As Object, e As RoutedEventArgs)
+        Dim ingredientAlreadyCreated As Boolean = False
+        Dim ingredient As Ingredient
+        Dim lstAllIngredients = dao.GetAllIngredients()
+        Dim lstDefaultIngredientIds = dao.GetDefaultIngredientIds(ModifiersPopup.SelectedItem)
+
+        'Dont look at this
+        'If you adding an already added item or removing an already removed item, don't do anything and exit.
+        If CType(sender, Button).Background.Equals(ModifiersPopup.btnAddRemove.Background) Then
+            Exit Sub
+        End If
+
+        If dctIngredientButtons.ContainsKey(CType(sender, Button)) Then
+            'We only want to create a new ingredient if the ingredient isn't already on the item as a modification
+
+            For Each i As Ingredient In lstAllIngredients
+                For Each modification As Ingredient In ModifiersPopup.SelectedItem.Modifications
+                    If i.Id = modification.Id Then
+                        'When this is true, the ingredient is already explicitly added or removed as a modifier
+                        'Don't create a new one, use the one from the ingredientButton dictonary
+                        ingredient = modification
+                        ingredientAlreadyCreated = True
+                    End If
+                Next
+            Next
+            'If the item doesn't already exist as a modification, create a new one
+            If ingredientAlreadyCreated = False Then
+                ingredient = New Ingredient(dctIngredientButtons.Item(CType(sender, Button))
+            End If
+
+
+            'Set the modification values to indicate if the item is being added or removed
+            If addIngredientMode = True Then
+                ingredient.Modification = 1
+            Else
+                ingredient.Modification = 0
+            End If
+
+            'Change the color of the clicked button to match its added or removed status
+            If addIngredientMode = True Then
+                CType(sender, Button).Background = Brushes.Green
+            Else
+                CType(sender, Button).Background = Brushes.Red
+            End If
+
+            'If the ingredient was already in a modification on the item, remove it. Else, add the modification.
+            If ingredientAlreadyCreated = True Then
+                ModifiersPopup.SelectedItem.Modifications.Remove(ingredient)
+            Else
+                ModifiersPopup.SelectedItem.Modifications.Add(ingredient)
+            End If
+        End If
+
     End Sub
 
     Public Sub CategoryBtn_Click(sender As Object, e As RoutedEventArgs)
@@ -317,65 +390,79 @@ Public Class POSApp
     End Sub
 
     Public Sub AddItem(selectedItem As Item)
-        'dctItemItemNumber.Clear()
-        'itemNumber = 0
-
-        selectedOrder.LstItems.Add(selectedItem)
-        orderPage.lstBoxTicket.Items.Add(selectedItem)
-        orderPage.lstBoxTicket.SelectedItem = selectedItem
+        If selectedItem.EditedFlag = False Then
+            'If the item is being added for the first time, not being edited
+            selectedOrder.LstItems.Add(selectedItem)
+            orderPage.lstBoxTicket.Items.Add(selectedItem)
+            orderPage.lstBoxTicket.SelectedItem = selectedItem
+            selectedItem.EditedFlag = True
+        End If
+        selectedItem.BuildTicketViewStrings()
         UpdateTotals()
+        orderPage.lstBoxTicket.Items.Refresh()
 
-        For Each item As Object In orderPage.lstBoxTicket.Items
-            If TypeOf item Is Item Then
-                itemNumber += 1
-                dctItemItemNumber.Add(item, itemNumber)
-            End If
+        For Each modification As Ingredient In ModifiersPopup.SelectedItem.Modifications
+            Debug.WriteLine(modification.Modification & " " & modification.Name)
         Next
-
-        For Each item As Item In selectedOrder.LstItems
-            Debug.WriteLine("ITEM NAME: " & item.Name)
-            For Each ingredient As Ingredient In item.Modifications
-                Debug.WriteLine(item.Name & " INGREDIENT: " & ingredient.Name)
-            Next
-        Next
+        Debug.WriteLine("")
     End Sub
 
     Public Sub StartItem(clickedBtn As Object, e As RoutedEventArgs)
-
         'Uses DctItemButtons to find and create the correct item to use based on which button was clicked
         If DctItemButtons.ContainsKey(clickedBtn) Then
-            selectedItem = New Item(DctItemButtons.Item(clickedBtn))
+            Dim selectedItem As Item = New Item(DctItemButtons.Item(clickedBtn))
             ModifiersPopup.SelectedItem = selectedItem
             PopulateIngredientButtons()
-            FilterIngredientCategory("Vegetable")
+            FilterIngredientCategory("Default")
+            ModifiersPopup.btnAddRemove.Background = Brushes.Green
+            ModifiersPopup.btnAddRemove.Content = "Add"
+            addIngredientMode = True
             ModifiersPopup.ShowDialog()
         End If
     End Sub
 
+    Public Sub EditItem()
+        ModifiersPopup.SelectedItem = orderPage.lstBoxTicket.SelectedItem
+        ModifiersPopup.ShowDialog()
+    End Sub
+
     Public Sub FilterIngredientCategory(category As String)
         ModifiersPopup.ingredientGridPanel.Children.Clear()
+        Dim lstDefaultIngredientIds As New List(Of Integer)
         Dim intColumn As Integer = 0
         Dim intRow As Integer = 0
+        lstDefaultIngredientIds = dao.GetDefaultIngredientIds(ModifiersPopup.SelectedItem)
 
-        For Each pair As KeyValuePair(Of Button, Ingredient) In dctIngredientButtons
-            'Break down name of ingredient category to the first word only
-            'If pair.Value.Category.Contains(" ") Then
-            '    ingredientCategory = pair.Value.Category.Substring(0, category.IndexOf(" "))
-            'Else
-            '    ingredientCategory = pair.Value.Category
-            'End If
-            If pair.Value.Category.Equals(category) Then
-                Grid.SetRow(pair.Key, intRow)
-                Grid.SetColumn(pair.Key, intColumn)
-                ModifiersPopup.ingredientGridPanel.Children.Add(pair.Key)
-                intColumn += 1
-                If intColumn >= 4 Then
-                    intRow += 1
-                    intColumn = 0
+        'If the on the default tab, use a different method to decied what to display
+        If category.Equals("Default") = True Then
+            For Each pair As KeyValuePair(Of Button, Ingredient) In dctIngredientButtons
+                For Each id As Integer In lstDefaultIngredientIds
+                    If pair.Value.Id.Equals(id) Then
+                        Grid.SetRow(pair.Key, intRow)
+                        Grid.SetColumn(pair.Key, intColumn)
+                        ModifiersPopup.ingredientGridPanel.Children.Add(pair.Key)
+                        intColumn += 1
+                        If intColumn >= 4 Then
+                            intRow += 1
+                            intColumn = 0
+                        End If
+                    End If
+                Next
+            Next
+        Else
+            For Each pair As KeyValuePair(Of Button, Ingredient) In dctIngredientButtons
+                If pair.Value.Category.Equals(category) Then
+                    Grid.SetRow(pair.Key, intRow)
+                    Grid.SetColumn(pair.Key, intColumn)
+                    ModifiersPopup.ingredientGridPanel.Children.Add(pair.Key)
+                    intColumn += 1
+                    If intColumn >= 4 Then
+                        intRow += 1
+                        intColumn = 0
+                    End If
                 End If
-            End If
-        Next
-
+            Next
+        End If
     End Sub
 
     Public Sub LstBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
@@ -414,29 +501,20 @@ Public Class POSApp
     End Sub
 
     Public Sub SendOrder()
-        dao.SendOrder(selectedOrder, User.UserID)
-        'dao.SendTestOrder(selectedOrder)
+        dao.SendItems(selectedOrder, User.UserID)
 
+        'Changes the Sent property on non sent items so that they highlight to blue on the ticket view
         For Each item As Item In selectedOrder.LstItems
             If item.Sent = False Then
                 item.Sent = True
             End If
         Next
-        Debug.WriteLine(CType(orderPage.lstBoxTicket.SelectedItem, Item).Name)
-        Debug.WriteLine(CType(orderPage.lstBoxTicket.SelectedItem, Item).Sent)
     End Sub
 
     Public Sub TakePayment()
         'Move selectedOrder from lstOpenOrders to lstClosedOrders
 
     End Sub
-
-    'Public Sub PrintItemListTest()
-    '    For Each item As Item In selectedOrder.LstItems2
-    '        Debug.WriteLine(item.Name)
-    '    Next
-    '    Debug.WriteLine("-------------")
-    'End Sub
 
     Private Sub InvalidPin()
         LoginPage.lblPin.Content = "Invalid Pin"

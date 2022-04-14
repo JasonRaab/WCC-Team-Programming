@@ -16,13 +16,6 @@
         Me.posApp = posApp
     End Sub
 
-    'Remove this constructor if there are zero references
-    Public Sub New(posApp As POSApp, selectedItem As Item)
-        InitializeComponent()
-        Me.posApp = posApp
-        Me.SelectedItem = selectedItem
-    End Sub
-
     Private Sub BtnOk_Click(sender As Object, e As RoutedEventArgs) Handles btnOk.Click
         posApp.AddItem(selectedItem)
         Me.Hide()
@@ -32,7 +25,11 @@
         Me.Hide()
     End Sub
 
-    Private Sub IngredientCategory_Click(sender As Object, e As RoutedEventArgs) Handles btnVegetable.Click, btnProtein.Click, btnCondiment.Click, btnDairy.Click, btnBread.Click, btnFruit.Click, btnDessert.Click
+    Private Sub IngredientCategory_Click(sender As Object, e As RoutedEventArgs) Handles btnVegetable.Click, btnProtein.Click, btnCondiment.Click, btnDairy.Click, btnBread.Click, btnFruit.Click, btnDessert.Click, btnDefault.Click
         Me.posApp.FilterIngredientCategory(CType(sender, Button).Content)
+    End Sub
+
+    Private Sub btnAddRemove_Click(sender As Object, e As RoutedEventArgs) Handles btnAddRemove.Click
+        Me.posApp.ToggleAddRemove()
     End Sub
 End Class
