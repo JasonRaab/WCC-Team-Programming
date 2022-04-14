@@ -40,7 +40,7 @@ public class IngredientDAOImpl implements IngredientDAO {
 	@Override
 	public List<String> getCategories() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Object> query = session.createQuery("Select DISTINCT category from IngredientItem order by category", Object.class);
+		Query<Object> query = session.createQuery("Select DISTINCT category from IngredientItem where isActive = 1 order by category", Object.class);
 		List<Object> results = query.getResultList();
 		List<String> stringResults = new ArrayList<String>();
 		for(Object o :results) {
@@ -52,7 +52,7 @@ public class IngredientDAOImpl implements IngredientDAO {
 	@Override
 	public List<IngredientItem> getIngredients(String category) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<IngredientItem> query = session.createQuery("from IngredientItem where category = :category order by name", IngredientItem.class);
+		Query<IngredientItem> query = session.createQuery("from IngredientItem where (category = :category AND isActive = 1) order by name", IngredientItem.class);
 		query.setParameter("category", category);
 		return query.getResultList();
 	}
