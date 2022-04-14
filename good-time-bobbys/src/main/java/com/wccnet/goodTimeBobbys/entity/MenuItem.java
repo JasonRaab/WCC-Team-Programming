@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,13 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,7 +30,7 @@ public class MenuItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "item_id")
-	private int itemId;
+	private Integer itemId;
 
 	@Column(name = "item_name")
 	private String itemName;
@@ -55,34 +52,34 @@ public class MenuItem {
 
 	@Column(name = "is_active")
 	private int isActive;
-	
+
 	@Transient
 	private List<Ingredient> modifiedIngredients;
-	
-	@Transient
-	private int itemNumber;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@Transient
+	private Integer itemNumber;
+
+	@ManyToMany
 	@JoinTable(name = "menu_item_default_ingredient", joinColumns = {
 			@JoinColumn(name = "menu_item_id") }, inverseJoinColumns = { @JoinColumn(name = "ingredient_id") })
+	@LazyCollection(LazyCollectionOption.FALSE)
 	List<Ingredient> ingredients = new ArrayList<Ingredient>();
-	
-	
+
 	@JsonIgnore
-	@Fetch(FetchMode.SELECT)
-	@OneToMany(mappedBy = "menuItem", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+	@OneToMany(mappedBy = "menuItem", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.PERSIST })
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ItemOrdered> itemsOrdered;
-	
-	
+
 	public void addItemsOrdered(ItemOrdered itemOrdered) {
 		itemsOrdered.add(itemOrdered);
 		itemOrdered.setMenuItem(this);
 	}
-	
+
 	public void removeItemsOrdered(ItemOrdered itemOrdered) {
 		itemsOrdered.remove(itemOrdered);
 	}
-	
+
 	public void clearItemsOrderedList() {
 		itemsOrdered.clear();
 	}
@@ -90,7 +87,7 @@ public class MenuItem {
 	public MenuItem() {
 
 	}
-	
+
 	public MenuItem(String itemName, String itemDescription, String itemCategory, int itemStock, Double itemPrice,
 			int isActive) {
 		super();
@@ -101,12 +98,8 @@ public class MenuItem {
 		this.itemPrice = itemPrice;
 		this.isActive = isActive;
 	}
-	
-	public MenuItem(int itemId,
-			String itemName,
-			String itemDescription,
-			String itemCategory,
-			int itemStock,
+
+	public MenuItem(int itemId, String itemName, String itemDescription, String itemCategory, int itemStock,
 			Double itemPrice) {
 		super();
 		this.itemName = itemName;
@@ -130,7 +123,7 @@ public class MenuItem {
 		return itemNumber;
 	}
 
-	public void setItemNumber(int itemNumber) {
+	public void setItemNumber(Integer itemNumber) {
 		this.itemNumber = itemNumber;
 	}
 
@@ -205,4 +198,26 @@ public class MenuItem {
 		this.isActive = isActive;
 	}
 
+	@Override
+	public boolean equals(Object menuItem) {
+
+		// If the object is compared with itself then return true
+		if (menuItem == this) {
+			return true;
+		}
+
+		/*
+		 * Check if o is an instance of Complex or not "null instanceof [type]" also
+		 * returns false
+		 */
+		if (!(menuItem instanceof MenuItem)) {
+			return false;
+		}
+
+		// typecast o to Complex so that we can compare data members
+		MenuItem mi = (MenuItem) menuItem;
+
+		// Compare the data members and return accordingly
+		return Integer.compare(itemId, mi.itemId) == 0 && Integer.compare(itemNumber, mi.itemNumber) == 0;
+	}
 }

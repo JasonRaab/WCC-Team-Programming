@@ -1,6 +1,7 @@
 package com.wccnet.goodTimeBobbys.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -11,26 +12,31 @@ public class MenuServiceIMPL implements IMenuService {
 
 
 	@Override
-	public String getTotal(ArrayList<MenuItem> menuItemPrice) {
+	public Double getTotal(ArrayList<MenuItem> menuItemPrice, Double subTotal, Double tax) {
 		// TODO Auto-generated method stub
-		Double subtotal = 0.00;
+		
 		Double itemPrice = 0.00;
-		Double tax = 0.00;
+		
 		Double total = 0.00;
 		
 		for (MenuItem menuItem : menuItemPrice) {
 			itemPrice = menuItem.getItemPrice();
-			subtotal += itemPrice;
-			tax = (subtotal * .06);
-			total = (tax += subtotal);
+			subTotal += itemPrice;
+
+			total = (tax += subTotal);
 			
 		}
 		
-		return "$" + total;
+		return total;
 	}
-
 	@Override
-	public String getSubTotal(ArrayList<MenuItem> menuItemPrice) {
+	public Double getTax(Double subTotal) {
+		Double tax = (subTotal * .06);
+		return tax;
+	}
+	
+	@Override
+	public Double getSubTotal(ArrayList<MenuItem> menuItemPrice) {
 		Double subTotal = 0.00;
 		Double itemPrice = 0.00;
 		for (MenuItem menuItem : menuItemPrice) {
@@ -38,7 +44,7 @@ public class MenuServiceIMPL implements IMenuService {
 			subTotal += itemPrice;
 		}
 		
-		return "$" + subTotal;
+		return subTotal;
 	}
 	
 	@Override

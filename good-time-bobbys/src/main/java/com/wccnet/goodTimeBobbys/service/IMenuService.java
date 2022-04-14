@@ -6,11 +6,13 @@ import com.wccnet.goodTimeBobbys.entity.MenuItem;
 
 public interface IMenuService {
 
-	public String getTotal(ArrayList<MenuItem> menuItemPrice);
+	public Double getTotal(ArrayList<MenuItem> menuItemPrice, Double subTotal, Double tax);
 
-	public String getSubTotal(ArrayList<MenuItem> menuItemPrice);
+	public Double getSubTotal(ArrayList<MenuItem> menuItemPrice);
 
 	public int getItemNumber(ArrayList<MenuItem> menuItem);
+
+	public Double getTax(Double subTotal);
 	
 
 }

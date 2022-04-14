@@ -52,11 +52,11 @@ public class ItemOrdered implements Serializable{
 	// Not sure how to link this up to the datebase
 	// **************************************************************
 	@Column(name = "ingredient_id")
-	private int ingredientId;
+	private Integer ingredientId;
 
 	// This is a True = 1, False = 0
 	@Column(name = "modification")
-	private int modification;
+	private Integer modification;
 
 	
 	public ItemOrdered() {

@@ -3,6 +3,8 @@ package com.wccnet.goodTimeBobbys.dao;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -20,13 +22,18 @@ public class OrderProcessingImpl {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	ArrayList<MenuItem> menuItemInCart = new ArrayList<>();
-	
+	int nextItemNumber = 1;
+
 	public void addMenuItemInCart(MenuItem menuItem) {
+
+		menuItem.setItemNumber(nextItemNumber);
 		menuItemInCart.add(menuItem);
+		nextItemNumber++;
+
 	}
-	
+
 	public ArrayList<MenuItem> getMenuItemInCart() {
 		return menuItemInCart;
 	}
@@ -35,10 +42,8 @@ public class OrderProcessingImpl {
 		this.menuItemInCart = menuItemInCart;
 	}
 
-
-
 	ArrayList<ItemOrdered> itemOrderedHolder = new ArrayList<ItemOrdered>();
-	
+
 	public void addItemOrderedToList(ItemOrdered itemOrdered) {
 		if (itemOrdered != null) {
 			itemOrderedHolder.add(itemOrdered);
@@ -46,15 +51,14 @@ public class OrderProcessingImpl {
 			System.out.println("Hey DINGUS your ItemOrdered is NULL!!!");
 		}
 	}
-	
+
 	public void processItemsOrdered(ArrayList<ItemOrdered> itemOrderedArrayList) {
-		
+
 		Session session = sessionFactory.getCurrentSession();
 		for (ItemOrdered itemOrdered : itemOrderedArrayList) {
 			session.persist(itemOrdered);
 		}
 	}
-	
 
 	public ArrayList<ItemOrdered> getItemOrderedHolder() {
 		return itemOrderedHolder;
@@ -64,19 +68,7 @@ public class OrderProcessingImpl {
 		this.itemOrderedHolder = itemOrderedHolder;
 	}
 
-//	@Transactional
-//	public void addItemOrderedToDatabase(ItemOrdered itemOrdered) {
-//
-//		Session session = sessionFactory.getCurrentSession();
-//
-//		if (itemOrdered != null) {
-//			session.persist(itemOrdered);
-//		} else {
-//			System.out.println("Hey DINGUS your ItemOrdered is NULL!!!");
-//		}
-//
-//	}
-	//This happens upon User Log-in
+	// This happens upon User Log-in
 	@Transactional
 	public void createOrderInfo(int orderID, int userID) {
 		Session session = sessionFactory.getCurrentSession();

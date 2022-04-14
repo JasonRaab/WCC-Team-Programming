@@ -61,7 +61,7 @@
 					</tr>
 					<c:forEach var="eachMenuItem" items="${menuItemList}" varStatus="myIndex">
 						<c:url var="addMoreToOrder" value="/backToMenu">
-							<c:param name="userID" value="${user.userId}" />
+							<c:param name="userID" value="${userID}" />
 							<c:param name="orderID" value="${orderID}" />
 						</c:url>
 						<tr>
@@ -94,9 +94,11 @@
 						</tr>
 					</c:forEach>
 					<tr>
-						<c:url var="checkout" value="/checkout">
-							<c:param name="userID" value="${user.userId}" />
+						<c:url var="processOrder" value="/processOrder">
+							<c:param name="userID" value="${userID}" />
+							<c:param name="itemNumber" value="${itemNumber}" />
 							<c:param name="orderID" value="${orderID}" />
+							<c:param name="subTotal" value="${subtotal}" />
 						</c:url>
 						<td></td>
 						<td></td>
@@ -104,15 +106,15 @@
 						<td></td>
 						<td>SUBTOTAL:</td>
 						<td align="right">${subtotal}</td>
-						<td style="text-align: right;"><a href="${checkout}"
+						<td style="text-align: right;"><a href="${processOrder}"
 							class="btn btn-sm active"
 							style="color: black; background-color: gray; font-size: medium;"
-							role="button" aria-pressed="true">Checkout</a></td>
+							role="button" aria-pressed="true">Process Order</a></td>
 					</tr>
 				</table>
 			</form:form>
 			<c:url var="addMoreToOrder" value="/backToMenu">
-				<c:param name="userID" value="${user.userId}" />
+				<c:param name="userID" value="${userID}" />
 				<c:param name="orderID" value="${orderID}" />
 			</c:url>
 			<a href="${addMoreToOrder}" class="btn btn-sm active"
