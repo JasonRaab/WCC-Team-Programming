@@ -52,6 +52,26 @@ public class IngredientServiceImpl implements IngredientService{
 		ingredientDAO.updateStock(id, count);
 		
 	}
+
+	@Override
+	@Transactional
+	public List<IngredientItem> getInactiveIngredients() {
+		return ingredientDAO.getInactiveIngredients();
+	}
+
+	@Override
+	@Transactional
+	public void deactivate(int id) {
+		ingredientDAO.deactivate(id);
+		
+	}
+
+	@Override
+	@Transactional
+	public void activate(int id) {
+		ingredientDAO.activate(id);
+		
+	}
 	
 
 }

@@ -16,5 +16,11 @@ public interface IngredientDAO {
 	public List<String> getCategories();
 
 	public void updateStock(int id, int count);
+
+	public List<IngredientItem> getInactiveIngredients();
+
+	public void deactivate(int id);
+
+	public void activate(int id);
 	
 }

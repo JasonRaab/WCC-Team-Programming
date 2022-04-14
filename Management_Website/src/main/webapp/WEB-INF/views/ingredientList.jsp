@@ -40,13 +40,18 @@
 	</nav>
 
 	<div class="container m-3 mx-auto">
-		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
-			<div class="col-3">
+		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto col-3">
+			
 				<div class="btn-group">
 					<a href="menu" class="btn btn-outline-primary" aria-current="page">Menu Items</a>
 					<a href="#" class="btn btn-primary active">Ingredients</a>
 				</div>
-			</div>
+		</div>
+		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto col-3">
+			<div class="btn-group">
+					<a href="ingredients" class="btn btn-<c:if test='${ingredientStatus=="inactive"}'>outline-</c:if>success" aria-current="page">Active Items</a>
+					<a href="inactiveIngredients" class="btn btn-<c:if test='${ingredientStatus=="active"}'>outline-</c:if>danger">Inactive Items</a>
+				</div>
 		</div>
 		<form:form action="processForm" modelAttribute="itemSearch">
 			<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
@@ -63,7 +68,7 @@
 					<input type="submit" value="Search" class="btn btn-primary" />
 				</div>
 			</div>
-
+		
 		</form:form>
 		<div class="mb-3">
 			<a href="addNewIngredient"><button class="btn btn-success">+
@@ -80,8 +85,11 @@
 				<c:url var="deactivateLink" value="/management/deactivateIngredient">
 					<c:param name="ingredientId" value="${eachItem.id}"/>
 				</c:url>
+				<c:url var="activateLink" value="/management/activateIngredient">
+					<c:param name="ingredientId" value="${eachItem.id}"/>
+				</c:url>
 				<a href="${modifyLink}" class="card-link"><button class="btn btn-primary">Modify</button></a>
-				<a href="${deactivateLink}" class="card-link"><button class="btn btn-danger">Deactivate</button></a>
+				<a href='<c:if test='${ingredientStatus=="active"}'>${deactivateLink}</c:if><c:if test='${ingredientStatus=="inactive"}'>${activateLink}</c:if>' class="card-link"><button class="btn btn-danger"><c:if test='${ingredientStatus=="active"}'>Deactivate</c:if><c:if test='${ingredientStatus=="inactive"}'>Activate</c:if></button></a>
 			</div>
 		</div>
 		</c:forEach>

@@ -18,7 +18,7 @@ public class MenuDAOImpl implements MenuDAO {
 	@Override
 	public List<MenuItem> getMenu() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<MenuItem> query = session.createQuery("from MenuItem order by name", MenuItem.class);
+		Query<MenuItem> query = session.createQuery("from MenuItem where isActive = 1 order by name", MenuItem.class);
 		return query.getResultList();
 	}
 
@@ -34,6 +34,38 @@ public class MenuDAOImpl implements MenuDAO {
 		Session session = sessionFactory.getCurrentSession();
 		MenuItem item = session.get(MenuItem.class, id);
 		item.setStock(count);
+		session.saveOrUpdate(item);
+		
+	}
+
+	@Override
+	public List<MenuItem> getInactiveMenu() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<MenuItem> query = session.createQuery("from MenuItem where isActive = 0 order by name", MenuItem.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public MenuItem getMenuItem(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		MenuItem item = session.get(MenuItem.class, id);
+		return item;
+	}
+
+	@Override
+	public void deactivate(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		MenuItem item = session.get(MenuItem.class, id);
+		item.setIsActive(0);
+		session.saveOrUpdate(item);
+		
+	}
+
+	@Override
+	public void activate(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		MenuItem item = session.get(MenuItem.class, id);
+		item.setIsActive(1);
 		session.saveOrUpdate(item);
 		
 	}

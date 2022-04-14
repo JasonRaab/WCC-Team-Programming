@@ -19,7 +19,7 @@ public class IngredientDAOImpl implements IngredientDAO {
 	@Override
 	public List<IngredientItem> getIngredients() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<IngredientItem> query = session.createQuery("from IngredientItem order by name", IngredientItem.class);
+		Query<IngredientItem> query = session.createQuery("from IngredientItem where isActive = 1 order by name", IngredientItem.class);
 		return query.getResultList();
 	}
 
@@ -66,4 +66,28 @@ public class IngredientDAOImpl implements IngredientDAO {
 		
 	}
 
+	@Override
+	public List<IngredientItem> getInactiveIngredients() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<IngredientItem> query = session.createQuery("from IngredientItem where isActive = 0 order by name", IngredientItem.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public void deactivate(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		IngredientItem ingredient = session.get(IngredientItem.class, id);
+		ingredient.setIsActive(0);
+		session.saveOrUpdate(ingredient);
+		
+	}
+
+	@Override
+	public void activate(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		IngredientItem ingredient = session.get(IngredientItem.class, id);
+		ingredient.setIsActive(1);
+		session.saveOrUpdate(ingredient);
+		
+	}
 }

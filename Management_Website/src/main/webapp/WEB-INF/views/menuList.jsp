@@ -41,13 +41,18 @@
 	</nav>
 
 	<div class="container m-3 mx-auto">
-		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
-			<div class="col-3">
+				<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto col-3">
+			
 				<div class="btn-group">
 					<a href="#" class="btn btn-primary active" aria-current="page">Menu Items</a>
 					<a href="ingredients" class="btn btn-outline-primary">Ingredients</a>
 				</div>
-			</div>
+		</div>
+		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto col-3">
+			<div class="btn-group">
+					<a href="menu" class="btn btn-<c:if test='${menuStatus=="inactive"}'>outline-</c:if>success" aria-current="page">Active Items</a>
+					<a href="inactiveMenu" class="btn btn-<c:if test='${menuStatus=="active"}'>outline-</c:if>danger">Inactive Items</a>
+				</div>
 		</div>
 		<form:form action="processForm" modelAttribute="itemSearch">
 			<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
@@ -76,8 +81,17 @@
 				<h5 class="card-title">${eachItem.name}</h5>
 				<h6 class="card-subtitle mb-2 text-muted">${eachItem.category}</h6>
 				<p class="card-text">${eachItem.description}</p>
-				<a href="#" class="card-link"><button class="btn btn-primary">More Info</button></a>
-				<a href="#" class="card-link"><button class="btn btn-danger">Delete</button></a>
+				<c:url var="modifyLink" value="/management/updateMenuItem">
+					<c:param name="menuId" value="${eachItem.id}"/>
+				</c:url>
+				<c:url var="deactivateLink" value="/management/deactivateMenuItem">
+					<c:param name="menuId" value="${eachItem.id}"/>
+				</c:url>
+				<c:url var="activateLink" value="/management/activateMenuItem">
+					<c:param name="menuId" value="${eachItem.id}"/>
+				</c:url>
+				<a href="${modifyLink}" class="card-link"><button class="btn btn-primary">More Info</button></a>
+				<a href='<c:if test='${menuStatus=="active"}'>${deactivateLink}</c:if><c:if test='${menuStatus=="inactive"}'>${activateLink}</c:if>' class="card-link"><button class="btn btn-danger"><c:if test='${menuStatus=="active"}'>Deactivate</c:if><c:if test='${menuStatus=="inactive"}'>Activate</c:if></button></a>
 			</div>
 		</div>
 		</c:forEach>

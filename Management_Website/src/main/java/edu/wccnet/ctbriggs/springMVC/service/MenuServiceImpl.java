@@ -34,4 +34,30 @@ public class MenuServiceImpl implements MenuService {
 		
 	}
 
+	@Override
+	@Transactional
+	public List<MenuItem> getInactiveMenu() {
+		return menuDAO.getInactiveMenu();
+	}
+
+	@Override
+	@Transactional
+	public MenuItem getMenuItem(int id) {
+		return menuDAO.getMenuItem(id);
+	}
+
+	@Override
+	@Transactional
+	public void deactivate(int id) {
+		menuDAO.deactivate(id);
+		
+	}
+
+	@Override
+	@Transactional
+	public void activate(int id) {
+		menuDAO.activate(id);
+		
+	}
+
 }

@@ -51,25 +51,66 @@ public class MainController {
 	 */
 
 	@RequestMapping("/menu")
-	public String showForm(Model model) {
+	public String showMenu(Model model) {
 		List<MenuItem> menuItems = menuService.getMenu();
 		model.addAttribute("itemSearch", new ItemSearch());
 		model.addAttribute("menuItems", menuItems);
+		model.addAttribute("menuStatus", "active");
 		return "menuList";
 	}
-	
+	@RequestMapping("/inactiveMenu")
+	public String showInactiveMenu(Model model) {
+		List<MenuItem> menuItems = menuService.getInactiveMenu();
+		model.addAttribute("itemSearch", new ItemSearch());
+		model.addAttribute("menuItems", menuItems);
+		model.addAttribute("menuStatus", "inactive");
+		return "menuList";
+	}
+
+	@RequestMapping("/deactivateMenuItem")
+	public String deactivateMenuItem(Model model, @RequestParam("menuId") int id) {
+		menuService.deactivate(id);
+		return "redirect:/management/menu";
+	}
+	@RequestMapping("/activateMenuItem")
+	public String activateMenuItem(Model model, @RequestParam("menuId") int id) {
+		menuService.activate(id);
+		return "redirect:/management/inactiveMenu";
+	}
 	@RequestMapping("/ingredients")
 	public String showIngredients(Model model) {
 		List<IngredientItem> ingredientList = ingredientService.getIngredients();
 		model.addAttribute("itemSearch", new ItemSearch());
 		model.addAttribute("ingredientList", ingredientList);
+		model.addAttribute("ingredientStatus", "active");
 		return "ingredientList";
+	}
+	@RequestMapping("/inactiveIngredients")
+	public String showInactiveIngredients(Model model) {
+		List<IngredientItem> ingredientList = ingredientService.getInactiveIngredients();
+		model.addAttribute("itemSearch", new ItemSearch());
+		model.addAttribute("ingredientList", ingredientList);
+		model.addAttribute("ingredientStatus", "inactive");
+		return "ingredientList";
+	}
+	@RequestMapping("/deactivateIngredient")
+	public String deactivateIngredient(Model model, @RequestParam("ingredientId") int id) {
+		ingredientService.deactivate(id);
+		return "redirect:/management/ingredients";
+	}
+	@RequestMapping("/activateIngredient")
+	public String activateIngredient(Model model, @RequestParam("ingredientId") int id) {
+		ingredientService.activate(id);
+		return "redirect:/management/inactiveIngredients";
 	}
 	
 	@RequestMapping("/addNewMenuItem")
 	public String addNewMenuItem(Model model) {
 		model.addAttribute("menuItem", new MenuItem());
+		model.addAttribute("currentIngredients", new ArrayList<Integer>());	//this is empty because it is used for modifying and existing menu item
 		model.addAttribute("ingredientList", ingredientService.getIngredients());
+		//creates a list of lists where each list represents a list of ingredients under one ingredient category
+		// ingredient categories is a list of all the different categories of ingredients in the Database
 		List<List<IngredientItem> > categorizedIngredients= new ArrayList<List<IngredientItem>>();
 		List<String> ingredientCategories = ingredientService.getCategories();
 		for(String s : ingredientCategories) {
@@ -79,13 +120,31 @@ public class MainController {
 		model.addAttribute("categorizedIngredients", categorizedIngredients);
 		return "addNewMenuItem";
 	}
+	@RequestMapping("updateMenuItem")
+	public String updateMenuItem(Model model, @RequestParam("menuId") int id) {
+		model.addAttribute("menuItem", menuService.getMenuItem(id));
+		List<Integer> ingredientIds = new ArrayList<Integer>();
+		menuService.getMenuItem(id).getIngredients().forEach(ingredient -> ingredientIds.add(ingredient.getId()));
+		model.addAttribute("currentIngredients", ingredientIds);	//used to fill out ingredients checkboxes with what's currently on the item
+		model.addAttribute("ingredientList", ingredientService.getIngredients());
+		List<List<IngredientItem> > categorizedIngredients= new ArrayList<List<IngredientItem>>();
+		List<String> ingredientCategories = ingredientService.getCategories();
+		for(String s : ingredientCategories) {
+			categorizedIngredients.add(ingredientService.getIngredients(s));
+		}
+		model.addAttribute("categories", ingredientCategories);
+		model.addAttribute("categorizedIngredients", categorizedIngredients);
+		return "addNewMenuItem";
+		
+	}
 	
 	@RequestMapping("/processNewItem")
 	public String processNewItem(Model model, @ModelAttribute("menuItem") MenuItem newMenuItem, @RequestParam("ingredientList") ArrayList<Integer> ingredients) {
+		List<IngredientItem> ingredientList = new ArrayList<IngredientItem>();
 		for(Integer i : ingredients) {
-			IngredientItem ingredient = ingredientService.getIngredient(i);
-			newMenuItem.addIngredient(ingredient);
+			ingredientList.add(ingredientService.getIngredient(i));
 		}
+		newMenuItem.setIngredients(ingredientList);
 		menuService.save(newMenuItem);
 		System.out.println(newMenuItem);
 		return "redirect:/management/menu";
@@ -107,6 +166,8 @@ public class MainController {
 		ingredientService.add(newIngredient);
 		return "redirect:/management/ingredients";
 	}
+	
+
 	
 	@RequestMapping("/orders")
 	public String orderList(Model model) {
