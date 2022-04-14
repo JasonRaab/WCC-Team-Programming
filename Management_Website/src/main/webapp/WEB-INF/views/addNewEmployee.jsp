@@ -42,7 +42,7 @@
 	</nav>
 
 	<div class="container m-3 mx-auto">
-		<form:form action="processEmployee" modelAttribute="employee" method="post">
+		<form:form action="processEmployee" modelAttribute="employee">
 		<form:hidden path="role" value="3"/>
 			<div class="row g-2 mb-3 mt-3">
 				<div class="col">
@@ -62,22 +62,10 @@
 					<form:input path="email" type="text" class="form-control"
 						placeholder="Email" />
 				</div>
-				<div class="col">
-					<form:label path="UserId">User ID:</form:label>
-					<form:input path="userId" type="text" class="form-control"
-						placeholder="userId" disabled="true" />
-				</div>
-			</div>
-			<div class="row g-2 mb-3 mt-3 justify-content-start">
 				<div class="col-4">
-					<form:label path="email">Password:</form:label>
+					<form:label path="password">Password:</form:label>
 					<form:input path="password" type="text" class="form-control"
 						placeholder="Password" />
-				</div>
-				<div class="col-2 ms-4 mt-5">
-				<form:label path="isActive">Active:</form:label>
-					<form:checkbox path="isActive" class="form-check-input"
-						value="1"/>
 				</div>
 			</div>
 			<div class="row g-2 mb-3 mt-3">

@@ -32,7 +32,8 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="orders">Orders</a></li>
-					<li class="nav-item"><a class="nav-link" href="stock?type=MenuItem">Stock</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="stock?type=MenuItem">Stock</a></li>
 					<li class="nav-item"><a class="nav-link" href="menu">Menu</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="employees">Employees</a></li>
@@ -42,8 +43,10 @@
 	</nav>
 
 	<div class="container m-3 mx-auto">
-		<form:form action="processForm" modelAttribute="employee">
-		<form:hidden path="role" value="3"/>
+		<form:form action="processEmployee" modelAttribute="employee">
+			<form:hidden path="userId" />
+			<form:hidden path="role" value="3" />
+			<form:hidden path="isActive"/>
 			<div class="row g-2 mb-3 mt-3">
 				<div class="col">
 					<form:label path="firstName">First Name:</form:label>
@@ -63,25 +66,24 @@
 						placeholder="Email" />
 				</div>
 				<div class="col">
-					<form:label path="UserId">User ID:</form:label>
-					<form:input path="userId" type="text" class="form-control"
-						placeholder="userId" disabled="true" />
+					<form:label path="userId">User ID:</form:label>
+					<form:input path="userId" type="text" class="form-control" disabled="true" />
 				</div>
 			</div>
 			<div class="row g-2 mb-3 mt-3 justify-content-start">
 				<div class="col-4">
-					<form:label path="email">Password:</form:label>
+					<form:label path="password">Password:</form:label>
 					<form:input path="password" type="text" class="form-control"
 						placeholder="Password" />
 				</div>
-				<div class="col-2 ms-4 mt-5">
-				<form:label path="isActive">Active:</form:label>
-					<form:checkbox path="isActive" class="form-check-input"
-						value="1"/>
+				<div class="col">
+					<form:label path="isActive">Active Status:</form:label>
+					<form:input path="isActive" type="text" class="form-control" disabled="true" />
 				</div>
 			</div>
 			<div class="row g-2 mb-3 mt-3">
-				<button type="button" class="btn btn-success">Update Employee Info</button>
+				<input type="submit" value="Update Employee Info"
+					class="btn btn-success" />
 			</div>
 		</form:form>
 	</div>
