@@ -1,5 +1,6 @@
 package com.wccnet.goodTimeBobbys.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wccnet.goodTimeBobbys.entity.Address;
 import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.MenuItem;
-import com.wccnet.goodTimeBobbys.entity.User;
+import com.wccnet.goodTimeBobbys.entity.OrderInfo;
 
 @Repository
 public class RestaurantDAOImpl implements IRestaurantDAO {
@@ -20,13 +20,14 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	private MenuItem menuItem;
+	// private MenuItem menuItem;
 
 	@Override
 	@Transactional
 	public List<MenuItem> getMenuItems() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<MenuItem> menuItems = session.createQuery("from MenuItem", MenuItem.class);
+		Query<MenuItem> menuItems = session.createQuery("from MenuItem mi where mi.isActive = 1", MenuItem.class);
+
 		return menuItems.getResultList();
 
 	}
@@ -55,7 +56,7 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	public List<Ingredient> getIngredient() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		Query<Ingredient> query = session.createQuery("from Ingredient", Ingredient.class);
+		Query<Ingredient> query = session.createQuery("from Ingredient i where i.isActive = 1", Ingredient.class);
 		System.out.println("in impl getIngredient()");
 		return query.getResultList();
 	}
@@ -74,13 +75,52 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	}
 
 	// Get MenuItem Ingredients by Menu Item ID
+//	@Override
+//	@Transactional
+//	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID){
+//		
+//		Session session = sessionFactory.getCurrentSession();
+//		menuItem = session.get(MenuItem.class, menuItemID);
+//		return menuItem.getIngredients();
+//	}
 	@Override
 	@Transactional
-	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID) {
-
+	public void saveOrder(OrderInfo order) {
 		Session session = sessionFactory.getCurrentSession();
-		menuItem = session.get(MenuItem.class, menuItemID);
-		return menuItem.getIngredients();
+		session.saveOrUpdate(order);
 	}
+
+	@Override
+	@Transactional
+	public OrderInfo getOrderInfoByID(int orderID) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<OrderInfo> query = session.createQuery("from OrderInfo oi where orderId = :orderID", OrderInfo.class).setParameter("orderID", orderID);
+		
+		return query.getSingleResult();
+	}
+
+	@Override
+	@Transactional
+	public List<MenuItem> getMenuItemByMenuItemID(ArrayList<Integer> menuItemID) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<MenuItem> query = session.createQuery("from MenuItem mi where itemId = :menuItemID", MenuItem.class)
+				.setParameter("menuItemID", menuItemID);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Double> getMenuItemPriceByID(Integer menuItemID) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<MenuItem> query = session
+				.createQuery("select mi.itemPrice from MenuItem mi where itemId = :menuItemID", MenuItem.class)
+				.setParameter("menuItemID", menuItemID);
+		List<MenuItem> list = query.getResultList();
+		ArrayList<Double> priceList = new ArrayList<>();
+		for (MenuItem menuItem : list) {
+			priceList.add((Double) menuItem.getItemPrice());
+		}
+		return priceList;
+	}
+
 
 }

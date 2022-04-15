@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,8 +59,16 @@ public class Ingredient {
 
 	}
 
-
 	public Ingredient(String ingredientName, int ingredientStock, double ingredientPrice) {
+		super();
+		this.ingredientName = ingredientName;
+		this.ingredientStock = ingredientStock;
+		this.ingredientPrice = ingredientPrice;
+	}
+	public Ingredient(int ingredientId,
+			String ingredientName,
+			int ingredientStock,
+			double ingredientPrice) {
 		super();
 		this.ingredientName = ingredientName;
 		this.ingredientStock = ingredientStock;
@@ -84,10 +93,15 @@ public class Ingredient {
 		menuItems.remove(item);
 	}
 
+//	@Override
+//	public String toString() {
+//		return "{ Ingredient Table }\nIngredient Id: " + ingredientId + "\nIngredient Name: " + ingredientName
+//				+ "\nIngredient Stock: " + ingredientStock + "\nIngredient Price: " + ingredientPrice;
+//	}
+	
 	@Override
-	public String toString() {
-		return "{ Ingredient Table }\nIngredient Id: " + ingredientId + "\nIngredient Name: " + ingredientName
-				+ "\nIngredient Stock: " + ingredientStock + "\nIngredient Price: " + ingredientPrice;
+	public String toString() {	
+		return "Ingredient Name: " + ingredientName + " \n" + "Price: " + ingredientPrice;
 	}
 
 	public int getIngredientId() {
@@ -105,7 +119,7 @@ public class Ingredient {
 	public void setIngredientName(String ingredientName) {
 		this.ingredientName = ingredientName;
 	}
-	
+
 	public int getIngredientStock() {
 		return ingredientStock;
 	}
@@ -153,6 +167,5 @@ public class Ingredient {
 	public void setIngredients(List<MenuItem> ingredients) {
 		this.menuItems = ingredients;
 	}
-
 
 }
