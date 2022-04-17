@@ -104,7 +104,7 @@
 						<td></td>
 						<td></td>
 						<td>SUBTOTAL:</td>
-						<td align="right">${subTotal}</td>
+						<td align="right">$${subTotal}</td>
 						<td style="text-align: right;"><a href="${processOrder}"
 							class="btn btn-sm active"
 							style="color: black; background-color: gray; font-size: medium;"

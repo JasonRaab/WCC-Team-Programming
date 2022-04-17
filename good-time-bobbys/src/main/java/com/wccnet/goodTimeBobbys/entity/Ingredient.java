@@ -1,5 +1,7 @@
 package com.wccnet.goodTimeBobbys.entity;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +131,9 @@ public class Ingredient {
 	}
 
 	public double getIngredientPrice() {
-		return ingredientPrice;
+		BigDecimal bd = new BigDecimal(ingredientPrice).setScale(2, RoundingMode.HALF_UP);
+		double newPrice = bd.doubleValue();
+		return newPrice;
 	}
 
 	public void setIngredientPrice(double ingredientPrice) {

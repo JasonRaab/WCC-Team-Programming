@@ -1,5 +1,7 @@
 package com.wccnet.goodTimeBobbys.entity;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "menu_item")
 public class MenuItem {
@@ -72,6 +73,7 @@ public class MenuItem {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ItemOrdered> itemsOrdered;
 
+	
 	public void addItemsOrdered(ItemOrdered itemOrdered) {
 		itemsOrdered.add(itemOrdered);
 		itemOrdered.setMenuItem(this);
@@ -176,7 +178,9 @@ public class MenuItem {
 	}
 
 	public Double getItemPrice() {
-		return itemPrice;
+		BigDecimal bd = new BigDecimal(itemPrice).setScale(2, RoundingMode.HALF_UP);
+		double newPrice = bd.doubleValue();
+		return newPrice;
 	}
 
 	public void setItemPrice(Double itemPrice) {

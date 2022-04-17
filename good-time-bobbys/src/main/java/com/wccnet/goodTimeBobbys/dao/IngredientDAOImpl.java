@@ -54,7 +54,7 @@ public class IngredientDAOImpl implements IIngredientDAO {
 
 		Session session = sessionFactory.getCurrentSession();
 		MenuItem menuItem = session.get(MenuItem.class, menuItemID);
-		
+
 		List<Ingredient> listOfIngredients = menuItem.getIngredients();
 
 		Set<Integer> setOfDefaultIngredientIds = new HashSet<>();
@@ -116,14 +116,15 @@ public class IngredientDAOImpl implements IIngredientDAO {
 	}
 
 	@Transactional
-	public void createOrderInfo(int userID, double subtotal, int orderId, int itemNumber, int menuItemID, int ingredientID, int isAdded) {
+	public void createOrderInfo(int userID, double subtotal, int orderId, int itemNumber, int menuItemID,
+			int ingredientID, int isAdded) {
 		Session session = sessionFactory.getCurrentSession();
 		Date now = new Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String currentTime = sdf.format(now);
 		double tax = (subtotal * 1.06);
 		double total = (subtotal + tax);
-		
+
 		OrderInfo order = new OrderInfo(userID, currentTime, subtotal, tax, total);
 		session.persist(order);
 	}
@@ -144,9 +145,28 @@ public class IngredientDAOImpl implements IIngredientDAO {
 	public Ingredient getIngredientByID(int ingredientID) {
 
 		Session session = sessionFactory.getCurrentSession();
-		Query<Ingredient> query = session.createQuery("from Ingredient i where i.ingredientId = :ingredientID", Ingredient.class).setParameter("ingredientID", ingredientID);
-		
+		Query<Ingredient> query = session
+				.createQuery("from Ingredient i where i.ingredientId = :ingredientID", Ingredient.class)
+				.setParameter("ingredientID", ingredientID);
+
 		return query.getSingleResult();
+	}
+
+	@Override
+	@Transactional
+	public String getIngredientNameByID(int ingredientID) {
+
+		Session session = sessionFactory.getCurrentSession();
+		// Query<Ingredient> query = session.createQuery("select i.ingredientName from
+		// Ingredient i where i.ingredientId = :ingredientID",
+		// Ingredient.class).setParameter("ingredientID", ingredientID);
+
+		Ingredient ingredient = session.get(Ingredient.class, ingredientID);
+		String ingredientName = ingredient.getIngredientName();
+
+		System.out.println(ingredientName);
+
+		return ingredientName;
 	}
 
 }

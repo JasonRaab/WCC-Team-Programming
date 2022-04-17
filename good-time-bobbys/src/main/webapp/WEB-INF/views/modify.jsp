@@ -94,49 +94,49 @@
 
 
 
-<!-- //	@RequestMapping("/modify") -->
-<!-- //    public String modifyItem(Model model, @RequestParam(name = "userID") int userID, -->
-<!-- //            @RequestParam(name = "menuItemID") int menuItemID, -->
-<!-- //            @RequestParam(name = "orderID") int orderID, -->
-<!-- //            @RequestParam(name = "itemNumber") int itemNumber, -->
-<!-- //            //@RequestParam(name = "subtotal") int priceTotal, -->
-<!-- //            @ModelAttribute(name = "defaultIngredientList") Ingredient defaultIngredientList, -->
-<!-- //            @ModelAttribute(name = "ingredients") Ingredient ingredients, -->
-<!-- //            // @ModelAttribute(name = "comparisonSet") Set<Integer> comparisonSet, -->
-<!-- //            BindingResult bindingResult) { -->
-<!-- // -->
-<!-- //        User user = userDAO.getUserByID(userID); -->
-<!-- //        MenuItem menuItem = restaurantDAO.getMenuItemByID(menuItemID); -->
-<!-- //        OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID); -->
-<!-- //        int menuItemNumber = itemNumber; -->
-<!-- //        int orderIDint = orderInfo.getOrderId(); -->
-<!-- //        // Set<Integer> results = -->
-<!-- //        // ingredientDAO.compareDefaultAndChosenIngredients(menuItemID); -->
-<!-- //        List<Ingredient> defaultIngredientIDList = ingredientDAO.getIngredientListByMenuItemID(menuItemID); -->
-<!-- //        List<Ingredient> fullIngredientList = ingredientDAO.getAllIngredients(); -->
-<!-- //        List<Ingredient> ingredientsToRemove= new ArrayList<Ingredient>(); -->
-<!-- //for (Ingredient ingredient : fullIngredientList) { -->
-<!-- //            for (Ingredient defaultIngredient : defaultIngredientIDList) { -->
-<!-- // -->
-<!-- //                if (ingredient.getIngredientId() == defaultIngredient.getIngredientId()) { -->
-<!-- //                    ingredientsToRemove.add(ingredient); -->
-<!-- //                } -->
-<!-- //            } -->
-<!-- //        } -->
-<!-- //            fullIngredientList.removeAll(ingredientsToRemove); -->
-<!-- // -->
-<!-- //        model.addAttribute(user); -->
-<!-- //        model.addAttribute("menuItem", menuItem); -->
-<!-- //        model.addAttribute("itemNumber", menuItemNumber); -->
-<!-- //        model.addAttribute("orderID", orderIDint); -->
-<!-- //        //model.addAttribute("subtotal", priceTotal); -->
-<!-- //        model.addAttribute("defaultIngredientList", ingredientDAO.getIngredientListByMenuItemID(menuItemID)); -->
-<!-- //        model.addAttribute("ingredients",  fullIngredientList); -->
-<!-- //        // model.addAttribute("comparisonSet", results); -->
-<!-- // -->
-<!-- //        return "modify"; -->
-<!-- //    } -->
-<!-- //	 -->
+	<!-- //	@RequestMapping("/modify") -->
+	<!-- //    public String modifyItem(Model model, @RequestParam(name = "userID") int userID, -->
+	<!-- //            @RequestParam(name = "menuItemID") int menuItemID, -->
+	<!-- //            @RequestParam(name = "orderID") int orderID, -->
+	<!-- //            @RequestParam(name = "itemNumber") int itemNumber, -->
+	<!-- //            //@RequestParam(name = "subtotal") int priceTotal, -->
+	<!-- //            @ModelAttribute(name = "defaultIngredientList") Ingredient defaultIngredientList, -->
+	<!-- //            @ModelAttribute(name = "ingredients") Ingredient ingredients, -->
+	<!-- //            // @ModelAttribute(name = "comparisonSet") Set<Integer> comparisonSet, -->
+	<!-- //            BindingResult bindingResult) { -->
+	<!-- // -->
+	<!-- //        User user = userDAO.getUserByID(userID); -->
+	<!-- //        MenuItem menuItem = restaurantDAO.getMenuItemByID(menuItemID); -->
+	<!-- //        OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID); -->
+	<!-- //        int menuItemNumber = itemNumber; -->
+	<!-- //        int orderIDint = orderInfo.getOrderId(); -->
+	<!-- //        // Set<Integer> results = -->
+	<!-- //        // ingredientDAO.compareDefaultAndChosenIngredients(menuItemID); -->
+	<!-- //        List<Ingredient> defaultIngredientIDList = ingredientDAO.getIngredientListByMenuItemID(menuItemID); -->
+	<!-- //        List<Ingredient> fullIngredientList = ingredientDAO.getAllIngredients(); -->
+	<!-- //        List<Ingredient> ingredientsToRemove= new ArrayList<Ingredient>(); -->
+	<!-- //for (Ingredient ingredient : fullIngredientList) { -->
+	<!-- //            for (Ingredient defaultIngredient : defaultIngredientIDList) { -->
+	<!-- // -->
+	<!-- //                if (ingredient.getIngredientId() == defaultIngredient.getIngredientId()) { -->
+	<!-- //                    ingredientsToRemove.add(ingredient); -->
+	<!-- //                } -->
+	<!-- //            } -->
+	<!-- //        } -->
+	<!-- //            fullIngredientList.removeAll(ingredientsToRemove); -->
+	<!-- // -->
+	<!-- //        model.addAttribute(user); -->
+	<!-- //        model.addAttribute("menuItem", menuItem); -->
+	<!-- //        model.addAttribute("itemNumber", menuItemNumber); -->
+	<!-- //        model.addAttribute("orderID", orderIDint); -->
+	<!-- //        //model.addAttribute("subtotal", priceTotal); -->
+	<!-- //        model.addAttribute("defaultIngredientList", ingredientDAO.getIngredientListByMenuItemID(menuItemID)); -->
+	<!-- //        model.addAttribute("ingredients",  fullIngredientList); -->
+	<!-- //        // model.addAttribute("comparisonSet", results); -->
+	<!-- // -->
+	<!-- //        return "modify"; -->
+	<!-- //    } -->
+	<!-- //	 -->
 
 
 
@@ -167,7 +167,7 @@
 			<c:param name="orderID" value="${orderID}"></c:param>
 			<c:param name="menuItemID" value="${menuItemID}"></c:param>
 			<c:param name="itemNumber" value="${itemNumber}"></c:param>
-<%-- 			<c:param name="menuItem" value="${menuItem}"></c:param> --%>
+			<%-- 			<c:param name="menuItem" value="${menuItem}"></c:param> --%>
 		</c:url>
 		<form:form action="${testing}" modelAttribute="user" method="post">
 			<fieldset>
@@ -183,11 +183,14 @@
 										<tr>
 											<td>${eachIngredient.ingredientId}</td>
 											<td>${eachIngredient.ingredientName}</td>
-											<td>$${eachIngredient.ingredientPrice}</td>
 											<td><input type="checkbox"
 												id="${eachIngredient.ingredientName}" name="ingredientAdded"
 												value="${eachIngredient.ingredientId}"> <label
 												for="ingredientAdded">Add Ingredient</label></td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
+											
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -200,12 +203,15 @@
 										<tr>
 											<td>${defaultIngredients.ingredientId}</td>
 											<td>${defaultIngredients.ingredientName}</td>
-											<td>$${defaultIngredients.ingredientPrice}</td>
 											<td><input type="checkbox"
 												id="${defaultIngredients.ingredientName}"
 												name="ingredientAdded"
 												value="${defaultIngredients.ingredientId}" checked>
 												<label for="ingredientAdded">Remove Ingredient</label></td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
+											
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -224,11 +230,14 @@
 										<tr>
 											<td>${eachIngredient.ingredientId}</td>
 											<td>${eachIngredient.ingredientName}</td>
-											<td>$${eachIngredient.ingredientPrice}</td>
 											<td><input type="checkbox"
 												id="${eachIngredient.ingredientName}" name="ingredientAdded"
 												value="${eachIngredient.ingredientId}"> <label
 												for="ingredientAdded">Add Ingredient</label></td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
+											
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -241,12 +250,15 @@
 										<tr>
 											<td>${defaultIngredients.ingredientId}</td>
 											<td>${defaultIngredients.ingredientName}</td>
-											<td>$${defaultIngredients.ingredientPrice}</td>
 											<td><input type="checkbox"
 												id="${defaultIngredients.ingredientName}"
 												name="ingredientAdded"
 												value="${defaultIngredients.ingredientId}" checked>
 												<label for="ingredientAdded">Remove Ingredient</label></td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
+											
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -265,7 +277,9 @@
 										<tr>
 											<td>${eachIngredient.ingredientId}</td>
 											<td>${eachIngredient.ingredientName}</td>
-											<td>$${eachIngredient.ingredientPrice}</td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
 											<td><input type="checkbox"
 												id="${eachIngredient.ingredientName}" name="ingredientAdded"
 												value="${eachIngredient.ingredientId}"> <label
@@ -282,7 +296,9 @@
 										<tr>
 											<td>${defaultIngredients.ingredientId}</td>
 											<td>${defaultIngredients.ingredientName}</td>
-											<td>$${defaultIngredients.ingredientPrice}</td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
 											<td><input type="checkbox"
 												id="${defaultIngredients.ingredientName}"
 												name="ingredientAdded"
@@ -306,7 +322,9 @@
 										<tr>
 											<td>${eachIngredient.ingredientId}</td>
 											<td>${eachIngredient.ingredientName}</td>
-											<td>$${eachIngredient.ingredientPrice}</td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
 											<td><input type="checkbox"
 												id="${eachIngredient.ingredientName}" name="ingredientAdded"
 												value="${eachIngredient.ingredientId}"> <label
@@ -323,7 +341,9 @@
 										<tr>
 											<td>${defaultIngredients.ingredientId}</td>
 											<td>${defaultIngredients.ingredientName}</td>
-											<td>$${defaultIngredients.ingredientPrice}</td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
 											<td><input type="checkbox"
 												id="${defaultIngredients.ingredientName}"
 												name="ingredientAdded"
@@ -347,7 +367,9 @@
 										<tr>
 											<td>${eachIngredient.ingredientId}</td>
 											<td>${eachIngredient.ingredientName}</td>
-											<td>$${eachIngredient.ingredientPrice}</td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
 											<td><input type="checkbox"
 												id="${eachIngredient.ingredientName}" name="ingredientAdded"
 												value="${eachIngredient.ingredientId}"> <label
@@ -364,7 +386,9 @@
 										<tr>
 											<td>${defaultIngredients.ingredientId}</td>
 											<td>${defaultIngredients.ingredientName}</td>
-											<td>$${defaultIngredients.ingredientPrice}</td>
+										<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
 											<td><input type="checkbox"
 												id="${defaultIngredients.ingredientName}"
 												name="ingredientAdded"
@@ -388,7 +412,9 @@
 										<tr>
 											<td>${eachIngredient.ingredientId}</td>
 											<td>${eachIngredient.ingredientName}</td>
-											<td>$${eachIngredient.ingredientPrice}</td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
 											<td><input type="checkbox"
 												id="${eachIngredient.ingredientName}" name="ingredientAdded"
 												value="${eachIngredient.ingredientId}"> <label
@@ -405,7 +431,9 @@
 										<tr>
 											<td>${defaultIngredients.ingredientId}</td>
 											<td>${defaultIngredients.ingredientName}</td>
-											<td>$${defaultIngredients.ingredientPrice}</td>
+											<c:if test="${eachIngredient.ingredientPrice >= 1}">
+												<td>$${eachIngredient.ingredientPrice}</td>
+											</c:if>
 											<td><input type="checkbox"
 												id="${defaultIngredients.ingredientName}"
 												name="ingredientAdded"

@@ -6,6 +6,7 @@ import java.util.Set;
 import com.wccnet.goodTimeBobbys.entity.Ingredient;
 
 public interface IIngredientDAO {
+	
 	public List<Ingredient> getIngredientListByMenuItemID(int menuItemID);
 
 	public List<Ingredient> getAllIngredients();
@@ -15,4 +16,6 @@ public interface IIngredientDAO {
 	public int compareDefaultAndChosenIngredients(int menuItemID);
 	
 	public Ingredient getIngredientByID(int ingredientID);
+
+	public String getIngredientNameByID(int ingredientID);
 }

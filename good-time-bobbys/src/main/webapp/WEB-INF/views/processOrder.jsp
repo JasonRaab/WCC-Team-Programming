@@ -13,6 +13,71 @@
 <meta charset="UTF-8">
 <style>
 /* Style the tab */
+* {
+	box-sizing: border-box;
+}
+
+/* Create three columns of equal width */
+.columns {
+	float: left;
+	width: 33.3%;
+	padding: 8px;
+}
+
+/* Style the list */
+.price {
+	list-style-type: none;
+	border: 1px solid #eee;
+	margin: 0;
+	padding: 0;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+
+/* Add shadows on hover */
+.price:hover {
+	box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2)
+}
+
+/* Pricing header */
+.price .header {
+	background-color: #111;
+	color: white;
+	font-size: 25px;
+}
+
+/* List items */
+.price li {
+	border-bottom: 1px solid #eee;
+	padding: 20px;
+	text-align: center;
+}
+
+/* Grey list item */
+.price .grey {
+	background-color: #eee;
+	font-size: 20px;
+}
+
+/* The "Sign Up" button */
+.button {
+	background-color: #04AA6D;
+	border: none;
+	color: white;
+	padding: 10px 25px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 18px;
+}
+
+/* Change the width of the three columns to 100% 
+(to stack horizontally on small screens) */
+@media only screen and (max-width: 600px) {
+	.columns {
+		width: 100%;
+	}
+}
+
 .tab {
 	overflow: hidden;
 	border: 1px solid #ccc;
@@ -45,19 +110,23 @@
 	border: 1px solid #ccc;
 	border-top: none;
 }
+
 .header {
 	text-align: center;
 }
+
 #table td, #table th {
 	border: 1px solid #ddd;
 	padding: 8px;
 }
+
 #table {
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
 	width: 80%;
 	margin: auto;
 }
+
 #table th {
 	padding-top: 12px;
 	padding-bottom: 12px;
@@ -70,25 +139,48 @@
 <title>Process Order</title>
 </head>
 <body>
-	<h1>HELLO WORLD!</h1>
+	<div class="container">
+		<h1>Process Order</h1>
+		<div class="card">
+			<table class="table">
+				<c:forEach var="eachItem" items="${menuItemList}">
 
-	<div class="card">
-		<table class="table">
-			<c:forEach var="eachItem" items="${menuItemList}">
-				
-				<tr>
-					
-						<td>${eachItem.itemId}</td>
-						<td>${eachItem.itemName}</td>
-						<td>${eachItem.itemDescription}</td>
-						<td> </td>
-						<td>$${eachItem.itemPrice}</td>
-						<td> </td>
-						<td></td>
-				</tr>
-			</c:forEach>
-		</table>
+					<td>${eachItem.itemNumber}</td>
+					<td>${eachItem.itemId}</td>
+					<td>${eachItem.itemName}</td>
+					<td>${eachItem.itemDescription}</td>
+					<td>$${eachItem.itemPrice}</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+
+
+				</c:forEach>
+				<%-- <tr>
+					<td><a href="${sendOrderToDatabase}"
+						class="btn btn-primary btn-sm active">Send to Kitchen!</a></td>
+				</tr> --%>
+			</table>
+			<div style="text-align: center;"class="columns">
+				<ul class="price">
+					<li class="grey">Total: $${orderTotalWithTax}</li>
+					<li>Subtotal: $${orderTotalWithoutTax}</li>
+					<li>Tax: $${orderTotalTax}</li>
+					<li class="grey"><a href="${sendOrderToDatabase}"
+						class="btn btn-primary btn-sm active">Send to Kitchen!</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
 
+<!-- 	<div class="container">
+		<h1>Process Order</h1>
+		<div class="card">
+			<table class="table">
+				<tr>
+			</table>
+		</div>
+	</div> -->
 </body>
 </html>
