@@ -121,6 +121,7 @@
 	<c:url var="backToCart" value="/backToCart">
 				<c:param name="userID" value="${user.userId}" />
 				<c:param name="orderID" value="${orderID}" />
+				<c:param name="ingredientPriceToString" value="${ingredientPriceString}" />
 			</c:url>
 	<a href="${backToCart}" class="btn btn-sm active"
 				style="color: white; background-color: black; font-size: medium;"

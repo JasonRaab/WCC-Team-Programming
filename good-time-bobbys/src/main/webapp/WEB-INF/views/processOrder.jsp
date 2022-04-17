@@ -78,25 +78,80 @@
 <title>Process Order</title>
 </head>
 <body>
-	<h1>HELLO WORLD!</h1>
+	<div class="container">
+		<h1>Process Order</h1>
+		<div class="card">
+			<table class="table">
+				<c:forEach var="eachItem" items="${menuItemList}">
 
-	<div class="card">
-		<table class="table">
-			<c:forEach var="eachItem" items="${menuItemList}">
-				
-				<tr>
-					
+					<tr>
+						<td>${eachItem.itemNumber}</td>
+						<td></td>
 						<td>${eachItem.itemId}</td>
 						<td>${eachItem.itemName}</td>
 						<td>${eachItem.itemDescription}</td>
-						<td> </td>
 						<td>$${eachItem.itemPrice}</td>
-						<td> </td>
 						<td></td>
+						<td></td>
+					</tr>
+				</c:forEach>
+				<tr>
+					<td><a href="${sendOrderToDatabase}"
+						class="btn btn-primary btn-sm active">Send to Kitchen!</a></td>
 				</tr>
-			</c:forEach>
-		</table>
+			</table>
+		</div>
 	</div>
 
+	<div class="container">
+		<h1>Process Order</h1>
+		<div class="card">
+			<table class="table">
+				<tr>
+<%-- 					<c:forEach var="eachItem" items="${ingredientNameHashMap}"> --%>
+<!-- 						<tr> -->
+<!-- 							<td> -->
+<%-- 							<td>${eachItem.key.menuItem.itemName}</td> --%>
+<%-- 							<td><c:if test="${eachItem.key.modification == 0}"> --%>
+<%-- 									Remove: ${eachItem.value} --%>
+<%-- 								</c:if> <c:if test="${eachItem.key.modification == 1}"> --%>
+<%-- 									Add: ${eachItem.value} --%>
+<%-- 								</c:if></td> --%>
+<!-- 						</tr> -->
+<%-- 					</c:forEach> --%>
+				</tr>
+				<!-- 					<tr> -->
+				<%-- 					<td>${eachItem.key.modification}</td> --%>
+				<%-- 						<td>${eachItem.value}</td> --%>
+				<!-- 					</tr> -->
+				<!-- 					<tr> -->
+
+				<%-- 						<c:if test="${eachItem.key.modification == 0}"> --%>
+
+				<!-- 													<td>Item ORDERED LIST</td> -->
+
+				<%-- 							<td>Remove: ${eachItem.value}</td> --%>
+				<%-- 							<c:if test="${eachItem.key.modification == 1}"> --%>
+				<%-- 								<td>${eachItem.key.menuItem.itemName}</td> --%>
+				<!-- 														<td>Item ORDERED LIST</td> -->
+				<%-- 								<td>Add: ${eachItem.value}</td> --%>
+				<%-- 							</c:if> --%>
+				<%-- 						</c:if> --%>
+				<%-- 				<c:forEach var="eachItem" items="${ingredientNameHashMap}"> --%>
+				<!-- 					<tr> -->
+				<%-- 						<c:if test="${eachItem.key.modification == 1}"> --%>
+				<%-- 							<td>${eachItem.key.menuItem.itemName}</td> --%>
+				<!-- 													<td>Item ORDERED LIST</td> -->
+				<%-- 							<td>Add: ${eachItem.value}</td> --%>
+				<%-- 						</c:if> --%>
+				<!-- 					</tr> -->
+				<%-- 				</c:forEach> --%>
+				<tr>
+					<td><a href="${sendOrderToDatabase}"
+						class="btn btn-primary btn-sm active">Process Order</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </body>
 </html>

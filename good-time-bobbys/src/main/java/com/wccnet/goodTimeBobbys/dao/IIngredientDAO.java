@@ -16,4 +16,6 @@ public interface IIngredientDAO {
 	public int compareDefaultAndChosenIngredients(int menuItemID);
 	
 	public Ingredient getIngredientByID(int ingredientID);
+
+	public String getIngredientNameByID(int ingredientID);
 }

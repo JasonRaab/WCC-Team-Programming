@@ -82,29 +82,29 @@
 	<div style="text-align: center;">
 		<a href="${pageContext.request.contextPath}/showUsers"
 			class="btn btn-primary btn-sm active" role="button"
-			aria-pressed="true">Login</a>
-			<a href="${pageContext.request.contextPath}/menu"
+			aria-pressed="true">Login</a> <a
+			href="${pageContext.request.contextPath}/menu"
 			class="btn btn-primary btn-sm active" role="button"
 			aria-pressed="true">View Menu</a>
 	</div>
 	<br>
 	<br>
+	<div class="container">
+		<div class="card">
+			<table class="table" style="text-align: center;">
+				<c:forEach var="eachUser" items="${users}">
+					<c:url var="loginLink" value="menu">
+						<c:param name="userID" value="${eachUser.userId}" />
+						<c:param name="orderID" value="${order.orderId}" />
+					</c:url>
+					<tr>
+						<td><a href="${loginLink}">Login as ${eachUser.firstName}
+						</a></td>
+					</tr>
 
-	<div>
-		<table class="table" style="text-align: center;">
-			<c:forEach var="eachUser" items="${users}">
-				<c:url var="loginLink" value="menu">
-					<c:param name="userID" value="${eachUser.userId}" />
-					<c:param name="orderID" value="${order.orderId}" />
-				</c:url>
-				<tr>
-					<td><a href="${loginLink}">Login as ${eachUser.firstName}
-					</a></td>
-				</tr>
-
-			</c:forEach>
-		</table>
+				</c:forEach>
+			</table>
+		</div>
 	</div>
-
 </body>
 </html>

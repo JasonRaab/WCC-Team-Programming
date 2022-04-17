@@ -1,6 +1,7 @@
 package com.wccnet.goodTimeBobbys.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,10 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "item_ordered")
-public class ItemOrdered implements Serializable{
+//@IdClass(ItemOrdered.class)
+public class ItemOrdered implements Serializable {
 
 	/**
 	 * 
@@ -28,8 +33,9 @@ public class ItemOrdered implements Serializable{
 //	@Id
 //	@Column(name = "order_id")
 //	private int orderId;
+	
 	@Id
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "order_id")
 	@OrderColumn(name = "order_id")
 	private OrderInfo orderInfo;
@@ -45,18 +51,32 @@ public class ItemOrdered implements Serializable{
 //	private int menuItemId;
 
 	@Id
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name = "menu_item")
 	private MenuItem menuItem;
 
 	// Not sure how to link this up to the datebase
 	// **************************************************************
+	@Nullable
 	@Column(name = "ingredient_id")
 	private Integer ingredientId;
 
 	// This is a True = 1, False = 0
+	
 	@Column(name = "modification")
 	private Integer modification;
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(orderInfo, itemNumber, menuItem, ingredientId, modification);
+	}
+	
+	@Transient
+	private String menuItemName;
+	
+	public String getMenuItemName() {
+		return menuItem.getItemName();
+	}
 
 	
 	public ItemOrdered() {
@@ -70,7 +90,7 @@ public class ItemOrdered implements Serializable{
 	 * @param ingredientId
 	 * @param modification
 	 */
-	public ItemOrdered(OrderInfo orderInfo, int itemNumber, MenuItem menuItem, int ingredientId, int modification) {
+	public ItemOrdered(OrderInfo orderInfo, Integer itemNumber, MenuItem menuItem, Integer ingredientId, Integer modification) {
 		super();
 		this.orderInfo = orderInfo;
 		this.itemNumber = itemNumber;
@@ -79,27 +99,38 @@ public class ItemOrdered implements Serializable{
 		this.modification = modification;
 	}
 	
-	public int getItemNumber() {
+	public ItemOrdered(OrderInfo orderInfo, Integer itemNumber, MenuItem menuItem) {
+		super();
+		this.orderInfo = orderInfo;
+		this.itemNumber = itemNumber;
+		this.menuItem = menuItem;
+	}
+	
+//	public ItemOrdered(int orderID, int itemNumber, int menuItem, int ingredientID, int modification) {
+//		
+//	}
+	
+	public Integer getItemNumber() {
 		return itemNumber;
 	}
 
-	public void setItemNumber(int itemNumber) {
+	public void setItemNumber(Integer itemNumber) {
 		this.itemNumber = itemNumber;
 	}
 
-	public int getIngredientId() {
+	public Integer getIngredientId() {
 		return ingredientId;
 	}
 
-	public void setIngredientId(int ingredientId) {
+	public void setIngredientId(Integer ingredientId) {
 		this.ingredientId = ingredientId;
 	}
 
-	public int getModification() {
+	public Integer getModification() {
 		return modification;
 	}
 
-	public void setModification(int modification) {
+	public void setModification(Integer modification) {
 		this.modification = modification;
 	}
 
@@ -124,5 +155,25 @@ public class ItemOrdered implements Serializable{
 		return " { ItemOrdered } Order ID: " + orderInfo.getOrderId() + " /nItem Number: " + itemNumber + " /nMenu Item Id: "
 				+ menuItem.getItemId() + " /nIngredient ID: " + ingredientId + " /nModification: " + modification;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(this == o) return true;
+		if(!(o instanceof ItemOrdered)) return false;
+		ItemOrdered itemOrdered = (ItemOrdered) o;
+		return Objects.equals(orderInfo, itemOrdered.orderInfo) &&
+				 Objects.equals(itemNumber, itemOrdered.itemNumber) &&
+				 Objects.equals(menuItem, itemOrdered.menuItem) &&
+				 Objects.equals(ingredientId,  itemOrdered.ingredientId) &&
+				 Objects.equals(modification, itemOrdered.modification);
+	}
+	
+
+//	@Override
+//	public int compareTo(ItemOrdered o) {
+//		// TODO Auto-generated method stub
+//		
+//		return (int)(this.ingredientId - o.getIngredientId());
+//	}
 
 }

@@ -98,14 +98,14 @@
 							<c:param name="userID" value="${userID}" />
 							<c:param name="itemNumber" value="${itemNumber}" />
 							<c:param name="orderID" value="${orderID}" />
-							<c:param name="subTotal" value="${subtotal}" />
+							<c:param name="subTotal" value="${subTotal}" />
 						</c:url>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td>SUBTOTAL:</td>
-						<td align="right">${subtotal}</td>
+						<td align="right">$${subTotal}</td>
 						<td style="text-align: right;"><a href="${processOrder}"
 							class="btn btn-sm active"
 							style="color: black; background-color: gray; font-size: medium;"

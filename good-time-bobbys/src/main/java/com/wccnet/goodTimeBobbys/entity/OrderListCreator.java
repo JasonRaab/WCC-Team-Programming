@@ -31,6 +31,11 @@ public class OrderListCreator {
 
 	ArrayList<Integer> editedMenuItems = new ArrayList<>();
 	
+	public void clearModifiedIngredientIdSet() {
+		if (!modifiedIngredientIdSet.isEmpty()) {
+			modifiedIngredientIdSet.clear();
+		}
+	}
 	
 //	ArrayList<Object> fullOrderBuilder = new ArrayList<>();
 //	ArrayList<Object> fullOrder = new ArrayList<>();
@@ -75,7 +80,7 @@ public class OrderListCreator {
 		modifiedIngredientIdSet.add(ingredientID);
 	}
 	
-	public void modifiedIngredientList(Ingredient ingredient) {
+	public void addToModifiedIngredientList(Ingredient ingredient) {
 		modifiedIngredientList.add(ingredient);
 	}
 
