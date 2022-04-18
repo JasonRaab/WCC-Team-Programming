@@ -21,6 +21,14 @@ public interface IMenuService {
 	public List<Ingredient> getAddedIngredientsByUser();
 
 	public String getIngredientsAddedPriceTotal();
+
+	public void addToRemovedIngredientByUser(Ingredient ingredient);
+
+	public List<Ingredient> getRemovedIngredientsByUser();
+
+	public void clearAddedIngredientsByUser();
+
+	public void clearRemovedIngredientsByUser();
 	
 
 }

@@ -81,52 +81,77 @@
 	<div class="container">
 		<h1>Process Order</h1>
 		<div class="card">
-			<table class="table">
-				<c:forEach var="eachItem" items="${itemsOrderedList}">
-
-					<tr>
-						<td>${eachItem.itemNumber}</td>
-						<td></td>
-						<td>${eachItem.menuItem.getItemId()}</td>
-						<td>${eachItem.menuItem.getItemName()}</td>
-						<c:if test="${eachItem.modification == 1}">
-							<td>Add: ${eachItem.ingredientId}</td>
-						</c:if>
-						<c:if test="${eachItem.modification == 0}">
-							<td>Remove: ${eachItem.ingredientId}</td>
-						</c:if>
-
-						<td>$${eachItem.menuItem.getItemPrice()}</td>
-						<td></td>
-						<td></td>
-					</tr>
-				</c:forEach>
-				<c:forEach var="eachItem" items="${sendItemOrderedList}">
-
-					<tr>
-						<td>${eachItem.getMenuItem().getItemNumber()}</td>
-						<td></td>
-						<td>${eachItem.getMenuItem().getItemId()}</td>
-						<td>${eachItem.getMenuItem().getItemName()}</td>
-						<td></td>
-						<%-- 						<td>${eachItem.itemDescription}</td> --%>
-						<td>$${eachItem.getMenuItem().getItemPrice()}</td>
-						<td></td>
-						<td></td>
-					</tr>
-				</c:forEach>
+			<table>
 				<tr>
+					<c:forEach var="eachItem" items="${allItemsOrdered}">
+						<td>${eachItem.menuItem.getItemName()}</td>
+						<td>${eachItem}</td>
+						
+						<c:if test="${eachItem.modification == 1}">
+							
 
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><a href="${sendOrderToDatabase}"
-						class="btn btn-primary btn-sm active">Send to Kitchen!</a></td>
-					<td></td>
-					<td></td>
+
+							</c:if>
+					</c:forEach>
 				</tr>
+
 			</table>
+
+
+
+
+
+
+
+
+			<!-- 			<table class="table"> -->
+			<%-- 				<c:forEach var="eachItem" items="${itemsOrderedList}"> --%>
+
+			<!-- 					<tr> -->
+			<%-- 						<td>${eachItem.itemNumber}</td> --%>
+			<!-- 						<td></td> -->
+			<%-- 						<td>${eachItem.menuItem.getItemId()}</td> --%>
+			<%-- 						<td>${eachItem.menuItem.getItemName()}</td> --%>
+			<%-- 						<c:if test="${eachItem.modification == 1}"> --%>
+			<!-- 							<td>Add: -->
+			<%-- 								${ingredientDAO.getIngredientNameByID(eachItem.getIngredientId())}</td> --%>
+			<%-- 						</c:if> --%>
+			<%-- 						<c:if test="${eachItem.modification == 0}"> --%>
+			<!-- 							<td>Remove: -->
+			<%-- 								${ingredientDAO.getIngredientNameByID(eachItem.getIngredientId())}</td> --%>
+			<%-- 						</c:if> --%>
+
+			<!-- 						<td>$${eachItem.menuItem.getItemPrice()}</td> -->
+			<!-- 						<td></td> -->
+			<!-- 						<td></td> -->
+			<!-- 					</tr> -->
+			<%-- 				</c:forEach> --%>
+			<%-- 				<c:forEach var="eachItem" items="${sendItemOrderedList}"> --%>
+
+			<!-- 					<tr> -->
+			<%-- 						<td>${eachItem.getMenuItem().getItemNumber()}</td> --%>
+			<!-- 						<td></td> -->
+			<%-- 						<td>${eachItem.getMenuItem().getItemId()}</td> --%>
+			<%-- 						<td>${eachItem.getMenuItem().getItemName()}</td> --%>
+			<!-- 						<td></td> -->
+			<%-- 												<td>${eachItem.itemDescription}</td> --%>
+			<!-- 						<td>$${eachItem.getMenuItem().getItemPrice()}</td> -->
+			<!-- 						<td></td> -->
+			<!-- 						<td></td> -->
+			<!-- 					</tr> -->
+			<%-- 				</c:forEach> --%>
+			<!-- 				<tr> -->
+
+			<!-- 					<td></td> -->
+			<!-- 					<td></td> -->
+			<!-- 					<td></td> -->
+			<!-- 					<td></td> -->
+			<%-- 					<td><a href="${sendOrderToDatabase}" --%>
+			<!-- 						class="btn btn-primary btn-sm active">Send to Kitchen!</a></td> -->
+			<!-- 					<td></td> -->
+			<!-- 					<td></td> -->
+			<!-- 				</tr> -->
+			<!-- 			</table> -->
 		</div>
 	</div>
 

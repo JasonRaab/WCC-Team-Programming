@@ -87,31 +87,6 @@ public class IngredientDAOImpl implements IIngredientDAO {
 		// Will be set as menuItem's default IngredientId's
 		Set<Integer> defaultIngredientIds = getDefaultIngredientIDs(menuItemID);
 
-//		for (Integer ingredientID : defaultIngredientIds) {
-//			if (!modifiedIngredientsList.contains(ingredientID)) {
-////				/* ... this object was removed ... */
-////					modification = false;
-//				ItemOrdered itemOrdered = new ItemOrdered();
-////	        	itemOrdered.setOrderId(3); 
-//				itemOrdered.setItemNumber(1);
-//				itemOrdered.setMenuItem(menuItemID);
-//				itemOrdered.setIngredientId(ingredientID);
-//				itemOrdered.setModification(0);
-//			}
-//		}
-////
-//		for (Integer ingredientID : modifiedIngredientsList) {
-//			if (!defaultIngredientIds.contains(ingredientID)) {
-////				/* ... this object was added ... */
-////					modification = true;
-//				ItemOrdered itemOrdered = new ItemOrdered();
-////	        	itemOrdered.setOrderId(3); 
-//				itemOrdered.setItemNumber(1);
-//				itemOrdered.setMenuItemId(menuItemID);
-//				itemOrdered.setIngredientId(ingredientID);
-//				itemOrdered.setModification(1);
-//			}
-//		}
 
 		return 1;
 	}
@@ -158,9 +133,6 @@ public class IngredientDAOImpl implements IIngredientDAO {
 	public String getIngredientNameByID(int ingredientID) {
 
 		Session session = sessionFactory.getCurrentSession();
-		// Query<Ingredient> query = session.createQuery("select i.ingredientName from
-		// Ingredient i where i.ingredientId = :ingredientID",
-		// Ingredient.class).setParameter("ingredientID", ingredientID);
 
 		Ingredient ingredient = session.get(Ingredient.class, ingredientID);
 		String ingredientName = ingredient.getIngredientName();

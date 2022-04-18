@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,12 +60,12 @@ public class MainController {
 		model.addAttribute("order", order);
 		return "login";
 	}
-	
-    @RequestMapping("/readOnlyMenu")
-    public String readOnlyMenuPage(Model model) {
-        model.addAttribute("fullMenuItemList", restaurantDAO.getMenuItems());
-        return "readOnlyMenu";
-    }
+
+	@RequestMapping("/readOnlyMenu")
+	public String readOnlyMenuPage(Model model) {
+		model.addAttribute("fullMenuItemList", restaurantDAO.getMenuItems());
+		return "readOnlyMenu";
+	}
 
 	// Display all Menu items and their ingredients
 	@RequestMapping("/menu")
@@ -123,6 +124,14 @@ public class MainController {
 			@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList, BindingResult bindingResult) {
 //			@ModelAttribute(name = "subtotal") String subTotal) {
 
+		if (!menuService.getAddedIngredientsByUser().isEmpty()) {
+			menuService.clearAddedIngredientsByUser();
+		}
+		
+		if (!menuService.getRemovedIngredientsByUser().isEmpty()) {
+			menuService.clearRemovedIngredientsByUser();
+		}
+		
 		User user = userDAO.getUserByID(userID);
 		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
 		int orderIdInt = orderInfo.getOrderId();
@@ -244,9 +253,6 @@ public class MainController {
 				ItemOrdered itemOrdered = new ItemOrdered(orderInfo, itemNumberInt, menuItem, ingredientID, 1);
 				// orderProcessingImpl.addItemOrderedToDatabase(itemOrdered);
 				orderProcessingImpl.addItemOrderedToList(itemOrdered);
-
-				menuItem.clearItemsOrderedList();
-				orderInfo.clearItemsOrderedList();
 			}
 		}
 //		Double ingredientPriceTotal = 0.00;
@@ -257,28 +263,25 @@ public class MainController {
 //		String ingredientPriceString = ingredientPriceTotal.toString();
 
 		// Gets Ingredients Removed by user
-		List<Ingredient> removedIngredientsByUser = new ArrayList<Ingredient>();
 		for (Integer ingredientID : defaultIngredientIDList) {
 
 			if (orderListCreator.getModifiedIngredientIdSet().contains(ingredientID)) {
 				// DO NOTHING
 				System.out.println("in REMOVED - Do nothing for ingredientID: " + ingredientID);
 			} else {
-				removedIngredientsByUser.add(ingredientDAO.getIngredientByID(ingredientID));
+				menuService.addToRemovedIngredientByUser(ingredientDAO.getIngredientByID(ingredientID));
 				System.out.println("in REMOVED - add ingredient: " + ingredientID);
 
 				ItemOrdered itemOrdered = new ItemOrdered(orderInfo, itemNumberInt, menuItem, ingredientID, 0);
 				// orderProcessingImpl.addItemOrderedToDatabase(itemOrdered);
 				orderProcessingImpl.addItemOrderedToList(itemOrdered);
-				menuItem.clearItemsOrderedList();
-				orderInfo.clearItemsOrderedList();
 			}
 		}
 
 		orderListCreator.clearModifiedIngredientIdSet();
 
 		model.addAttribute("addedIngredientsByUser", menuService.getAddedIngredientsByUser());
-		model.addAttribute("removedIngredientsByUser", removedIngredientsByUser);
+		model.addAttribute("removedIngredientsByUser", menuService.getRemovedIngredientsByUser());
 		model.addAttribute("user", user);
 		model.addAttribute("userID", userIdInt);
 		model.addAttribute("menuItem", menuItem);
@@ -366,6 +369,8 @@ public class MainController {
 		int orderIdInt = orderID;
 		int itemNumberInt = itemNumber;
 
+		// OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderIdInt);
+
 		Double subTotalDouble = menuService.getSubTotal(menuItemList);
 
 		Double taxDouble = menuService.getTax(subTotalDouble);
@@ -397,7 +402,7 @@ public class MainController {
 		// what is not in the itemsOrderedList and is in menuItemList send to DB
 
 		ArrayList<MenuItem> itemsThatHaveBeenOrdered = new ArrayList<>();
-		
+
 		for (ItemOrdered itemOrdered : itemsOrderedList) {
 			for (MenuItem menuItem : menuItemList) {
 				if (itemOrdered.getItemNumber() == menuItem.getItemNumber()) {
@@ -408,20 +413,29 @@ public class MainController {
 		for (MenuItem menuItem : itemsThatHaveBeenOrdered) {
 			menuItemList.remove(menuItem);
 		}
-		
+
 		for (MenuItem menuItem : menuItemList) {
 			ItemOrdered nonModifiedItem = new ItemOrdered(orderInfo, menuItem.getItemNumber(), menuItem);
 			sendItemOrderedList.add(nonModifiedItem);
 		}
-		
+
 		for (ItemOrdered itemOrdered : sendItemOrderedList) {
 			System.out.println(itemOrdered + "this is the sendItemOrderedList");
-			orderProcessingImpl.processItemsOrdered(itemOrdered);
+			orderInfo.addItemsOrdered(itemOrdered);
+			// orderProcessingImpl.processItemsOrdered(itemOrdered);
 		}
 
 		for (ItemOrdered itemOrdered : itemsOrderedList) {
 			System.out.println(itemOrdered + "this is the itemsOrderedList");
-			orderProcessingImpl.processItemsOrdered(itemOrdered);			
+			
+			itemOrdered.getIngredientId();
+			orderInfo.addItemsOrdered(itemOrdered);
+			// orderProcessingImpl.processItemsOrdered(itemOrdered);
+		}
+
+		for (ItemOrdered itemOrdered : orderInfo.getItemsOrdered()) {
+			System.out.println(itemOrdered);
+			// orderProcessingImpl.processItemsOrdered(itemOrdered);
 		}
 //		ArrayList<MenuItem> menuItemOrdered = new ArrayList<>();
 //		for (ItemOrdered itemOrdered : sendItemOrderedList) {
@@ -434,6 +448,8 @@ public class MainController {
 		model.addAttribute("userID", userIdInt);
 		model.addAttribute("orderID", orderIdInt);
 		model.addAttribute("itemNumber", itemNumberInt);
+		model.addAttribute("allItemsOrdered", orderInfo.getItemsOrdered());
+		model.addAttribute("ingredientDAO", ingredientDAO);
 //		model.addAttribute("menuItemList", menuItemOrdered);
 		model.addAttribute("sendItemOrderedList", sendItemOrderedList);
 		model.addAttribute("itemsOrderedList", itemsOrderedList);

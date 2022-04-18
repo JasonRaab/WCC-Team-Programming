@@ -12,10 +12,37 @@ import com.wccnet.goodTimeBobbys.entity.MenuItem;
 public class MenuServiceIMPL implements IMenuService {
 
 	List<Ingredient> addedIngredientsByUser = new ArrayList<Ingredient>();
+	List<Ingredient> removedIngredientsByUser = new ArrayList<Ingredient>();
 
+	
+	@Override
+	public void clearAddedIngredientsByUser() {
+		addedIngredientsByUser.clear();
+	}
+	
+	
+	@Override
+	public void clearRemovedIngredientsByUser() {
+		removedIngredientsByUser.clear();
+	}
+	
 	@Override
 	public void addToAddedIngredientsByUser(Ingredient ingredient) {
 		addedIngredientsByUser.add(ingredient);
+	}
+	
+	@Override
+	public void addToRemovedIngredientByUser(Ingredient ingredient) {
+		removedIngredientsByUser.add(ingredient);
+	}
+
+	@Override
+	public List<Ingredient> getRemovedIngredientsByUser() {
+		return removedIngredientsByUser;
+	}
+
+	public void setRemovedIngredientsByUser(List<Ingredient> removedIngredientsByUser) {
+		this.removedIngredientsByUser = removedIngredientsByUser;
 	}
 
 	@Override
