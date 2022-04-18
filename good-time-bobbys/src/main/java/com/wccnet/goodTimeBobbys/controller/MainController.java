@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,6 +59,12 @@ public class MainController {
 		model.addAttribute("order", order);
 		return "login";
 	}
+	
+    @RequestMapping("/readOnlyMenu")
+    public String readOnlyMenuPage(Model model) {
+        model.addAttribute("fullMenuItemList", restaurantDAO.getMenuItems());
+        return "readOnlyMenu";
+    }
 
 	// Display all Menu items and their ingredients
 	@RequestMapping("/menu")
@@ -361,6 +368,8 @@ public class MainController {
 
 		Double subTotalDouble = menuService.getSubTotal(menuItemList);
 
+		Double taxDouble = menuService.getTax(subTotalDouble);
+
 		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
 		String date = orderInfo.getOrderDate();
 
@@ -371,62 +380,63 @@ public class MainController {
 		ArrayList<ItemOrdered> itemsOrderedList = orderProcessingImpl.getItemOrderedHolder();
 		ArrayList<ItemOrdered> sendItemOrderedList = new ArrayList<>();
 
+		// Loop thru the menuItemList and compare it to the itemsOrderedList
+		// if the menuItemList.itemNumber does not exist in the itemsOrderedList
+		// this means that the itemNumber has not been modified and needs to be
+		// converted to an ItemOrdered obj
+		// add the new ItemOrdered obj needs to be added to the
+		// sendItemOrderedList<ItemOrdered>
+		// if the menuItemList.itemNumber does exist in the itemsOrderedList then it is
+		// already an ItemOrdered and
+		// needs to be added to the sendItemOrderedList
+
+		// 1. check to see if the menuItemList has been converted to an ItemOrdered
+		// 2. if not create an instance of ItemOrdered for that MenuItem
+		// 3. if so add that ItemOrdered to the sendItemOrderedList
+
 		// what is not in the itemsOrderedList and is in menuItemList send to DB
-		for (MenuItem menuItem : menuItemList) {
-			for (ItemOrdered itemOrdered : itemsOrderedList) {
-				if (menuItem.getItemNumber() != itemOrdered.getItemNumber()) {
-					ItemOrdered nonModifiedItem = new ItemOrdered();
-					nonModifiedItem.setOrderInfo(orderInfo);
-					nonModifiedItem.setItemNumber(menuItem.getItemNumber());
-					nonModifiedItem.setMenuItem(menuItem);
-					sendItemOrderedList.add(nonModifiedItem);
-				} else { 
-					//sendItemOrderedList.add(new ItemOrdered(orderInfo, menuItem.getItemNumber(), menuItem));
+
+		ArrayList<MenuItem> itemsThatHaveBeenOrdered = new ArrayList<>();
+		
+		for (ItemOrdered itemOrdered : itemsOrderedList) {
+			for (MenuItem menuItem : menuItemList) {
+				if (itemOrdered.getItemNumber() == menuItem.getItemNumber()) {
+					itemsThatHaveBeenOrdered.add(menuItem);
 				}
 			}
 		}
-			
-
+		for (MenuItem menuItem : itemsThatHaveBeenOrdered) {
+			menuItemList.remove(menuItem);
+		}
+		
+		for (MenuItem menuItem : menuItemList) {
+			ItemOrdered nonModifiedItem = new ItemOrdered(orderInfo, menuItem.getItemNumber(), menuItem);
+			sendItemOrderedList.add(nonModifiedItem);
+		}
+		
 		for (ItemOrdered itemOrdered : sendItemOrderedList) {
+			System.out.println(itemOrdered + "this is the sendItemOrderedList");
 			orderProcessingImpl.processItemsOrdered(itemOrdered);
 		}
 
+		for (ItemOrdered itemOrdered : itemsOrderedList) {
+			System.out.println(itemOrdered + "this is the itemsOrderedList");
+			orderProcessingImpl.processItemsOrdered(itemOrdered);			
+		}
+//		ArrayList<MenuItem> menuItemOrdered = new ArrayList<>();
+//		for (ItemOrdered itemOrdered : sendItemOrderedList) {
+//			menuItemOrdered.add(restaurantDAO.getMenuItemByID(itemOrdered.getMenuItem().getItemId()));
+//		}
+
 		System.out.println("orderinfo should be in the DB!");
-
-		// Get all order information for orderId
-
-//		for (ItemOrdered itemOrdered : itemsOrderedList) {
-//			
-//		}
-//		HashMap<ItemOrdered, String> ingredientNames = new HashMap<ItemOrdered, String>();
-//		
-//		for (ItemOrdered itemOrdered : itemsOrderedList) {
-//			Integer ingredientID = itemOrdered.getIngredientId();
-//			String ingredientName = ingredientDAO.getIngredientNameByID(ingredientID);
-//			ingredientNames.put(itemOrdered, ingredientName);
-//			
-//		}
-//		
-//		for (ItemOrdered itemOrdered : itemsOrderedList) {
-//			System.out.println(itemOrdered);
-//		}
-//		
-//
-//		List<ItemOrdered> itemOrderedSortedByKey = new ArrayList<>(ingredientNames.keySet());
-//		Collections.sort(itemOrderedSortedByKey);
-//		
-//		
-//	
-//		for (ItemOrdered itemOrdered : itemOrderedSortedByKey) {
-//			System.out.println("SORTED BY KEY" + itemOrdered);
-//		}
 
 		model.addAttribute("orderDate", date);
 		model.addAttribute("userID", userIdInt);
 		model.addAttribute("orderID", orderIdInt);
 		model.addAttribute("itemNumber", itemNumberInt);
-		model.addAttribute("menuItemList", menuItemList);
-		model.addAttribute("itemsOrderedList", sendItemOrderedList);
+//		model.addAttribute("menuItemList", menuItemOrdered);
+		model.addAttribute("sendItemOrderedList", sendItemOrderedList);
+		model.addAttribute("itemsOrderedList", itemsOrderedList);
 		// model.addAttribute("ingredientNameHashMap", ingredientNames);
 
 		return "processOrder";

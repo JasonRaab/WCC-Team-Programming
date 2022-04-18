@@ -83,7 +83,7 @@
 		<a href="${pageContext.request.contextPath}/showUsers"
 			class="btn btn-primary btn-sm active" role="button"
 			aria-pressed="true">Login</a> <a
-			href="${pageContext.request.contextPath}/menu"
+			href="${pageContext.request.contextPath}/readOnlyMenu"
 			class="btn btn-primary btn-sm active" role="button"
 			aria-pressed="true">View Menu</a>
 	</div>
