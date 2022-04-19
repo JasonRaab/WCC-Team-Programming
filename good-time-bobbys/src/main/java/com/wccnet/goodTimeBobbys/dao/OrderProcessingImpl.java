@@ -89,8 +89,7 @@ public class OrderProcessingImpl {
 	@Transactional
 	public void processItemsOrdered(ItemOrdered itemOrdered) {
 		Session session = sessionFactory.getCurrentSession();
-		
-	//	Integer ingredientID = itemOrdered.getIngredientId();
+		//int ingredientID = itemOrdered.getIngredientId();
 		
 		session.save(itemOrdered);
 		
@@ -122,5 +121,6 @@ public class OrderProcessingImpl {
 		OrderInfo orderInfoObject = session.get(OrderInfo.class, orderID);
 		
 	}
-	
+
+
 }

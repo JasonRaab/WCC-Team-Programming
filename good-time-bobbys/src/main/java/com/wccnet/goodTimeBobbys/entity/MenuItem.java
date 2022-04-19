@@ -53,7 +53,7 @@ public class MenuItem {
 	private Double itemPrice;
 
 	@Column(name = "is_active")
-	private int isActive;
+	private Integer isActive;
 
 	@Transient
 	private List<Ingredient> modifiedIngredients;
@@ -73,7 +73,6 @@ public class MenuItem {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ItemOrdered> itemsOrdered;
 
-	
 	public void addItemsOrdered(ItemOrdered itemOrdered) {
 		itemsOrdered.add(itemOrdered);
 		itemOrdered.setMenuItem(this);
@@ -91,7 +90,7 @@ public class MenuItem {
 
 	}
 
-	public MenuItem(String itemName, String itemDescription, String itemCategory, int itemStock, Double itemPrice,
+	public MenuItem(String itemName, String itemDescription, String itemCategory, Integer itemStock, Double itemPrice,
 			int isActive) {
 		super();
 		this.itemName = itemName;
@@ -102,7 +101,7 @@ public class MenuItem {
 		this.isActive = isActive;
 	}
 
-	public MenuItem(int itemId, String itemName, String itemDescription, String itemCategory, int itemStock,
+	public MenuItem(Integer itemId, String itemName, String itemDescription, String itemCategory, Integer itemStock,
 			Double itemPrice) {
 		super();
 		this.itemName = itemName;
@@ -122,7 +121,7 @@ public class MenuItem {
 		ingredients.remove(ingredient);
 	}
 
-	public int getItemNumber() {
+	public Integer getItemNumber() {
 		return itemNumber;
 	}
 
@@ -137,11 +136,11 @@ public class MenuItem {
 				+ " \nItem Price: " + itemPrice;
 	}
 
-	public int getItemId() {
+	public Integer getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(int itemId) {
+	public void setItemId(Integer itemId) {
 		this.itemId = itemId;
 	}
 
@@ -169,18 +168,16 @@ public class MenuItem {
 		this.itemCategory = itemCategory;
 	}
 
-	public int getItemStock() {
+	public Integer getItemStock() {
 		return itemStock;
 	}
 
-	public void setItemStock(int itemStock) {
+	public void setItemStock(Integer itemStock) {
 		this.itemStock = itemStock;
 	}
 
 	public Double getItemPrice() {
-		BigDecimal bd = new BigDecimal(itemPrice).setScale(2, RoundingMode.HALF_UP);
-		double newPrice = bd.doubleValue();
-		return newPrice;
+		return itemPrice;
 	}
 
 	public void setItemPrice(Double itemPrice) {
@@ -199,7 +196,7 @@ public class MenuItem {
 		return isActive;
 	}
 
-	public void setIsActive(int isActive) {
+	public void setIsActive(Integer isActive) {
 		this.isActive = isActive;
 	}
 
