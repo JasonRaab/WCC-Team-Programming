@@ -74,87 +74,155 @@
 	color: white;
 }
 </style>
+<script>
+	function openItemOrdered(evt, menuItemCategory) {
+		// Declare all variables
+		var i, tabcontent, tablinks;
+
+		// Get all elements with class="tabcontent" and hide them
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+
+		// Get all elements with class="tablinks" and remove the class "active"
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+		}
+
+		// Show the current tab, and add an "active" class to the button that opened the tab
+		document.getElementById(menuItemCategory).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+</script>
 <meta charset="ISO-8859-1">
 <title>Process Order</title>
 </head>
 <body>
+
 	<div class="container">
-		<h1>Process Order</h1>
-		<div class="card">
-			<table>
-				<tr>
-					<c:forEach var="eachItem" items="${allItemsOrdered}">
-						<td>${eachItem.menuItem.getItemName()}</td>
-						<td>${eachItem}</td>
-						
-						<c:if test="${eachItem.modification == 1}">
-							
-
-
-							</c:if>
-					</c:forEach>
-				</tr>
-
-			</table>
-
-
-
-
-
-
-
-
-			<!-- 			<table class="table"> -->
-			<%-- 				<c:forEach var="eachItem" items="${itemsOrderedList}"> --%>
-
-			<!-- 					<tr> -->
-			<%-- 						<td>${eachItem.itemNumber}</td> --%>
-			<!-- 						<td></td> -->
-			<%-- 						<td>${eachItem.menuItem.getItemId()}</td> --%>
-			<%-- 						<td>${eachItem.menuItem.getItemName()}</td> --%>
-			<%-- 						<c:if test="${eachItem.modification == 1}"> --%>
-			<!-- 							<td>Add: -->
-			<%-- 								${ingredientDAO.getIngredientNameByID(eachItem.getIngredientId())}</td> --%>
-			<%-- 						</c:if> --%>
-			<%-- 						<c:if test="${eachItem.modification == 0}"> --%>
-			<!-- 							<td>Remove: -->
-			<%-- 								${ingredientDAO.getIngredientNameByID(eachItem.getIngredientId())}</td> --%>
-			<%-- 						</c:if> --%>
-
-			<!-- 						<td>$${eachItem.menuItem.getItemPrice()}</td> -->
-			<!-- 						<td></td> -->
-			<!-- 						<td></td> -->
-			<!-- 					</tr> -->
-			<%-- 				</c:forEach> --%>
-			<%-- 				<c:forEach var="eachItem" items="${sendItemOrderedList}"> --%>
-
-			<!-- 					<tr> -->
-			<%-- 						<td>${eachItem.getMenuItem().getItemNumber()}</td> --%>
-			<!-- 						<td></td> -->
-			<%-- 						<td>${eachItem.getMenuItem().getItemId()}</td> --%>
-			<%-- 						<td>${eachItem.getMenuItem().getItemName()}</td> --%>
-			<!-- 						<td></td> -->
-			<%-- 												<td>${eachItem.itemDescription}</td> --%>
-			<!-- 						<td>$${eachItem.getMenuItem().getItemPrice()}</td> -->
-			<!-- 						<td></td> -->
-			<!-- 						<td></td> -->
-			<!-- 					</tr> -->
-			<%-- 				</c:forEach> --%>
-			<!-- 				<tr> -->
-
-			<!-- 					<td></td> -->
-			<!-- 					<td></td> -->
-			<!-- 					<td></td> -->
-			<!-- 					<td></td> -->
-			<%-- 					<td><a href="${sendOrderToDatabase}" --%>
-			<!-- 						class="btn btn-primary btn-sm active">Send to Kitchen!</a></td> -->
-			<!-- 					<td></td> -->
-			<!-- 					<td></td> -->
-			<!-- 				</tr> -->
-			<!-- 			</table> -->
+		<div class="jumbotron text-center">
+			<h1>
+				Hey ${user.firstName}, <br> THANK YOU FOR CHOOSING GOOD TIME
+				BOBBY'S!
+			</h1>
+			<br>
+			<h2>Order Number: ${orderID}</h2>
+			<h4>Subtotal: ${orderTotalWithoutTax}</h4>
+			<h4>Tax: ${orderTotalTax}</h4>
+			<h4>Total: ${orderTotalWithTax}</h4>
+			<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
 		</div>
 	</div>
 
-
+	<div class="container">
+		<div class="card">
+			<div>
+				<div class="container">
+					<div class="tab">
+						<button class="tablinks" onclick="openItemOrdered(event, '1')">Item
+							1</button>
+						<button class="tablinks" onclick="openItemOrdered(event, '2')">Item
+							2</button>
+						<button class="tablinks" onclick="openItemOrdered(event, '3')">Item
+							3</button>
+						<button class="tablinks" onclick="openItemOrdered(event, '4')">Item
+							4</button>
+					</div>
+				</div>
+			</div>
+			<!-- TAB CONTENT -->
+			<div id="1" class="tabcontent">
+				<h3 class="header">Item 1</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+							<c:if test="${eachItemOrder.itemNumber == 1}">
+								<tr>
+									<td>${eachItemOrder.itemNumber}</td>
+									<td>${eachItemOrder.getMenuItemName()}</td>
+									<td>${eachItemOrder}<c:if
+											test="${not empty eachItemOrder.getIngredientId()}">
+								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
+								<c:if test="${eachItemOrder.modification == 1}">
+								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
+								 </c:if>
+										</c:if></td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</table>
+				</div>
+			</div>
+			<div id="2" class="tabcontent">
+				<h3 class="header">Item 2</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+							<c:if test="${eachItemOrder.itemNumber == 2}">
+								<tr>
+									<td>${eachItemOrder.itemNumber}</td>
+									<td>${eachItemOrder.getMenuItemName()}</td>
+									<td>${eachItemOrder}<c:if
+											test="${not empty eachItemOrder.getIngredientId()}">
+								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
+								<c:if test="${eachItemOrder.modification == 1}">
+								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
+								 </c:if>
+										</c:if></td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</table>
+				</div>
+			</div>
+			<div id="3" class="tabcontent">
+				<h3 class="header">Item 3</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+							<c:if test="${eachItemOrder.itemNumber == 3}">
+								<tr>
+									<td>${eachItemOrder.itemNumber}</td>
+									<td>${eachItemOrder.getMenuItemName()}</td>
+									<td>${eachItemOrder}<c:if
+											test="${not empty eachItemOrder.getIngredientId()}">
+								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
+								<c:if test="${eachItemOrder.modification == 1}">
+								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
+								 </c:if>
+										</c:if></td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</table>
+				</div>
+			</div>
+			<div id="4" class="tabcontent">
+				<h3 class="header">Item 4</h3>
+				<div class="card">
+					<table class="table">
+						<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+							<c:if test="${eachItemOrder.itemNumber == 4}">
+								<tr>
+									<td>${eachItemOrder.itemNumber}</td>
+									<td>${eachItemOrder.getMenuItemName()}</td>
+									<td>${eachItemOrder}<c:if
+											test="${not empty eachItemOrder.getIngredientId()}">
+								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
+								<c:if test="${eachItemOrder.modification == 1}">
+								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
+								 </c:if>
+										</c:if></td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

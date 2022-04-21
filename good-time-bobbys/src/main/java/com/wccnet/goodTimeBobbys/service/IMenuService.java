@@ -20,7 +20,7 @@ public interface IMenuService {
 
 	public List<Ingredient> getAddedIngredientsByUser();
 
-	public String getIngredientsAddedPriceTotal();
+	public Double getIngredientsAddedPriceTotal();
 
 	public void addToRemovedIngredientByUser(Ingredient ingredient);
 

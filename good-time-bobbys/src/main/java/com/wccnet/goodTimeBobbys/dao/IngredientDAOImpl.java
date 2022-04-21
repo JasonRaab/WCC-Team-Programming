@@ -141,5 +141,17 @@ public class IngredientDAOImpl implements IIngredientDAO {
 
 		return ingredientName;
 	}
+	
+	@Override
+	@Transactional
+	public Double getIngredientPriceByID(int ingredientID) {
+		
+		Session session = sessionFactory.getCurrentSession();
+
+		Ingredient ingredient = session.get(Ingredient.class, ingredientID);
+		Double ingredientPrice = ingredient.getIngredientPrice();
+		
+		return ingredientPrice;
+	}
 
 }

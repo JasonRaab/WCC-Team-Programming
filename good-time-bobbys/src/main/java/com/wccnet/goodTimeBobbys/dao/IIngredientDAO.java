@@ -18,4 +18,6 @@ public interface IIngredientDAO {
 	public Ingredient getIngredientByID(int ingredientID);
 
 	public String getIngredientNameByID(int ingredientID);
+
+	public Double getIngredientPriceByID(int ingredientID);
 }

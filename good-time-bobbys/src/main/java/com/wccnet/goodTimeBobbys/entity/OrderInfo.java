@@ -184,9 +184,9 @@ public class OrderInfo {
 
 	@Override
 	public String toString() {
-		return " { OrderInfo } Order ID: " + orderId + " /nUser ID: " + userId + " /nOrder Date: " + orderDate
-				+ " /nOrder Subtotal: " + orderSubtotal + " /nOrder Tax: " + orderTax + " /nOrder Total: " + orderTotal
-				+ " /nOrder Type: " + orderType + " /nTable Number: " + tableNumber;
+		return " { OrderInfo } Order ID: " + orderId + "/n User ID: " + userId + "/n Order Date: " + orderDate
+				+ "/n Order Subtotal: " + orderSubtotal + "/n Order Tax: " + orderTax + "/n Order Total: " + orderTotal
+				+ "/n Order Type: " + orderType + "/n Table Number: " + tableNumber;
 	}
 
 }

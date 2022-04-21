@@ -15,6 +15,8 @@ import javax.persistence.Transient;
 
 import org.springframework.lang.Nullable;
 
+import com.wccnet.goodTimeBobbys.dao.OrderProcessingImpl;
+
 @Entity
 @Table(name = "item_ordered")
 //@IdClass(ItemOrdered.class)
@@ -149,12 +151,20 @@ public class ItemOrdered implements Serializable {
 	public void setMenuItem(MenuItem menuItem) {
 		this.menuItem = menuItem;
 	}
-
+	
+	@Transient
+	OrderProcessingImpl orderProcessingImpl;
+	
 	@Override
 	public String toString() {
-		return " { ItemOrdered } Order ID: " + orderInfo.getOrderId() + " /nItem Number: " + itemNumber + " /nMenu Item Id: "
-				+ menuItem.getItemId() + " /nIngredient ID: " + ingredientId + " /nModification: " + modification;
+		return " " + ((modification != null) ? ((modification == 1) ? "Added" : "Removed") : "") + ((ingredientId != null) ? " Ingredient: " : "");
 	}
+
+//	@Override
+//	public String toString() {
+//		return " { ItemOrdered } Order ID: " + orderInfo.getOrderId() + " /nItem Number: " + itemNumber + " /nMenu Item Id: "
+//				+ menuItem.getItemId() + " /nIngredient ID: " + ingredientId + " /nModification: " + modification;
+//	}
 	
 	@Override
 	public boolean equals(Object o) {

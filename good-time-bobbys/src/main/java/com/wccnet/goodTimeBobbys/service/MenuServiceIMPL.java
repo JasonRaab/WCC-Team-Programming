@@ -1,5 +1,7 @@
 package com.wccnet.goodTimeBobbys.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,28 +11,30 @@ import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.MenuItem;
 
 @Service
-public class MenuServiceIMPL implements IMenuService {
+public class MenuServiceImpl implements IMenuService {
+
+	BigDecimal bd;
 
 	List<Ingredient> addedIngredientsByUser = new ArrayList<Ingredient>();
 	List<Ingredient> removedIngredientsByUser = new ArrayList<Ingredient>();
 
-	
+	Double ingredientPriceTotal = 0.00;
+
 	@Override
 	public void clearAddedIngredientsByUser() {
 		addedIngredientsByUser.clear();
 	}
-	
-	
+
 	@Override
 	public void clearRemovedIngredientsByUser() {
 		removedIngredientsByUser.clear();
 	}
-	
+
 	@Override
 	public void addToAddedIngredientsByUser(Ingredient ingredient) {
 		addedIngredientsByUser.add(ingredient);
 	}
-	
+
 	@Override
 	public void addToRemovedIngredientByUser(Ingredient ingredient) {
 		removedIngredientsByUser.add(ingredient);
@@ -46,51 +50,58 @@ public class MenuServiceIMPL implements IMenuService {
 	}
 
 	@Override
-	public String getIngredientsAddedPriceTotal() {
-		Double ingredientPriceTotal = 0.00;
+	public Double getIngredientsAddedPriceTotal() {
 
 		for (Ingredient ingredient : addedIngredientsByUser) {
 			ingredientPriceTotal += ingredient.getIngredientPrice();
 		}
-		String ingredientPriceString = ingredientPriceTotal.toString();
-		return ingredientPriceString;
+
+		return ingredientPriceTotal;
 	}
 
 	@Override
 	public Double getTotal(ArrayList<MenuItem> menuItemPrice, Double subTotal, Double tax) {
-		// TODO Auto-generated method stub
-
-		Double itemPrice = 0.00;
 
 		Double total = 0.00;
+		total = (tax += subTotal);
 
-		for (MenuItem menuItem : menuItemPrice) {
-			itemPrice = menuItem.getItemPrice();
-			subTotal += itemPrice;
+		bd = new BigDecimal(total).setScale(2, RoundingMode.HALF_UP);
 
-			total = (tax += subTotal);
+		double newTotal = bd.doubleValue();
 
-		}
-
-		return total;
+		return newTotal;
 	}
 
 	@Override
 	public Double getTax(Double subTotal) {
 		Double tax = (subTotal * .06);
-		return tax;
+
+		bd = new BigDecimal(tax).setScale(2, RoundingMode.HALF_UP);
+
+		double newTax = bd.doubleValue();
+
+		return newTax;
 	}
 
 	@Override
 	public Double getSubTotal(ArrayList<MenuItem> menuItemPrice) {
 		Double subTotal = 0.00;
 		Double itemPrice = 0.00;
+
+		double addedIngredientsPriceTotal = getIngredientsAddedPriceTotal();
+
 		for (MenuItem menuItem : menuItemPrice) {
 			itemPrice = menuItem.getItemPrice();
 			subTotal += itemPrice;
 		}
 
-		return subTotal;
+		subTotal += addedIngredientsPriceTotal;
+
+		bd = new BigDecimal(subTotal).setScale(2, RoundingMode.HALF_UP);
+
+		double newSubTotal = bd.doubleValue();
+
+		return newSubTotal;
 	}
 
 	@Override
