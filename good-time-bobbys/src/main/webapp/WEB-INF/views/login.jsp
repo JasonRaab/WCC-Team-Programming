@@ -11,6 +11,14 @@
 	crossorigin="anonymous">
 <meta charset="UTF-8">
 <style>
+html {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover
+}
 /* Style the tab */
 .tab {
 	overflow: hidden;
@@ -71,39 +79,41 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1 style="text-align: center;">Welcome to good time bobbys</h1>
-	<div class="container" style="text-align: center;">
-		<label for="uname"><b>Username</b></label> <input type="text"
-			placeholder="Enter Username" name="uname"> <br> <label
-			for="psw"><b>Password</b></label> <input type="password"
-			placeholder="Enter Password" name="psw">
-	</div>
-	<br>
-	<div style="text-align: center;">
-		<a href="${pageContext.request.contextPath}/showUsers"
-			class="btn btn-primary btn-sm active" role="button"
-			aria-pressed="true">Login</a> <a
-			href="${pageContext.request.contextPath}/readOnlyMenu"
-			class="btn btn-primary btn-sm active" role="button"
-			aria-pressed="true">View Menu</a>
-	</div>
-	<br>
-	<br>
-	<div class="container">
-		<div class="card">
-			<table class="table" style="text-align: center;">
-				<c:forEach var="eachUser" items="${users}">
-					<c:url var="loginLink" value="menu">
-						<c:param name="userID" value="${eachUser.userId}" />
-						<c:param name="orderID" value="${order.orderId}" />
-					</c:url>
-					<tr>
-						<td><a href="${loginLink}">Login as ${eachUser.firstName}
-						</a></td>
-					</tr>
+	<div class="section mcb-section mcb-section-oqy8u0mre"
+		style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
+		<h1 style="text-align: center;">Welcome to good time bobbys</h1>
+		<div class="container" style="text-align: center;">
+			<label for="uname"><b>Username</b></label> <input type="text"
+				placeholder="Enter Username" name="uname"> <br> <label
+				for="psw"><b>Password</b></label> <input type="password"
+				placeholder="Enter Password" name="psw">
+		</div>
+		<br>
+		<div style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/showUsers"
+				class="btn btn-primary btn-sm active" role="button"
+				aria-pressed="true">Login</a> <a
+				href="${pageContext.request.contextPath}/readOnlyMenu"
+				class="btn btn-primary btn-sm active" role="button"
+				aria-pressed="true">View Menu</a>
+		</div>
+		<br> <br>
+		<div class="container">
+			<div class="card">
+				<table class="table" style="text-align: center; background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
+					<c:forEach var="eachUser" items="${users}">
+						<c:url var="loginLink" value="menu">
+							<c:param name="userID" value="${eachUser.userId}" />
+							<c:param name="orderID" value="${order.orderId}" />
+						</c:url>
+						<tr>
+							<td><a href="${loginLink}">Login as
+									${eachUser.firstName} </a></td>
+						</tr>
 
-				</c:forEach>
-			</table>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>
