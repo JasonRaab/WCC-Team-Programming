@@ -70,14 +70,13 @@
 	color: white;
 }
 </style>
-<meta charset="ISO-8859-1">
 <title>Process Order</title>
 </head>
 <body>
 	<div class="container">
 		<h1>Process Order</h1>
 		<div style="text-align: center;" class="card">
-			<table>
+			<%-- 		<table>
 				<tr>
 					<c:forEach var="eachItem" items="${allItemsOrdered}">
 						<tr>
@@ -95,7 +94,119 @@
 
 			</table>
 
+			Subtotal: "${orderTotalWithoutTax}" Tax: "${orderTotalTax}" Total:
+			"${orderTotalWithTax}"
+ --%>
+			<table class="body-wrap">
+				<tbody>
+					<tr>
+						<td></td>
+						<td class="container" width="600">
+							<div class="content">
+								<table class="main" width="100%" cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td class="content-wrap aligncenter">
+												<table width="100%" cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td class="content-block">
+																<h2>Thanks For Ordering With Good Time Bobby's!</h2>
+															</td>
+														</tr>
+														<tr>
+															<td class="content-block">
+																<table class="invoice">
+																	<tbody>
+																		<tr>
+																			<td>${user.firstName}&nbsp;${user.lastName}<br>Invoice
+																				#${orderInfo.orderId}<br>${orderInfo.orderDate}
+																			</td>
+																		</tr>
+																		<tr>
+																			<td>
+																				<table class="invoice-items" cellpadding="0"
+																					cellspacing="0">
+																					<tbody>
 
+
+																						<c:forEach var="eachItem"
+																							items="${allItemsOrdered}">
+																							<tr>
+																								<td class="alignleft">${eachItem.menuItem.getItemNumber()}</td>
+																								<td></td>
+																								<td class="alignleft">${eachItem.menuItem.getItemName()}</td>
+																								<td></td>
+																								<td class="alignright">${eachItem}<c:if
+																										test="${not empty eachItem.getIngredientId()}">
+																										<td>
+																											${ingredientDAO.getIngredientNameByID(eachItem.getIngredientId())}
+																											&nbsp;+
+																											$${ingredientDAO.getIngredientPriceByID(eachItem.getIngredientId())}</td>
+																									</c:if>
+																								</td>
+																							</tr>
+																						</c:forEach>
+																						<!-- <tr>
+																							<td>Service 1</td>
+																							<td class="alignright">$ 20.00</td>
+																						</tr>
+																						<tr>
+																							<td>Service 2</td>
+																							<td class="alignright">$ 10.00</td>
+																						</tr>
+																						<tr>
+																							<td>Service 3</td>
+																							<td class="alignright">$ 6.00</td>
+																						</tr> -->
+																						<tr class="total">
+																							<td class="alignright" width="80%">Total:</td>
+																							<td class="alignright">${orderTotalWithTax}</td>
+																						</tr>
+																						<tr>
+																							<td class="alignright" width="80%">SubTotal:</td>
+																							<td class="alignright">${orderTotalWithoutTax}</td>
+																						</tr>
+																						<tr>
+																							<td class="alignright" width="80%">Tax:</td>
+																							<td class="alignright">${orderTotalTax}</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</td>
+														</tr>
+
+														<tr>
+															<td class="content-block">GoodTimeBobbys Inc. 4800 E
+																Huron Dr, Ann Arbor, 48105</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="footer">
+									<table width="100%">
+										<tbody>
+											<tr>
+												<td class="aligncenter content-block">Questions? Email
+													<a href="mailto:">support@goodtimebobbys.inc</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
 
 
 

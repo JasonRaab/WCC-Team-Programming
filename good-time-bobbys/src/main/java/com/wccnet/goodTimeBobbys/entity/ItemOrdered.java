@@ -156,8 +156,7 @@ public class ItemOrdered implements Serializable {
 
 	@Override
 	public String toString() {
-		return " Order #: " + orderInfo.getOrderId() + " &nbsp;&nbsp;&nbsp;Item Number: " + itemNumber + "&nbsp;&nbsp;&nbsp; "
-				+ ((modification != null) ? ((modification == 1) ? "Added" : "Removed") : "") + ((ingredientId != null) ? " Ingredient: " : "");
+		return "&nbsp;&nbsp; " + ((modification != null) ? ((modification == 1) ? "Added" : "Removed") : "") + ((ingredientId != null) ? " Ingredient: " : "");
 	}
 
 	// ((modification == 1) ? "Added" : "Removed")
@@ -174,12 +173,5 @@ public class ItemOrdered implements Serializable {
 				&& Objects.equals(ingredientId, itemOrdered.ingredientId)
 				&& Objects.equals(modification, itemOrdered.modification);
 	}
-
-//	@Override
-//	public int compareTo(ItemOrdered o) {
-//		// TODO Auto-generated method stub
-//		
-//		return (int)(this.ingredientId - o.getIngredientId());
-//	}
 
 }

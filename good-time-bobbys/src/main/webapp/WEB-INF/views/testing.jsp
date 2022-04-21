@@ -42,19 +42,23 @@
 	border: 1px solid #ccc;
 	border-top: none;
 }
+
 .header {
 	text-align: center;
 }
+
 #table td, #table th {
 	border: 1px solid #ddd;
 	padding: 8px;
 }
+
 #table {
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
 	width: 80%;
 	margin: auto;
 }
+
 #table th {
 	padding-top: 12px;
 	padding-bottom: 12px;
@@ -79,12 +83,13 @@
 			</table>
 		</div>
 	</div>
-	
+
 	<div class="container">
 		<div class="card">
-		<h3>Ingredients ADDED</h3>
+			<h3>Ingredients ADDED</h3>
 			<table>
-				<c:forEach var="eachIngredientAdded" items="${addedIngredientsByUser}">
+				<c:forEach var="eachIngredientAdded"
+					items="${addedIngredientsByUser}">
 					<tr>
 						<td>${eachIngredientAdded.ingredientId}</td>
 						<td>${eachIngredientAdded.ingredientName}</td>
@@ -94,12 +99,13 @@
 			</table>
 		</div>
 	</div>
-	
+
 	<div class="container">
 		<div class="card">
-		<h3>Ingredients REMOVED</h3>
+			<h3>Ingredients REMOVED</h3>
 			<table>
-				<c:forEach var="eachIngredientAdded" items="${removedIngredientsByUser}">
+				<c:forEach var="eachIngredientAdded"
+					items="${removedIngredientsByUser}">
 					<tr>
 						<td>${eachIngredientAdded.ingredientId}</td>
 						<td>${eachIngredientAdded.ingredientName}</td>
@@ -110,32 +116,13 @@
 		</div>
 	</div>
 	<c:url var="backToCart" value="/backToCart">
-				<c:param name="userID" value="${user.userId}" />
-				<c:param name="orderID" value="${orderID}" />
-			</c:url>
+		<c:param name="userID" value="${user.userId}" />
+		<c:param name="orderID" value="${orderID}" />
+	</c:url>
 	<a href="${backToCart}" class="btn btn-sm active"
-				style="color: white; background-color: black; font-size: medium;"
-				role="button" aria-pressed="true">Back to Cart!</a>
+		style="color: white; background-color: black; font-size: medium;"
+		role="button" aria-pressed="true">Back to Cart!</a>
 
 
-	<!-- 	<div class="container"> -->
-	<!-- 		<div class="card"> -->
-	<%-- 			<%-- 			<form:form action="orderDetails" method="post" --%>
-
-	<%-- 			<%-- 				modelAttribute="orderID"> --%>
-
-	<!-- 			<table> -->
-	<!-- 				<tr> -->
-	<%-- 					<td><c:forEach var="eachCheckbox" --%>
-	<%-- 							items="${modifiedIngredientSet}"> --%>
-	<!-- 							<tr> -->
-	<%-- 								<td>${eachCheckbox.getIngredientName}</td> --%>
-	<!-- 							</tr> -->
-	<%-- 						</c:forEach></td> --%>
-	<!-- 				</tr> -->
-	<!-- 			</table> -->
-	<!-- 		</div> -->
-
-	<!-- 	</div> -->
 </body>
 </html>

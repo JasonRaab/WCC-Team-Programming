@@ -23,8 +23,8 @@
 	<bean id="myDataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="user" value="testUser"></property>
-		<property name="password" value="test@password298"></property>
+		<property name="user" value="ordering"></property>
+		<property name="password" value="PASSword@cps298"></property>
 		<property name="jdbcUrl"
 			value="jdbc:mysql://167.172.242.79:3306/dumpster_fire">
 		</property>
