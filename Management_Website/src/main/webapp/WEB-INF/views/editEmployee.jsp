@@ -46,7 +46,7 @@
 		<form:form action="processEmployee" modelAttribute="employee">
 			<form:hidden path="userId" />
 			<form:hidden path="role" value="3" />
-			<form:hidden path="isActive"/>
+			<form:hidden path="isActive" />
 			<div class="row g-2 mb-3 mt-3">
 				<div class="col">
 					<form:label path="firstName">First Name:</form:label>
@@ -67,7 +67,8 @@
 				</div>
 				<div class="col">
 					<form:label path="userId">User ID:</form:label>
-					<form:input path="userId" type="text" class="form-control" disabled="true" />
+					<form:input path="userId" type="text" class="form-control"
+						disabled="true" />
 				</div>
 			</div>
 			<div class="row g-2 mb-3 mt-3 justify-content-start">
@@ -78,7 +79,8 @@
 				</div>
 				<div class="col">
 					<form:label path="isActive">Active Status:</form:label>
-					<form:input path="isActive" type="text" class="form-control" disabled="true" />
+					<form:input path="isActive" type="text" class="form-control"
+						disabled="true" />
 				</div>
 			</div>
 			<div class="row g-2 mb-3 mt-3">
@@ -86,6 +88,30 @@
 					class="btn btn-success" />
 			</div>
 		</form:form>
+
+		<div class="mb-3">
+			<c:url var="addressLink" value="/management/addAddress">
+				<c:param name="employeeID" value="${employee.userId}" />
+			</c:url>
+			<a href="${addressLink}"><button class="btn btn-success">+
+					Add New Address</button></a>
+		</div>
+
+		<c:forEach var="address" items="${addressList}">
+			<c:url var="removeLink" value="/management/removeAddress">
+				<c:param name="addressID" value="${address.addressId}" />
+			</c:url>
+			<div class="card mb-3">
+				<div class="card-body">
+					<h5 class="card-title">${address.city},&nbsp;${address.state}&nbsp;${address.zip}</h5>
+					<h6 class="card-subtitle mb-2 text-muted">${address.street}</h6>
+					<p class="card-text"></p>
+					<a href="${removeLink}" class="card-link">
+						<button class="btn btn-danger">Remove</button>
+					</a>
+				</div>
+			</div>
+		</c:forEach>
 	</div>
 </body>
 </html>

@@ -38,4 +38,10 @@ public class UserServiceImpl implements UserService {
 		userDAO.saveUser(user);
 	}
 
+	@Override
+	@Transactional
+	public List<User> getPreviousEmployees() {
+		return userDAO.getPreviousEmployees();
+	}
+
 }

@@ -1,10 +1,18 @@
 package edu.wccnet.ctbriggs.springMVC.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +34,15 @@ public class User {
 	private String role;
 	@Column(name = "is_active")
 	private int isActive;
+	
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@JoinTable(
+			name="user_address",
+			joinColumns=@JoinColumn(name="user_id"),
+			inverseJoinColumns=@JoinColumn(name="address_id")
+			)
+	private List<Address> addresses= new ArrayList<Address>();
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -67,6 +84,18 @@ public class User {
 	}
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
+	}
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
+	public void addAddress(Address address) {
+		addresses.add(address);
+	}
+	public void removeAddress(Address address) {
+		addresses.remove(address);
 	}
 	public User(String firstName, String lastName, String email, String password, String role, int isActive) {
 		super();
