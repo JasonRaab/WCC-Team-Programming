@@ -20,7 +20,13 @@ public class IngredientServiceImpl implements IngredientService{
 	public List<IngredientItem> getIngredients() {
 		return ingredientDAO.getIngredients();
 	}
-
+	
+	@Override
+	@Transactional
+	public List<IngredientItem> getIngredientsIdOrdered() {
+		return ingredientDAO.getIngredientsIdOrdered();
+	}
+	
 	@Override
 	@Transactional
 	public void add(IngredientItem newIngredient) {
@@ -72,6 +78,7 @@ public class IngredientServiceImpl implements IngredientService{
 		ingredientDAO.activate(id);
 		
 	}
-	
+
+
 
 }

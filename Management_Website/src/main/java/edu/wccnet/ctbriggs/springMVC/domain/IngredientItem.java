@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="ingredient")
 public class IngredientItem {
@@ -34,6 +36,7 @@ public class IngredientItem {
 	@ManyToMany
 	@JoinTable(name = "menu_item_default_ingredient", joinColumns = {
 			@JoinColumn(name = "ingredient_id") }, inverseJoinColumns = { @JoinColumn(name = "item_id") })
+	@JsonIgnore
 	List<MenuItem> menuItems = new ArrayList<MenuItem>();
 	
 	public IngredientItem() {

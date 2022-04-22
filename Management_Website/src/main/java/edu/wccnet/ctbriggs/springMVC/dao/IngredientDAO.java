@@ -6,6 +6,8 @@ import edu.wccnet.ctbriggs.springMVC.domain.IngredientItem;
 
 public interface IngredientDAO {
 	public List<IngredientItem> getIngredients();
+	
+	public List<IngredientItem>getIngredientsIdOrdered();
 
 	public List<IngredientItem> getIngredients(String category);
 	

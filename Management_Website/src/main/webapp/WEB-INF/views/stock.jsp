@@ -42,6 +42,12 @@
 	</nav>
 	<div class="container m-3 mx-auto">
 	<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
+			<div class="col-6">
+				<input type="text" class="form-control" name="searchBar"
+					id="searchBar" placeholder="Search For Order" />
+			</div>
+		</div>
+	<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-3">
 				<div class="btn-group">
 			<!-- changes whats selected based on the value of the type get variable -->
@@ -49,6 +55,9 @@
 					<a href="stock?type=IngredientItem" class='btn btn-outline-primary <c:if test='<%= request.getParameter("type").equals("IngredientItem")%>'>active</c:if>'>Ingredients</a>
 				</div>
 			</div>
+		</div>
+		<div class="overflow-hidden">
+			<table class="row justify-content-center mx-auto " id="employeesList"></table>
 		</div>
 			<table class="table table-bordered table-striped">
 				<thead>
@@ -89,6 +98,54 @@
 				</tbody>
 			</table>
 	</div>
+	<script>
+		/*
+		This script takes the employees json and creates the list of employees.
+		It's what allows the list to be searchable by first name last name or email
+		*/
+		const employeesList = document.getElementById('employeesList');
+		const searchBar = document.getElementById('searchBar');
+		var orders = JSON.parse('${dataJson}');
+
+		searchBar.addEventListener('keyup', (e) => {
+		    const searchString = e.target.value.toLowerCase();
+		    const filteredEmployees = orders.filter((order) => {
+		        return (
+		        	(order.user.firstName + ' ' +order.user.lastName).toLowerCase().includes(searchString) ||
+		        	order.id.toString().includes(searchString)
+		            
+		        );
+		    });
+		    	displayEmployees(filteredEmployees);
+		});
+	
+
+		const displayEmployees = (orders) => {
+		    const htmlString = orders
+		        .map((order) => {
+		            return `
+		            <form action="${pageContext.request.contextPath}/management/updateStock" modelAttribute="stock" method="POST">
+						<tr>
+							<td class="d-table-cell"><c:out
+									value="${eachStock.category}" /></td>
+							<td class="d-table-cell"><c:out value="` + order.name + `"/></td>
+							<td class="d-table-cell"><c:out value="` + order.stock + `" /></td>
+							<td class="d-table-cell">
+								<form:input path="stock" name="newCount" type="number" placeholder="enter number" value="` + order.stock + `"/>
+								<input type=hidden name="stockId" value="` + order.id `">
+								<input type="hidden" name="type" value="${eachStock.getClass().getSimpleName()}"/>
+								<input type="submit" value="Update"/>
+							</td>
+							
+						</tr>
+						</form>
+		        `;
+		        })
+		        .join('');
+		    employeesList.innerHTML = htmlString;
+		};
+		displayEmployees(orders);
+	</script>
 </body>
 </html>
 </html>

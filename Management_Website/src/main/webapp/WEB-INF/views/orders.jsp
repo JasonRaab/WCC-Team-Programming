@@ -7,6 +7,12 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Orders</title>
+<!-- this prevents scrollbar from shiftng elements -->
+<style>
+html {
+  overflow-y: scroll;
+}
+</style>
 </head>
 <!-- CSS only -->
 <link
@@ -40,57 +46,68 @@
 			</div>
 		</div>
 	</nav>
-
 	<div class="container m-3 mx-auto">
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-3">
 				<div class="btn-group">
-					<a href="#" class="btn btn-primary active" aria-current="page">Current
-						Orders</a> <a href="#" class="btn btn-outline-primary">Previous
+					<a href="orders" class="btn btn-primary active" aria-current="page">Current
+						Orders</a> <a href="viewCompletedOrders" class="btn btn-outline-primary">Completed
 						Orders</a>
 				</div>
 			</div>
 		</div>
-		<form:form action="processForm" modelAttribute="orderSearch">
-			<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
-				<div class="col-2">
-					<form:input path="fname" type="text" class="form-control"
-						placeholder="First Name" />
-				</div>
-				<div class="col-2">
-					<form:input path="lname" type="text" class="form-control"
-						placeholder="Last Name" />
-				</div>
-				<div class="col-2">
-					<form:input path="phone" type="text" class="form-control"
-						placeholder="Phone Number" />
-				</div>
-				<div class="col-5">
-					<form:input path="orderID" type="text" class="form-control"
-						placeholder="Employee ID" />
-				</div>
-
-				<div class="col-1">
-					<input type="submit" value="Search" class="btn btn-primary" />
-				</div>
+		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
+			<div class="col-6">
+				<input type="text" class="form-control" name="searchBar"
+					id="searchBar" placeholder="Search For Order" />
 			</div>
+		</div>
+		<!-- This is where the javascript puts the orders list-->
+		<div class="overflow-hidden">
+			<div class="row justify-content-center mx-auto " id="employeesList"></div>
+		</div>
+		<script>
+		/*
+		This script takes the employees json and creates the list of employees.
+		It's what allows the list to be searchable by first name last name or email
+		*/
+		const employeesList = document.getElementById('employeesList');
+		const searchBar = document.getElementById('searchBar');
+		var orders = JSON.parse('${dataJson}');
 
-		</form:form>
-		<c:forEach var="iterator" begin="0" end="${orderList.size() -1 }">
-			<div class="card mb-3">
-				<div class="card-body">
-					<h5 class="card-title">
-						<c:out value="${orderList.get(iterator).fname} ${orderList.get(iterator).lname}" />
-					</h5>
-					<h6 class="card-subtitle mb-2 text-muted">
-						<c:out value="${orderList.get(iterator).phone}" />
-					</h6>
-					<p class="card-text"></p>
-					<a href="#" class="card-link"><button class="btn btn-primary">More Info</button></a>
-					<a href="#" class="card-link"><button class="btn btn-success">Complete</button></a>
-				</div>
-			</div>
-		</c:forEach>
+		searchBar.addEventListener('keyup', (e) => {
+		    const searchString = e.target.value.toLowerCase();
+		    const filteredEmployees = orders.filter((order) => {
+		        return (
+		        	(order.user.firstName + ' ' +order.user.lastName).toLowerCase().includes(searchString) ||
+		        	order.id.toString().includes(searchString)
+		            
+		        );
+		    });
+		    	displayEmployees(filteredEmployees);
+		});
+	
+
+		const displayEmployees = (orders) => {
+		    const htmlString = orders
+		        .map((order) => {
+		            return `
+					<div class="card mb-3">
+						<div class="card-body">
+							<h5 class="card-title">` + order.user.firstName + ' ' + order.user.lastName + `</h5>
+							<h6 class="card-subtitle mb-2 text-muted">Order ` + order.id + `</h6>
+							<p class="card-text">`+ order.orderType +((order.orderType==='dine_in') ? (': Table ' + order.tableNumber) : '')+`</p>
+							<a href="orderDetail?orderId=` + order.id + `" class="card-link"><button class="btn btn-primary">More Info</button></a>
+							<a href="completeOrder?orderId=` + order.id + `" class="card-link"><button class="btn btn-success">Complete</button></a>
+						</div>
+		            </div>
+		        `;
+		        })
+		        .join('');
+		    employeesList.innerHTML = htmlString;
+		};
+		displayEmployees(orders);
+	</script>
 	</div>
 </body>
 </html>

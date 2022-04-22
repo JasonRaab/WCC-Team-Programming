@@ -8,6 +8,8 @@ public interface IngredientService {
 	
 public List<IngredientItem> getIngredients();
 
+public List<IngredientItem>getIngredientsIdOrdered();
+
 public List<IngredientItem> getIngredients(String category);
 
 public IngredientItem getIngredient(int id);

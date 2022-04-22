@@ -1,11 +1,18 @@
 package edu.wccnet.ctbriggs.springMVC.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name= "user")
@@ -26,6 +33,21 @@ public class User {
 	private String role;
 	@Column(name = "is_active")
 	private int isActive;
+	
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+	@JsonIgnore
+	private List<Order> orders;
+	
+	
+	public void addOrder(Order order) {
+		orders.add(order);
+		order.setUser(this);
+	}
+	
+	public void removeOrder(Order order) {
+		orders.remove(order);
+	}
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -68,6 +90,7 @@ public class User {
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
 	}
+	
 	public User(String firstName, String lastName, String email, String password, String role, int isActive) {
 		super();
 		this.firstName = firstName;

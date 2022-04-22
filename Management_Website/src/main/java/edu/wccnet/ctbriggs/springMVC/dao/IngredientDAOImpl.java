@@ -22,6 +22,13 @@ public class IngredientDAOImpl implements IngredientDAO {
 		Query<IngredientItem> query = session.createQuery("from IngredientItem where isActive = 1 order by name", IngredientItem.class);
 		return query.getResultList();
 	}
+	
+	@Override
+	public List<IngredientItem> getIngredientsIdOrdered() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<IngredientItem> query = session.createQuery("from IngredientItem order by id", IngredientItem.class);
+		return query.getResultList();
+	}
 
 	@Override
 	public void add(IngredientItem newIngredient) {

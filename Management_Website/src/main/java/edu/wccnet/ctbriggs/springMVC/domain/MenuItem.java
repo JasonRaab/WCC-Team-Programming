@@ -3,6 +3,7 @@ package edu.wccnet.ctbriggs.springMVC.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.json.JSONPropertyIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="menu_item")
@@ -24,7 +30,9 @@ public class MenuItem {
 	@Column(name = "item_name")
 	private String name;
 	@Column(name = "item_description")
+	@JsonIgnore
 	private String description;
+	@JsonIgnore
 	@Column(name = "item_category")
 	private String category;
 	@Column(name = "item_stock")
@@ -37,7 +45,15 @@ public class MenuItem {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_item_default_ingredient", joinColumns = {
 			@JoinColumn(name = "menu_item_id") }, inverseJoinColumns = { @JoinColumn(name = "ingredient_id") })
+	@JsonIgnore
 	List<IngredientItem> ingredients = new ArrayList<IngredientItem>();
+	
+	@OneToMany(mappedBy = "menuItem", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.PERSIST })
+	@JsonIgnore
+	private List<ItemOrdered> itemsOrdered;
+
+	
 	
 	public MenuItem() {
 	}
@@ -50,6 +66,16 @@ public class MenuItem {
 		this.price = price;
 		this.isActive = isActive;
 	}
+	
+	public void addItemsOrdered(ItemOrdered itemOrdered) {
+		itemsOrdered.add(itemOrdered);
+		itemOrdered.setMenuItem(this);
+	}
+
+	public void removeItemsOrdered(ItemOrdered itemOrdered) {
+		itemsOrdered.remove(itemOrdered);
+	}
+
 	
 	public void addIngredient(IngredientItem ingredient) {
 		ingredients.add(ingredient);
@@ -100,6 +126,13 @@ public class MenuItem {
 	}
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
+	}
+	
+	public List<ItemOrdered> getItemsOrdered() {
+		return itemsOrdered;
+	}
+	public void setItemsOrdered(List<ItemOrdered> itemsOrdered) {
+		this.itemsOrdered = itemsOrdered;
 	}
 	
 	public List<IngredientItem> getIngredients() {

@@ -1,7 +1,9 @@
 package edu.wccnet.ctbriggs.springMVC.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +19,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.cj.xdevapi.JsonArray;
-import com.mysql.cj.xdevapi.JsonValue;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.wccnet.ctbriggs.springMVC.domain.IngredientItem;
+import edu.wccnet.ctbriggs.springMVC.domain.ItemOrdered;
 import edu.wccnet.ctbriggs.springMVC.domain.ItemSearch;
 import edu.wccnet.ctbriggs.springMVC.domain.MenuItem;
-import edu.wccnet.ctbriggs.springMVC.domain.OrderSearch;
+import edu.wccnet.ctbriggs.springMVC.domain.Order;
 import edu.wccnet.ctbriggs.springMVC.domain.Stock;
 import edu.wccnet.ctbriggs.springMVC.domain.User;
 import edu.wccnet.ctbriggs.springMVC.service.IngredientService;
+import edu.wccnet.ctbriggs.springMVC.service.ItemOrderedService;
 import edu.wccnet.ctbriggs.springMVC.service.MenuService;
+import edu.wccnet.ctbriggs.springMVC.service.OrderService;
 import edu.wccnet.ctbriggs.springMVC.service.StockService;
 import edu.wccnet.ctbriggs.springMVC.service.UserService;
 
@@ -36,7 +41,7 @@ import edu.wccnet.ctbriggs.springMVC.service.UserService;
 public class MainController {
 	@Autowired
 	private StockService stockService;
-	
+
 	@Autowired
 	private UserService userService;
 	
@@ -45,6 +50,12 @@ public class MainController {
 	
 	@Autowired
 	private IngredientService ingredientService;
+	
+	@Autowired
+	private OrderService orderService;
+	
+	@Autowired
+	private ItemOrderedService itemOrderService;
 	
 	/*
 	 * @RequestMapping("/") public String home() { return "home"; }
@@ -171,35 +182,89 @@ public class MainController {
 	
 	@RequestMapping("/orders")
 	public String orderList(Model model) {
-	    OrderSearch a = new OrderSearch();
-	    OrderSearch b = new OrderSearch();
-	    
-	    a.setFname("Michael");
-	    a.setLname("Afton");
-	    a.setPhone("(313)555-7931");
-	    
-	    b.setFname("William");
-	    b.setLname("Afton");
-	    b.setPhone("(734)555-4215");
-	    ArrayList<OrderSearch> orderList = new ArrayList<>();
-	    orderList.add(a);
-	    orderList.add(b);
-	    model.addAttribute("orderSearch", new OrderSearch());	//orderSearch is for the searchbar on the page
-	    model.addAttribute("orderList", orderList);				//orderList contains the ArrayList of all the orders
+
+	    List<Order> orderList = orderService.getOrders();
+	   
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr;
+		try {
+			jsonStr = mapper.writer().writeValueAsString(orderList);
+			 model.addAttribute("dataJson", jsonStr);	
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+	   
 	    return "orders";
+	}
+	
+	@RequestMapping("/completeOrder")
+	public String completeOrder(@RequestParam("orderId")int id) {
+		orderService.completeOrder(id);
+		return "redirect:/management/orders";
+	}
+	
+	@RequestMapping("/viewCompletedOrders")
+	public String viewCompletedOrders(Model model) {
+
+	    List<Order> orderList = orderService.getCompletedOrders();
+	   
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr;
+		try {
+			jsonStr = mapper.writer().writeValueAsString(orderList);
+			 model.addAttribute("dataJson", jsonStr);	
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+	   
+	    return "orders";
+	}
+	
+	@RequestMapping("/orderDetail")
+	public String orderDetails(Model model, @RequestParam("orderId")int id) {
+		Order order = orderService.getOrder(id);
+		model.addAttribute("order", order);
+		List<List<ItemOrdered>> listOfItemsMods = new ArrayList<List<ItemOrdered>>();
+		for(Integer i : itemOrderService.getNumberOfItems(id)){
+		listOfItemsMods.add(itemOrderService.getModifications(id, i));
+		}
+		model.addAttribute("itemList", listOfItemsMods);
+		
+		//map allows jsp to access the ingriedent object by using the ingredient_id
+		Map<Integer,IngredientItem> ingredients =new HashMap<Integer,IngredientItem>();
+		ingredientService.getIngredients().forEach(eachIngredient -> ingredients.put(eachIngredient.getId(), eachIngredient));
+		model.addAttribute("ingredients", ingredients);
+		
+		return "orderDetail";
 	}
 	
 	@RequestMapping("/stock")
 	public String stockList(Model model, @RequestParam(name = "type", required = true, defaultValue = "MenuItem") String itemType) {
         model.addAttribute("stock", new Stock());
+        ObjectMapper mapper = new ObjectMapper();
+		String jsonStr;
 		if(itemType.equals(IngredientItem.class.getSimpleName())) {	
-			 model.addAttribute("stockList", ingredientService.getIngredients());
+			List<IngredientItem> stockList = ingredientService.getIngredients();
+			 model.addAttribute("stockList", stockList);
+			 try {
+					jsonStr = mapper.writer().writeValueAsString(stockList);
+					 model.addAttribute("dataJson", jsonStr);	
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
+			 
 		}
 		else{
+			List<MenuItem> stockList = menuService.getMenu();
 			 model.addAttribute("stockList", menuService.getMenu());
+			 try {
+					jsonStr = mapper.writer().writeValueAsString(stockList);
+					 model.addAttribute("dataJson", jsonStr);	
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
 		}
-       
-        
+		
         return "stock";
     }
 	
