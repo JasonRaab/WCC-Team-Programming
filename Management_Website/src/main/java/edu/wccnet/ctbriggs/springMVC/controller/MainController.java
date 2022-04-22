@@ -58,6 +58,8 @@ public class MainController {
 	
 	@Autowired
 	private ItemOrderedService itemOrderService;
+	
+	@Autowired
 	private AddressService addressService;
 	
 	/*

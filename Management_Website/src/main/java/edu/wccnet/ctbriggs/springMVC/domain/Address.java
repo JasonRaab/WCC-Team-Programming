@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="address")
 public class Address {
@@ -40,6 +42,7 @@ public class Address {
 			joinColumns=@JoinColumn(name="address_id"),
 			inverseJoinColumns=@JoinColumn(name="user_id")
 			)
+	@JsonIgnore
 	private List<User> users= new ArrayList<User>();
 
 	public Address(String street, String city, String state, String zip, int isActive) {
