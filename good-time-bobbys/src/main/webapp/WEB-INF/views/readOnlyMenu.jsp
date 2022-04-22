@@ -1,5 +1,4 @@
-
-﻿
+ ﻿
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,6 +12,22 @@
 	crossorigin="anonymous">
 <meta charset="UTF-8">
 <style>
+html {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover
+}
+
+.floorbackground {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: repeat;
+	background-position: center top;
+	color: #ffffff;
+}
 /* Style the tab */
 .tab {
 	overflow: hidden;
@@ -117,206 +132,205 @@
 </head>
 <body>
 
+	<div class=" floorbackground">
+		<div class="container floorbackground">
+			<div class="jumbotron text-center floorbackground">
+				<h1>WELCOME TO GOOD TIME BOBBY'S</h1>
+					<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
+			</div>
 
-	<div class="container">
-		<div class="jumbotron text-center">
-			<h1>
-				WELCOME TO GOOD TIME BOBBY'S
-				<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
+		</div>
+		<div style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/"
+				class="btn btn-primary btn-sm active" role="button"
+				aria-pressed="true">Back to Login</a>
 		</div>
 
-	</div>
-	<div style="text-align: center;">
-		<a href="${pageContext.request.contextPath}/"
-			class="btn btn-primary btn-sm active" role="button"
-			aria-pressed="true">Back to Login</a>
-	</div>
+		<br>
+		<div>
+			<div class="container floorbackground">
+				<div class="tab floorbackground">
+					<button class="tablinks floorbackground" onclick="openMenu(event, 'Apps')">Apps</button>
+					<button class="tablinks floorbackground" onclick="openMenu(event, 'Salads')">Salads</button>
+					<button class="tablinks floorbackground" onclick="openMenu(event, 'Sides')">Sides</button>
+					<button class="tablinks floorbackground" onclick="openMenu(event, 'Sandwiches')">Sandwiches</button>
+					<button class="tablinks floorbackground" onclick="openMenu(event, 'Entrees')">Entrees</button>
+					<button class="tablinks floorbackground" onclick="openMenu(event, 'Desserts')">Desserts</button>
+					<button class="tablinks floorbackground" onclick="openMenu(event, 'Beverages')">Beverages</button>
+				</div>
 
-	<br>
-	<div>
-		<div class="container">
-			<div class="tab">
-				<button class="tablinks" onclick="openMenu(event, 'Apps')">Apps</button>
-				<button class="tablinks" onclick="openMenu(event, 'Salads')">Salads</button>
-				<button class="tablinks" onclick="openMenu(event, 'Sides')">Sides</button>
-				<button class="tablinks" onclick="openMenu(event, 'Sandwiches')">Sandwiches</button>
-				<button class="tablinks" onclick="openMenu(event, 'Entrees')">Entrees</button>
-				<button class="tablinks" onclick="openMenu(event, 'Desserts')">Desserts</button>
-				<button class="tablinks" onclick="openMenu(event, 'Beverages')">Beverages</button>
+				<!-- TAB CONTENT -->
+				<div id="Apps" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">APPS</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItem" items="${fullMenuItemList}">
+								<tr>
+									<c:if test="${eachItem.itemCategory.equals('Appetizer')}">
+										<td>${eachItem.itemId}</td>
+										<td>${eachItem.itemName}</td>
+										<td>${eachItem.itemDescription}</td>
+										<td><c:forEach var="eachIngredient"
+												items="${eachItem.getIngredients()}">
+												<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+											</c:forEach></td>
+										<td>$${eachItem.itemPrice}</td>
+
+									</c:if>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				<div id="Salads" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">SALADS</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItem" items="${fullMenuItemList}">
+								<tr>
+									<c:if test="${eachItem.itemCategory.equals('Salad')}">
+										<td>${eachItem.itemId}</td>
+										<td>${eachItem.itemName}</td>
+										<td>${eachItem.itemDescription}</td>
+										<c:forEach var="eachIngredient"
+											items="${eachItem.getIngredients()}">
+											<c:if test="${eachIngredient.isActive == 1}">
+												<td>${eachIngredient.ingredientName}</td>
+											</c:if>
+										</c:forEach>
+										<td>$${eachItem.itemPrice}</td>
+									</c:if>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				<div id="Sandwiches" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">SANDWICHES</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItem" items="${fullMenuItemList}">
+								<tr>
+									<c:if test="${eachItem.itemCategory.equals('Sandwich')}">
+										<td>${eachItem.itemId}</td>
+										<td>${eachItem.itemName}</td>
+										<td>${eachItem.itemDescription}</td>
+										<td><c:forEach var="eachIngredient"
+												items="${eachItem.getIngredients()}">
+												<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+											</c:forEach></td>
+										<td>$${eachItem.itemPrice}</td>
+									</c:if>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				<div id="Entrees" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">ENTREES</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItem" items="${fullMenuItemList}">
+								<tr>
+									<c:if test="${eachItem.itemCategory.equals('Entree')}">
+										<td>${eachItem.itemId}</td>
+										<td>${eachItem.itemName}</td>
+										<td>${eachItem.itemDescription}</td>
+										<td><c:forEach var="eachIngredient"
+												items="${eachItem.getIngredients()}">
+												<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+											</c:forEach></td>
+										<td>$${eachItem.itemPrice}</td>
+
+									</c:if>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				<div id="Desserts" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">DESSERTS</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItem" items="${fullMenuItemList}">
+								<tr>
+									<c:if test="${eachItem.itemCategory.equals('Dessert')}">
+										<td>${eachItem.itemId}</td>
+										<td>${eachItem.itemName}</td>
+										<td>${eachItem.itemDescription}</td>
+										<td><c:forEach var="eachIngredient"
+												items="${eachItem.getIngredients()}">
+												<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+											</c:forEach></td>
+										<td>$${eachItem.itemPrice}</td>
+									</c:if>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				<div id="Sides" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">SIDES</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItem" items="${fullMenuItemList}">
+								<tr>
+									<c:if test="${eachItem.itemCategory.equals('Side')}">
+										<td>${eachItem.itemId}</td>
+										<td>${eachItem.itemName}</td>
+										<td>${eachItem.itemDescription}</td>
+										<td><c:forEach var="eachIngredient"
+												items="${eachItem.getIngredients()}">
+												<c:if test="${eachIngredient.isActive == 1}">
+									
+											${eachIngredient.ingredientName},
+									</c:if>
+											</c:forEach></td>
+										<td>$${eachItem.itemPrice}</td>
+									</c:if>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				<div id="Beverages" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">BEVERAGES</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItem" items="${fullMenuItemList}">
+								<tr>
+									<c:if test="${eachItem.itemCategory.equals('Beverage')}">
+										<td>${eachItem.itemId}</td>
+										<td>${eachItem.itemName}</td>
+										<td>${eachItem.itemDescription}</td>
+										<td><c:forEach var="eachIngredient"
+												items="${eachItem.getIngredients()}">
+												<c:if test="${eachIngredient.isActive == 1}">
+											${eachIngredient.ingredientName},
+									</c:if>
+											</c:forEach></td>
+										<td>$${eachItem.itemPrice}</td>
+									</c:if>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
 			</div>
 
-			<!-- TAB CONTENT -->
-			<div id="Apps" class="tabcontent">
-				<h3 class="header">APPS</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItem" items="${fullMenuItemList}">
-							<tr>
-								<c:if test="${eachItem.itemCategory.equals('Appetizer')}">
-									<td>${eachItem.itemId}</td>
-									<td>${eachItem.itemName}</td>
-									<td>${eachItem.itemDescription}</td>
-									<td><c:forEach var="eachIngredient"
-											items="${eachItem.getIngredients()}">
-											<c:if test="${eachIngredient.isActive == 1}">
-									
-											${eachIngredient.ingredientName},
-									</c:if>
-										</c:forEach></td>
-									<td>$${eachItem.itemPrice}</td>
-
-								</c:if>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</div>
-			<div id="Salads" class="tabcontent">
-				<h3 class="header">SALADS</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItem" items="${fullMenuItemList}">
-							<tr>
-								<c:if test="${eachItem.itemCategory.equals('Salad')}">
-									<td>${eachItem.itemId}</td>
-									<td>${eachItem.itemName}</td>
-									<td>${eachItem.itemDescription}</td>
-									<c:forEach var="eachIngredient"
-										items="${eachItem.getIngredients()}">
-										<c:if test="${eachIngredient.isActive == 1}">
-											<td>${eachIngredient.ingredientName}</td>
-										</c:if>
-									</c:forEach>
-									<td>$${eachItem.itemPrice}</td>
-								</c:if>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</div>
-			<div id="Sandwiches" class="tabcontent">
-				<h3 class="header">SANDWICHES</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItem" items="${fullMenuItemList}">
-							<tr>
-								<c:if test="${eachItem.itemCategory.equals('Sandwich')}">
-									<td>${eachItem.itemId}</td>
-									<td>${eachItem.itemName}</td>
-									<td>${eachItem.itemDescription}</td>
-									<td><c:forEach var="eachIngredient"
-											items="${eachItem.getIngredients()}">
-											<c:if test="${eachIngredient.isActive == 1}">
-									
-											${eachIngredient.ingredientName},
-									</c:if>
-										</c:forEach></td>
-									<td>$${eachItem.itemPrice}</td>
-								</c:if>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</div>
-			<div id="Entrees" class="tabcontent">
-				<h3 class="header">ENTREES</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItem" items="${fullMenuItemList}">
-							<tr>
-								<c:if test="${eachItem.itemCategory.equals('Entree')}">
-									<td>${eachItem.itemId}</td>
-									<td>${eachItem.itemName}</td>
-									<td>${eachItem.itemDescription}</td>
-									<td><c:forEach var="eachIngredient"
-											items="${eachItem.getIngredients()}">
-											<c:if test="${eachIngredient.isActive == 1}">
-									
-											${eachIngredient.ingredientName},
-									</c:if>
-										</c:forEach></td>
-									<td>$${eachItem.itemPrice}</td>
-
-								</c:if>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</div>
-			<div id="Desserts" class="tabcontent">
-				<h3 class="header">DESSERTS</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItem" items="${fullMenuItemList}">
-							<tr>
-								<c:if test="${eachItem.itemCategory.equals('Dessert')}">
-									<td>${eachItem.itemId}</td>
-									<td>${eachItem.itemName}</td>
-									<td>${eachItem.itemDescription}</td>
-									<td><c:forEach var="eachIngredient"
-											items="${eachItem.getIngredients()}">
-											<c:if test="${eachIngredient.isActive == 1}">
-									
-											${eachIngredient.ingredientName},
-									</c:if>
-										</c:forEach></td>
-									<td>$${eachItem.itemPrice}</td>
-								</c:if>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</div>
-			<div id="Sides" class="tabcontent">
-				<h3 class="header">SIDES</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItem" items="${fullMenuItemList}">
-							<tr>
-								<c:if test="${eachItem.itemCategory.equals('Side')}">
-									<td>${eachItem.itemId}</td>
-									<td>${eachItem.itemName}</td>
-									<td>${eachItem.itemDescription}</td>
-									<td><c:forEach var="eachIngredient"
-											items="${eachItem.getIngredients()}">
-											<c:if test="${eachIngredient.isActive == 1}">
-									
-											${eachIngredient.ingredientName},
-									</c:if>
-										</c:forEach></td>
-									<td>$${eachItem.itemPrice}</td>
-								</c:if>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</div>
-			<div id="Beverages" class="tabcontent">
-				<h3 class="header">BEVERAGES</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItem" items="${fullMenuItemList}">
-							<tr>
-								<c:if test="${eachItem.itemCategory.equals('Beverage')}">
-									<td>${eachItem.itemId}</td>
-									<td>${eachItem.itemName}</td>
-									<td>${eachItem.itemDescription}</td>
-									<td><c:forEach var="eachIngredient"
-											items="${eachItem.getIngredients()}">
-											<c:if test="${eachIngredient.isActive == 1}">
-											${eachIngredient.ingredientName},
-									</c:if>
-										</c:forEach></td>
-									<td>$${eachItem.itemPrice}</td>
-								</c:if>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</div>
 		</div>
-
 	</div>
-
 </body>
 </html>

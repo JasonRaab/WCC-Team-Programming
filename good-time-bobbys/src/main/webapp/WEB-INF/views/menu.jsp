@@ -19,6 +19,15 @@ html {
 	background-attachment: fixed;
 	background-size: cover
 }
+
+.floorbackground {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: repeat;
+	background-position: center top;
+	text-align: center;
+	color: #ffffff;
+}
 /* Style the tab */
 .tab {
 	overflow: hidden;
@@ -58,15 +67,280 @@ html {
 
 @import
 	url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap")
-	;
+	,
+	/* 	("https://sp-ao.shortpixel.ai/client/q_glossy,ret_img,w_210/https://thefoodcafe.com/wp-content/uploads/2017/12/Detox-salad-3-210x267.jpg"); */
+	* { margin
+	:
+	0;
 
-* {
-	margin: 0;
-	padding: 0;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+padding
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;
+-webkit-box-sizing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+border-box
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;
+box-sizing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+border-box
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;
 }
-
 body {
 	background: #272727;
 	font-family: "Montserrat", sans-serif;
@@ -208,10 +482,9 @@ img {
 </head>
 <body>
 
-	<div class="section mcb-section mcb-section-oqy8u0mre"
-		style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
-		<div class="container">
-			<div class="jumbotron text-center">
+	<div class="floorbackground">
+		<div class="container floorbackground">
+			<div class="jumbotron text-center floorbackground">
 				<h1>WELCOME TO GOOD TIME BOBBY'S
 					${user.firstName}&nbsp;${user.lastName}</h1>
 				<h2>Order ID: ${orderID}</h2>
@@ -219,7 +492,7 @@ img {
 			</div>
 
 		</div>
-		<div style="text-align: center;">
+		<div class="floorbackground" style="text-align: center;">
 			<c:url var="cart" value="/cart">
 				<c:param name="userID" value="${user.userId}" />
 				<c:param name="orderID" value="${orderID}" />
@@ -227,42 +500,44 @@ img {
 			<a href="${cart}" style="text-align: center;"
 				class="btn btn-primary btn-lg active">View Cart</a>
 		</div>
-		<div style="text-align: center;">
+		<div class="floorbackground" style="text-align: center;">
 			<h6>View Cart to modify item*</h6>
 		</div>
 		<br>
 		<div>
-			<div class="container">
-				<div class="tab">
-					<button class="tablinks" onclick="openMenu(event, 'Apps')">Apps</button>
-					<button class="tablinks" onclick="openMenu(event, 'Salads')">Salads</button>
-					<button class="tablinks" onclick="openMenu(event, 'Sides')">Sides</button>
-					<button class="tablinks" onclick="openMenu(event, 'Sandwiches')">Sandwiches</button>
-					<button class="tablinks" onclick="openMenu(event, 'Entrees')">Entrees</button>
-					<button class="tablinks" onclick="openMenu(event, 'Desserts')">Desserts</button>
-					<button class="tablinks" onclick="openMenu(event, 'Beverages')">Beverages</button>
+			<div class="container floorbackground">
+				<div class="tab floorbackground">
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Apps')">Apps</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Salads')">Salads</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Sides')">Sides</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Sandwiches')">Sandwiches</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Entrees')">Entrees</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Desserts')">Desserts</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Beverages')">Beverages</button>
 					<div class="dot"></div>
 				</div>
 
 
 				<!-- TAB CONTENT -->
-				<div id="Apps" class="tabcontent">
-					<h3 class="header">APPS</h3>
-					<div class="card" class="table" style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
-						<div class="table">
-							<div class="image" data-label="MozSticks">
+				<div id="Apps" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">APPS</h3>
+					<div class="card floorbackground table">
+						<div class="table floorbackground">
+							<div class="image floorbackground" data-label="MozSticks">
 								<img
 									src="https://sp-ao.shortpixel.ai/client/q_glossy,ret_img,w_700/https://thefoodcafe.com/wp-content/uploads/2018/04/Mozzarella-Sticks-5.jpg"
 									alt="">
 							</div>
-							<!-- 	<div class="image" data-label="BonelessWings">
-							<img
-								src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/arby-s-6pcbonelessbuffalowings-1607022729.jpg?resize=768:*"
-								alt="">
-						</div> -->
 						</div>
 						<br>
-						<table class="table" style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
+						<table class="table floorbackground">
 							<c:forEach var="eachItem" items="${fullMenuItemList}">
 								<c:url var="addToCartLink" value="/addMenuItemToCart">
 									<c:param name="userID" value="${user.userId}" />
@@ -294,10 +569,18 @@ img {
 						</table>
 					</div>
 				</div>
-				<div id="Salads" class="tabcontent">
-					<h3 class="header">SALADS</h3>
-					<div class="card">
-						<table class="table" style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
+				<div id="Salads" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">SALADS</h3>
+					<div class="card floorbackground table">
+						<div class="table floorbackground">
+							<div class="image floorbackground" data-label="salad">
+								<img
+									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+									alt="" />
+							</div>
+						</div>
+						<br>
+						<table class="table floorbackground">
 							<c:forEach var="eachItem" items="${fullMenuItemList}">
 								<c:url var="addToCartLink" value="/addMenuItemToCart">
 									<c:param name="userID" value="${user.userId}" />
@@ -325,10 +608,19 @@ img {
 						</table>
 					</div>
 				</div>
-				<div id="Sandwiches" class="tabcontent">
-					<h3 class="header">SANDWICHES</h3>
-					<div class="card">
-						<table class="table" style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
+				<div id="Sandwiches" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">SANDWICHES</h3>
+					<div class="card floorbackground">
+						<div class="table floorbackground">
+
+							<div class="image floorbackground" data-label="burger">
+								<img
+									src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80"
+									alt="" />
+							</div>
+						</div>
+						<br>
+						<table class="table floorbackground">
 							<c:forEach var="eachItem" items="${fullMenuItemList}">
 								<c:url var="addToCartLink" value="/addMenuItemToCart">
 									<c:param name="userID" value="${user.userId}" />
@@ -356,10 +648,18 @@ img {
 						</table>
 					</div>
 				</div>
-				<div id="Entrees" class="tabcontent">
-					<h3 class="header">ENTREES</h3>
-					<div class="card">
-						<table class="table" style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
+				<div id="Entrees" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">ENTREES</h3>
+					<div class="card floorbackground">
+						<div class="table floorbackground">
+							<div class="image floorbackground" data-label="fishNchips">
+								<img
+									src="https://images.unsplash.com/photo-1580217593608-61931cefc821?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80"
+									alt="" />
+							</div>
+						</div>
+						<br>
+						<table class="table floorbackground">
 							<c:forEach var="eachItem" items="${fullMenuItemList}">
 								<c:url var="addToCartLink" value="/addMenuItemToCart">
 									<c:param name="userID" value="${user.userId}" />
@@ -374,24 +674,30 @@ img {
 										<td><c:forEach var="eachIngredient"
 												items="${eachItem.getIngredients()}">
 												<c:if test="${eachIngredient.isActive == 1}">
-									
 											${eachIngredient.ingredientName},
 									</c:if>
 											</c:forEach></td>
 										<td>$${eachItem.itemPrice}</td>
 										<td><a href="${addToCartLink}"
 											class="btn btn-primary btn-sm active">Add to Order</a></td>
-
 									</c:if>
 								</tr>
 							</c:forEach>
 						</table>
 					</div>
 				</div>
-				<div id="Desserts" class="tabcontent">
-					<h3 class="header">DESSERTS</h3>
-					<div class="card">
-						<table class="table" style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
+				<div id="Desserts" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">DESSERTS</h3>
+					<div class="card floorbackground">
+						<div class="table floorbackground">
+							<div class="image floorbackground" data-label="cheesecake">
+								<img
+									src="https://images.unsplash.com/photo-1631206616601-79af875341d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
+									alt="" />
+							</div>
+						</div>
+						<br>
+						<table class="table floorbackground">
 							<c:forEach var="eachItem" items="${fullMenuItemList}">
 								<c:url var="addToCartLink" value="/addMenuItemToCart">
 									<c:param name="userID" value="${user.userId}" />
@@ -406,7 +712,6 @@ img {
 										<td><c:forEach var="eachIngredient"
 												items="${eachItem.getIngredients()}">
 												<c:if test="${eachIngredient.isActive == 1}">
-									
 											${eachIngredient.ingredientName},
 									</c:if>
 											</c:forEach></td>
@@ -419,10 +724,18 @@ img {
 						</table>
 					</div>
 				</div>
-				<div id="Sides" class="tabcontent">
-					<h3 class="header">SIDES</h3>
-					<div class="card">
-						<table class="table" style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
+				<div id="Sides" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">SIDES</h3>
+					<div class="card floorbackground">
+						<div class="table floorbackground">
+							<div class="image floorbackground" data-label="fries">
+								<img
+									src="https://images.unsplash.com/photo-1623238912680-26fc5ffb57e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+									alt="" />
+							</div>
+						</div>
+						<br>
+						<table class="table floorbackground">
 							<c:forEach var="eachItem" items="${fullMenuItemList}">
 								<c:url var="addToCartLink" value="/addMenuItemToCart">
 									<c:param name="userID" value="${user.userId}" />
@@ -437,7 +750,6 @@ img {
 										<td><c:forEach var="eachIngredient"
 												items="${eachItem.getIngredients()}">
 												<c:if test="${eachIngredient.isActive == 1}">
-									
 											${eachIngredient.ingredientName},
 									</c:if>
 											</c:forEach></td>
@@ -450,10 +762,18 @@ img {
 						</table>
 					</div>
 				</div>
-				<div id="Beverages" class="tabcontent">
-					<h3 class="header">BEVERAGES</h3>
-					<div class="card">
-						<table class="table" style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
+				<div id="Beverages" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">BEVERAGES</h3>
+					<div class="card floorbackground">
+						<div class="table floorbackground">
+							<div class="image floorbackground" data-label="coke">
+								<img
+									src="https://images.unsplash.com/photo-1581098365948-6a5a912b7a49?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+									alt="" />
+							</div>
+						</div>
+						<br>
+						<table class="table floorbackground">
 							<c:forEach var="eachItem" items="${fullMenuItemList}">
 								<c:url var="addToCartLink" value="/addMenuItemToCart">
 									<c:param name="userID" value="${user.userId}" />
@@ -481,7 +801,6 @@ img {
 					</div>
 				</div>
 			</div>
-
 			<div class="footer">
 				<table width="100%">
 					<tbody>

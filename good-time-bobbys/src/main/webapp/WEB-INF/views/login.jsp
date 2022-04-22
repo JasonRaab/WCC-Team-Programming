@@ -19,6 +19,16 @@ html {
 	background-attachment: fixed;
 	background-size: cover
 }
+
+
+.floorbackground {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: repeat;
+	background-position: center top;
+	text-align: center;
+	color: #ffffff;
+}
 /* Style the tab */
 .tab {
 	overflow: hidden;
@@ -79,17 +89,16 @@ html {
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="section mcb-section mcb-section-oqy8u0mre"
-		style="background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
-		<h1 style="text-align: center;">Welcome to good time bobbys</h1>
-		<div class="container" style="text-align: center;">
+	<div class=" floorbackground">
+		<h1 class=" floorbackground" style="text-align: center;">Welcome to good time bobbys</h1>
+		<div class="container floorbackground" style="text-align: center;">
 			<label for="uname"><b>Username</b></label> <input type="text"
 				placeholder="Enter Username" name="uname"> <br> <label
 				for="psw"><b>Password</b></label> <input type="password"
 				placeholder="Enter Password" name="psw">
 		</div>
 		<br>
-		<div style="text-align: center;">
+		<div class=" floorbackground" style="text-align: center;">
 			<a href="${pageContext.request.contextPath}/showUsers"
 				class="btn btn-primary btn-sm active" role="button"
 				aria-pressed="true">Login</a> <a
@@ -98,9 +107,9 @@ html {
 				aria-pressed="true">View Menu</a>
 		</div>
 		<br> <br>
-		<div class="container">
-			<div class="card">
-				<table class="table" style="text-align: center; background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg); background-repeat: repeat; background-position: center top">
+		<div class="container floorbackground">
+			<div class="card floorbackground">
+				<table class="table floorbackground">
 					<c:forEach var="eachUser" items="${users}">
 						<c:url var="loginLink" value="menu">
 							<c:param name="userID" value="${eachUser.userId}" />

@@ -12,6 +12,14 @@
 	crossorigin="anonymous">
 <meta charset="UTF-8">
 <style>
+html {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover
+}
 /* Style the tab */
 .tab {
 	overflow: hidden;
@@ -48,10 +56,23 @@
 	padding: 6px 12px;
 	border: 1px solid #ccc;
 	border-top: none;
+	color: #ffffff;
 }
 
 .header {
 	text-align: center;
+}
+
+.textcolor {
+	color: #ffffff;
+}
+
+.floorbackground {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: repeat;
+	background-position: center top;
+	color: #ffffff;
 }
 
 #table td, #table th {
@@ -102,124 +123,127 @@
 </head>
 <body>
 
-	<div class="container">
-		<div class="jumbotron text-center">
-			<h1>
-				Hey ${user.firstName}, <br> THANK YOU FOR CHOOSING GOOD TIME
-				BOBBY'S!
-			</h1>
-			<br>
-			<h2>Order Number: ${orderID}</h2>
-			<h4>Subtotal: ${orderTotalWithoutTax}</h4>
-			<h4>Tax: ${orderTotalTax}</h4>
-			<h4>Total: ${orderTotalWithTax}</h4>
-			<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
+	<div class="floorbackground">
+		<div class="container floorbackground">
+			<div class="jumbotron text-center floorbackground">
+				<h1>
+					Hey ${user.firstName}, <br> THANK YOU FOR CHOOSING GOOD TIME
+					BOBBY'S!
+				</h1>
+				<br>
+				<h2>Order Number: ${orderID}</h2>
+				<h4>Subtotal: ${orderTotalWithoutTax}</h4>
+				<h4>Tax: ${orderTotalTax}</h4>
+				<h4>Total: ${orderTotalWithTax}</h4>
+				<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
+			</div>
 		</div>
-	</div>
 
-	<div class="container">
-		<div class="card">
-			<div>
-				<div class="container">
-					<div class="tab">
-						<button class="tablinks" onclick="openItemOrdered(event, '1')">Item
-							1</button>
-						<button class="tablinks" onclick="openItemOrdered(event, '2')">Item
-							2</button>
-						<button class="tablinks" onclick="openItemOrdered(event, '3')">Item
-							3</button>
-						<button class="tablinks" onclick="openItemOrdered(event, '4')">Item
-							4</button>
+		<div class="container floorbackground">
+			<div class="card floorbackground">
+				<div>
+					<div class="container floorbackground">
+						<div class="tab floorbackground">
+							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '1')">Item
+								1</button>
+							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '2')">Item
+								2</button>
+							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '3')">Item
+								3</button>
+							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '4')">Item
+								4</button>
+						</div>
 					</div>
 				</div>
-			</div>
-			<!-- TAB CONTENT -->
-			<div id="1" class="tabcontent">
-				<h3 class="header">Item 1</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
-							<c:if test="${eachItemOrder.itemNumber == 1}">
-								<tr>
-									<td>${eachItemOrder.itemNumber}</td>
-									<td>${eachItemOrder.getMenuItemName()}</td>
-									<td>${eachItemOrder}<c:if
-											test="${not empty eachItemOrder.getIngredientId()}">
+				<!-- TAB CONTENT -->
+				<div id="1" class="tabcontent floorbackground">
+					<h3 class="header">Item 1</h3>
+					<div class="card floorbackground">
+
+						<table class="table floorbackground">
+							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+								<c:if test="${eachItemOrder.itemNumber == 1}">
+									<tr>
+										<td>${eachItemOrder.itemNumber}</td>
+										<td>${eachItemOrder.getMenuItemName()}</td>
+										<td>${eachItemOrder}<c:if
+												test="${not empty eachItemOrder.getIngredientId()}">
 								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
 								<c:if test="${eachItemOrder.modification == 1}">
 								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
 								 </c:if>
-										</c:if></td>
-								</tr>
-							</c:if>
-						</c:forEach>
-					</table>
+											</c:if></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</table>
+					</div>
 				</div>
-			</div>
-			<div id="2" class="tabcontent">
-				<h3 class="header">Item 2</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
-							<c:if test="${eachItemOrder.itemNumber == 2}">
-								<tr>
-									<td>${eachItemOrder.itemNumber}</td>
-									<td>${eachItemOrder.getMenuItemName()}</td>
-									<td>${eachItemOrder}<c:if
-											test="${not empty eachItemOrder.getIngredientId()}">
+				<div id="2" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">Item 2</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+								<c:if test="${eachItemOrder.itemNumber == 2}">
+									<tr>
+										<td>${eachItemOrder.itemNumber}</td>
+										<td>${eachItemOrder.getMenuItemName()}</td>
+										<td>${eachItemOrder}<c:if
+												test="${not empty eachItemOrder.getIngredientId()}">
 								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
 								<c:if test="${eachItemOrder.modification == 1}">
 								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
 								 </c:if>
-										</c:if></td>
-								</tr>
-							</c:if>
-						</c:forEach>
-					</table>
+											</c:if></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</table>
+					</div>
 				</div>
-			</div>
-			<div id="3" class="tabcontent">
-				<h3 class="header">Item 3</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
-							<c:if test="${eachItemOrder.itemNumber == 3}">
-								<tr>
-									<td>${eachItemOrder.itemNumber}</td>
-									<td>${eachItemOrder.getMenuItemName()}</td>
-									<td>${eachItemOrder}<c:if
-											test="${not empty eachItemOrder.getIngredientId()}">
+				<div id="3" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">Item 3</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+								<c:if test="${eachItemOrder.itemNumber == 3}">
+									<tr>
+										<td>${eachItemOrder.itemNumber}</td>
+										<td>${eachItemOrder.getMenuItemName()}</td>
+										<td>${eachItemOrder}<c:if
+												test="${not empty eachItemOrder.getIngredientId()}">
 								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
 								<c:if test="${eachItemOrder.modification == 1}">
 								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
 								 </c:if>
-										</c:if></td>
-								</tr>
-							</c:if>
-						</c:forEach>
-					</table>
+											</c:if></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</table>
+					</div>
 				</div>
-			</div>
-			<div id="4" class="tabcontent">
-				<h3 class="header">Item 4</h3>
-				<div class="card">
-					<table class="table">
-						<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
-							<c:if test="${eachItemOrder.itemNumber == 4}">
-								<tr>
-									<td>${eachItemOrder.itemNumber}</td>
-									<td>${eachItemOrder.getMenuItemName()}</td>
-									<td>${eachItemOrder}<c:if
-											test="${not empty eachItemOrder.getIngredientId()}">
+				<div id="4" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">Item 4</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+								<c:if test="${eachItemOrder.itemNumber == 4}">
+									<tr>
+										<td>${eachItemOrder.itemNumber}</td>
+										<td>${eachItemOrder.getMenuItemName()}</td>
+										<td>${eachItemOrder}<c:if
+												test="${not empty eachItemOrder.getIngredientId()}">
 								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
 								<c:if test="${eachItemOrder.modification == 1}">
 								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
 								 </c:if>
-										</c:if></td>
-								</tr>
-							</c:if>
-						</c:forEach>
-					</table>
+											</c:if></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
