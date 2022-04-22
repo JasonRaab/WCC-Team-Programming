@@ -7,6 +7,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Previous Employees</title>
+<style>
+html {
+  overflow-y: scroll;
+}
+</style>
 </head>
 <!-- CSS only -->
 <link
@@ -112,8 +117,7 @@
 							<h6 class="card-subtitle mb-2 text-muted">` + employee.email + `</h6>
 							<p class="card-text"></p>
 							<a href="updateEmployee?employeeID=` + employee.userId + `" class="card-link">
-								<button class="btn btn-primary">Modify</button>
-							</a>
+								<button class="btn btn-primary">Modify</button></a>
 							<a href="activateEmployee?employeeID=` + employee.userId + `" class="card-link">
 								<button class="btn btn-success">Activate</button>
 							</a>
