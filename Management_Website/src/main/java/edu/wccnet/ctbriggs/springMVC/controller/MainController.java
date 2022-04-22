@@ -19,13 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-=======
 import edu.wccnet.ctbriggs.springMVC.domain.Address;
->>>>>>> 62791aeb5ed4426d10da7402693351f8a186cc74
 import edu.wccnet.ctbriggs.springMVC.domain.IngredientItem;
 import edu.wccnet.ctbriggs.springMVC.domain.ItemOrdered;
 import edu.wccnet.ctbriggs.springMVC.domain.ItemSearch;
