@@ -19,9 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+=======
+import edu.wccnet.ctbriggs.springMVC.domain.Address;
+>>>>>>> 62791aeb5ed4426d10da7402693351f8a186cc74
 import edu.wccnet.ctbriggs.springMVC.domain.IngredientItem;
 import edu.wccnet.ctbriggs.springMVC.domain.ItemOrdered;
 import edu.wccnet.ctbriggs.springMVC.domain.ItemSearch;
@@ -29,6 +33,7 @@ import edu.wccnet.ctbriggs.springMVC.domain.MenuItem;
 import edu.wccnet.ctbriggs.springMVC.domain.Order;
 import edu.wccnet.ctbriggs.springMVC.domain.Stock;
 import edu.wccnet.ctbriggs.springMVC.domain.User;
+import edu.wccnet.ctbriggs.springMVC.service.AddressService;
 import edu.wccnet.ctbriggs.springMVC.service.IngredientService;
 import edu.wccnet.ctbriggs.springMVC.service.ItemOrderedService;
 import edu.wccnet.ctbriggs.springMVC.service.MenuService;
@@ -56,6 +61,7 @@ public class MainController {
 	
 	@Autowired
 	private ItemOrderedService itemOrderService;
+	private AddressService addressService;
 	
 	/*
 	 * @RequestMapping("/") public String home() { return "home"; }
@@ -297,26 +303,43 @@ public class MainController {
 	
 	@GetMapping("/employees")
 	public String employees(Model model) {
+		List<User> employees = userService.getEmployees();
 		model.addAttribute("employee", new User());
-		model.addAttribute("employeeList", userService.getUsers());
-		JSONArray json = new JSONArray(userService.getUsers());
+		model.addAttribute("employeeList", employees);
+		JSONArray json = new JSONArray(employees);
 		System.out.println(json);
 		String jsonStr = json.toString();
 		model.addAttribute("dataJson", jsonStr);  
 		return "employees";
 	}
 	
+	@GetMapping("/previousEmployees")
+	public String previousEmployees(Model model) {
+		List<User> employees = userService.getPreviousEmployees();
+		model.addAttribute("employee", new User());
+		model.addAttribute("employeeList", employees);
+		JSONArray json = new JSONArray(employees);
+		System.out.println(json);
+		String jsonStr = json.toString();
+		model.addAttribute("dataJson", jsonStr);  
+		return "previousEmployees";
+	}
+	
 	@PostMapping("/addEmployee")
 	public String addEmployee(Model model) {
 		User employee = new User();
+		employee.setIsActive(1);
 		model.addAttribute("employee", employee);
-		return "addNewEmployee";
+		return "editEmployee";
 	}
 	
 	@RequestMapping("/processEmployee")
 	public String processEmployee(
 			@ModelAttribute("employee") User employee) {
-		System.out.println(employee);
+		
+		List<Address> currentAddresses = userService.getUser(employee.getUserId()).getAddresses();
+		
+		employee.setAddresses(currentAddresses);
 		userService.saveUser(employee);
 		return "redirect:/management/employees";
 	}
@@ -324,6 +347,15 @@ public class MainController {
 	@RequestMapping("/updateEmployee")
 	public String updateEmployee(Model model, @RequestParam("employeeID") int id) {
 		User employee = userService.getUser(id);
+		List<Address> addresses = employee.getAddresses();
+		List<Address> currentAddresses = new ArrayList<Address>();
+		
+		for (Address address : addresses) {
+			if (address.getIsActive() == 1)
+				currentAddresses.add(address);
+		}
+		
+		model.addAttribute("addressList", currentAddresses);
 		model.addAttribute("employee", employee);
 		return "editEmployee";
 	}
@@ -333,7 +365,7 @@ public class MainController {
 		User employee = userService.getUser(id);
 		employee.setIsActive(1);
 		userService.saveUser(employee);
-		return "redirect:/management/employees";
+		return "redirect:/management/previousEmployees";
 	}
 	
 	@RequestMapping("/deactivateEmployee")
@@ -341,6 +373,33 @@ public class MainController {
 		User employee = userService.getUser(id);
 		employee.setIsActive(0);
 		userService.saveUser(employee);
+		return "redirect:/management/employees";
+	}
+	
+	@RequestMapping("/addAddress")
+	public String addAddress(Model model, @RequestParam("employeeID") int id) {
+		User employee = userService.getUser(id);
+		Address address = new Address();
+		model.addAttribute("employee", employee);
+		model.addAttribute("address", address);
+		return "addNewAddress";
+	}
+	
+	@RequestMapping("/processAddress")
+	public String processAddress(@ModelAttribute("address") Address address, @RequestParam("employeeID") int id) {
+		User employee = userService.getUser(id);
+		employee.addAddress(address);
+		addressService.saveAddress(address);
+		userService.saveUser(employee);
+		return "redirect:/management/employees";
+	}
+	
+	@RequestMapping("/removeAddress")
+	public String removeAddress(@RequestParam("addressID") int id) {
+		Address address = addressService.getAddress(id);
+		address.setIsActive(0);
+		addressService.saveAddress(address);
+		
 		return "redirect:/management/employees";
 	}
 	

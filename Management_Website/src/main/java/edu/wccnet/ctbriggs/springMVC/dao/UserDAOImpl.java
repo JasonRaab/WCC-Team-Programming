@@ -28,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<User> getEmployees() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<User> query = session.createQuery("from User where id = 3 order by firstName", User.class);	//id 3 is marked as employee
+		Query<User> query = session.createQuery("from User where role = 3 and isActive = 1 order by firstName", User.class);	//role 3 is marked as employee
 		return query.getResultList();
 	}
 
@@ -44,6 +44,14 @@ public class UserDAOImpl implements UserDAO {
 	public void saveUser(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(user);
+	}
+
+
+	@Override
+	public List<User> getPreviousEmployees() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<User> query = session.createQuery("from User where role = 3 and isActive = 0 order by firstName", User.class);	//role 3 is marked as employee
+		return query.getResultList();
 	}
 
 }

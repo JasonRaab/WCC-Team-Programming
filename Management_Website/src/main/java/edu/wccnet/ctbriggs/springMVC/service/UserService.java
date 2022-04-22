@@ -9,4 +9,5 @@ public interface UserService {
 	public List<User> getEmployees();
 	public void saveUser(User user);
 	public User getUser(int id);
+	public List<User> getPreviousEmployees();
 }

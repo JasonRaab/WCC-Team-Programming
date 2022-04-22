@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Current Employees</title>
+<title>Previous Employees</title>
 </head>
 <!-- CSS only -->
 <link
@@ -48,15 +48,15 @@
 				<div class="btn-group">
 					<!-- <a href="#" class="btn btn-primary active" aria-current="page">Clocked-in
 						Employees</a> -->
-					<a href="#" class="btn btn-primary active" aria-current="page">Current Employees</a> <a
-						href="previousEmployees" class="btn btn-outline-primary">Previous Employees</a>
+					<a href="employees" class="btn btn-outline-primary">Current Employees</a> <a
+						href="#" class="btn btn-primary active" aria-current="page">Previous Employees</a>
 				</div>
 			</div>
 		</div>
 
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-3">
-				<h3>${employeeList.size()}&nbsp;Current&nbsp;Employees</h3>
+				<h3>${employeeList.size()}&nbsp;Previous&nbsp;Employees</h3>
 			</div>
 		</div>
 
@@ -67,11 +67,11 @@
 			</div>
 		</div>
 
-		<form action="addEmployee" method="post">
+		<%-- <form action="addEmployee" method="post">
 			<div class="mb-3">
 				<button class="btn btn-success">+ Add New</button>
 			</div>
-		</form>
+		</form> --%>
 
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<!-- This is where the javascript puts the employee list-->
@@ -114,8 +114,8 @@
 							<a href="updateEmployee?employeeID=` + employee.userId + `" class="card-link">
 								<button class="btn btn-primary">Modify</button>
 							</a>
-							<a href="deactivateEmployee?employeeID=` + employee.userId + `" class="card-link">
-								<button class="btn btn-danger">Deactivate</button>
+							<a href="activateEmployee?employeeID=` + employee.userId + `" class="card-link">
+								<button class="btn btn-success">Activate</button>
 							</a>
 						</div>
 		            </div>

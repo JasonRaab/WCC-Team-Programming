@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Employees</title>
+<title>Address</title>
 </head>
 <!-- CSS only -->
 <link
@@ -32,7 +32,8 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="orders">Orders</a></li>
-					<li class="nav-item"><a class="nav-link" href="stock?type=MenuItem">Stock</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="stock?type=MenuItem">Stock</a></li>
 					<li class="nav-item"><a class="nav-link" href="menu">Menu</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="employees">Employees</a></li>
@@ -42,34 +43,38 @@
 	</nav>
 
 	<div class="container m-3 mx-auto">
-		<form:form action="processEmployee" modelAttribute="employee">
-		<form:hidden path="role" value="3"/>
+		<c:url var="processAddressLink" value="/management/processAddress">
+			<c:param name="employeeID" value="${employee.userId}" />
+		</c:url>
+		<form:form action="${processAddressLink}" modelAttribute="address">
+			<form:hidden path="isActive" value="1" />
 			<div class="row g-2 mb-3 mt-3">
 				<div class="col">
-					<form:label path="firstName">First Name:</form:label>
-					<form:input path="firstName" type="text" class="form-control"
-						placeholder="First Name" />
+					<form:label path="street">Street:</form:label>
+					<form:input path="street" type="text" class="form-control"
+						placeholder="Street" />
 				</div>
 				<div class="col">
-					<form:label path="lastName">Last Name:</form:label>
-					<form:input path="lastName" type="text" class="form-control"
-						placeholder="Last Name" />
+					<form:label path="city">City:</form:label>
+					<form:input path="city" type="text" class="form-control"
+						placeholder="City" />
 				</div>
 			</div>
 			<div class="row g-2 mb-3 mt-3">
 				<div class="col">
-					<form:label path="email">Email:</form:label>
-					<form:input path="email" type="text" class="form-control"
-						placeholder="Email" />
+					<form:label path="state">State:</form:label>
+					<form:input path="state" type="text" class="form-control"
+						placeholder="State" />
 				</div>
-				<div class="col-4">
-					<form:label path="password">Password:</form:label>
-					<form:input path="password" type="text" class="form-control"
-						placeholder="Password" />
+				<div class="col">
+					<form:label path="zip">Zip:</form:label>
+					<form:input path="zip" type="text" class="form-control"
+						placeholder="Zip" />
 				</div>
 			</div>
 			<div class="row g-2 mb-3 mt-3">
-				<input type="submit" value="Add Employee Info" class="btn btn-success"/>
+				<input type="submit" value="Add Address Info"
+					class="btn btn-success" />
 			</div>
 		</form:form>
 	</div>
