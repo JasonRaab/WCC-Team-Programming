@@ -12,6 +12,14 @@
 	crossorigin="anonymous">
 <meta charset="UTF-8">
 <style>
+html {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover
+}
 /* Style the tab */
 .tab {
 	overflow: hidden;
@@ -44,24 +52,31 @@
 	padding: 6px 12px;
 	border: 1px solid #ccc;
 	border-top: none;
+	color: #ffffff;
 }
-
 .header {
 	text-align: center;
 }
-
+.textcolor {
+	color: #ffffff;
+}
+.floorbackground {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: repeat;
+	background-position: center top;
+	color: #ffffff;
+}
 #table td, #table th {
 	border: 1px solid #ddd;
 	padding: 8px;
 }
-
 #table {
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
 	width: 80%;
 	margin: auto;
 }
-
 #table th {
 	padding-top: 12px;
 	padding-bottom: 12px;
@@ -70,386 +85,155 @@
 	color: white;
 }
 </style>
-<title>Process Order</title>
-</head>
-<body>
-	<div class="container">
-		<h1>Process Order</h1>
-		<div style="text-align: center;" class="card">
-			<%-- 		<table>
-				<tr>
-					<c:forEach var="eachItem" items="${allItemsOrdered}">
-						<tr>
-							<td>${eachItem.menuItem.getItemName()}</td>
-							<td>${eachItem}<c:if
-									test="${not empty eachItem.getIngredientId()}">
-								${ingredientDAO.getIngredientNameByID(eachItem.getIngredientId())}
-								<c:if test="${eachItem.modification == 1}">
-								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItem.getIngredientId())}
-								 </c:if>
-								</c:if></td>
-						</tr>
-					</c:forEach>
-				</tr>
-
-			</table>
-
-			Subtotal: "${orderTotalWithoutTax}" Tax: "${orderTotalTax}" Total:
-			"${orderTotalWithTax}"
- --%>
-			<table class="body-wrap">
-				<tbody>
-					<tr>
-						<td></td>
-						<td class="container" width="600">
-							<div class="content">
-								<table class="main" width="100%" cellpadding="0" cellspacing="0">
-									<tbody>
-										<tr>
-											<td class="content-wrap aligncenter">
-												<table width="100%" cellpadding="0" cellspacing="0">
-													<tbody>
-														<tr>
-															<td class="content-block">
-																<h2>Thanks For Ordering With Good Time Bobby's!</h2>
-															</td>
-														</tr>
-														<tr>
-															<td class="content-block">
-																<table class="invoice">
-																	<tbody>
-																		<tr>
-																			<td>${user.firstName}&nbsp;${user.lastName}<br>Invoice
-																				#${orderInfo.orderId}<br>${orderInfo.orderDate}
-																			</td>
-																		</tr>
-																		<tr>
-																			<td>
-																				<table class="invoice-items" cellpadding="0"
-																					cellspacing="0">
-																					<tbody>
-
-
-																						<c:forEach var="eachItem"
-																							items="${allItemsOrdered}">
-																							<tr>
-																								<td class="alignleft">${eachItem.menuItem.getItemNumber()}</td>
-																								<td></td>
-																								<td class="alignleft">${eachItem.menuItem.getItemName()}</td>
-																								<td></td>
-																								<td class="alignright">${eachItem}<c:if
-																										test="${not empty eachItem.getIngredientId()}">
-																										<td>
-																											${ingredientDAO.getIngredientNameByID(eachItem.getIngredientId())}
-																											&nbsp;+
-																											$${ingredientDAO.getIngredientPriceByID(eachItem.getIngredientId())}</td>
-																									</c:if>
-																								</td>
-																							</tr>
-																						</c:forEach>
-																						<!-- <tr>
-																							<td>Service 1</td>
-																							<td class="alignright">$ 20.00</td>
-																						</tr>
-																						<tr>
-																							<td>Service 2</td>
-																							<td class="alignright">$ 10.00</td>
-																						</tr>
-																						<tr>
-																							<td>Service 3</td>
-																							<td class="alignright">$ 6.00</td>
-																						</tr> -->
-																						<tr class="total">
-																							<td class="alignright" width="80%">Total:</td>
-																							<td class="alignright">${orderTotalWithTax}</td>
-																						</tr>
-																						<tr>
-																							<td class="alignright" width="80%">SubTotal:</td>
-																							<td class="alignright">${orderTotalWithoutTax}</td>
-																						</tr>
-																						<tr>
-																							<td class="alignright" width="80%">Tax:</td>
-																							<td class="alignright">${orderTotalTax}</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</td>
-																		</tr>
-																	</tbody>
-																</table>
-															</td>
-														</tr>
-
-														<tr>
-															<td class="content-block">GoodTimeBobbys Inc. 4800 E
-																Huron Dr, Ann Arbor, 48105</td>
-														</tr>
-													</tbody>
-												</table>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-								<div class="footer">
-									<table width="100%">
-										<tbody>
-											<tr>
-												<td class="aligncenter content-block">Questions? Email
-													<a href="mailto:">support@goodtimebobbys.inc</a>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</td>
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
-
-
-
-
-
-
-			<!-- 			<table class="table"> -->
-			<%-- 				<c:forEach var="eachItem" items="${itemsOrderedList}"> --%>
-
-			<!-- 					<tr> -->
-			<%-- 						<td>${eachItem.itemNumber}</td> --%>
-			<!-- 						<td></td> -->
-			<%-- 						<td>${eachItem.menuItem.getItemId()}</td> --%>
-			<%-- 						<td>${eachItem.menuItem.getItemName()}</td> --%>
-			<%-- 						<c:if test="${eachItem.modification == 1}"> --%>
-			<!-- 							<td>Add: -->
-			<%-- 								${ingredientDAO.getIngredientNameByID(eachItem.getIngredientId())}</td> --%>
-			<%-- 						</c:if> --%>
-			<%-- 						<c:if test="${eachItem.modification == 0}"> --%>
-			<!-- 							<td>Remove: -->
-			<%-- 								${ingredientDAO.getIngredientNameByID(eachItem.getIngredientId())}</td> --%>
-			<%-- 						</c:if> --%>
-
-			<!-- 						<td>$${eachItem.menuItem.getItemPrice()}</td> -->
-			<!-- 						<td></td> -->
-			<!-- 						<td></td> -->
-			<!-- 					</tr> -->
-			<%-- 				</c:forEach> --%>
-			<%-- 				<c:forEach var="eachItem" items="${sendItemOrderedList}"> --%>
-
-			<!-- 					<tr> -->
-			<%-- 						<td>${eachItem.getMenuItem().getItemNumber()}</td> --%>
-			<!-- 						<td></td> -->
-			<%-- 						<td>${eachItem.getMenuItem().getItemId()}</td> --%>
-			<%-- 						<td>${eachItem.getMenuItem().getItemName()}</td> --%>
-			<!-- 						<td></td> -->
-			<%-- 												<td>${eachItem.itemDescription}</td> --%>
-			<!-- 						<td>$${eachItem.getMenuItem().getItemPrice()}</td> -->
-			<!-- 						<td></td> -->
-			<!-- 						<td></td> -->
-			<!-- 					</tr> -->
-			<%-- 				</c:forEach> --%>
-			<!-- 				<tr> -->
-
-			<!-- 					<td></td> -->
-			<!-- 					<td></td> -->
-			<!-- 					<td></td> -->
-			<!-- 					<td></td> -->
-			<%-- 					<td><a href="${sendOrderToDatabase}" --%>
-			<!-- 						class="btn btn-primary btn-sm active">Send to Kitchen!</a></td> -->
-			<!-- 					<td></td> -->
-			<!-- 					<td></td> -->
-			<!-- 				</tr> -->
-			<!-- 			</table> -->
-		</div>
-	</div>
-
-
-</body>
-</html>
-<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<meta charset="UTF-8">
-<style>
-/* Style the tab */
-* {
-	box-sizing: border-box;
-}
-
-/* Create three columns of equal width */
-.columns {
-	float: left;
-	width: 33.3%;
-	padding: 8px;
-}
-
-/* Style the list */
-.price {
-	list-style-type: none;
-	border: 1px solid #eee;
-	margin: 0;
-	padding: 0;
-	-webkit-transition: 0.3s;
-	transition: 0.3s;
-}
-
-/* Add shadows on hover */
-.price:hover {
-	box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2)
-}
-
-/* Pricing header */
-.price .header {
-	background-color: #111;
-	color: white;
-	font-size: 25px;
-}
-
-/* List items */
-.price li {
-	border-bottom: 1px solid #eee;
-	padding: 20px;
-	text-align: center;
-}
-
-/* Grey list item */
-.price .grey {
-	background-color: #eee;
-	font-size: 20px;
-}
-
-/* The "Sign Up" button */
-.button {
-	background-color: #04AA6D;
-	border: none;
-	color: white;
-	padding: 10px 25px;
-	text-align: center;
-	text-decoration: none;
-	font-size: 18px;
-}
-
-/* Change the width of the three columns to 100% 
-(to stack horizontally on small screens) */
-@media only screen and (max-width: 600px) {
-	.columns {
-		width: 100%;
+<script>
+	function openItemOrdered(evt, menuItemCategory) {
+		// Declare all variables
+		var i, tabcontent, tablinks;
+		// Get all elements with class="tabcontent" and hide them
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		// Get all elements with class="tablinks" and remove the class "active"
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+		}
+		// Show the current tab, and add an "active" class to the button that opened the tab
+		document.getElementById(menuItemCategory).style.display = "block";
+		evt.currentTarget.className += " active";
 	}
-}
-
-.tab {
-	overflow: hidden;
-	border: 1px solid #ccc;
-	background-color: #f1f1f1;
-	display: flex;
-	justify-content: center;
-}
-/* Style the buttons that are used to open the tab content */
-.tab button {
-	background-color: inherit;
-	float: left;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	padding: 14px 16px;
-	transition: 0.3s;
-}
-/* Change background color of buttons on hover */
-.tab button:hover {
-	background-color: #ddd;
-}
-/* Create an active/current tablink class */
-.tab button.active {
-	background-color: #ccc;
-}
-/* Style the tab content */
-.tabcontent {
-	display: none;
-	padding: 6px 12px;
-	border: 1px solid #ccc;
-	border-top: none;
-}
-
-.header {
-	text-align: center;
-}
-
-#table td, #table th {
-	border: 1px solid #ddd;
-	padding: 8px;
-}
-
-#table {
-	font-family: Arial, Helvetica, sans-serif;
-	border-collapse: collapse;
-	width: 80%;
-	margin: auto;
-}
-
-#table th {
-	padding-top: 12px;
-	padding-bottom: 12px;
-	text-align: left;
-	background-color: #04AA6D;
-	color: white;
-}
-</style>
+</script>
 <meta charset="ISO-8859-1">
 <title>Process Order</title>
 </head>
 <body>
-	<div class="container">
-		<h1>Process Order</h1>
-		<div class="card">
-			<table class="table">
-				<c:forEach var="eachItem" items="${menuItemList}">
 
-					<td>${eachItem.itemNumber}</td>
-					<td>${eachItem.itemId}</td>
-					<td>${eachItem.itemName}</td>
-					<td>${eachItem.itemDescription}</td>
-					<td>$${eachItem.itemPrice}</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+	<div class="floorbackground">
+		<div class="container floorbackground">
+			<div class="jumbotron text-center floorbackground">
+				<h1>
+					Hey ${user.firstName}, <br> THANK YOU FOR CHOOSING GOOD TIME
+					BOBBY'S!
+				</h1>
+				<br>
+				<h2>Order Number: ${orderID}</h2>
+				<h4>Subtotal: ${orderTotalWithoutTax}</h4>
+				<h4>Tax: ${orderTotalTax}</h4>
+				<h4>Total: ${orderTotalWithTax}</h4>
+				<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
+			</div>
+		</div>
 
+		<div class="container floorbackground">
+			<div class="card floorbackground">
+				<div>
+					<div class="container floorbackground">
+						<div class="tab floorbackground">
+							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '1')">Item
+								1</button>
+							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '2')">Item
+								2</button>
+							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '3')">Item
+								3</button>
+							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '4')">Item
+								4</button>
+						</div>
+					</div>
+				</div>
+				<!-- TAB CONTENT -->
+				<div id="1" class="tabcontent floorbackground">
+					<h3 class="header">Item 1</h3>
+					<div class="card floorbackground">
 
-				</c:forEach>
-				<tr>
-					<td><a href="${sendOrderToDatabase}"
-						class="btn btn-primary btn-sm active">Send to Kitchen!</a></td>
-				</tr>
-			</table>
-			<div style="text-align: center;"class="columns">
-				<ul class="price">
-					<li class="grey">Total: $${orderTotalWithTax}</li>
-					<li>Subtotal: $${orderTotalWithoutTax}</li>
-					<li>Tax: $${orderTotalTax}</li>
-					<li class="grey"><a href="${sendOrderToDatabase}"
-						class="btn btn-primary btn-sm active">Send to Kitchen!</a></li>
-				</ul>
+						<table class="table floorbackground">
+							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+								<c:if test="${eachItemOrder.itemNumber == 1}">
+									<tr>
+										<td>${eachItemOrder.itemNumber}</td>
+										<td>${eachItemOrder.getMenuItemName()}</td>
+										<td>${eachItemOrder}<c:if
+												test="${not empty eachItemOrder.getIngredientId()}">
+								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
+								<c:if test="${eachItemOrder.modification == 1}">
+								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
+								 </c:if>
+											</c:if></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				<div id="2" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">Item 2</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+								<c:if test="${eachItemOrder.itemNumber == 2}">
+									<tr>
+										<td>${eachItemOrder.itemNumber}</td>
+										<td>${eachItemOrder.getMenuItemName()}</td>
+										<td>${eachItemOrder}<c:if
+												test="${not empty eachItemOrder.getIngredientId()}">
+								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
+								<c:if test="${eachItemOrder.modification == 1}">
+								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
+								 </c:if>
+											</c:if></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				<div id="3" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">Item 3</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+								<c:if test="${eachItemOrder.itemNumber == 3}">
+									<tr>
+										<td>${eachItemOrder.itemNumber}</td>
+										<td>${eachItemOrder.getMenuItemName()}</td>
+										<td>${eachItemOrder}<c:if
+												test="${not empty eachItemOrder.getIngredientId()}">
+								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
+								<c:if test="${eachItemOrder.modification == 1}">
+								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
+								 </c:if>
+											</c:if></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				<div id="4" class="tabcontent floorbackground">
+					<h3 class="header floorbackground">Item 4</h3>
+					<div class="card floorbackground">
+						<table class="table floorbackground">
+							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
+								<c:if test="${eachItemOrder.itemNumber == 4}">
+									<tr>
+										<td>${eachItemOrder.itemNumber}</td>
+										<td>${eachItemOrder.getMenuItemName()}</td>
+										<td>${eachItemOrder}<c:if
+												test="${not empty eachItemOrder.getIngredientId()}">
+								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
+								<c:if test="${eachItemOrder.modification == 1}">
+								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
+								 </c:if>
+											</c:if></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-
-<!-- 	<div class="container">
-		<h1>Process Order</h1>
-		<div class="card">
-			<table class="table">
-				<tr>
-			</table>
-		</div>
-	</div> -->
 </body>
-</html> --%>
+</html>

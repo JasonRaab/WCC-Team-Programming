@@ -175,7 +175,6 @@ public class MainController {
 
 		MenuItem menuItem = restaurantDAO.getMenuItemByID(menuItemID);
 		User user = userDAO.getUserByID(userID);
-		// restaurantDAO.getMenuItemByID(menuItemID);
 		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
 
 		int orderIDint = orderInfo.getOrderId();
@@ -210,7 +209,6 @@ public class MainController {
 	@RequestMapping(value = "/testing", method = RequestMethod.POST)
 	public String usedForTesting(Model model, @RequestParam(name = "userID") int userID,
 			@RequestParam(name = "menuItemID") int menuItemID,
-//			@RequestParam(name = "menuItem") MenuItem menuItem,
 			@RequestParam(name = "ingredientAdded") String[] checkboxValue, @RequestParam(name = "orderID") int orderID,
 			@RequestParam(name = "itemNumber") int itemNumber, RedirectAttributes redirectAttribute) {
 

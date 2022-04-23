@@ -11,6 +11,53 @@
 	crossorigin="anonymous">
 <meta charset="UTF-8">
 <style>
+html {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover
+}
+
+.jumbotron {
+	font-family: "Georgia", serif;
+}
+
+.floorbackground {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
+	background-repeat: repeat;
+	background-position: center top;
+	text-align: center;
+	color: #ffffff;
+}
+
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 140px;
+	width: 220px;
+	transform: translateY(15%);
+}
+
+.imgs {
+	margin-top: auto;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	height: 50%;
+}
+
+.logopic {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	text-align: center;
+	color: blue;
+}
 /* Style the tab */
 .tab {
 	overflow: hidden;
@@ -43,21 +90,14 @@
 	border-top: none;
 }
 
-.table {
-	text-align: center;
-}
-
-.header {
-	text-align: center;
-}
-
-#table td, #table th {
-	border: 1px solid #ddd;
+#table td, #table th #table tr {
+	border: none;
+	border-collapse: collapse;
 	padding: 8px;
-	text-align: center;
 }
 
 #table {
+	border: none;
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
 	width: 80%;
@@ -65,51 +105,100 @@
 }
 
 #table th {
+	border: none;
+	border-collapse: collapse;
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
 	background-color: #04AA6D;
 	color: white;
 }
+
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+}
+
+.noborder {
+	border: none !important;
+}
 </style>
 <meta charset="ISO-8859-1">
-
-<title>Good Time Bobby's Menu</title>
+<title>Welcome</title>
 </head>
-<body>
-	<h1 style="text-align: center;">Welcome to good time bobbys</h1>
-	<div class="container" style="text-align: center;">
-		<label for="uname"><b>Username</b></label> <input type="text"
-			placeholder="Enter Username" name="uname"> <br> <label
-			for="psw"><b>Password</b></label> <input type="password"
-			placeholder="Enter Password" name="psw">
-	</div>
-	<br>
-	<div style="text-align: center;">
-		<a href="${pageContext.request.contextPath}/showUsers"
-			class="btn btn-primary btn-sm active" role="button"
-			aria-pressed="true">Login</a> <a
-			href="${pageContext.request.contextPath}/readOnlyMenu"
-			class="btn btn-primary btn-sm active" role="button"
-			aria-pressed="true">View Menu</a>
-	</div>
-	<br>
-	<br>
-	<div class="container">
-		<div class="card">
-			<table class="table" style="text-align: center;">
-				<c:forEach var="eachUser" items="${users}">
-					<c:url var="loginLink" value="menu">
-						<c:param name="userID" value="${eachUser.userId}" />
-						<c:param name="orderID" value="${order.orderId}" />
-					</c:url>
-					<tr>
-						<td><a href="${loginLink}">Login as ${eachUser.firstName}
-						</a></td>
-					</tr>
 
-				</c:forEach>
-			</table>
+
+<!-- https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png -->
+
+<body>
+	<header class="masthead"></header>
+
+	<div class=" floorbackground">
+		<h1 class="floorbackground"
+			style="text-align: center; font-size: 55px;">WELCOME TO GOOD
+			TIME BOBBY'S</h1>
+
+		<c:url var="loginWithUsername" value="loginConfirmation">
+			<c:param name="userID" value="${eachUser.userId}" />
+			<c:param name="orderID" value="${order.orderId}" />
+		</c:url>
+
+		<form action="loginWithUsername" method="post">
+
+			<div class="container floorbackground" style="text-align: center;">
+				<label for="uname"><b>Username</b></label> 	
+				<input type="text" placeholder="Enter Username" name="uname"> <br> 
+					
+					<label for="psw"><b>Password</b></label> 
+					<input type="password" placeholder="Enter Password" name="psw">
+			</div>
+			<br>
+			<div class=" floorbackground" style="text-align: center;">
+			
+				 <button type="submit">Login</button>
+				<%-- <a href="${pageContext.request.contextPath}/menu"
+					class="btn btn-primary btn-sm active" role="button"
+					aria-pressed="true">Login</a> --%>
+			</div>
+		</form>
+
+		<div class=" floorbackground" style="text-align: center;">
+		
+		<%-- 
+			<a href="${pageContext.request.contextPath}/menu"
+				class="btn btn-primary btn-sm active" role="button"
+				aria-pressed="true">Login</a> --%>
+				
+				 <br> <a
+				href="${pageContext.request.contextPath}/readOnlyMenu"
+				class="btn btn-primary btn-sm active" role="button"
+				aria-pressed="true">View Menu</a>
+		</div>
+		<br>
+		<div class="container floorbackground noborder">
+			<div class="card floorbackground noborder">
+				<table class="table floorbackground noborder">
+					<c:forEach var="eachUser" items="${users}">
+						<c:url var="loginLink" value="menu">
+							<c:param name="userID" value="${eachUser.userId}" />
+							<c:param name="orderID" value="${order.orderId}" />
+						</c:url>
+						<tr class="noborder">
+							<td class="noborder"><a href="${loginLink}">Login as
+									${eachUser.firstName} </a></td>
+						</tr>
+
+					</c:forEach>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>

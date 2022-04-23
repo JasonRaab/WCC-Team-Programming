@@ -156,7 +156,7 @@ public class ItemOrdered implements Serializable {
 
 	@Override
 	public String toString() {
-		return "&nbsp;&nbsp; " + ((modification != null) ? ((modification == 1) ? "Added" : "Removed") : "") + ((ingredientId != null) ? " Ingredient: " : "");
+		return "&nbsp;&nbsp; " + ((modification != null) ? ((modification == 1) ? "+" : "-") : "") + ((ingredientId != null) ? " " : "");
 	}
 
 	// ((modification == 1) ? "Added" : "Removed")
