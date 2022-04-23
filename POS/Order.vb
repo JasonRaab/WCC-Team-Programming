@@ -41,6 +41,19 @@ Public Class Order
         Me.LstItems = LstItems
     End Sub
 
+    Public Sub New(OrderId As Integer, UserId As Integer, OrderDate As String, SubTotal As Decimal, Tax As Decimal, Total As Decimal, OrderType As String, Location As String, IsOpen As Integer)
+        Me.OrderId = OrderId
+        Me.UserId = UserId
+        Me.OrderDate = OrderDate
+        Me.SubTotal = SubTotal
+        Me.Tax = Tax
+        Me.Total = Total
+        Me.OrderType = OrderType
+        Me.Location = Location
+        Me.IsOpen = IsOpen
+        Me.LstItems = New List(Of Item)
+    End Sub
+
     Public Property OrderId() As Integer
         Get
             Return orderIdValue

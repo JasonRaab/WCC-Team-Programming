@@ -8,13 +8,29 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="OrderSelectionPage" Width="1272" Height="689" Loaded="Page_Loaded">
     <Grid Width="1272" Height="689" Background="#FFCBC9C9">
-        <Rectangle Fill="Black" HorizontalAlignment="Left" Height="669" Margin="325,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="28"/>
-        <Label Content="To Go Orders" HorizontalAlignment="Left" Margin="27,26,0,0" VerticalAlignment="Top" Height="78" Width="242" FontSize="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Rectangle Fill="Black" HorizontalAlignment="Left" Height="669" Margin="434,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="28"/>
+        <Label Content="To Go Orders" HorizontalAlignment="Left" Margin="96,16,0,0" VerticalAlignment="Top" Height="78" Width="242" FontSize="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="1110,622,0,0" VerticalAlignment="Top" Width="130" Height="50" RenderTransformOrigin="0.252,0.196" FontSize="18"/>
         <Button x:Name="btnTable1" Content="1" HorizontalAlignment="Left" Margin="625,184,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
         <Button x:Name="btnTable2" Content="2" HorizontalAlignment="Left" Margin="818,184,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
         <Button x:Name="btnTable3" Content="3" HorizontalAlignment="Left" Margin="625,338,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
         <Button x:Name="btnTable4" Content="4" HorizontalAlignment="Left" Margin="818,338,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
         <Label x:Name="lblUserName" Content="No Pin Gotten" HorizontalAlignment="Left" Margin="1121,26,0,0" VerticalAlignment="Top" Height="44" Width="89"/>
+        <Grid x:Name="onlineOrdersGrid" HorizontalAlignment="Left" Height="563" Margin="38,109,0,0" VerticalAlignment="Top" Width="374">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130*"/>
+                <ColumnDefinition Width="130*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+        </Grid>
     </Grid>
 </Page>

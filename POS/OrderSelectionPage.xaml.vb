@@ -8,7 +8,7 @@
     End Sub
 
     Private Sub btnTable_Click(sender As Object, e As RoutedEventArgs) Handles btnTable1.Click, btnTable2.Click, btnTable3.Click, btnTable4.Click
-        posApp.ViewOrderPage(CType(sender, Button).Content)
+        posApp.ViewOrderPageLocal(CType(sender, Button).Content)
     End Sub
 
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)

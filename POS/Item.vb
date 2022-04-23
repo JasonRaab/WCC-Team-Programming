@@ -132,6 +132,10 @@ Public Class Item
         Me.EditedFlag = False
     End Sub
 
+    Public Sub New()
+
+    End Sub
+
     Private Function BuildItemString() As String
         ItemString = Name & vbCrLf
         For Each modification As Ingredient In Modifications

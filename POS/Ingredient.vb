@@ -22,12 +22,17 @@
         End If
     End Sub
 
+    Public Sub New()
+
+    End Sub
+
     Public Sub New(Id As Integer, Modification As Integer)
         Me.Id = Id
         Me.Modification = Modification
     End Sub
 
     Public Sub New(ingredient As Ingredient)
+        'Copy constructor
         Me.Id = ingredient.Id
         Me.Name = ingredient.Name
         Me.Category = ingredient.Category

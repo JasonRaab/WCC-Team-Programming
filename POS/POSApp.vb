@@ -18,6 +18,7 @@ Imports System.Windows.Media.Brushes
 ''' </summary>
 Public Class POSApp
 
+    Private dctOpenOnlineOrdersButtons As New Dictionary(Of Button, Order)
     Private dctIngredientButtons As New Dictionary(Of Button, Ingredient)
     Private loginPageValue As LoginPage
     Private mainWindowValue As MainWindow
@@ -27,11 +28,12 @@ Public Class POSApp
     Private dctItemButtonsValue As New Dictionary(Of Button, Item)
     Private orderPage As OrderPage
     Private lstAllIngredients As New List(Of Ingredient)
-    Private lstOpenOrders As New List(Of Order)
+    Private lstOpenLocalOrders As New List(Of Order)
     Private selectedOrder As New Order
     Private userValue As User
     Private modifiersPopupValue As ModifiersPopup
     Private addIngredientMode As Boolean = True
+    Private lstAllOpenOnlineOrders As New List(Of Order)
 
     Public Property User() As User
         Get
@@ -97,10 +99,11 @@ Public Class POSApp
         OrderSelectionPage = New OrderSelectionPage(Me)
         orderPage = New OrderPage(Me)
         ModifiersPopup = New ModifiersPopup(Me)
-        dao = New DAO("datasource=167.172.242.79;port=3306;username=testUser;password=test@password298")
+        dao = New DAO("datasource=167.172.242.79;port=3306;username=pos;password=PASSword@cps298")
         PopulateItemCategoryButtons()
         PopulateItemButtons()
         PopulateLstBoxTotals()
+        PopulateOpenOnlineOrders()
         MainWindow.Content = LoginPage
     End Sub
 
@@ -160,6 +163,7 @@ Public Class POSApp
     Public Sub PopulateItemButtons()
         'Makes a button for each menu item
         'Adds the button and its item to DctItemButtons
+        'Buttons are actually added to the grid in the UpdateCategory function
 
         LstAllItems = dao.GetAllItems()
         For Each item As Item In LstAllItems
@@ -174,12 +178,8 @@ Public Class POSApp
                 AddHandler btn.Click, AddressOf StartItem
                 DctItemButtons.Add(btn, item)
             Catch ex As Exception
-
             End Try
-
         Next
-
-
     End Sub
 
     Public Sub PopulateLstBoxTotals()
@@ -188,11 +188,47 @@ Public Class POSApp
         orderPage.lstBoxTotals.Items.Add("Total:")
     End Sub
 
+    Public Sub PopulateOpenOnlineOrders()
+        Dim intRow As Integer
+        Dim intColumn As Integer
+        lstAllOpenOnlineOrders = dao.GetAllOpenOnlineOrders()
+
+        'Makes a button for each open online order
+        For Each order As Order In lstAllOpenOnlineOrders
+            Try
+                Dim btn As New Button
+                btn.Content = order.OrderId
+                btn.HorizontalContentAlignment = HorizontalAlignment.Center
+                btn.Name = "btn" & order.OrderId
+                btn.Height = 60
+                btn.Width = 150
+                btn.FontSize = 12
+                AddHandler btn.Click, AddressOf ViewOrderPageOnline
+                dctOpenOnlineOrdersButtons.Add(btn, order)
+            Catch ex As Exception
+            End Try
+        Next
+
+        'Adds the button to the onlineOrdersGrid on the OrderSelectionpage
+        For Each pair As KeyValuePair(Of Button, Order) In dctOpenOnlineOrdersButtons
+            Grid.SetColumn(pair.Key, intColumn)
+            Grid.SetRow(pair.Key, intRow)
+            OrderSelectionPage.onlineOrdersGrid.Children.Add(pair.Key)
+            intColumn += 1
+            If intColumn > 2 Then
+                intColumn = 0
+                intRow += 1
+            End If
+        Next
+
+    End Sub
+
     Public Sub DisplayOpenOrder(order As Order)
         For Each item As Item In order.LstItems
             orderPage.lstBoxTicket.Items.Add(item)
         Next
     End Sub
+
 
     '''''''''' Updating Functions ''''''''''
     Public Sub UpdateCategory(categoryName As String)
@@ -210,7 +246,6 @@ Public Class POSApp
             If pair.Value.Category.Equals(categoryName) Then
                 Grid.SetColumn(pair.Key, intColumn)
                 Grid.SetRow(pair.Key, intRow)
-                'MainWindow.itemGridPanel.Children.Add(pair.Key)
                 orderPage.itemGridPanel.Children.Add(pair.Key)
                 intColumn += 1
                 If intColumn > 3 Then
@@ -268,7 +303,7 @@ Public Class POSApp
     Public Sub LoginPageGo(pin As String)
         'Takes in pin from login page
         'Calls DAO method to get user based on pin which is user_id
-
+        dao.GetAllOpenOnlineOrders()
         If pin.Equals("") Then
             InvalidPin()
         Else
@@ -283,13 +318,31 @@ Public Class POSApp
 
     End Sub
 
-    Public Sub ViewOrderPage(location As String)
+    Public Sub ViewOrderPageOnline(clickedBtn As Object, e As RoutedEventArgs)
+        'Display the selected online order in the order page
+        orderPage.lstBoxTicket.Items.Clear()
+        orderPage.lblEmployeeName.Content = User.FirstName & " " & User.LastName
+
+        'Set selecetd order to the order associated with the clicked button
+        selectedOrder = dctOpenOnlineOrdersButtons.Item(CType(clickedBtn, Button))
+        For Each item As Item In selectedOrder.LstItems
+            item.BuildTicketViewStrings()
+            item.Sent = True
+        Next
+        DisplayOpenOrder(selectedOrder)
+        UpdateCategory("Entree")
+        ClearLables()
+        UpdateTotals()
+        MainWindow.Content = orderPage
+    End Sub
+
+    Public Sub ViewOrderPageLocal(location As String)
         Dim orderFound As Boolean = False
         orderPage.lstBoxTicket.Items.Clear()
         orderPage.lblEmployeeName.Content = User.FirstName & " " & User.LastName
 
-        'If there is already an open order at that location then load that order
-        For Each order As Order In lstOpenOrders
+        'If there is already an open local order at that location then load that order
+        For Each order As Order In lstOpenLocalOrders
             If order.Location.Equals(location) Then
                 selectedOrder = order
                 DisplayOpenOrder(order)
@@ -302,7 +355,7 @@ Public Class POSApp
         'If there is not an open order at that location then make one
         If orderFound = False Then
             Dim order As New Order(location)
-            lstOpenOrders.Add(order)
+            lstOpenLocalOrders.Add(order)
             selectedOrder = order
             dao.CreateOrder(selectedOrder, User.UserID)
             selectedOrder.OrderId = dao.GetHighestOrderId()
@@ -332,7 +385,7 @@ Public Class POSApp
 
     Public Sub IngredientBtn_Click(sender As Object, e As RoutedEventArgs)
         Dim ingredientAlreadyCreated As Boolean = False
-        Dim ingredient As Ingredient
+        Dim ingredient As New Ingredient()
         Dim lstAllIngredients = dao.GetAllIngredients()
         Dim lstDefaultIngredientIds = dao.GetDefaultIngredientIds(ModifiersPopup.SelectedItem)
 
@@ -345,19 +398,21 @@ Public Class POSApp
         If dctIngredientButtons.ContainsKey(CType(sender, Button)) Then
             'We only want to create a new ingredient if the ingredient isn't already on the item as a modification
 
-            For Each i As Ingredient In lstAllIngredients
-                For Each modification As Ingredient In ModifiersPopup.SelectedItem.Modifications
-                    If i.Id = modification.Id Then
-                        'When this is true, the ingredient is already explicitly added or removed as a modifier
-                        'Don't create a new one, use the one from the ingredientButton dictonary
-                        ingredient = modification
-                        ingredientAlreadyCreated = True
-                    End If
-                Next
+            For Each modification As Ingredient In ModifiersPopup.SelectedItem.Modifications
+                If dctIngredientButtons.Item(CType(sender, Button)).Id = modification.Id Then
+                    'When this is true, the ingredient is already explicitly added or removed as a modifier
+                    'Don't create a new one, use the one from the ingredientButton dictonary
+                    ingredient = modification
+                    ingredientAlreadyCreated = True
+                    Exit For
+                End If
             Next
+            If ingredientAlreadyCreated = True Then
+            End If
+
             'If the item doesn't already exist as a modification, create a new one
             If ingredientAlreadyCreated = False Then
-                ingredient = New Ingredient(dctIngredientButtons.Item(CType(sender, Button))
+                ingredient = New Ingredient(dctIngredientButtons.Item(CType(sender, Button)))
             End If
 
 
@@ -382,7 +437,6 @@ Public Class POSApp
                 ModifiersPopup.SelectedItem.Modifications.Add(ingredient)
             End If
         End If
-
     End Sub
 
     Public Sub CategoryBtn_Click(sender As Object, e As RoutedEventArgs)
@@ -400,11 +454,6 @@ Public Class POSApp
         selectedItem.BuildTicketViewStrings()
         UpdateTotals()
         orderPage.lstBoxTicket.Items.Refresh()
-
-        For Each modification As Ingredient In ModifiersPopup.SelectedItem.Modifications
-            Debug.WriteLine(modification.Modification & " " & modification.Name)
-        Next
-        Debug.WriteLine("")
     End Sub
 
     Public Sub StartItem(clickedBtn As Object, e As RoutedEventArgs)
@@ -512,8 +561,10 @@ Public Class POSApp
     End Sub
 
     Public Sub TakePayment()
-        'Move selectedOrder from lstOpenOrders to lstClosedOrders
-
+        selectedOrder.IsOpen = 0
+        dao.CloseOrder(selectedOrder)
+        lstOpenLocalOrders.Remove(selectedOrder)
+        MainWindow.Content = OrderSelectionPage
     End Sub
 
     Private Sub InvalidPin()
