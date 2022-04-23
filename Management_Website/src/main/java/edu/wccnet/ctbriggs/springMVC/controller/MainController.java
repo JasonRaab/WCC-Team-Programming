@@ -73,6 +73,21 @@ public class MainController {
 		model.addAttribute("menuItems", menuItems);
 		model.addAttribute("menuStatus", "active");
 		return "menuList";
+		/*
+		 * List<MenuItem> menuItems = menuService.getMenu();
+		 * 
+		 * for (MenuItem menuItem : menuItems) { System.out.println(menuItem); }
+		 * //model.addAttribute("itemSearch", new ItemSearch());
+		 * model.addAttribute("item", new MenuItem()); model.addAttribute("menuItems",
+		 * menuItems); model.addAttribute("menuStatus", "active");
+		 * 
+		 * System.out.println("\n\nHello World\n\n"); JSONArray json = new
+		 * JSONArray(menuItems); System.out.println(json); String jsonStr =
+		 * json.toString(); model.addAttribute("dataJson", jsonStr);
+		 * System.out.println(jsonStr);
+		 * 
+		 * return "menuList";
+		 */
 	}
 	@RequestMapping("/inactiveMenu")
 	public String showInactiveMenu(Model model) {
@@ -340,6 +355,9 @@ public class MainController {
 		
 		employee.setAddresses(currentAddresses);
 		userService.saveUser(employee);
+		
+		if (employee.getIsActive() == 0)
+			return "redirect:/management/previousEmployees";
 		return "redirect:/management/employees";
 	}
 	
@@ -390,16 +408,16 @@ public class MainController {
 		employee.addAddress(address);
 		addressService.saveAddress(address);
 		userService.saveUser(employee);
-		return "redirect:/management/employees";
+		return "redirect:/management/updateEmployee?employeeID=" + id;
 	}
 	
 	@RequestMapping("/removeAddress")
-	public String removeAddress(@RequestParam("addressID") int id) {
-		Address address = addressService.getAddress(id);
+	public String removeAddress(@RequestParam("addressID") int addressId, @RequestParam("employeeID") int employeeId) {
+		Address address = addressService.getAddress(addressId);
 		address.setIsActive(0);
 		addressService.saveAddress(address);
 		
-		return "redirect:/management/employees";
+		return "redirect:/management/updateEmployee?employeeID=" + employeeId;
 	}
 	
 	@InitBinder

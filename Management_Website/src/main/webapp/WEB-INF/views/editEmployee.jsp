@@ -100,6 +100,7 @@
 		<c:forEach var="address" items="${addressList}">
 			<c:url var="removeLink" value="/management/removeAddress">
 				<c:param name="addressID" value="${address.addressId}" />
+				<c:param name="employeeID" value="${employee.userId}" />
 			</c:url>
 			<div class="card mb-3">
 				<div class="card-body">
