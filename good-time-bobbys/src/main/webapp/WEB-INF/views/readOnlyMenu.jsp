@@ -68,9 +68,10 @@ html {
 	text-align: center;
 }
 
-#table td, #table th {
-	border: 1px solid #ddd;
+table td, th, tr {
+	border: none !important;
 	padding: 8px;
+	font: #ffffff;
 }
 
 #table {

@@ -17,7 +17,7 @@ html {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-attachment: fixed;
-	background-size: cover
+	background-size: cover;
 }
 
 .floorbackground {
@@ -90,10 +90,10 @@ img {
 	border-top: none;
 }
 
-#table td, #table th #table tr {
-	border: none;
-	border-collapse: collapse;
+table td, th, tr {
+	border: none !important;
 	padding: 8px;
+	font: #ffffff;
 }
 
 #table {
@@ -119,16 +119,17 @@ header.masthead {
 	padding-bottom: 6rem;
 	text-align: center;
 	color: #ffffff;
-	background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center center;
 	background-size: cover;
 }
-.noborder {
-    border:none !important;
-}
 
+.noborder {
+	border: none !important;
+}
 </style>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -138,50 +139,58 @@ header.masthead {
 <!-- https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png -->
 
 <body>
-	<header class="masthead">
-<!-- 		<img class="imgs" -->
-<!-- 			src="https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png" -->
-<!-- 			alt="food-pic"> -->
-		<!-- 				<h1>WELCOME TO GOOD TIME BOBBY'S</h1> -->
-		<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
-	</header>
+	<header class="masthead"></header>
 
 	<div class=" floorbackground">
-		<h1 class=" floorbackground" style="text-align: center;">Welcome
-			to good time bobbys</h1>
-		<div class="container floorbackground" style="text-align: center;">
-			<label for="uname"><b>Username</b></label> <input type="text"
-				placeholder="Enter Username" name="uname"> <br> <label
-				for="psw"><b>Password</b></label> <input type="password"
-				placeholder="Enter Password" name="psw">
-		</div>
-		<br>
-		<div class=" floorbackground" style="text-align: center;">
-			<a href="${pageContext.request.contextPath}/showUsers"
-				class="btn btn-primary btn-sm active" role="button"
-				aria-pressed="true">Login</a> <a
-				href="${pageContext.request.contextPath}/readOnlyMenu"
-				class="btn btn-primary btn-sm active" role="button"
-				aria-pressed="true">View Menu</a>
-		</div>
-		<br> <br>
-		<div class="container floorbackground noborder">
-			<div class="card floorbackground noborder">
-				<table class="table floorbackground noborder">
-					<c:forEach var="eachUser" items="${users}">
-						<c:url var="loginLink" value="menu">
-							<c:param name="userID" value="${eachUser.userId}" />
-							<c:param name="orderID" value="${order.orderId}" />
-						</c:url>
-						<tr class="noborder">
-							<td class="noborder"><a href="${loginLink}">Login as
-									${eachUser.firstName} </a></td>
-						</tr>
+		<h1 class="floorbackground"
+			style="text-align: center; font-size: 55px;">WELCOME TO GOOD
+			TIME BOBBY'S</h1>
+		<br><br>
 
-					</c:forEach>
-				</table>
+
+
+		<c:url var="loginConfirmation" value="loginConfirmation">
+			<c:param name="orderID" value="${order.orderId}" />
+		</c:url>
+
+		<form:form modelAttribute="orderID" action="loginConfirmation"
+			method="get">
+
+			<div class="container floorbackground" style="text-align: center;">
+				<label for="userEmail"><b>Username</b></label> <input type="text"
+					placeholder="Enter your email" name="userEmail"> <br>
+				<label for="password"><b>Password</b></label> <input type="password"
+					placeholder="Enter Password" name="password"> <input
+					type="hidden" id="orderID" name="orderID" value="${order.orderId}"></input>
 			</div>
-		</div>
+			<br>
+			<div class=" floorbackground" style="text-align: center;">
+
+				<button type="submit">Login</button>
+				<%-- <a href="${pageContext.request.contextPath}/menu"
+                    class="btn btn-primary btn-sm active" role="button"
+                    aria-pressed="true">Login</a> --%>
+			</div>
+		</form:form>
+
+<!-- 		<br> <br> -->
+<!-- 		<div class="container floorbackground"> -->
+<!-- 			<div class="card floorbackground"> -->
+<!-- 				<table class="table floorbackground"> -->
+<%-- 					<c:forEach var="eachUser" items="${users}"> --%>
+<%-- 						<c:url var="loginLink" value="menu"> --%>
+<%-- 							<c:param name="userID" value="${eachUser.userId}" /> --%>
+<%-- 							<c:param name="orderID" value="${order.orderId}" /> --%>
+<%-- 						</c:url> --%>
+<!-- 						<tr> -->
+<%-- 							<td><a href="${loginLink}">Login as --%>
+<%-- 									${eachUser.firstName} </a></td> --%>
+<!-- 						</tr> -->
+
+<%-- 					</c:forEach> --%>
+<!-- 				</table> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 	</div>
 </body>
 </html>

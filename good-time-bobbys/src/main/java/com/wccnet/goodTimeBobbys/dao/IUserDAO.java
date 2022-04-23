@@ -9,7 +9,9 @@ public interface IUserDAO {
 
 	public User getUserByID(int userId);
 
-    public List<Address> getAddress();
+	public List<Address> getAddress();
 
-    public List<User> getUsers();
+	public List<User> getUsers();
+
+	public Integer getUserByEmailAndPassword(String userEmail, String password);
 }

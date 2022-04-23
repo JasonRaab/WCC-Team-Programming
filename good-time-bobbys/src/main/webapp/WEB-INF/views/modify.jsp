@@ -62,7 +62,7 @@ html {
 .tabcontent {
 	display: none;
 	padding: 6px 12px;
-	border: 1px solid #ccc;
+	border: none !important;
 	border-top: none;
 }
 
@@ -70,9 +70,10 @@ html {
 	text-align: center;
 }
 
-#table td, #table th {
-	border: 1px solid #ddd;
+table td, th, tr {
+	border: none !important;
 	padding: 8px;
+	font: #ffffff;
 }
 
 #table {
@@ -117,58 +118,7 @@ html {
 <title>Cart</title>
 </head>
 <body>
-
-
-
-	<!-- //	@RequestMapping("/modify") -->
-	<!-- //    public String modifyItem(Model model, @RequestParam(name = "userID") int userID, -->
-	<!-- //            @RequestParam(name = "menuItemID") int menuItemID, -->
-	<!-- //            @RequestParam(name = "orderID") int orderID, -->
-	<!-- //            @RequestParam(name = "itemNumber") int itemNumber, -->
-	<!-- //            //@RequestParam(name = "subtotal") int priceTotal, -->
-	<!-- //            @ModelAttribute(name = "defaultIngredientList") Ingredient defaultIngredientList, -->
-	<!-- //            @ModelAttribute(name = "ingredients") Ingredient ingredients, -->
-	<!-- //            // @ModelAttribute(name = "comparisonSet") Set<Integer> comparisonSet, -->
-	<!-- //            BindingResult bindingResult) { -->
-	<!-- // -->
-	<!-- //        User user = userDAO.getUserByID(userID); -->
-	<!-- //        MenuItem menuItem = restaurantDAO.getMenuItemByID(menuItemID); -->
-	<!-- //        OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID); -->
-	<!-- //        int menuItemNumber = itemNumber; -->
-	<!-- //        int orderIDint = orderInfo.getOrderId(); -->
-	<!-- //        // Set<Integer> results = -->
-	<!-- //        // ingredientDAO.compareDefaultAndChosenIngredients(menuItemID); -->
-	<!-- //        List<Ingredient> defaultIngredientIDList = ingredientDAO.getIngredientListByMenuItemID(menuItemID); -->
-	<!-- //        List<Ingredient> fullIngredientList = ingredientDAO.getAllIngredients(); -->
-	<!-- //        List<Ingredient> ingredientsToRemove= new ArrayList<Ingredient>(); -->
-	<!-- //for (Ingredient ingredient : fullIngredientList) { -->
-	<!-- //            for (Ingredient defaultIngredient : defaultIngredientIDList) { -->
-	<!-- // -->
-	<!-- //                if (ingredient.getIngredientId() == defaultIngredient.getIngredientId()) { -->
-	<!-- //                    ingredientsToRemove.add(ingredient); -->
-	<!-- //                } -->
-	<!-- //            } -->
-	<!-- //        } -->
-	<!-- //            fullIngredientList.removeAll(ingredientsToRemove); -->
-	<!-- // -->
-	<!-- //        model.addAttribute(user); -->
-	<!-- //        model.addAttribute("menuItem", menuItem); -->
-	<!-- //        model.addAttribute("itemNumber", menuItemNumber); -->
-	<!-- //        model.addAttribute("orderID", orderIDint); -->
-	<!-- //        //model.addAttribute("subtotal", priceTotal); -->
-	<!-- //        model.addAttribute("defaultIngredientList", ingredientDAO.getIngredientListByMenuItemID(menuItemID)); -->
-	<!-- //        model.addAttribute("ingredients",  fullIngredientList); -->
-	<!-- //        // model.addAttribute("comparisonSet", results); -->
-	<!-- // -->
-	<!-- //        return "modify"; -->
-	<!-- //    } -->
-	<!-- //	 -->
-
-
-
-
 	<div class="floorbackground">
-
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
 				<h1>WELCOME TO GOOD TIME BOBBY'S
@@ -453,7 +403,7 @@ html {
 						</div>
 					</div>
 					<div>
-						<input type="submit" value="submit" name="submit" />
+						<input class="btn btn-outline-light" type="submit" value="Submit Changes" name="submit" />
 					</div>
 				</fieldset>
 			</form:form>

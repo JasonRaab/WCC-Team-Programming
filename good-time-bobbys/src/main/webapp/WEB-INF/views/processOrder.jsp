@@ -133,8 +133,8 @@ html {
 				</h1>
 				<br>
 				<h2>Order Number: ${orderID}</h2>
-				<h4>Subtotal: ${orderTotalWithoutTax}</h4>
-				<h4>Tax: ${orderTotalTax}</h4>
+				<h4>Subtotal: ${subTotal}</h4>
+				<h4>Tax: ${orderTax}</h4>
 				<h4>Total: ${orderTotalWithTax}</h4>
 				<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
 			</div>
@@ -246,6 +246,17 @@ html {
 						</table>
 					</div>
 				</div>
+			</div>
+			<div class="floorbackground">
+			<c:url var="confirmation" value="/confirmation">
+				<c:param name="userID" value="${userID}"/>
+				<c:param name="orderID" value="${orderID}"/>
+				<c:param name="subTotal" value="${subTotal}"/>
+				<c:param name="orderTax" value="${orderTax}"/>
+				<c:param name="orderTotalWithTax" value="${orderTotalWithTax}"/>
+<%-- 				<c:param name="allItemsOrdered" value="${allItemsOrdered}" /> --%>
+			</c:url>
+				<a href="${confirmation}" class="btn btn-outline-light" role="button" aria-pressed="true">Complete Order</a>
 			</div>
 		</div>
 	</div>

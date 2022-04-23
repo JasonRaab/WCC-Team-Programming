@@ -8,6 +8,8 @@
 <head>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 <style>
 html {
 	background-image:
@@ -15,7 +17,7 @@ html {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-attachment: fixed;
-	background-size: cover
+	background-size: cover;
 }
 
 .floorbackground {
@@ -35,8 +37,8 @@ html {
 	margin: auto;
 }
 
-#table td, #table th {
-	border: 1px solid #ddd;
+table td, th, tr {
+	border: none !important;
 	padding: 8px;
 	font: #ffffff;
 }
@@ -56,6 +58,21 @@ html {
 	color: white;
 }
 
+.jumbotron {
+	font-family: "Georgia", serif;
+	font-size: 55px;
+}
+
+.empty-cart-parent {
+	padding: 2rem 2rem;
+	text-align: center;
+}
+
+.empty-cart-child {
+	display: inline-block;
+	padding: .3rem .2rem;
+}
+
 #p {
 	color: white;
 }
@@ -68,8 +85,6 @@ html {
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
 				<h1>WELCOME TO GOOD TIME BOBBY'S</h1>
-				<h1>${user.firstName}&nbsp;${user.lastName}</h1>
-				<h2>${orderID}</h2>
 			</div>
 
 		</div>
@@ -79,71 +94,79 @@ html {
 				<form:form action="orderDetails" method="post"
 					modelAttribute="orderID">
 					<table class="table tabcontent floorbackground">
-						<!-- 						<tr> -->
-						<!-- 							<th style="text-align: center">Cart</th> -->
-						<!-- 						</tr> -->
-						<c:forEach var="eachMenuItem" items="${menuItemList}"
-							varStatus="myIndex">
-							<c:url var="addMoreToOrder" value="/backToMenu">
-								<c:param name="userID" value="${userID}" />
-								<c:param name="orderID" value="${orderID}" />
-							</c:url>
-							<tr>
-								<td>Item Number: ${eachMenuItem.itemNumber}</td>
-								<td>${eachMenuItem.itemId}</td>
-								<td>${eachMenuItem.itemName}</td>
-								<td>${eachMenuItem.itemDescription}</td>
-								<td><c:forEach var="eachIngredient"
-										items="${eachMenuItem.getIngredients()}">
-										<c:if test="${eachIngredient.isActive == 1}">
-									
-											${eachIngredient.ingredientName},
-									</c:if>
-									</c:forEach></td>
-								<td>$${eachMenuItem.itemPrice}</td>
+						<c:choose>
+							<c:when test="${not empty menuItemList}">
 
-								<c:url var="modify" value="/modify">
-									<c:param name="userID" value="${user.userId}" />
-									<c:param name="menuItemID" value="${eachMenuItem.itemId}" />
-									<c:param name="orderID" value="${orderID}" />
-									<c:param name="itemNumber" value="${eachMenuItem.itemNumber}" />
-									<%-- 								<c:param name="menuItemList" value="${menuItemList}" /> --%>
-								</c:url>
+								<c:forEach var="eachMenuItem" items="${menuItemList}"
+									varStatus="myIndex">
+									<c:url var="addMoreToOrder" value="/backToMenu">
+										<c:param name="userID" value="${userID}" />
+										<c:param name="orderID" value="${orderID}" />
+									</c:url>
+									<tr>
+										<td>Item Number: ${eachMenuItem.itemNumber}</td>
+										<td>${eachMenuItem.itemName}</td>
+										<td></td>
+										<td>${eachMenuItem.itemDescription}</td>
+										<td></td>
+										<td>$${eachMenuItem.itemPrice}</td>
 
-								<td>
-								<td style="text-align: right;"><a href="${modify}"
-									class="btn btn-sm active"
-									style="color: black; background-color: gray; font-size: medium;"
-									role="button" aria-pressed="true">Modify Item</a></td>
-							</tr>
-						</c:forEach>
-						<tr>
-							<c:url var="processOrder" value="/processOrder">
-								<c:param name="userID" value="${userID}" />
-								<c:param name="itemNumber" value="${itemNumber}" />
-								<c:param name="orderID" value="${orderID}" />
-								<c:param name="subTotal" value="${subTotal}" />
-							</c:url>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>SUBTOTAL:</td>
-							<td align="right">$${subTotal}</td>
-							<td style="text-align: right;"><a href="${processOrder}"
-								class="btn btn-sm active"
-								style="color: black; background-color: gray; font-size: medium;"
-								role="button" aria-pressed="true">Process Order</a></td>
-						</tr>
+										<c:url var="modify" value="/modify">
+											<c:param name="userID" value="${user.userId}" />
+											<c:param name="menuItemID" value="${eachMenuItem.itemId}" />
+											<c:param name="orderID" value="${orderID}" />
+											<c:param name="itemNumber" value="${eachMenuItem.itemNumber}" />
+											<%-- 								<c:param name="menuItemList" value="${menuItemList}" /> --%>
+										</c:url>
+
+										<td>
+										<td style="text-align: right;"><a href="${modify}"
+											class="btn btn-outline-light btn-sm" role="button"
+											aria-pressed="true">Modify Item</a></td>
+										<!-- 									style="color: black; background-color: gray; font-size: medium;" -->
+									</tr>
+								</c:forEach>
+								<tr>
+									<c:url var="processOrder" value="/processOrder">
+										<c:param name="userID" value="${userID}" />
+										<c:param name="itemNumber" value="${itemNumber}" />
+										<c:param name="orderID" value="${orderID}" />
+										<c:param name="subTotal" value="${subTotal}" />
+									</c:url>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>SUBTOTAL:</td>
+									<td align="right">$${subTotal}</td>
+									<td></td>
+									<td style="text-align: right;"><a href="${processOrder}"
+										class="btn btn-outline-light btn-sm" role="button"
+										aria-pressed="true">Process Order</a></td>
+									<td></td>
+									<!-- 								style="color: black; background-color: gray; font-size: medium;" -->
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<div class="empty-cart-parent">
+									<div class="empty-cart-child">
+										<h5>Your Cart is empty.</h5>
+									</div>
+									<div class="empty-cart-child">
+										<i style="font-size: 25px;" class='fa fa-shopping-cart'></i>
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</table>
 				</form:form>
 				<c:url var="addMoreToOrder" value="/backToMenu">
 					<c:param name="userID" value="${userID}" />
 					<c:param name="orderID" value="${orderID}" />
 				</c:url>
-				<a href="${addMoreToOrder}" class="btn btn-sm active"
-					style="color: white; background-color: black; font-size: medium;"
+				<a href="${addMoreToOrder}" class="btn btn-outline-light btn-sm"
 					role="button" aria-pressed="true">Continue Shopping</a>
+				<!-- 					style="color: white; background-color: black; font-size: medium;" -->
 
 			</div>
 		</div>

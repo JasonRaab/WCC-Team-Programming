@@ -5,12 +5,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel='stylesheet'
+	href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style>
+* {
+	box-sizing: border-box;
+}
+
 html {
 	background-image:
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
@@ -77,24 +84,159 @@ html {
 padding
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;
 -webkit-box-sizing
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :border-box
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;
 box-sizing
 
 
-:boarder-box
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:border-box
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;
@@ -143,6 +285,7 @@ table td, th, tr {
 	border-collapse: collapse;
 	width: 80%;
 	margin: auto;
+	border-collapse: collapse;
 }
 
 #table th {
@@ -162,8 +305,38 @@ table.classname td {
 	color: white;
 }
 
-.noborder {
-	border: none !important;
+.img-container {
+	float: left;
+	width: 33.33%;
+	padding: 5px;
+}
+
+.image_floorbackground::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.zoom_box img {
+	transition: 0.5s all ease-in-out;
+}
+
+.zoom_box:hover img {
+	transform: scale(1.2);
+}
+
+.jumbotron {
+	font-family: "Georgia", serif;
+	font-size: 55px;
+}
+
+.cart-button {
+	line-height: 12px;
+	margin-top: 228px;
+	margin-right: 405px;
+	position: relative;
+	top: 0;
+	right: 0;
 }
 </style>
 <script>
@@ -193,23 +366,16 @@ table.classname td {
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
-				<h1>WELCOME TO GOOD TIME BOBBY'S
-					${user.firstName}&nbsp;${user.lastName}</h1>
-				<h2>Order ID: ${orderID}</h2>
-				<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
+				<h1>WELCOME TO GOOD TIME BOBBY'S</h1>
 			</div>
-
 		</div>
 		<div class="floorbackground" style="text-align: center;">
 			<c:url var="cart" value="/cart">
 				<c:param name="userID" value="${user.userId}" />
 				<c:param name="orderID" value="${orderID}" />
 			</c:url>
-			<a href="${cart}" style="text-align: center;"
-				class="btn btn-primary btn-lg active">View Cart</a>
-		</div>
-		<div class="floorbackground" style="text-align: center;">
-			<h6>View Cart to modify item*</h6>
+			<a class="btn btn-outline-light btn-sm" href="${cart}"
+				style="text-align: center; font-size: 21px;">View Cart</a>
 		</div>
 		<br>
 		<div>
@@ -235,13 +401,31 @@ table.classname td {
 
 				<!-- TAB CONTENT -->
 				<div id="Apps" class="tabcontent floorbackground">
-					<h3 class="header floorbackground">APPS</h3>
+					<h3 class="header floorbackground">Appetizers</h3>
 					<div class="card floorbackground table">
 						<div class="table floorbackground">
 							<div class="image floorbackground" data-label="MozSticks">
-								<img
-									src="https://sp-ao.shortpixel.ai/client/q_glossy,ret_img,w_700/https://thefoodcafe.com/wp-content/uploads/2018/04/Mozzarella-Sticks-5.jpg"
-									alt="">
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://sp-ao.shortpixel.ai/client/q_glossy,ret_img,w_700/https://thefoodcafe.com/wp-content/uploads/2018/04/Mozzarella-Sticks-5.jpg"
+											alt="Moz">
+									</div>
+								</div>
+							</div>
+
+							<div class="img-container">
+								<div class="zoom_box">
+									<img style="border-radius: 2px;" class="desc" alt="onionRings"
+										src="https://www.spoonforkbacon.com/wp-content/uploads/2021/08/onion-rings-recipe-card.jpg"
+										style="width: 55%">
+								</div>
+							</div>
+							<div class="img-container">
+								<div class="zoom_box">
+									<img alt="wings" style="border-radius: 2px;" class="desc"
+										src="https://cdn.cdkitchen.com/recipes/images/2018/08/2449-8317-mx.jpg">
+								</div>
 							</div>
 						</div>
 						<br>
@@ -274,10 +458,28 @@ table.classname td {
 					<h3 class="header floorbackground">SALADS</h3>
 					<div class="card floorbackground table">
 						<div class="table floorbackground">
-							<div class="image floorbackground" data-label="salad">
-								<img
-									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-									alt="" />
+							<div class="image_floorbackground" data-label="salad">
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+											alt="" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://www.dontsweattherecipe.com/wp-content/uploads/2018/07/Southwest-Chicken-Salad-04.jpg"
+											alt="" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://www.redrobinpa.com/wp-content/uploads/2018/10/Avocobbo.jpg"
+											alt="" />
+									</div>
+								</div>
 							</div>
 						</div>
 						<br>
@@ -299,8 +501,6 @@ table.classname td {
 											class="btn btn-outline-light btn-sm">Add to Order</a></td>
 									</c:if>
 								<tr></tr>
-
-
 							</c:forEach>
 						</table>
 					</div>
@@ -309,11 +509,50 @@ table.classname td {
 					<h3 class="header floorbackground">SANDWICHES</h3>
 					<div class="card floorbackground">
 						<div class="table floorbackground">
+							<div class="image_floorbackground" data-label="burger">
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://www.thespruceeats.com/thmb/qT80VQhdqI-CJJEslI0Nn58XGAY=/4048x2277/smart/filters:no_upscale()/fried-shrimp-po-boy-sandwich-recipe-3052296-hero-01-2a4bfabd36244ea483544e585113cb32.jpg"
+											alt="" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://www.wasserstrom.com/blog/wp-content/uploads/2019/06/you-should-know-what-is-the-impossible-burger-banner-1-1024x560.jpg"
+											alt="" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://recipesnow.com/wp-content/uploads/2016/08/22e6a07339cd9e84e4a0d3cd61b6c3b3.jpg"
+											alt="" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://insanelygoodrecipes.com/wp-content/uploads/2020/06/BLT-Sanwich-1024x536.png"
+											alt="" />
+									</div>
+								</div>
 
-							<div class="image floorbackground" data-label="burger">
-								<img
-									src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80"
-									alt="" />
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://topsecretrecipes.com/images/product/red-robin-burnin-love-burger-copycat-recipe-new.jpg"
+											alt="" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src=https://media.istockphoto.com/photos/bacon-burger-picture-id520215281?k=20&m=520215281&s=612x612&w=0&h=kD__ABaZrMo2DqW8huIMfuJ-GCW25pGK6KzgJ9bj394=
+											alt="" />
+									</div>
+								</div>
 							</div>
 						</div>
 						<br>
@@ -343,10 +582,29 @@ table.classname td {
 					<h3 class="header floorbackground">ENTREES</h3>
 					<div class="card floorbackground">
 						<div class="table floorbackground">
-							<div class="image floorbackground" data-label="fishNchips">
-								<img
-									src="https://images.unsplash.com/photo-1580217593608-61931cefc821?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80"
-									alt="" />
+							<div class="image_floorbackground" data-label="fishNchips">
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://us.123rf.com/450wm/topntp/topntp1810/topntp181002834/110309718-fish-and-chips-with-french-fries-unhealthy-food.jpg?ver=6"
+											alt="fishChips" style="width: 55%" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://www.anduzzis.com/wp-content/uploads/pc-tenders.jpg"
+											alt="tenders" style="width: 55%" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img alt="salmon" align="middle" style="border-radius: 2px;"
+											class="desc"
+											src="https://www.redrobinpa.com/wp-content/uploads/2011/02/ensenada-chicken-platter-217.jpeg"
+											style="width: 55%" />
+									</div>
+								</div>
 							</div>
 						</div>
 						<br>
@@ -376,10 +634,26 @@ table.classname td {
 					<h3 class="header floorbackground">DESSERTS</h3>
 					<div class="card floorbackground">
 						<div class="table floorbackground">
-							<div class="image floorbackground" data-label="cheesecake">
-								<img
-									src="https://images.unsplash.com/photo-1631206616601-79af875341d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
-									alt="" />
+							<div class="image_floorbackground" data-label="cheesecake">
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://images.unsplash.com/photo-1631206616601-79af875341d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
+											alt="" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc" alt="brownie"
+											src="https://i.pinimg.com/474x/ac/0e/af/ac0eaf7074d82b5d6411b140c94c0565.jpg">
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc" alt="brownie"
+											src="https://topsecretrecipes.com/images/product/red-robin-mountain-high-mudd-pie-copycat-recipe.jpg">
+									</div>
+								</div>
 							</div>
 						</div>
 						<br>
@@ -409,10 +683,27 @@ table.classname td {
 					<h3 class="header floorbackground">SIDES</h3>
 					<div class="card floorbackground">
 						<div class="table floorbackground">
-							<div class="image floorbackground" data-label="fries">
-								<img
-									src="https://images.unsplash.com/photo-1623238912680-26fc5ffb57e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-									alt="" />
+							<div class="image_floorbackground" data-label="fries">
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://images.unsplash.com/photo-1623238912680-26fc5ffb57e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+											alt="" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://recipemarker.com/wp-content/uploads/2020/10/Sides-for-Mac-and-Cheese.jpeg"
+											alt="mac" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img alt="fries" style="border-radius: 2px;" class="desc"
+											src="https://www.aldi.us/fileadmin/fm-dam/Recipes/Appetizers/Sweet_Potato_Fries_Recipe.jpg">
+									</div>
+								</div>
 							</div>
 						</div>
 						<br>
@@ -442,13 +733,29 @@ table.classname td {
 					<h3 class="header floorbackground">BEVERAGES</h3>
 					<div class="card floorbackground">
 						<div class="table floorbackground">
-							<div class="image floorbackground" data-label="coke">
-								<img
-									src="https://images.unsplash.com/photo-1581098365948-6a5a912b7a49?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-									alt="" />
-							</div>
-						</div>
-						<br>
+							<div class="image_floorbackground" data-label="coke">
+								<div class="img-container">
+									<div class="zoom_box">
+										<img style="border-radius: 2px;" class="desc"
+											src="https://images.unsplash.com/photo-1581098365948-6a5a912b7a49?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+											alt="" />
+									</div>
+								</div>
+								<div class="img-container">
+									<div class="zoom_box">
+										<img alt="" style="border-radius: 2px;" class="desc"
+											src="https://www.thespruceeats.com/thmb/OfagHnZQpgIs4Y0ww-h2SsL_s8g=/889x667/smart/filters:no_upscale()/LIT-5a8f365efa6bcc00372a7634.jpg">
+                                    </div>
+                                </div>
+                                <div class="img-container">
+                                    <div class="zoom_box">
+                                        <img alt="rootbeer" style="border-radius: 2px;" class="desc"
+                                            src="https://grandolecreamery.com/wp-content/uploads/2020/04/Root-Beer.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
 						<table class="table floorbackground">
 							<c:forEach var="eachItem" items="${fullMenuItemList}">
 								<c:url var="addToCartLink" value="/addMenuItemToCart">
