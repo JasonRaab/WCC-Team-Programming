@@ -66,12 +66,13 @@ html {
 .textcolor {
 	color: #ffffff;
 }
-
 .floorbackground {
 	background-image:
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
 	background-repeat: repeat;
 	background-position: center top;
+	background-attachment: fixed;
+	text-align: center;
 	color: #ffffff;
 }
 

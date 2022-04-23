@@ -20,7 +20,6 @@ html {
 	background-size: cover
 }
 
-
 .floorbackground {
 	background-image:
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
@@ -28,6 +27,32 @@ html {
 	background-position: center top;
 	text-align: center;
 	color: #ffffff;
+}
+
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 140px;
+	width: 220px;
+	transform: translateY(15%);
+}
+
+.imgs {
+	margin-top: auto;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	height: 50%;
+}
+
+.logopic {
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	text-align: center;
+	color: blue;
 }
 /* Style the tab */
 .tab {
@@ -65,12 +90,14 @@ html {
 	border-top: none;
 }
 
-#table td, #table th {
-	border: 1px solid #ddd;
+#table td, #table th #table tr {
+	border: none;
+	border-collapse: collapse;
 	padding: 8px;
 }
 
 #table {
+	border: none;
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
 	width: 80%;
@@ -78,19 +105,50 @@ html {
 }
 
 #table th {
+	border: none;
+	border-collapse: collapse;
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
 	background-color: #04AA6D;
 	color: white;
 }
+
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image: url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+}
+.noborder {
+    border:none !important;
+}
+
 </style>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+
+
+<!-- https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png -->
+
 <body>
+	<header class="masthead">
+<!-- 		<img class="imgs" -->
+<!-- 			src="https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png" -->
+<!-- 			alt="food-pic"> -->
+		<!-- 				<h1>WELCOME TO GOOD TIME BOBBY'S</h1> -->
+		<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
+	</header>
+
 	<div class=" floorbackground">
-		<h1 class=" floorbackground" style="text-align: center;">Welcome to good time bobbys</h1>
+		<h1 class=" floorbackground" style="text-align: center;">Welcome
+			to good time bobbys</h1>
 		<div class="container floorbackground" style="text-align: center;">
 			<label for="uname"><b>Username</b></label> <input type="text"
 				placeholder="Enter Username" name="uname"> <br> <label
@@ -107,16 +165,16 @@ html {
 				aria-pressed="true">View Menu</a>
 		</div>
 		<br> <br>
-		<div class="container floorbackground">
-			<div class="card floorbackground">
-				<table class="table floorbackground">
+		<div class="container floorbackground noborder">
+			<div class="card floorbackground noborder">
+				<table class="table floorbackground noborder">
 					<c:forEach var="eachUser" items="${users}">
 						<c:url var="loginLink" value="menu">
 							<c:param name="userID" value="${eachUser.userId}" />
 							<c:param name="orderID" value="${order.orderId}" />
 						</c:url>
-						<tr>
-							<td><a href="${loginLink}">Login as
+						<tr class="noborder">
+							<td class="noborder"><a href="${loginLink}">Login as
 									${eachUser.firstName} </a></td>
 						</tr>
 

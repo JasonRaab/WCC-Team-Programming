@@ -26,6 +26,8 @@ html {
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
 	background-repeat: repeat;
 	background-position: center top;
+	background-attachment: fixed;
+	text-align: center;
 	color: #ffffff;
 }
 /* Style the tab */
@@ -108,35 +110,12 @@ html {
 </script>
 <title>Good Time Bobby's Menu</title>
 </head>
-<script>
-	function openMenu(evt, menuItemCategory) {
-		// Declare all variables
-		var i, tabcontent, tablinks;
-		// Get all elements with class="tabcontent" and hide them
-		tabcontent = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
-		// Get all elements with class="tablinks" and remove the class "active"
-		tablinks = document.getElementsByClassName("tablinks");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].className = tablinks[i].className
-					.replace(" active", "");
-		}
-		// Show the current tab, and add an "active" class to the button that opened the tab
-		document.getElementById(menuItemCategory).style.display = "block";
-		evt.currentTarget.className += " active";
-	}
-</script>
-<title>Good Time Bobby's Menu</title>
-</head>
 <body>
 
 	<div class=" floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
 				<h1>WELCOME TO GOOD TIME BOBBY'S</h1>
-					<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
 			</div>
 
 		</div>
@@ -150,13 +129,20 @@ html {
 		<div>
 			<div class="container floorbackground">
 				<div class="tab floorbackground">
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Apps')">Apps</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Salads')">Salads</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Sides')">Sides</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Sandwiches')">Sandwiches</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Entrees')">Entrees</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Desserts')">Desserts</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Beverages')">Beverages</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Apps')">Apps</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Salads')">Salads</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Sides')">Sides</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Sandwiches')">Sandwiches</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Entrees')">Entrees</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Desserts')">Desserts</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Beverages')">Beverages</button>
 				</div>
 
 				<!-- TAB CONTENT -->
@@ -195,12 +181,12 @@ html {
 										<td>${eachItem.itemId}</td>
 										<td>${eachItem.itemName}</td>
 										<td>${eachItem.itemDescription}</td>
-										<c:forEach var="eachIngredient"
-											items="${eachItem.getIngredients()}">
-											<c:if test="${eachIngredient.isActive == 1}">
-												<td>${eachIngredient.ingredientName}</td>
+										<td><c:forEach var="eachIngredient"
+												items="${eachItem.getIngredients()}">
+												<c:if test="${eachIngredient.isActive == 1}">
+												${eachIngredient.ingredientName}
 											</c:if>
-										</c:forEach>
+											</c:forEach></td>
 										<td>$${eachItem.itemPrice}</td>
 									</c:if>
 								</tr>

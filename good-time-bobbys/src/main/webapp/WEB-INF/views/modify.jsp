@@ -24,6 +24,8 @@ html {
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
 	background-repeat: repeat;
 	background-position: center top;
+	background-attachment: fixed;
+	text-align: center;
 	color: #ffffff;
 }
 /* Style the tab */
@@ -178,7 +180,7 @@ html {
 		</div>
 		<div class="container floorbackground">
 			<div>
-				<div class="tab">
+				<div class="tab floorbackground">
 					<button class="tablinks floorbackground" onclick="openMenu(event, 'Breads')">Breads</button>
 					<button class="tablinks floorbackground" onclick="openMenu(event, 'Dairy')">Dairy</button>
 					<button class="tablinks floorbackground" onclick="openMenu(event, 'Fruit')">Fruit</button>
@@ -201,24 +203,7 @@ html {
 						<h3 class="header floorbackground">Breads</h3>
 						<div class="card floorbackground">
 							<table class="table floorbackground">
-								<tr>
-									<c:forEach var="eachIngredient" items="${ingredients}">
-										<c:if
-											test="${eachIngredient.ingredientCategory.equals('Bread')}">
-											<tr>
-												<td>${eachIngredient.ingredientId}</td>
-												<td>${eachIngredient.ingredientName}</td>
-												<td>$${eachIngredient.ingredientPrice}</td>
-												<td><input type="checkbox"
-													id="${eachIngredient.ingredientName}"
-													name="ingredientAdded"
-													value="${eachIngredient.ingredientId}"> <label
-													for="ingredientAdded">Add Ingredient</label></td>
-											</tr>
-										</c:if>
-									</c:forEach>
-								</tr>
-								<tr>
+							<tr>
 									<c:forEach var="defaultIngredients"
 										items="${defaultIngredientList}">
 										<c:if
@@ -236,17 +221,10 @@ html {
 										</c:if>
 									</c:forEach>
 								</tr>
-							</table>
-						</div>
-					</div>
-					<div id="Vegetables" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Vegetables</h3>
-						<div class="card floorbackground">
-							<table class="table floorbackground">
 								<tr>
 									<c:forEach var="eachIngredient" items="${ingredients}">
 										<c:if
-											test="${eachIngredient.ingredientCategory.equals('Vegetable')}">
+											test="${eachIngredient.ingredientCategory.equals('Bread')}">
 											<tr>
 												<td>${eachIngredient.ingredientId}</td>
 												<td>${eachIngredient.ingredientName}</td>
@@ -260,6 +238,14 @@ html {
 										</c:if>
 									</c:forEach>
 								</tr>
+								
+							</table>
+						</div>
+					</div>
+					<div id="Vegetables" class="tabcontent floorbackground">
+						<h3 class="header floorbackground">Vegetables</h3>
+						<div class="card floorbackground">
+							<table class="table floorbackground">
 								<tr>
 									<c:forEach var="defaultIngredients"
 										items="${defaultIngredientList}">
@@ -278,17 +264,10 @@ html {
 										</c:if>
 									</c:forEach>
 								</tr>
-							</table>
-						</div>
-					</div>
-					<div id="Proteins" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Proteins</h3>
-						<div class="card floorbackground">
-							<table class="table floorbackground">
 								<tr>
 									<c:forEach var="eachIngredient" items="${ingredients}">
 										<c:if
-											test="${eachIngredient.ingredientCategory.equals('Protein')}">
+											test="${eachIngredient.ingredientCategory.equals('Vegetable')}">
 											<tr>
 												<td>${eachIngredient.ingredientId}</td>
 												<td>${eachIngredient.ingredientName}</td>
@@ -302,6 +281,13 @@ html {
 										</c:if>
 									</c:forEach>
 								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="Proteins" class="tabcontent floorbackground">
+						<h3 class="header floorbackground">Proteins</h3>
+						<div class="card floorbackground">
+							<table class="table floorbackground">
 								<tr>
 									<c:forEach var="defaultIngredients"
 										items="${defaultIngredientList}">
@@ -320,17 +306,10 @@ html {
 										</c:if>
 									</c:forEach>
 								</tr>
-							</table>
-						</div>
-					</div>
-					<div id="Fruit" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Fruit</h3>
-						<div class="card floorbackground">
-							<table class="table floorbackground">
 								<tr>
 									<c:forEach var="eachIngredient" items="${ingredients}">
 										<c:if
-											test="${eachIngredient.ingredientCategory.equals('Fruit')}">
+											test="${eachIngredient.ingredientCategory.equals('Protein')}">
 											<tr>
 												<td>${eachIngredient.ingredientId}</td>
 												<td>${eachIngredient.ingredientName}</td>
@@ -344,6 +323,13 @@ html {
 										</c:if>
 									</c:forEach>
 								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="Fruit" class="tabcontent floorbackground">
+						<h3 class="header floorbackground">Fruit</h3>
+						<div class="card floorbackground">
+							<table class="table floorbackground">
 								<tr>
 									<c:forEach var="defaultIngredients"
 										items="${defaultIngredientList}">
@@ -362,17 +348,10 @@ html {
 										</c:if>
 									</c:forEach>
 								</tr>
-							</table>
-						</div>
-					</div>
-					<div id="Dairy" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Dairy</h3>
-						<div class="card floorbackground">
-							<table class="table floorbackground">
 								<tr>
 									<c:forEach var="eachIngredient" items="${ingredients}">
 										<c:if
-											test="${eachIngredient.ingredientCategory.equals('Dairy')}">
+											test="${eachIngredient.ingredientCategory.equals('Fruit')}">
 											<tr>
 												<td>${eachIngredient.ingredientId}</td>
 												<td>${eachIngredient.ingredientName}</td>
@@ -386,6 +365,13 @@ html {
 										</c:if>
 									</c:forEach>
 								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="Dairy" class="tabcontent floorbackground">
+						<h3 class="header floorbackground">Dairy</h3>
+						<div class="card floorbackground">
+							<table class="table floorbackground">
 								<tr>
 									<c:forEach var="defaultIngredients"
 										items="${defaultIngredientList}">
@@ -404,17 +390,10 @@ html {
 										</c:if>
 									</c:forEach>
 								</tr>
-							</table>
-						</div>
-					</div>
-					<div id="Condiments" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Condiments</h3>
-						<div class="card floorbackground">
-							<table class="table floorbackground">
 								<tr>
 									<c:forEach var="eachIngredient" items="${ingredients}">
 										<c:if
-											test="${eachIngredient.ingredientCategory.equals('Condiment')}">
+											test="${eachIngredient.ingredientCategory.equals('Dairy')}">
 											<tr>
 												<td>${eachIngredient.ingredientId}</td>
 												<td>${eachIngredient.ingredientName}</td>
@@ -428,6 +407,13 @@ html {
 										</c:if>
 									</c:forEach>
 								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="Condiments" class="tabcontent floorbackground">
+						<h3 class="header floorbackground">Condiments</h3>
+						<div class="card floorbackground">
+							<table class="table floorbackground">
 								<tr>
 									<c:forEach var="defaultIngredients"
 										items="${defaultIngredientList}">
@@ -442,6 +428,23 @@ html {
 													name="ingredientAdded"
 													value="${defaultIngredients.ingredientId}" checked>
 													<label for="ingredientAdded">Remove Ingredient</label></td>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</tr>
+								<tr>
+									<c:forEach var="eachIngredient" items="${ingredients}">
+										<c:if
+											test="${eachIngredient.ingredientCategory.equals('Condiment')}">
+											<tr>
+												<td>${eachIngredient.ingredientId}</td>
+												<td>${eachIngredient.ingredientName}</td>
+												<td>$${eachIngredient.ingredientPrice}</td>
+												<td><input type="checkbox"
+													id="${eachIngredient.ingredientName}"
+													name="ingredientAdded"
+													value="${eachIngredient.ingredientId}"> <label
+													for="ingredientAdded">Add Ingredient</label></td>
 											</tr>
 										</c:if>
 									</c:forEach>

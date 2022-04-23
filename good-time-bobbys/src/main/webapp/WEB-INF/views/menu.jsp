@@ -25,6 +25,7 @@ html {
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
 	background-repeat: repeat;
 	background-position: center top;
+	background-attachment: fixed;
 	text-align: center;
 	color: #ffffff;
 }
@@ -76,267 +77,24 @@ html {
 padding
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 :
 
 
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ;
 -webkit-box-sizing
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-border-box
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+:border-box
 
 
 ;
 box-sizing
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-border-box
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+:boarder-box
 
 
 ;
@@ -368,85 +126,27 @@ img {
 	width: 220px;
 	transform: translateY(15%);
 }
-/* .tabcontent  {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-.tabcontent a {
-  color: #f6f4e6;
-  text-decoration: none;
-  font-size: 1.2em;
-  text-transform: uppercase;
-  font-weight: 500;
-  display: inline-block;
-  width: 80px;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-.tabcontent a:hover {
-  color: #fddb3a;
-}
-.tabcontent .dot {
-  width: 6px;
-  height: 6px;
-  background: #fddb3a;
-  border-radius: 50%;
-  opacity: 0;
-  -webkit-transform: translateX(30px);
-  transform: translateX(30px);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-.tabcontent a:nth-child(1):hover ~ .dot {
-  -webkit-transform: translateX(30px);
-  transform: translateX(30px);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  opacity: 1;
-}
-.tabcontent a:nth-child(2):hover ~ .dot {
-  -webkit-transform: translateX(110px);
-  transform: translateX(110px);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  opacity: 1;
-}
-.tabcontent a:nth-child(3):hover ~ .dot {
-  -webkit-transform: translateX(200px);
-  transform: translateX(200px);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  opacity: 1;
-}
-.tabcontent a:nth-child(4):hover ~ .dot {
-  -webkit-transform: translateX(285px);
-  transform: translateX(285px);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  opacity: 1;
-}
- */
+
 .header {
 	text-align: center;
 }
 
-#table td, #table th {
-	border: 1px solid #ddd;
+table td, th, tr {
+	border: none !important;
 	padding: 8px;
 	font: #ffffff;
 }
 
 #table {
 	font-family: Arial, Helvetica, sans-serif;
+	border: none !important;
 	border-collapse: collapse;
 	width: 80%;
 	margin: auto;
 }
 
 #table th {
+	border: none !important;
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
@@ -454,8 +154,16 @@ img {
 	color: white;
 }
 
+table.classname td {
+	boarder: none !important;
+}
+
 #p {
 	color: white;
+}
+
+.noborder {
+	border: none !important;
 }
 </style>
 <script>
@@ -546,20 +254,13 @@ img {
 								</c:url>
 								<tr>
 									<c:if test="${eachItem.itemCategory.equals('Appetizer')}">
-										<td>${eachItem.itemId}</td>
 										<td>${eachItem.itemName}</td>
-
+										<td></td>
 										<td>${eachItem.itemDescription}</td>
-										<td><c:forEach var="eachIngredient"
-												items="${eachItem.getIngredients()}">
-												<c:if test="${eachIngredient.isActive == 1}">
-									
-											${eachIngredient.ingredientName},
-									</c:if>
-											</c:forEach></td>
+										<td></td>
 										<td>$${eachItem.itemPrice}</td>
 										<td><a href="${addToCartLink}"
-											class="btn btn-primary btn-sm active">Add to Order</a> <input
+											class="btn btn-outline-light btn-sm">Add to Order</a> <input
 											type="hidden" id="orderID" name="orderID"
 											value="${order.orderId}"></td>
 										<td></td>
@@ -580,30 +281,26 @@ img {
 							</div>
 						</div>
 						<br>
-						<table class="table floorbackground">
+						<table class="table floorbackground noborder">
 							<c:forEach var="eachItem" items="${fullMenuItemList}">
 								<c:url var="addToCartLink" value="/addMenuItemToCart">
 									<c:param name="userID" value="${user.userId}" />
 									<c:param name="menuItemID" value="${eachItem.itemId}" />
 									<c:param name="orderID" value="${orderID}" />
 								</c:url>
-								<tr>
+								<tr class="noborder">
 									<c:if test="${eachItem.itemCategory.equals('Salad')}">
-										<td>${eachItem.itemId}</td>
 										<td>${eachItem.itemName}</td>
+										<td></td>
 										<td>${eachItem.itemDescription}</td>
-										<td><c:forEach var="eachIngredient"
-												items="${eachItem.getIngredients()}">
-												<c:if test="${eachIngredient.isActive == 1}">
-									
-											${eachIngredient.ingredientName},
-									</c:if>
-											</c:forEach></td>
+										<td></td>
 										<td>$${eachItem.itemPrice}</td>
 										<td><a href="${addToCartLink}"
-											class="btn btn-primary btn-sm active">Add to Order</a></td>
+											class="btn btn-outline-light btn-sm">Add to Order</a></td>
 									</c:if>
-								</tr>
+								<tr></tr>
+
+
 							</c:forEach>
 						</table>
 					</div>
@@ -629,19 +326,13 @@ img {
 								</c:url>
 								<tr>
 									<c:if test="${eachItem.itemCategory.equals('Sandwich')}">
-										<td>${eachItem.itemId}</td>
 										<td>${eachItem.itemName}</td>
+										<td></td>
 										<td>${eachItem.itemDescription}</td>
-										<td><c:forEach var="eachIngredient"
-												items="${eachItem.getIngredients()}">
-												<c:if test="${eachIngredient.isActive == 1}">
-									
-											${eachIngredient.ingredientName},
-									</c:if>
-											</c:forEach></td>
+										<td></td>
 										<td>$${eachItem.itemPrice}</td>
 										<td><a href="${addToCartLink}"
-											class="btn btn-primary btn-sm active">Add to Order</a></td>
+											class="btn btn-outline-light btn-sm">Add to Order</a></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -668,18 +359,13 @@ img {
 								</c:url>
 								<tr>
 									<c:if test="${eachItem.itemCategory.equals('Entree')}">
-										<td>${eachItem.itemId}</td>
 										<td>${eachItem.itemName}</td>
+										<td></td>
 										<td>${eachItem.itemDescription}</td>
-										<td><c:forEach var="eachIngredient"
-												items="${eachItem.getIngredients()}">
-												<c:if test="${eachIngredient.isActive == 1}">
-											${eachIngredient.ingredientName},
-									</c:if>
-											</c:forEach></td>
+										<td></td>
 										<td>$${eachItem.itemPrice}</td>
 										<td><a href="${addToCartLink}"
-											class="btn btn-primary btn-sm active">Add to Order</a></td>
+											class="btn btn-outline-light btn-sm">Add to Order</a></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -706,18 +392,13 @@ img {
 								</c:url>
 								<tr>
 									<c:if test="${eachItem.itemCategory.equals('Dessert')}">
-										<td>${eachItem.itemId}</td>
 										<td>${eachItem.itemName}</td>
+										<td></td>
 										<td>${eachItem.itemDescription}</td>
-										<td><c:forEach var="eachIngredient"
-												items="${eachItem.getIngredients()}">
-												<c:if test="${eachIngredient.isActive == 1}">
-											${eachIngredient.ingredientName},
-									</c:if>
-											</c:forEach></td>
+										<td></td>
 										<td>$${eachItem.itemPrice}</td>
 										<td><a href="${addToCartLink}"
-											class="btn btn-primary btn-sm active">Add to Order</a></td>
+											class="btn btn-outline-light btn-sm">Add to Order</a></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -744,18 +425,13 @@ img {
 								</c:url>
 								<tr>
 									<c:if test="${eachItem.itemCategory.equals('Side')}">
-										<td>${eachItem.itemId}</td>
 										<td>${eachItem.itemName}</td>
+										<td></td>
 										<td>${eachItem.itemDescription}</td>
-										<td><c:forEach var="eachIngredient"
-												items="${eachItem.getIngredients()}">
-												<c:if test="${eachIngredient.isActive == 1}">
-											${eachIngredient.ingredientName},
-									</c:if>
-											</c:forEach></td>
+										<td></td>
 										<td>$${eachItem.itemPrice}</td>
 										<td><a href="${addToCartLink}"
-											class="btn btn-primary btn-sm active">Add to Order</a></td>
+											class="btn btn-outline-light btn-sm">Add to Order</a></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -782,18 +458,13 @@ img {
 								</c:url>
 								<tr>
 									<c:if test="${eachItem.itemCategory.equals('Beverage')}">
-										<td>${eachItem.itemId}</td>
 										<td>${eachItem.itemName}</td>
+										<td></td>
 										<td>${eachItem.itemDescription}</td>
-										<td><c:forEach var="eachIngredient"
-												items="${eachItem.getIngredients()}">
-												<c:if test="${eachIngredient.isActive == 1}">
-											${eachIngredient.ingredientName},
-									</c:if>
-											</c:forEach></td>
+										<td></td>
 										<td>$${eachItem.itemPrice}</td>
 										<td><a href="${addToCartLink}"
-											class="btn btn-primary btn-sm active">Add to Order</a></td>
+											class="btn btn-outline-light btn-sm">Add to Order</a></td>
 									</c:if>
 								</tr>
 							</c:forEach>
