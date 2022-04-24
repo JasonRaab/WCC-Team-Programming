@@ -8,7 +8,7 @@ import com.wccnet.goodTimeBobbys.entity.MenuItem;
 
 public interface IMenuService {
 
-	public Double getTotal(ArrayList<MenuItem> menuItemPrice, Double subTotal, Double tax);
+	public Double getTotal(Double subTotal, Double tax);
 
 	public Double getSubTotal(ArrayList<MenuItem> menuItemPrice);
 

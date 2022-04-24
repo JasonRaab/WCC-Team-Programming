@@ -5,10 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel='stylesheet'
-	href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel='stylesheet'
+	href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 <style>
 html {
 	background-image:
@@ -16,7 +16,7 @@ html {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-attachment: fixed;
-	background-size: cover
+	background-size: cover;
 }
 
 .floorbackground {
@@ -36,14 +36,16 @@ html {
 	margin: auto;
 }
 
-#table td, #table th {
-	border: 1px solid #ddd;
+table td, th, tr {
+	border: none !important;
 	padding: 8px;
 	font: #ffffff;
 }
+
 /* #table tr:nth-child(even) { */
 /* 	background-color: #f2f2f2; */
 /* } */
+
 /* #table tr:hover { */
 /* 	background-color: #ddd; */
 /* } */
@@ -55,12 +57,9 @@ html {
 	color: white;
 }
 
-#p {
-	color: white;
-}
-
 .jumbotron {
 	font-family: "Georgia", serif;
+	font-size: 55px;
 }
 
 .empty-cart-parent {
@@ -72,6 +71,10 @@ html {
 	display: inline-block;
 	padding: .3rem .2rem;
 }
+
+#p {
+	color: white;
+}
 </style>
 <meta charset="ISO-8859-1">
 <title>Cart</title>
@@ -80,7 +83,7 @@ html {
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
-				<h1 style="font-size: 55px;">GOOD TIME BOBBY'S</h1>
+				<h1>GOOD TIME BOBBY'S</h1>
 			</div>
 
 		</div>
@@ -92,6 +95,7 @@ html {
 					<table class="table tabcontent floorbackground">
 						<c:choose>
 							<c:when test="${not empty menuItemList}">
+
 								<c:forEach var="eachMenuItem" items="${menuItemList}"
 									varStatus="myIndex">
 									<c:url var="addMoreToOrder" value="/backToMenu">
@@ -99,19 +103,11 @@ html {
 										<c:param name="orderID" value="${orderID}" />
 									</c:url>
 									<tr>
-
-
 										<td>Item Number: ${eachMenuItem.itemNumber}</td>
-										<td>${eachMenuItem.itemId}</td>
 										<td>${eachMenuItem.itemName}</td>
+										<td></td>
 										<td>${eachMenuItem.itemDescription}</td>
-										<td><c:forEach var="eachIngredient"
-												items="${eachMenuItem.getIngredients()}">
-												<c:if test="${eachIngredient.isActive == 1}">
-									
-											${eachIngredient.ingredientName},
-									</c:if>
-											</c:forEach></td>
+										<td></td>
 										<td>$${eachMenuItem.itemPrice}</td>
 
 										<c:url var="modify" value="/modify">
@@ -124,10 +120,9 @@ html {
 
 										<td>
 										<td style="text-align: right;"><a href="${modify}"
-											class="btn btn-sm active"
-											style="color: black; background-color: gray; font-size: medium;"
-											role="button" aria-pressed="true">Modify Item</a></td>
-
+											class="btn btn-outline-light btn-sm" role="button"
+											aria-pressed="true">Modify Item</a></td>
+										<!-- 									style="color: black; background-color: gray; font-size: medium;" -->
 									</tr>
 								</c:forEach>
 								<tr>
@@ -143,13 +138,14 @@ html {
 									<td></td>
 									<td>SUBTOTAL:</td>
 									<td align="right">$${subTotal}</td>
+									<td></td>
 									<td style="text-align: right;"><a href="${processOrder}"
-										class="btn btn-sm active"
-										style="color: black; background-color: gray; font-size: medium;"
-										role="button" aria-pressed="true">Process Order</a></td>
+										class="btn btn-outline-light btn-sm" role="button"
+										aria-pressed="true">Process Order</a></td>
+									<td></td>
+									<!-- 								style="color: black; background-color: gray; font-size: medium;" -->
 								</tr>
 							</c:when>
-
 							<c:otherwise>
 								<div class="empty-cart-parent">
 									<div class="empty-cart-child">
@@ -170,10 +166,10 @@ html {
 				<a href="${addMoreToOrder}" class="btn btn-primary btn-sm active"
 					style="color: white; background-color: black; font-size: medium;"
 					role="button" aria-pressed="true">Continue Shopping</a>
+				<!-- 					style="color: white; background-color: black; font-size: medium;" -->
 
 			</div>
 		</div>
 
 	</div>
 </body>
-</html>

@@ -50,16 +50,20 @@ html {
 .tabcontent {
 	display: none;
 	padding: 6px 12px;
-	border: 1px solid #ccc;
+	border: none !important;
 	border-top: none;
 	color: #ffffff;
+	border-top: none;
 }
+
 .header {
 	text-align: center;
 }
+
 .textcolor {
 	color: #ffffff;
 }
+
 .floorbackground {
 	background-image:
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
@@ -67,22 +71,31 @@ html {
 	background-position: center top;
 	color: #ffffff;
 }
-#table td, #table th {
-	border: 1px solid #ddd;
+
+table td, th, tr {
+	border: none !important;
 	padding: 8px;
+	font: #ffffff;
 }
+
 #table {
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
 	width: 80%;
 	margin: auto;
 }
+
 #table th {
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
 	background-color: #04AA6D;
 	color: white;
+}
+
+.jumbotron {
+	font-family: "Georgia", serif;
+	font-size: 55px;
 }
 </style>
 <script>
@@ -113,14 +126,11 @@ html {
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
-				<h1>
-					Hey ${user.firstName}, <br> THANK YOU FOR CHOOSING GOOD TIME
-					BOBBY'S!
-				</h1>
+				<h1>THANK YOU FOR CHOOSING GOOD TIME BOBBY'S</h1>
 				<br>
-				<h2>Order Number: ${orderID}</h2>
-				<h4>Subtotal: ${orderTotalWithoutTax}</h4>
-				<h4>Tax: ${orderTotalTax}</h4>
+				<h2>Order Number: #${orderID}</h2>
+				<h4>Subtotal: ${subTotal}</h4>
+				<h4>Tax: ${orderTax}</h4>
 				<h4>Total: ${orderTotalWithTax}</h4>
 				<%-- 			<h3>Order ID: ${order.orderId}</h3> --%>
 			</div>
@@ -131,20 +141,20 @@ html {
 				<div>
 					<div class="container floorbackground">
 						<div class="tab floorbackground">
-							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '1')">Item
-								1</button>
-							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '2')">Item
-								2</button>
-							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '3')">Item
-								3</button>
-							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '4')">Item
-								4</button>
+							<button class="tablinks floorbackground"
+								onclick="openItemOrdered(event, '1')">Item 1</button>
+							<button class="tablinks floorbackground"
+								onclick="openItemOrdered(event, '2')">Item 2</button>
+							<button class="tablinks floorbackground"
+								onclick="openItemOrdered(event, '3')">Item 3</button>
+							<button class="tablinks floorbackground"
+								onclick="openItemOrdered(event, '4')">Item 4</button>
 						</div>
 					</div>
 				</div>
 				<!-- TAB CONTENT -->
 				<div id="1" class="tabcontent floorbackground">
-					<h3 class="header">Item 1</h3>
+					<h3 class="header"></h3>
 					<div class="card floorbackground">
 
 						<table class="table floorbackground">
@@ -231,6 +241,18 @@ html {
 							</c:forEach>
 						</table>
 					</div>
+				</div>
+					<div class="floorbackground">
+					<c:url var="confirmation" value="/confirmation">
+						<c:param name="userID" value="${userID}" />
+						<c:param name="orderID" value="${orderID}" />
+						<c:param name="subTotal" value="${subTotal}" />
+						<c:param name="orderTax" value="${orderTax}" />
+						<c:param name="orderTotalWithTax" value="${orderTotalWithTax}" />
+						<%-- 				<c:param name="allItemsOrdered" value="${allItemsOrdered}" /> --%>
+					</c:url>
+					<a href="${confirmation}" class="btn btn-outline-light"
+						role="button" aria-pressed="true">Complete Order</a>
 				</div>
 			</div>
 		</div>

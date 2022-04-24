@@ -1,7 +1,10 @@
 package com.wccnet.goodTimeBobbys.entity;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -39,7 +42,7 @@ public class User {
 	private String password;
 
 	@Column(name = "create_time")
-	private Timestamp create_time;
+	private Timestamp createTime;
 
 	// One Role for Many User(s)
 	@Column(name = "role")
@@ -77,8 +80,26 @@ public class User {
 				+ "\nEmail:" + email + "\nPassword: " + password + "\nUser Role ID: " + userRoleId;
 	}
 
+	public Timestamp getDate() throws ParseException {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(new Date());
+		Date parsedDate = sdf.parse(currentTime);
+
+		Timestamp timestamp = new Timestamp(parsedDate.getTime());
+		return timestamp;
+	}
+
 	public User() {
 		this.userRoleId = 3; // The RoleId is hard coded to auto designate new users as Customers
+		this.isActive = 1;
+
+		try {
+			this.setCreateTime(getDate());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -96,9 +117,16 @@ public class User {
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.create_time = create_time;
+		this.createTime = create_time;
 		this.userRoleId = 3; // The RoleId is hard coded to auto designate new users as Customers
 		this.isActive = isActive;
+
+		try {
+			this.setCreateTime(getDate());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -110,6 +138,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.userRoleId = 3; // The RoleId is hard coded to auto designate new users as Customers
+		this.isActive = 1;
 	}
 
 	public User(String firstName, String lastName, String email, String password) {
@@ -118,6 +147,7 @@ public class User {
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.isActive = 1;
 		this.userRoleId = 3; // The RoleId is hard coded to auto designate new users as Customers
 	}
 
@@ -126,6 +156,7 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.isActive = 1;
 		this.userRoleId = 3; // The RoleId is hard coded to auto designate new users as Customers
 	}
 
@@ -170,12 +201,12 @@ public class User {
 		this.password = password;
 	}
 
-	public Timestamp getCreate_time() {
-		return create_time;
+	public Timestamp getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreate_time(Timestamp create_time) {
-		this.create_time = create_time;
+	public void setCreateTime(Timestamp create_time) {
+		this.createTime = create_time;
 	}
 
 	public int getUserRoleId() {

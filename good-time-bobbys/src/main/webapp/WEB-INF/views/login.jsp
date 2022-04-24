@@ -6,9 +6,7 @@
 <html>
 <head>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <meta charset="UTF-8">
 <style>
 html {
@@ -22,13 +20,15 @@ html {
 
 .jumbotron {
 	font-family: "Georgia", serif;
+	font-size: 55px;
 }
 
 .floorbackground {
 	background-image:
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
-	background-repeat: repeat;
+	background-repeat: no-repeat;
 	background-position: center top;
+	background-attachment: fixed;
 	text-align: center;
 	color: #ffffff;
 }
@@ -90,10 +90,10 @@ img {
 	border-top: none;
 }
 
-#table td, #table th #table tr {
-	border: none;
-	border-collapse: collapse;
+table td, th, tr {
+	border: none !important;
 	padding: 8px;
+	font: #ffffff;
 }
 
 #table {
@@ -131,75 +131,84 @@ header.masthead {
 	border: none !important;
 }
 </style>
+<script type="text/javascript">
+	function checkForm(form) {
+		if (form.userEmail.value == "") {
+			alert("Error: Username cannot be blank!");
+			form.userEmail.focus();
+			return false;
+		} else if (form.password.value == "") {
+			alert("Error: Please check that you've entered and confirmed your password!");
+			form.password.focus();
+			return false;
+		}
+		return true;
+	}
+</script>
 <meta charset="ISO-8859-1">
 <title>Welcome</title>
 </head>
-
-
-<!-- https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png -->
-
 <body>
 	<header class="masthead"></header>
 
 	<div class=" floorbackground">
-		<h1 class="floorbackground"
-			style="text-align: center; font-size: 55px;">WELCOME TO GOOD
-			TIME BOBBY'S</h1>
+		<h1 class="floorbackground jumbotron">
+			WELCOME TO <br> GOOD TIME BOBBY'S
+		</h1>
 
-		<c:url var="loginWithUsername" value="loginConfirmation">
-			<c:param name="userID" value="${eachUser.userId}" />
+		<c:url var="loginConfirmation" value="loginConfirmation">
 			<c:param name="orderID" value="${order.orderId}" />
 		</c:url>
 
-		<form action="loginWithUsername" method="post">
+		<c:url var="loginConfirmation" value="loginConfirmation">
+			<c:param name="orderID" value="${order.orderId}" />
+		</c:url>
+
+		<form:form modelAttribute="orderID" action="loginConfirmation"
+			onsubmit="return checkForm(this);">
 
 			<div class="container floorbackground" style="text-align: center;">
-				<label for="uname"><b>Username</b></label> 	
-				<input type="text" placeholder="Enter Username" name="uname"> <br> 
-					
-					<label for="psw"><b>Password</b></label> 
-					<input type="password" placeholder="Enter Password" name="psw">
+				<label for="userEmail">Username</label> <input type="text"
+					placeholder="Enter your email" name="userEmail"> <br>
+				<label for="password">Password</label> <input type="password"
+					placeholder="Enter Password" name="password"> <input
+					type="hidden" id="orderID" name="orderID" value="${order.orderId}"
+					required></input>
 			</div>
 			<br>
 			<div class=" floorbackground" style="text-align: center;">
-			
-				 <button type="submit">Login</button>
-				<%-- <a href="${pageContext.request.contextPath}/menu"
-					class="btn btn-primary btn-sm active" role="button"
-					aria-pressed="true">Login</a> --%>
+
+				<button class="btn btn-outline-light btn-sm" type="submit">Login</button>
+
+				<c:url var="addUser" value="/addUser">
+					<%-- 	<c:param name="orderID" value="${order.orderId}" /> --%>
+				</c:url>
+
+				<a href="${addUser}" class="btn btn-outline-light btn-sm"
+					role="button" aria-pressed="true">Sign Up</a>
 			</div>
-		</form>
+		</form:form>
 
 		<div class=" floorbackground" style="text-align: center;">
-		
-		<%-- 
-			<a href="${pageContext.request.contextPath}/menu"
-				class="btn btn-primary btn-sm active" role="button"
-				aria-pressed="true">Login</a> --%>
-				
-				 <br> <a
-				href="${pageContext.request.contextPath}/readOnlyMenu"
-				class="btn btn-primary btn-sm active" role="button"
+
+			<br> <a href="${pageContext.request.contextPath}/readOnlyMenu"
+				class="btn btn-outline-light btn-sm" role="button"
 				aria-pressed="true">View Menu</a>
 		</div>
-		<br>
-		<div class="container floorbackground noborder">
-			<div class="card floorbackground noborder">
-				<table class="table floorbackground noborder">
-					<c:forEach var="eachUser" items="${users}">
-						<c:url var="loginLink" value="menu">
-							<c:param name="userID" value="${eachUser.userId}" />
-							<c:param name="orderID" value="${order.orderId}" />
-						</c:url>
-						<tr class="noborder">
-							<td class="noborder"><a href="${loginLink}">Login as
-									${eachUser.firstName} </a></td>
-						</tr>
-
-					</c:forEach>
-				</table>
-			</div>
-		</div>
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br>
+	</div>
+	<div class="footer floorbackground">
+		<table width="100%">
+			<tbody>
+				<tr>
+					<td class="aligncenter content-block">Questions? Email <a
+						href="mailto:">support@goodtimebobbys.inc</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>

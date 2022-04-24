@@ -1,6 +1,10 @@
 package com.wccnet.goodTimeBobbys.controller;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -57,6 +61,43 @@ public class MainController {
 		return "login";
 	}
 
+	@RequestMapping(value = "/loginConfirmation")
+	public String loginConfirmationRedirect(Model model, @RequestParam("userEmail") String userEmail,
+			@RequestParam(value = "orderID") Integer orderID, @RequestParam("password") String password,
+			RedirectAttributes redirectAttribute) {
+
+		Integer orderIdInt = orderID;
+
+		if (userDAO.getUserByEmailAndPassword(userEmail, password) != -1) {
+			Integer userIdInt = userDAO.getUserByEmailAndPassword(userEmail, password);
+
+			System.out.println("user id: " + userEmail + "   password: " + password);
+
+			System.out.println("user id " + userIdInt);
+			redirectAttribute.addAttribute("userID", userIdInt);
+			redirectAttribute.addAttribute("orderID", orderIdInt);
+
+			return "redirect:/menu";
+		} else {
+
+			return "redirect:/";
+		}
+	}
+
+	@RequestMapping("/addUser")
+	public String createUserProfile(Model model) throws ParseException {
+		User newUser = new User();
+
+		model.addAttribute("user", newUser);
+		return "addUser";
+	}
+
+	@RequestMapping("/processUser")
+	public String persistUserToDatabase(@ModelAttribute("user") User user, BindingResult bindingResult) {
+		userDAO.saveUser(user);
+		return "redirect:/";
+	}
+
 	@RequestMapping("/readOnlyMenu")
 	public String readOnlyMenuPage(Model model) {
 		model.addAttribute("fullMenuItemList", restaurantDAO.getMenuItems());
@@ -68,7 +109,6 @@ public class MainController {
 	public String getMenuItems(Model model, @RequestParam(name = "userID", defaultValue = "0") int userID,
 			@RequestParam(name = "orderID") int orderID) {
 
-		// TODO: create insert of UserID where orderId = orderID
 		orderProcessingImpl.createOrderInfo(orderID, userID);
 
 		model.addAttribute("user", userDAO.getUserByID(userID));
@@ -118,8 +158,6 @@ public class MainController {
 	public String backToCart(Model model, @RequestParam(name = "userID") int userID,
 			@RequestParam(name = "orderID") int orderID,
 			@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList, BindingResult bindingResult) {
-//			@ModelAttribute(name = "subtotal") String subTotal) {
-
 		if (!menuService.getAddedIngredientsByUser().isEmpty()) {
 			menuService.getIngredientsAddedPriceTotal();
 			menuService.clearAddedIngredientsByUser();
@@ -196,6 +234,7 @@ public class MainController {
 		fullIngredientList.removeAll(ingredientsToRemove);
 
 		model.addAttribute("user", user);
+		model.addAttribute("menuItem", menuItem);
 		model.addAttribute("userID", userIdInt);
 		model.addAttribute("menuItemID", menuItem.getItemId());
 		model.addAttribute("itemNumber", itemNumberInt);
@@ -244,7 +283,6 @@ public class MainController {
 				System.out.println("in ADD - add ingredient: " + ingredientID);
 
 				ItemOrdered itemOrdered = new ItemOrdered(orderInfo, itemNumberInt, menuItem, ingredientID, 1);
-				// orderProcessingImpl.addItemOrderedToDatabase(itemOrdered);
 				orderProcessingImpl.addItemOrderedToList(itemOrdered);
 			}
 		}
@@ -258,7 +296,6 @@ public class MainController {
 				System.out.println("in REMOVED - add ingredient: " + ingredientID);
 
 				ItemOrdered itemOrdered = new ItemOrdered(orderInfo, itemNumberInt, menuItem, ingredientID, 0);
-				// orderProcessingImpl.addItemOrderedToDatabase(itemOrdered);
 				orderProcessingImpl.addItemOrderedToList(itemOrdered);
 			}
 		}
@@ -268,21 +305,9 @@ public class MainController {
 		redirectAttribute.addAttribute("userID", userIdInt);
 		redirectAttribute.addAttribute("orderID", orderIDint);
 
-//		
-//		model.addAttribute("addedIngredientsByUser", menuService.getAddedIngredientsByUser());
-//		model.addAttribute("removedIngredientsByUser", menuService.getRemovedIngredientsByUser());
-//		model.addAttribute("user", user);
-//		model.addAttribute("userID", userIdInt);
-//		model.addAttribute("menuItem", menuItem);
-//		model.addAttribute("menuItemID", menuItemIdInt);
-//		model.addAttribute("orderID", orderIDint);
-//		model.addAttribute("itemNumber", itemNumberInt);
-//		model.addAttribute("ingredientPriceString", menuService.getIngredientsAddedPriceTotal());
-
 		return "redirect:/backToCart";
 	}
 
-	// This is under construction - revisit
 	@RequestMapping("/addChangesToItem")
 	public String addChangesToItem(Model model, @RequestParam(name = "userID") int userID,
 			@RequestParam(name = "ingredientAdded") String[] checkboxValue,
@@ -315,11 +340,7 @@ public class MainController {
 		return "fullIngredientList";
 	}
 
-	//this is ALEXS PROJECT
-	
-	
 	// ADD THIS TO THE FUNCTION PARAMS WHEN WE ARE ABLE!!!
-	// @RequestParam("ingredientCatagory") String ingredientCategotry,
 	@RequestMapping("/filteredIngredientList")
 	public String getFilteredIngredientList(Model model, @ModelAttribute("ingredients") Ingredient ingredient,
 			BindingResult result) {
@@ -373,7 +394,7 @@ public class MainController {
 
 		orderInfo.setOrderSubtotal(subTotalDouble);
 		orderInfo.setOrderTax(menuService.getTax(subTotalDouble));
-		orderInfo.setOrderTotal(menuService.getTotal(menuItemList, subTotalDouble, .06));
+		orderInfo.setOrderTotal(menuService.getTotal(subTotalDouble, .06));
 
 		ArrayList<ItemOrdered> itemsOrderedList = orderProcessingImpl.getItemOrderedHolder();
 		ArrayList<ItemOrdered> sendItemOrderedList = new ArrayList<>();
@@ -431,34 +452,60 @@ public class MainController {
 		model.addAttribute("ingredientDAO", ingredientDAO);
 		model.addAttribute("sendItemOrderedList", sendItemOrderedList);
 		model.addAttribute("itemsOrderedList", itemsOrderedList);
-		model.addAttribute("orderTotalWithoutTax", subTotalDouble);
-		model.addAttribute("orderTotalWithTax", menuService.getTotal(menuItemList, subTotalDouble, taxDouble));
-		model.addAttribute("orderTotalTax", taxDouble);
+		model.addAttribute("subTotal", subTotalDouble);
+		model.addAttribute("orderTotalWithTax", menuService.getTotal(subTotalDouble, taxDouble));
+		model.addAttribute("orderTax", taxDouble);
+		model.addAttribute("menuItemList", menuItemList);
 		return "processOrder";
 	}
 
-	@RequestMapping("/sendOrderToDatabase")
+	@RequestMapping("/confirmation")
 	public String sendOrderToDatabase(Model model, @RequestParam(name = "orderID") int orderID,
-			@RequestParam(name = "userID") int userID, @RequestParam(name = "itemNumber") int itemNumber,
+			@RequestParam(name = "userID") int userID, @RequestParam(name = "subTotal") double subTotal,
+			@RequestParam(name = "orderTax") double orderTax,
+			@RequestParam(name = "orderTotalWithTax") double orderTotal,
 			@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList) {
 		int userIdInt = userID;
 		int orderIdInt = orderID;
-		int itemNumberInt = itemNumber;
-		Double subTotalDouble = menuService.getSubTotal(menuItemList);
+
+		User user = userDAO.getUserByID(userIdInt);
+		for (MenuItem menuItem : orderProcessingImpl.getMenuItemInCart()) {
+			System.out.println(menuItem);
+		}
+		;
+		// this is empty?
+		// menuItemList = orderProcessingImpl.getMenuItemInCart();
+
+		// this won't work bc its empty
+		Double subTotalDouble = subTotal;
+		Double orderTaxDouble = orderTax;
+		Double orderTotalDouble = orderTotal;
 		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
 		String date = orderInfo.getOrderDate();
-		menuItemList = orderProcessingImpl.getMenuItemInCart();
-		ArrayList<ItemOrdered> itemsOrderedList = orderProcessingImpl.getItemOrderedHolder();
 
+		// loop through the itemsOrdered on a particular order
+		// this will contain the same menuItemID many times if modifications have taken
+		// place
+		// need to filter the results by itemNumber to isolate the menuItem price
+		// DO WE ALREADY DO THIS IN PROCESS ORDER????
+
+		// this is empty?
+		// ArrayList<ItemOrdered> itemsOrderedList =
+		// orderProcessingImpl.getItemOrderedHolder();
+
+		model.addAttribute("user", user);
 		model.addAttribute("orderDate", date);
 		model.addAttribute("userID", userIdInt);
 		model.addAttribute("orderID", orderIdInt);
-		model.addAttribute("itemNumber", itemNumberInt);
+//		model.addAttribute("itemNumber", itemNumberInt);
 		model.addAttribute("subTotal", subTotalDouble);
-		model.addAttribute("menuItemList", menuItemList);
-		model.addAttribute("itemsOrderedList", itemsOrderedList);
+		model.addAttribute("orderTax", orderTaxDouble);
+		model.addAttribute("orderTotal", orderTotalDouble);
+		// model.addAttribute("itemsOrderedList", orderInfo.getItemsOrdered());
+		// model.addAttribute("menuItemList", menuItemList);
+		// model.addAttribute("itemsOrderedList", itemsOrderedList);
 
-		return "sendOrderToDatabase";
+		return "confirmation";
 	}
 
 }

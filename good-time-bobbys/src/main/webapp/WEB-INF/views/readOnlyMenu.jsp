@@ -232,7 +232,7 @@ table.classname td {
 		</div>
 		<div style="text-align: center;">
 			<a href="${pageContext.request.contextPath}/"
-				class="btn btn-outline-light btn-md" role="button"
+				class="btn btn-outline-light btn-sm" role="button"
 				aria-pressed="true">Back to Login</a>
 		</div>
 

@@ -61,7 +61,7 @@ public class MenuServiceImpl implements IMenuService {
 	}
 
 	@Override
-	public Double getTotal(ArrayList<MenuItem> menuItemPrice, Double subTotal, Double tax) {
+	public Double getTotal(Double subTotal, Double tax) {
 
 		Double total = 0.00;
 		total = (tax += subTotal);

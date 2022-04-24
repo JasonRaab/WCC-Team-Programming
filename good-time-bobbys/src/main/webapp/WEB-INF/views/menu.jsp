@@ -99,6 +99,8 @@ padding
 
 
 
+
+
 :
 
 
@@ -120,7 +122,11 @@ padding
 
 
 
+
 0
+
+
+
 
 
 
@@ -164,10 +170,11 @@ padding
 
 
 
-
-
-
 :border-box
+
+
+
+
 
 
 
@@ -206,21 +213,12 @@ box-sizing
 
 
 
+
+
+
+
+
 :border-box
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -329,16 +327,16 @@ table.classname td {
 
 .jumbotron {
 	font-family: "Georgia", serif;
+	font-size: 55px;
 }
 
 .cart-button {
-     line-height: 12px;
-     margin-top: 228px;
-     margin-right: 405px;
-     position:absolute;
-     top:0;
-     right:0;
-
+	line-height: 12px;
+	margin-top: 228px;
+	margin-right: 405px;
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 </style>
 <script>
@@ -368,17 +366,19 @@ table.classname td {
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
-				<h1 style="font-size: 55px;">GOOD TIME BOBBY'S</h1>
+				<h1>GOOD TIME BOBBY'S</h1>
 			</div>
+			<div class="floorbackground" style="text-align: center;">
+				<c:url var="cart" value="/cart">
+					<c:param name="userID" value="${user.userId}" />
+					<c:param name="orderID" value="${orderID}" />
+				</c:url>
+				<a class="btn btn-outline-light btn-sm" href="${cart}"
+					style="text-align: center; font-size: 21px;"><i
+					style="font-size: 25px;" class='fa fa-shopping-cart'></i></a>
+			</div>
+		</div>
 
-		</div>
-		<div class="floorbackground" style="text-align: center;">
-			<c:url var="cart" value="/cart">
-				<c:param name="userID" value="${user.userId}" />
-				<c:param name="orderID" value="${orderID}" />
-			</c:url>
-			<a class="cart-button btn btn-outline-light btn-lg" href="${cart}" style="text-align: center;font-size: 21px;">View Cart</a>
-		</div>
 		<br>
 		<div>
 			<div class="container floorbackground">
@@ -398,8 +398,9 @@ table.classname td {
 					<button class="tablinks floorbackground"
 						onclick="openMenu(event, 'Beverages')">Beverages</button>
 					<div class="dot"></div>
-				</div>
 
+
+				</div>
 
 				<!-- TAB CONTENT -->
 				<div id="Apps" class="tabcontent floorbackground">
@@ -427,8 +428,6 @@ table.classname td {
 								<div class="zoom_box">
 									<img alt="wings" style="border-radius: 2px;" class="desc"
 										src="https://cdn.cdkitchen.com/recipes/images/2018/08/2449-8317-mx.jpg">
-									<!--  src="https://www.macheesmo.com/wp-content/uploads/2017/01/Real-Boneless-Wings-Featire.jpg">-->
-
 								</div>
 							</div>
 						</div>
@@ -443,7 +442,9 @@ table.classname td {
 								<tr>
 									<c:if test="${eachItem.itemCategory.equals('Appetizer')}">
 										<td>${eachItem.itemName}</td>
+										<td></td>
 										<td>${eachItem.itemDescription}</td>
+										<td></td>
 										<td>$${eachItem.itemPrice}</td>
 										<td><a href="${addToCartLink}"
 											class="btn btn-outline-light btn-sm">Add to Order</a> <input
@@ -772,6 +773,7 @@ table.classname td {
 					</div>
 				</div>
 			</div>
+
 			<div class="footer">
 				<table width="100%">
 					<tbody>

@@ -74,15 +74,6 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 		return query.getResultList();
 	}
 
-	// Get MenuItem Ingredients by Menu Item ID
-//	@Override
-//	@Transactional
-//	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID){
-//		
-//		Session session = sessionFactory.getCurrentSession();
-//		menuItem = session.get(MenuItem.class, menuItemID);
-//		return menuItem.getIngredients();
-//	}
 	@Override
 	@Transactional
 	public void saveOrder(OrderInfo order) {
