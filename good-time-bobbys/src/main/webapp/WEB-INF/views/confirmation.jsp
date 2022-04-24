@@ -72,7 +72,7 @@ table td, th, tr {
 			</div>
 			<div>
 				<br>
-				<h2>${user.firstName}&nbsp;${user.lastName},&nbsp;your&nbsp;order&nbsp;will&nbsp;be&nbsp;ready&nbsp;for&nbsp;pick&nbsp;up&nbsp;in&nbsp;${randomPickupTime}&nbsp;minutes.</h2>
+				<h2>${user.firstName},&nbsp;your&nbsp;order&nbsp;will&nbsp;be&nbsp;ready&nbsp;for&nbsp;pick&nbsp;up&nbsp;in&nbsp;${randomPickupTime}&nbsp;minutes.</h2>
 			</div>
 		</div>
 		<div class="card  floorbackground">
