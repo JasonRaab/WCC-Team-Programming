@@ -177,7 +177,7 @@ table td, th, tr {
 					</div>
 				</div>
 				<div id="2" class="tabcontent floorbackground">
-					<h3 class="header floorbackground">Item 2</h3>
+					<h3 class="header floorbackground"></h3>
 					<div class="card floorbackground">
 						<table class="table floorbackground">
 							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
@@ -199,7 +199,7 @@ table td, th, tr {
 					</div>
 				</div>
 				<div id="3" class="tabcontent floorbackground">
-					<h3 class="header floorbackground">Item 3</h3>
+					<h3 class="header floorbackground"></h3>
 					<div class="card floorbackground">
 						<table class="table floorbackground">
 							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
@@ -221,7 +221,7 @@ table td, th, tr {
 					</div>
 				</div>
 				<div id="4" class="tabcontent floorbackground">
-					<h3 class="header floorbackground">Item 4</h3>
+					<h3 class="header floorbackground"></h3>
 					<div class="card floorbackground">
 						<table class="table floorbackground">
 							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">

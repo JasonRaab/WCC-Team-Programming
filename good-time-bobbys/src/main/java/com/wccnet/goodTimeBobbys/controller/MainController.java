@@ -1,10 +1,7 @@
 package com.wccnet.goodTimeBobbys.controller;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -151,6 +148,7 @@ public class MainController {
 		model.addAttribute("userID", userIdInt);
 		model.addAttribute("user", userDAO.getUserByID(userID));
 		model.addAttribute("fullMenuItemList", restaurantDAO.getMenuItems());
+
 		return "menu";
 	}
 
@@ -180,6 +178,7 @@ public class MainController {
 		model.addAttribute("itemNumber", menuService.getItemNumber(menuItemList));
 		model.addAttribute("menuItemList", menuItemList);
 		model.addAttribute("subTotal", subTotalDouble);
+
 		return "cart";
 	}
 
@@ -277,10 +276,8 @@ public class MainController {
 		for (Integer ingredientID : orderListCreator.getModifiedIngredientIdSet()) {
 			if (defaultIngredientIDList.contains(ingredientID)) {
 
-				System.out.println("in ADD - Do Nothing for ingredientID: " + ingredientID);
 			} else {
 				menuService.addToAddedIngredientsByUser(ingredientDAO.getIngredientByID(ingredientID));
-				System.out.println("in ADD - add ingredient: " + ingredientID);
 
 				ItemOrdered itemOrdered = new ItemOrdered(orderInfo, itemNumberInt, menuItem, ingredientID, 1);
 				orderProcessingImpl.addItemOrderedToList(itemOrdered);
@@ -329,46 +326,6 @@ public class MainController {
 		model.addAttribute("subTotal", menuService.getSubTotal(menuItemList));
 
 		return "redirect:/cart";
-	}
-
-	@RequestMapping("/fullIngredientList")
-	public String getIngerdientList(Model model, @ModelAttribute("ingredient") Ingredient ingredient,
-			BindingResult result) {
-		model.addAttribute("ingredient", restaurantDAO.getIngredient());
-		System.out.println("in controller.getIngretientList");
-
-		return "fullIngredientList";
-	}
-
-	// ADD THIS TO THE FUNCTION PARAMS WHEN WE ARE ABLE!!!
-	@RequestMapping("/filteredIngredientList")
-	public String getFilteredIngredientList(Model model, @ModelAttribute("ingredients") Ingredient ingredient,
-			BindingResult result) {
-		model.addAttribute("ingredients", restaurantDAO.getIngredientsByIngredientCategory("Burger"));
-		System.out.println("Getting the filtered ingredient list");
-		return "filteredIngredientList";
-	}
-
-	@RequestMapping("/checkout")
-	public String checkout(Model model, @RequestParam(name = "userID") int userID,
-			@RequestParam(name = "orderID") int orderID,
-			@RequestParam(name = "comparisonSet") Set<Integer> comparisonSet,
-			@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
-			@ModelAttribute(name = "ingredients") Ingredient ingredients,
-			@ModelAttribute(name = "subTotal") String priceTotal, BindingResult bindingResult,
-			RedirectAttributes redirectAttribute) {
-		User user = userDAO.getUserByID(userID);
-		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
-		int orderIDint = orderInfo.getOrderId();
-
-		model.addAttribute(user);
-		model.addAttribute("orderID", orderIDint);
-		model.addAttribute(menuItemList);
-		model.addAttribute(comparisonSet);
-		model.addAttribute("priceTotal", priceTotal);
-		model.addAttribute("ingredients", ingredientDAO.getIngredientListByMenuItemID(8));
-
-		return "checkout";
 	}
 
 	@RequestMapping("/processOrder")
@@ -472,40 +429,70 @@ public class MainController {
 		for (MenuItem menuItem : orderProcessingImpl.getMenuItemInCart()) {
 			System.out.println(menuItem);
 		}
-		;
-		// this is empty?
-		// menuItemList = orderProcessingImpl.getMenuItemInCart();
-
-		// this won't work bc its empty
 		Double subTotalDouble = subTotal;
 		Double orderTaxDouble = orderTax;
 		Double orderTotalDouble = orderTotal;
 		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
 		String date = orderInfo.getOrderDate();
 
-		// loop through the itemsOrdered on a particular order
-		// this will contain the same menuItemID many times if modifications have taken
-		// place
-		// need to filter the results by itemNumber to isolate the menuItem price
-		// DO WE ALREADY DO THIS IN PROCESS ORDER????
-
-		// this is empty?
-		// ArrayList<ItemOrdered> itemsOrderedList =
-		// orderProcessingImpl.getItemOrderedHolder();
-
+		model.addAttribute("randomPickupTime", generateRandom());
 		model.addAttribute("user", user);
 		model.addAttribute("orderDate", date);
 		model.addAttribute("userID", userIdInt);
 		model.addAttribute("orderID", orderIdInt);
-//		model.addAttribute("itemNumber", itemNumberInt);
 		model.addAttribute("subTotal", subTotalDouble);
 		model.addAttribute("orderTax", orderTaxDouble);
 		model.addAttribute("orderTotal", orderTotalDouble);
-		// model.addAttribute("itemsOrderedList", orderInfo.getItemsOrdered());
-		// model.addAttribute("menuItemList", menuItemList);
-		// model.addAttribute("itemsOrderedList", itemsOrderedList);
 
 		return "confirmation";
+	}
+
+	@ModelAttribute
+	public int generateRandom() {
+		int min = 15;
+		int max = 25;
+
+		int randomInt = (int) Math.floor(Math.random() * (max - min + 1) + min);
+
+		return randomInt;
+	}
+
+	// ADD THIS TO THE FUNCTION PARAMS WHEN WE ARE ABLE!!!
+	@RequestMapping("/filteredIngredientList")
+	public String getFilteredIngredientList(Model model, @ModelAttribute("ingredients") Ingredient ingredient,
+			BindingResult result) {
+		model.addAttribute("ingredients", restaurantDAO.getIngredientsByIngredientCategory("Burger"));
+		return "filteredIngredientList";
+	}
+
+	@RequestMapping("/fullIngredientList")
+	public String getIngerdientList(Model model, @ModelAttribute("ingredient") Ingredient ingredient,
+			BindingResult result) {
+		model.addAttribute("ingredient", restaurantDAO.getIngredient());
+
+		return "fullIngredientList";
+	}
+
+	@RequestMapping("/checkout")
+	public String checkout(Model model, @RequestParam(name = "userID") int userID,
+			@RequestParam(name = "orderID") int orderID,
+			@RequestParam(name = "comparisonSet") Set<Integer> comparisonSet,
+			@ModelAttribute(name = "menuItemList") ArrayList<MenuItem> menuItemList,
+			@ModelAttribute(name = "ingredients") Ingredient ingredients,
+			@ModelAttribute(name = "subTotal") String priceTotal, BindingResult bindingResult,
+			RedirectAttributes redirectAttribute) {
+		User user = userDAO.getUserByID(userID);
+		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
+		int orderIDint = orderInfo.getOrderId();
+
+		model.addAttribute(user);
+		model.addAttribute("orderID", orderIDint);
+		model.addAttribute(menuItemList);
+		model.addAttribute(comparisonSet);
+		model.addAttribute("priceTotal", priceTotal);
+		model.addAttribute("ingredients", ingredientDAO.getIngredientListByMenuItemID(8));
+
+		return "checkout";
 	}
 
 }

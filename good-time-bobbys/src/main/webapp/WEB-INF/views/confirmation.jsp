@@ -56,6 +56,10 @@ table td, th, tr {
 #p {
 	color: white;
 }
+
+.totals {
+		font-size: 19px;
+}
 </style>
 <meta charset="ISO-8859-1">
 <title>Order Confirmation</title>
@@ -67,18 +71,23 @@ table td, th, tr {
 				<h1>THANK YOU FOR CHOOSING GOOD TIME BOBBY'S!</h1>
 			</div>
 			<div>
-				<h2>${user.firstName}&nbsp;${user.lastName},&nbsp;Your order will be
-					ready for pick up in 30 minutes or less</h2>
+				<br>
+				<h2>${user.firstName}&nbsp;${user.lastName},&nbsp;your&nbsp;order&nbsp;will&nbsp;be&nbsp;ready&nbsp;for&nbsp;pick&nbsp;up&nbsp;in&nbsp;${randomPickupTime}&nbsp;minutes.</h2>
 			</div>
 		</div>
 		<div class="card  floorbackground">
 			<div class="table floorbackground">
-				<div>Subtotal: ${subTotal}</div>
-				<div>Tax: ${orderTax}</div>
-				<div>Total: ${orderTotal}</div>
+				<div class="totals">
+					<div>Subtotal: ${subTotal}</div>
+					<div>Tax: ${orderTax}</div>
+					<div>Total: ${orderTotal}</div>
+				</div>
 				<c:url var="login" value="/"></c:url>
-				<a href="${login}" class="btn btn-outline-light btn-sm"
-					role="button" aria-pressed="true">Logout</a>
+
+				<div>
+					<br> <a href="${login}" class="btn btn-outline-light btn-md"
+						role="button" aria-pressed="true">Logout</a>
+				</div>
 			</div>
 		</div>
 	</div>
