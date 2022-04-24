@@ -43,10 +43,10 @@
 	<div class="container m-3 mx-auto">
 	<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-6">
-				<input type="text" class="form-control" name="searchBar"
-					id="searchBar" placeholder="Search For Order" />
+				<input type="text" class="form-control" onkeyup="searchMovies()"
+					id="search" placeholder="Search By Category or Item" />
 			</div>
-		</div>
+			</div>
 	<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-3">
 				<div class="btn-group">
@@ -56,24 +56,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="overflow-hidden">
-			<table class="row justify-content-center mx-auto " id="employeesList"></table>
-		</div>
+		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">	
 			<table class="table table-bordered table-striped">
 				<thead>
-				<form:form action="processForm" modelAttribute="stock">
 				<tr>
-					<th class="d-table-cell">Category&nbsp;&nbsp;<form:input path="category"
-								type="text" placeholder="search"/></th>
-					
-					<th class="d-table-cell">Item&nbsp;&nbsp;<form:input path="item" type="text"
-								placeholder="search" /></th>
-					<th class="d-table-cell" rowspan="2">Stock</th>
-
-					<th class="d-table-cell" rowspan="2">Modify Stock</th>
-					</form:form>
+					<th class="d-table-cell" rowspan="2" style="width:20%">Category</th>
+					<th class="d-table-cell" rowspan="2" style="width:20%">Item</th>
+					<th class="d-table-cell" rowspan="2" style="width:20%">Stock</th>
+					<th class="d-table-cell" rowspan="2" style="width:20%">Modify Stock</th>
 				</thead>
-				<tbody>
+				<tbody id="StockTable">
 					<c:forEach var="eachStock" items="${stockList}">
 					<form:form action="${pageContext.request.contextPath}/management/updateStock" modelAttribute="stock" method="POST">
 					<c:url var = "updateLink"  value="/management/updateStock">
@@ -89,7 +81,7 @@
 								<form:input path="stock" name="newCount" type="number" placeholder="enter number" value="${eachStock.stock}"/>
 								<input type=hidden name="stockId" value="${eachStock.id}">
 								<input type="hidden" name="type" value="${eachStock.getClass().getSimpleName()}"/>
-								<input type="submit" value="Update"/>
+								<input type="submit" class="btn btn-primary" value="Update"/>
 							</td>
 							
 						</tr>
@@ -98,54 +90,30 @@
 				</tbody>
 			</table>
 	</div>
-	<script>
-		/*
-		This script takes the employees json and creates the list of employees.
-		It's what allows the list to be searchable by first name last name or email
-		*/
-		const employeesList = document.getElementById('employeesList');
-		const searchBar = document.getElementById('searchBar');
-		var orders = JSON.parse('${dataJson}');
-
-		searchBar.addEventListener('keyup', (e) => {
-		    const searchString = e.target.value.toLowerCase();
-		    const filteredEmployees = orders.filter((order) => {
-		        return (
-		        	(order.user.firstName + ' ' +order.user.lastName).toLowerCase().includes(searchString) ||
-		        	order.id.toString().includes(searchString)
-		            
-		        );
-		    });
-		    	displayEmployees(filteredEmployees);
-		});
-	
-
-		const displayEmployees = (orders) => {
-		    const htmlString = orders
-		        .map((order) => {
-		            return `
-		            <form action="${pageContext.request.contextPath}/management/updateStock" modelAttribute="stock" method="POST">
-						<tr>
-							<td class="d-table-cell"><c:out
-									value="${eachStock.category}" /></td>
-							<td class="d-table-cell"><c:out value="` + order.name + `"/></td>
-							<td class="d-table-cell"><c:out value="` + order.stock + `" /></td>
-							<td class="d-table-cell">
-								<form:input path="stock" name="newCount" type="number" placeholder="enter number" value="` + order.stock + `"/>
-								<input type=hidden name="stockId" value="` + order.id `">
-								<input type="hidden" name="type" value="${eachStock.getClass().getSimpleName()}"/>
-								<input type="submit" value="Update"/>
-							</td>
-							
-						</tr>
-						</form>
-		        `;
-		        })
-		        .join('');
-		    employeesList.innerHTML = htmlString;
-		};
-		displayEmployees(orders);
-	</script>
+	</div>
+<script>
+			function searchMovies() {
+				var input, filter, found, tbody, tr, td, i, j;
+				input = document.getElementById("search");
+				filter = input.value.toUpperCase();
+				tbody = document.getElementById("StockTable");
+				tr = tbody.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td");
+						if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1) {
+							found = true;
+						}
+						if (td[1].innerHTML.toUpperCase().indexOf(filter) > -1) {
+							found = true;
+						}
+					if (found) {
+						tr[i].style.display = "";
+						found = false;
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		</script>
 </body>
-</html>
 </html>
