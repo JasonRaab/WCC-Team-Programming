@@ -73,7 +73,18 @@ public class MainController {
 		model.addAttribute("itemSearch", new ItemSearch());
 		model.addAttribute("menuItems", menuItems);
 		model.addAttribute("menuStatus", "active");
-		return "menuList";
+		
+		
+		 ObjectMapper mapper = new ObjectMapper();
+			String jsonStr = "{}";
+			try {
+				jsonStr = mapper.writer().writeValueAsString(menuItems);
+			} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+			model.addAttribute("dataJson", jsonStr);
+			
+			return "menuList";
 		/*
 		 * List<MenuItem> menuItems = menuService.getMenu();
 		 * 
@@ -325,9 +336,14 @@ public class MainController {
 		List<User> employees = userService.getEmployees();
 		model.addAttribute("employee", new User());
 		model.addAttribute("employeeList", employees);
-		JSONArray json = new JSONArray(employees);
-		System.out.println(json);
-		String jsonStr = json.toString();
+		 ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = "{}";
+		try {
+			jsonStr = mapper.writer().writeValueAsString(employees);
+		} catch (JsonProcessingException e) {
+		e.printStackTrace();
+	}
+			
 		model.addAttribute("dataJson", jsonStr);  
 		return "employees";
 	}
@@ -337,9 +353,13 @@ public class MainController {
 		List<User> employees = userService.getPreviousEmployees();
 		model.addAttribute("employee", new User());
 		model.addAttribute("employeeList", employees);
-		JSONArray json = new JSONArray(employees);
-		System.out.println(json);
-		String jsonStr = json.toString();
+		 ObjectMapper mapper = new ObjectMapper();
+			String jsonStr = "{}";
+			try {
+				jsonStr = mapper.writer().writeValueAsString(employees);
+			} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("dataJson", jsonStr);  
 		return "previousEmployees";
 	}

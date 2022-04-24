@@ -7,6 +7,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Stock</title>
+<style>
+html {
+  overflow-y: scroll;
+}
+</style>
 </head>
 <!-- CSS only -->
 <link

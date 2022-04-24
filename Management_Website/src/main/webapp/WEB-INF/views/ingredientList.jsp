@@ -7,6 +7,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Ingredients</title>
+<style>
+html {
+  overflow-y: scroll;
+}
+</style>
 </head>
 <!-- CSS only -->
 <link
@@ -53,27 +58,39 @@
 					<a href="inactiveIngredients" class="btn btn-<c:if test='${ingredientStatus=="active"}'>outline-</c:if>danger">Inactive Items</a>
 				</div>
 		</div>
-		<form:form action="processForm" modelAttribute="itemSearch">
-			<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
-				<div class="col-5">
-					<form:input path="name" type="text" class="form-control"
-						placeholder="Ingredient name" />
-				</div>
-				<div class="col-5">
-					<form:input path="category" type="text" class="form-control"
-						placeholder="Category" />
-				</div>
-
-				<div class="col-1">
-					<input type="submit" value="Search" class="btn btn-primary" />
-				</div>
+		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
+			<div class="col-6">
+				<input type="text" class="form-control" onkeyup="searchItems()"
+					id="search" placeholder="Search for Menu Item" />
 			</div>
-		
-		</form:form>
+		</div>
 		<div class="mb-3">
 			<a href="addNewIngredient"><button class="btn btn-success">+
 					Add New</button></a>
 		</div>
+		<script>
+			function searchItems() {
+				var input, filter, found, cards, title, i, j;
+				input = document.getElementById("search");
+				filter = input.value.toUpperCase();
+				//tbody = document.getElementById("cards");
+				cards = document.getElementById("cards").children;
+				//tr = tbody.getElementsByTagName("div");
+				for (i = 0; i < cards.length; i++) {
+					title = cards[i].getElementsByTagName("h5");
+						if (title[0].innerHTML.toUpperCase().indexOf(filter) > -1) {
+							found = true;
+						}
+					if (found) {
+						cards[i].style.display = "";
+						found = false;
+					} else {
+						cards[i].style.display = "none";
+					}
+				}
+			}
+		</script>
+		<div id="cards">
 		<c:forEach var="eachItem" items="${ingredientList}">
 		<div class="card mb-3">
 			<div class="card-body">
@@ -93,6 +110,7 @@
 			</div>
 		</div>
 		</c:forEach>
+		</div>
 	</div>
 </body>
 </html>

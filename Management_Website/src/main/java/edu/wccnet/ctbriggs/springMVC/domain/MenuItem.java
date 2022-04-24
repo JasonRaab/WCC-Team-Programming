@@ -30,14 +30,14 @@ public class MenuItem {
 	@Column(name = "item_name")
 	private String name;
 	@Column(name = "item_description")
-	@JsonIgnore
 	private String description;
-	@JsonIgnore
 	@Column(name = "item_category")
 	private String category;
 	@Column(name = "item_stock")
+	@JsonIgnore
 	private int stock;
 	@Column(name = "item_price")
+	@JsonIgnore
 	private double price;
 	@Column(name = "is_active")
 	private int isActive;
