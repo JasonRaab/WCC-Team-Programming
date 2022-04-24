@@ -1,5 +1,6 @@
 package edu.wccnet.ctbriggs.springMVC.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -33,6 +34,13 @@ public class ItemOrdererdDAOImpl implements ItemOrderedDAO {
 		Query<ItemOrdered> query = session.createQuery("From ItemOrdered Where order = :order AND itemNumber = :itemNumber", ItemOrdered.class);
 		query.setParameter("itemNumber", itemNumber);
 		query.setParameter("order", order);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<ItemOrdered> getAllOrders() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<ItemOrdered> query = session.createQuery("From ItemOrdered", ItemOrdered.class);
 		return query.getResultList();
 	}
 

@@ -22,7 +22,7 @@ public class ItemOrdered implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id")
 	@OrderColumn(name = "order_id")
 	@JsonIgnore

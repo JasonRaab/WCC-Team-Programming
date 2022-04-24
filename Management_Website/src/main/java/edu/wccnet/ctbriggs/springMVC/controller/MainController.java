@@ -2,6 +2,7 @@ package edu.wccnet.ctbriggs.springMVC.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -203,12 +204,14 @@ public class MainController {
 	@RequestMapping("/orders")
 	public String orderList(Model model) {
 
-	    List<Order> orderList = orderService.getOrders();
-	   
+	   //List<Order> orderList = orderService.getOrders();
+	   // HashSet<Order> orderList2 = new HashSet<Order>();
+	    List<Order> orderList3 = itemOrderService.getAllOpenOrders();
+
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonStr;
 		try {
-			jsonStr = mapper.writer().writeValueAsString(orderList);
+			jsonStr = mapper.writer().writeValueAsString(orderList3);
 			 model.addAttribute("dataJson", jsonStr);	
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
@@ -226,10 +229,12 @@ public class MainController {
 	@RequestMapping("/viewCompletedOrders")
 	public String viewCompletedOrders(Model model) {
 
-	    List<Order> orderList = orderService.getCompletedOrders();
+	    //List<Order> orderList = orderService.getCompletedOrders();
+	    List<Order> orderList = itemOrderService.getAllCompleteOrders();
 	   
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonStr;
+	 
 		try {
 			jsonStr = mapper.writer().writeValueAsString(orderList);
 			 model.addAttribute("dataJson", jsonStr);	

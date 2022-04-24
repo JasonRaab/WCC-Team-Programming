@@ -74,7 +74,9 @@ html {
 		const employeesList = document.getElementById('employeesList');
 		const searchBar = document.getElementById('searchBar');
 		var orders = JSON.parse('${dataJson}');
-
+		orders.sort(function(a, b){
+		    return a.id - b.id;
+		});
 		searchBar.addEventListener('keyup', (e) => {
 		    const searchString = e.target.value.toLowerCase();
 		    const filteredEmployees = orders.filter((order) => {
