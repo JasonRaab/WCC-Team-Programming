@@ -63,9 +63,6 @@ public class MainController {
 	@Autowired
 	private AddressService addressService;
 	
-	/*
-	 * @RequestMapping("/") public String home() { return "home"; }
-	 */
 
 	@RequestMapping("/menu")
 	public String showMenu(Model model) {
@@ -85,22 +82,8 @@ public class MainController {
 			model.addAttribute("dataJson", jsonStr);
 			
 			return "menuList";
-		/*
-		 * List<MenuItem> menuItems = menuService.getMenu();
-		 * 
-		 * for (MenuItem menuItem : menuItems) { System.out.println(menuItem); }
-		 * //model.addAttribute("itemSearch", new ItemSearch());
-		 * model.addAttribute("item", new MenuItem()); model.addAttribute("menuItems",
-		 * menuItems); model.addAttribute("menuStatus", "active");
-		 * 
-		 * System.out.println("\n\nHello World\n\n"); JSONArray json = new
-		 * JSONArray(menuItems); System.out.println(json); String jsonStr =
-		 * json.toString(); model.addAttribute("dataJson", jsonStr);
-		 * System.out.println(jsonStr);
-		 * 
-		 * return "menuList";
-		 */
 	}
+	
 	@RequestMapping("/inactiveMenu")
 	public String showInactiveMenu(Model model) {
 		List<MenuItem> menuItems = menuService.getInactiveMenu();
@@ -214,15 +197,12 @@ public class MainController {
 	
 	@RequestMapping("/orders")
 	public String orderList(Model model) {
-
-	   //List<Order> orderList = orderService.getOrders();
-	   // HashSet<Order> orderList2 = new HashSet<Order>();
-	    List<Order> orderList3 = itemOrderService.getAllOpenOrders();
-
+	    List<Order> orderList = itemOrderService.getAllOpenOrders();
+		model.addAttribute("orderStatus", "open");
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonStr;
 		try {
-			jsonStr = mapper.writer().writeValueAsString(orderList3);
+			jsonStr = mapper.writer().writeValueAsString(orderList);
 			 model.addAttribute("dataJson", jsonStr);	
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
@@ -237,11 +217,18 @@ public class MainController {
 		return "redirect:/management/orders";
 	}
 	
+	@RequestMapping("/openOrder")
+	public String openOrder(@RequestParam("orderId")int id) {
+		orderService.openOrder(id);
+		return "redirect:/management/orders";
+	}
+	
 	@RequestMapping("/viewCompletedOrders")
 	public String viewCompletedOrders(Model model) {
 
 	    //List<Order> orderList = orderService.getCompletedOrders();
 	    List<Order> orderList = itemOrderService.getAllCompleteOrders();
+		model.addAttribute("orderStatus", "complete");
 	   
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonStr;
@@ -327,7 +314,7 @@ public class MainController {
 			System.out.println("this is a menu item");
 			menuService.updateStock(stockId, count);
 		}
-		stockService.updateCount(stockId, count);
+		menuService.updateStock(stockId, count);
 		return "redirect:/management/stock?type="+itemType;
 	}
 	

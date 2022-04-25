@@ -13,6 +13,7 @@ html {
   overflow-y: scroll;
 }
 </style>
+
 </head>
 <!-- CSS only -->
 <link
@@ -50,9 +51,16 @@ html {
 		<div class="row justify-content-center g-2 mb-3 mt-3 mx-auto">
 			<div class="col-3">
 				<div class="btn-group">
-					<a href="orders" class="btn btn-primary active" aria-current="page">Current
-						Orders</a> <a href="viewCompletedOrders" class="btn btn-outline-primary">Completed
-						Orders</a>
+				<c:choose>
+					<c:when test='${orderStatus=="open"}'>
+						<a href="orders" class="btn btn-primary active" aria-current="page">Current Orders</a>
+						<a href="viewCompletedOrders" class="btn btn-outline-primary">Completed Orders</a>
+					</c:when>
+					<c:otherwise>
+						<a href="orders" class="btn btn-outline-primary ">Current Orders</a>
+						<a href="viewCompletedOrders" class="btn btn-primary active" aria-current="page">Completed Orders</a>
+					</c:otherwise>
+				</c:choose>
 				</div>
 			</div>
 		</div>
@@ -88,7 +96,6 @@ html {
 		    });
 		    	displayEmployees(filteredEmployees);
 		});
-	
 
 		const displayEmployees = (orders) => {
 		    const htmlString = orders
@@ -100,7 +107,8 @@ html {
 							<h6 class="card-subtitle mb-2 text-muted">Order ` + order.id + `</h6>
 							<p class="card-text">`+ order.orderType +((order.orderType==='dine_in') ? (': Table ' + order.tableNumber) : '')+`</p>
 							<a href="orderDetail?orderId=` + order.id + `" class="card-link"><button class="btn btn-primary">More Info</button></a>
-							<a href="completeOrder?orderId=` + order.id + `" class="card-link"><button class="btn btn-success">Complete</button></a>
+							` + ((${orderStatus=='open'}) ? ('<a href="completeOrder?orderId='+ order.id + '" class="card-link"><button class="btn btn-success">Complete</button></a>') : ('<a href="openOrder?orderId=' + order.id + '" class="card-link"><button class="btn btn-danger">Re-Open</button></a>')) + `
+							
 						</div>
 		            </div>
 		        `;

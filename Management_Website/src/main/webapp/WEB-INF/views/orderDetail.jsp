@@ -124,7 +124,12 @@
 		    </tr>
 		  </tfoot>
 			</table>
-			<a href="completeOrder?orderId=${order.id}" class="card-link"><button class="btn btn-success">Mark Order As Complete</button></a>
+			<c:if test='${order.isOpen==0}'>
+		  	<a href="openOrder?orderId=${order.id}" class="card-link"><button class="btn btn-danger">Re-Open Order</button></a>
+		  	</c:if>
+		  	<c:if test='${order.isOpen==1}'>
+		  	<a href="completeOrder?orderId=${order.id}" class="card-link"><button class="btn btn-success">Mark Order As Complete</button></a>
+		  	</c:if>
 		</div>
 		
 	</div>

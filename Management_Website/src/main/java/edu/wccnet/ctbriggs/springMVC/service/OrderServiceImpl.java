@@ -38,4 +38,11 @@ public class OrderServiceImpl implements OrderService {
 		return orderDAO.getCompletedOrders();
 	}
 
+	@Override
+	@Transactional
+	public void openOrder(int id) {
+		orderDAO.openOrder(id);
+		
+	}
+
 }

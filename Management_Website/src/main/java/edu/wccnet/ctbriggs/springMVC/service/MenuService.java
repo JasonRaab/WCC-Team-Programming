@@ -19,4 +19,5 @@ public List<MenuItem> getInactiveMenu();
 public void deactivate(int id);
 
 public void activate(int id);
+
 }

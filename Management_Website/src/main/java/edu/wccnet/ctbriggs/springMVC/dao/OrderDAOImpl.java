@@ -36,8 +36,13 @@ public class OrderDAOImpl implements OrderDAO {
 		Order order = session.get(Order.class, id);
 		order.setIsOpen(0);
 		session.saveOrUpdate(order);
-		
-		
+	}
+	@Override
+	public void openOrder(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Order order = session.get(Order.class, id);
+		order.setIsOpen(1);
+		session.saveOrUpdate(order);
 	}
 
 	@Override
@@ -46,5 +51,7 @@ public class OrderDAOImpl implements OrderDAO {
 		Query<Order> query = session.createQuery("from Order where isOpen = 0", Order.class);
 		return query.getResultList();
 	}
+
+
 
 }
