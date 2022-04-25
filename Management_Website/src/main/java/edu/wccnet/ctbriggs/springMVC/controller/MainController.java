@@ -2,11 +2,9 @@ package edu.wccnet.ctbriggs.springMVC.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -36,14 +34,12 @@ import edu.wccnet.ctbriggs.springMVC.service.IngredientService;
 import edu.wccnet.ctbriggs.springMVC.service.ItemOrderedService;
 import edu.wccnet.ctbriggs.springMVC.service.MenuService;
 import edu.wccnet.ctbriggs.springMVC.service.OrderService;
-import edu.wccnet.ctbriggs.springMVC.service.StockService;
 import edu.wccnet.ctbriggs.springMVC.service.UserService;
 
 @Controller
 @RequestMapping("/management")
 public class MainController {
-	@Autowired
-	private StockService stockService;
+
 
 	@Autowired
 	private UserService userService;
@@ -70,7 +66,6 @@ public class MainController {
 		model.addAttribute("itemSearch", new ItemSearch());
 		model.addAttribute("menuItems", menuItems);
 		model.addAttribute("menuStatus", "active");
-		
 		
 		 ObjectMapper mapper = new ObjectMapper();
 			String jsonStr = "{}";
@@ -188,7 +183,6 @@ public class MainController {
 	
 	@RequestMapping("/processIngredient")
 	public String processIngredient(Model model, @ModelAttribute("ingredientItem") IngredientItem newIngredient){
-		System.out.println(newIngredient);
 		ingredientService.add(newIngredient);
 		return "redirect:/management/ingredients";
 	}
@@ -301,17 +295,12 @@ public class MainController {
 	@RequestMapping("/updateStock")
 	public String updateStock(Model model, @RequestParam("stockId") int stockId, @RequestParam("stock") String newCount, @RequestParam("type") String itemType){
 		int count = Integer.parseInt(newCount);
-		System.out.println("StockId: " + stockId);
-		System.out.println("New Count:" + newCount);
-		System.out.println("ItemType:" + itemType);
 		
 		//determines whether to call menuService or IngredientService
 		if(itemType.equals(IngredientItem.class.getSimpleName())) {	
-			System.out.println("this is a ingredient");
 			ingredientService.updateStock(stockId, count);
 		}
 		else if(itemType.equals(MenuItem.class.getSimpleName())){
-			System.out.println("this is a menu item");
 			menuService.updateStock(stockId, count);
 		}
 		menuService.updateStock(stockId, count);

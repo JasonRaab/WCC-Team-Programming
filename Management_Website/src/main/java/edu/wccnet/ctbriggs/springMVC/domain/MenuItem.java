@@ -16,8 +16,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.json.JSONPropertyIgnore;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
