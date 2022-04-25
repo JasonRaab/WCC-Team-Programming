@@ -303,7 +303,6 @@ public class MainController {
 		else if(itemType.equals(MenuItem.class.getSimpleName())){
 			menuService.updateStock(stockId, count);
 		}
-		menuService.updateStock(stockId, count);
 		return "redirect:/management/stock?type="+itemType;
 	}
 	
