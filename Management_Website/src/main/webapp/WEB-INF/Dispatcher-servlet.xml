@@ -11,7 +11,7 @@
 
 
 	<context:component-scan
-		base-package="edu.wccnet.ctbriggs.springMVC">
+		base-package="edu.wccnet.goodTimeBobbys.management">
 	</context:component-scan>
 	<mvc:annotation-driven></mvc:annotation-driven>
 	<mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
@@ -36,7 +36,7 @@
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 	<property name="dataSource" ref="myDataSource"></property>
 	<property name="packagesToScan"
-		value="edu.wccnet.ctbriggs.springMVC.domain">
+		value="edu.wccnet.goodTimeBobbys.management.entity">
 	</property>
 	<property name="hibernateProperties">
 		<props>
