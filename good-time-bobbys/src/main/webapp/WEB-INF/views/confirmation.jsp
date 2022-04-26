@@ -40,13 +40,11 @@ table td, th, tr {
 	font: #ffffff;
 }
 
-/* #table tr:nth-child(even) { */
-/* 	background-color: #f2f2f2; */
-/* } */
+.jumbotron {
+	font-family: "Georgia", serif;
+	font-size: 55px;
+}
 
-/* #table tr:hover { */
-/* 	background-color: #ddd; */
-/* } */
 #table th {
 	padding-top: 12px;
 	padding-bottom: 12px;
@@ -58,26 +56,69 @@ table td, th, tr {
 #p {
 	color: white;
 }
+
+.totals {
+	font-size: 19px;
+}
+
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+}
 </style>
 <meta charset="ISO-8859-1">
 <title>Order Confirmation</title>
 </head>
 <body>
+	<header class="masthead"></header>
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
 				<h1>THANK YOU FOR CHOOSING GOOD TIME BOBBY'S!</h1>
-				<h1>${user.firstName}&nbsp;${user.lastName}, Your order will be ready for pick up in 30 minutes or less</h1>
+			</div>
+			<div>
+				<br>
+				<h2>${user.firstName}, your order will be ready for pick up in
+					${randomPickupTime} minutes. Please pay upon arrival.</h2>
 			</div>
 		</div>
 		<div class="card  floorbackground">
 			<div class="table floorbackground">
-				<div>Subtotal: ${subTotal}</div>
-				<div>Tax: ${orderTax}</div>
-				<div>Total: ${orderTotal}</div>
+				<div class="totals">
+					<div>Subtotal: ${subTotal}</div>
+					<div>Tax: ${orderTax}</div>
+					<div>Total: ${orderTotal}</div>
+				</div>
 				<c:url var="login" value="/"></c:url>
-				<a href="${login}" class="btn btn-outline-light btn-sm" role="button" aria-pressed="true">Logout</a>
+
+				<div>
+					<br> <a href="${login}" class="btn btn-outline-light btn-md"
+						role="button" aria-pressed="true">Logout</a>
+				</div>
 			</div>
+		</div>
+
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br>
+		<div class="footer floorbackground">
+			<table width="100%">
+				<tbody>
+					<tr>
+						<td class="aligncenter content-block">Questions? Email <a
+							href="mailto:">support@goodtimebobbys.inc</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </body>

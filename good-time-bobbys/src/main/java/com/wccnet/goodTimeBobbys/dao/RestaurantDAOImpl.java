@@ -32,6 +32,11 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 		return menuItems.getResultList();
 
 	}
+	
+	
+	public void finishOrderInfo(OrderInfo order, double subTotal, double orderTax, double orderTotal) {
+		
+	}
 
 	@Override
 	@Transactional

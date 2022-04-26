@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
@@ -21,12 +20,19 @@ html {
 
 .jumbotron {
 	font-family: "Georgia", serif;
-	font-size: 55px;
+	font-size: 33px;
+	text-align: center;
 }
 
 .text {
 	font-family: "Georgia", serif;
 	font-size: 18px;
+}
+
+h4 {
+	font-family: "Georgia", serif;
+	font-size: 28px;
+
 }
 
 .floorbackground {
@@ -131,95 +137,56 @@ header.masthead {
 	background-attachment: fixed;
 	background-position: center center;
 	background-size: cover;
+	height: auto;
+	width: 100%;
 }
 
 .noborder {
 	border: none !important;
 }
 </style>
-<script type="text/javascript">
-	function checkForm(form) {
-		if (form.userEmail.value == "") {
-			alert("Error: Username cannot be blank!");
-			form.userEmail.focus();
-			return false;
-		} else if (form.password.value == "") {
-			alert("Error: Please check that you've entered and confirmed your password!");
-			form.password.focus();
-			return false;
-		}
-		return true;
-	}
-</script>
 <meta charset="ISO-8859-1">
-<title>Welcome</title>
+<title>Sorry your login was invalid</title>
 </head>
-
-
-<!-- https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png -->
-
 <body>
 	<header class="masthead"></header>
 
-	<div class=" floorbackground">
-		<h1 class="floorbackground jumbotron"
-			style="text-align: center; font-size: 55px;">
-			WELCOME TO <br> GOOD TIME BOBBY'S
-		</h1>
+	<div class="floorbackground">
+		<h4 class="floorbackground jumbotron">Sorry, but you've
+			either entered invalid credentials<br> or you do not have an account with<br>
+			Good Time Bobby's.</h4>
 
-		<c:url var="loginConfirmation" value="loginConfirmation">
-			<c:param name="orderID" value="${order.orderId}" />
-		</c:url>
+		<div class=" floorbackground" style="text-align: center;">
+		
+		<br> <a href="${pageContext.request.contextPath}/"
+				class="btn btn-outline-light btn-med" role="button"
+				aria-pressed="true">Back to Login</a>
 
-		<%-- 		<c:url var="loginConfirmation" value="loginConfirmation"> --%>
-		<%-- 			<c:param name="orderID" value="${order.orderId}" /> --%>
-		<%-- 		</c:url> --%>
+			 <a href="${pageContext.request.contextPath}/readOnlyMenu"
+				class="btn btn-outline-light btn-med" role="button"
+				aria-pressed="true">View Menu</a>
 
-		<form:form modelAttribute="orderID" action="loginConfirmation"
-			onsubmit="return checkForm(this);">
+			<c:url var="addUser" value="/addUser"></c:url>
 
-			<div class="container floorbackground" style="text-align: center;">
-
-				<label class="text col-1" for="userEmail">Email</label> <input
-					class="col-2" type="text" placeholder="Enter your email"
-					name="userEmail"> <br> <label class="text col-1"
-					for="password">Password</label> <input class="col-2"
-					type="password" placeholder="Enter Password" name="password">
-				<input type="hidden" id="orderID" name="orderID"
-					value="${order.orderId}" required></input>
-			</div>
-			<br>
-			<div class=" floorbackground" style="text-align: center;">
-
-				<button class="btn btn-outline-light btn-sm" type="submit">Login</button>
-
-				<c:url var="addUser" value="/addUser">
-					<%-- 	<c:param name="orderID" value="${order.orderId}" /> --%>
-				</c:url>
-
-				<a href="${addUser}" class="btn btn-outline-light btn-sm"
-					role="button" aria-pressed="true">Sign Up</a> <a
-					href="${pageContext.request.contextPath}/readOnlyMenu"
-					class="btn btn-outline-light btn-sm" role="button"
-					aria-pressed="true">View Menu</a>
-			</div>
-		</form:form>
-
+			<a href="${addUser}" class="btn btn-outline-light btn-med"
+				role="button" aria-pressed="true">Sign Up</a>
+		</div>
 		
 		<br> <br> <br> <br> <br> <br> <br>
 		<br> <br> <br> <br> <br> <br> <br>
-		<br> <br> <br>
-		<div class="footer floorbackground">
+		<br> <br>
+		<br>
+	<div class="footer floorbackground">
 			<table width="100%">
-				<tbody>
-					<tr>
-						<td class="aligncenter content-block">Questions? Email <a
-							href="mailto:">support@goodtimebobbys.inc</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+			<tbody>
+				<tr>
+					<td class="aligncenter content-block">Questions? Email <a
+						href="mailto:">support@goodtimebobbys.inc</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	</div>
 </body>
 </html>

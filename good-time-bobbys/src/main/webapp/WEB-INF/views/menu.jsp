@@ -8,9 +8,7 @@
 <link rel='stylesheet'
 	href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style>
@@ -25,6 +23,11 @@ html {
 	background-position: center;
 	background-attachment: fixed;
 	background-size: cover
+}
+
+.text {
+	font-family: "Georgia", serif;
+	font-size: 16px;
 }
 
 .floorbackground {
@@ -72,6 +75,10 @@ html {
 	color: #ffffff;
 	*/
 }
+
+.hide {display: none;}
+.myDIV:hover + .hide{color: red; }
+
 
 @import
 	url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap")
@@ -277,6 +284,9 @@ table td, th, tr {
 	border: none !important;
 	padding: 8px;
 	font: #ffffff;
+	font-family: "Georgia", serif;
+	font-size: 18px;
+
 }
 
 #table {
@@ -338,6 +348,27 @@ table.classname td {
 	top: 0;
 	right: 0;
 }
+.tablinks {
+  background-color: powderblue;
+  transition: background-color .5s;
+}
+
+tablinks:hover {
+  background-color: gold;
+}
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+}
+
 </style>
 <script>
 	function openMenu(evt, menuItemCategory) {
@@ -362,11 +393,12 @@ table.classname td {
 <title>Good Time Bobby's Menu</title>
 </head>
 <body>
+	<header class="masthead"></header>
 
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
-				<h1>WELCOME TO GOOD TIME BOBBY'S</h1>
+				<h1>GOOD TIME BOBBY'S</h1>
 			</div>
 		</div>
 		<div class="floorbackground" style="text-align: center;">
@@ -375,8 +407,9 @@ table.classname td {
 				<c:param name="orderID" value="${orderID}" />
 			</c:url>
 			<a class="btn btn-outline-light btn-sm" href="${cart}"
-				style="text-align: center; font-size: 21px;">View Cart</a>
-		</div>
+                    style="width:55px; text-align: center; font-size: 21px;"><i
+                    style="font-size: 25px;" class='fa fa-shopping-cart'></i></a>
+            </div>
 		<br>
 		<div>
 			<div class="container floorbackground">
@@ -446,7 +479,9 @@ table.classname td {
 										<td><a href="${addToCartLink}"
 											class="btn btn-outline-light btn-sm">Add to Order</a> <input
 											type="hidden" id="orderID" name="orderID"
-											value="${order.orderId}"></td>
+											value="${order.orderId}">
+											
+											</td>
 										<td></td>
 									</c:if>
 								</tr>
@@ -758,7 +793,7 @@ table.classname td {
                         <br>
 						<table class="table floorbackground">
 							<c:forEach var="eachItem" items="${fullMenuItemList}">
-								<c:url var="addToCartLink" value="/addMenuItemToCart">
+								<c:url var="addToCartLink" value="/addMenuItemToCart">shoppunt
 									<c:param name="userID" value="${user.userId}" />
 									<c:param name="menuItemID" value="${eachItem.itemId}" />
 									<c:param name="orderID" value="${orderID}" />
@@ -778,6 +813,10 @@ table.classname td {
 						</table>
 					</div>
 				</div>
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br>
+		<br>
 			</div>
 			<div class="footer">
 				<table width="100%">

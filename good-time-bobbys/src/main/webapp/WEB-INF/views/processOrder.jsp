@@ -54,7 +54,7 @@ html {
 .tabcontent {
 	display: none;
 	padding: 6px 12px;
-	border: 1px solid #ccc;
+	border: none !important;
 	border-top: none;
 	color: #ffffff;
 }
@@ -66,6 +66,7 @@ html {
 .textcolor {
 	color: #ffffff;
 }
+
 .floorbackground {
 	background-image:
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
@@ -76,9 +77,10 @@ html {
 	color: #ffffff;
 }
 
-#table td, #table th {
-	border: 1px solid #ddd;
+table td, th, tr {
+	border: none !important;
 	padding: 8px;
+	font: #ffffff;
 }
 
 #table {
@@ -94,6 +96,24 @@ html {
 	text-align: left;
 	background-color: #04AA6D;
 	color: white;
+}
+
+.jumbotron {
+	font-family: "Georgia", serif;
+	font-size: 55px;
+}
+
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
 }
 </style>
 <script>
@@ -123,14 +143,12 @@ html {
 <title>Process Order</title>
 </head>
 <body>
+	<header class="masthead"></header>
 
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
-				<h1>
-					Hey ${user.firstName}, <br> THANK YOU FOR CHOOSING GOOD TIME
-					BOBBY'S!
-				</h1>
+				<h1>THANK YOU FOR CHOOSING GOOD TIME BOBBY'S!</h1>
 				<br>
 				<h2>Order Number: ${orderID}</h2>
 				<h4>Subtotal: ${subTotal}</h4>
@@ -144,28 +162,28 @@ html {
 			<div class="card floorbackground">
 				<div>
 					<div class="container floorbackground">
+						<h4>Click the links below to view your edits!</h4>
+						<br>
 						<div class="tab floorbackground">
-							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '1')">Item
-								1</button>
-							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '2')">Item
-								2</button>
-							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '3')">Item
-								3</button>
-							<button class="tablinks floorbackground" onclick="openItemOrdered(event, '4')">Item
-								4</button>
+							<button class="tablinks floorbackground"
+								onclick="openItemOrdered(event, '1')">First Item</button>
+							<button class="tablinks floorbackground"
+								onclick="openItemOrdered(event, '2')">Second Item</button>
+							<button class="tablinks floorbackground"
+								onclick="openItemOrdered(event, '3')">Third Item</button>
+							<button class="tablinks floorbackground"
+								onclick="openItemOrdered(event, '4')">Fourth Item</button>
 						</div>
 					</div>
 				</div>
-				<!-- TAB CONTENT -->
 				<div id="1" class="tabcontent floorbackground">
-					<h3 class="header">Item 1</h3>
+					<h3 class="header"></h3>
 					<div class="card floorbackground">
-
 						<table class="table floorbackground">
 							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
 								<c:if test="${eachItemOrder.itemNumber == 1}">
 									<tr>
-										<td>${eachItemOrder.itemNumber}</td>
+										<td></td>
 										<td>${eachItemOrder.getMenuItemName()}</td>
 										<td>${eachItemOrder}<c:if
 												test="${not empty eachItemOrder.getIngredientId()}">
@@ -181,13 +199,13 @@ html {
 					</div>
 				</div>
 				<div id="2" class="tabcontent floorbackground">
-					<h3 class="header floorbackground">Item 2</h3>
+					<h3 class="header floorbackground"></h3>
 					<div class="card floorbackground">
 						<table class="table floorbackground">
 							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
 								<c:if test="${eachItemOrder.itemNumber == 2}">
 									<tr>
-										<td>${eachItemOrder.itemNumber}</td>
+										<td></td>
 										<td>${eachItemOrder.getMenuItemName()}</td>
 										<td>${eachItemOrder}<c:if
 												test="${not empty eachItemOrder.getIngredientId()}">
@@ -203,13 +221,13 @@ html {
 					</div>
 				</div>
 				<div id="3" class="tabcontent floorbackground">
-					<h3 class="header floorbackground">Item 3</h3>
+					<h3 class="header floorbackground"></h3>
 					<div class="card floorbackground">
 						<table class="table floorbackground">
 							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
 								<c:if test="${eachItemOrder.itemNumber == 3}">
 									<tr>
-										<td>${eachItemOrder.itemNumber}</td>
+										<td></td>
 										<td>${eachItemOrder.getMenuItemName()}</td>
 										<td>${eachItemOrder}<c:if
 												test="${not empty eachItemOrder.getIngredientId()}">
@@ -225,40 +243,56 @@ html {
 					</div>
 				</div>
 				<div id="4" class="tabcontent floorbackground">
-					<h3 class="header floorbackground">Item 4</h3>
+					<h3 class="header floorbackground"></h3>
 					<div class="card floorbackground">
 						<table class="table floorbackground">
 							<c:forEach var="eachItemOrder" items="${allItemsOrdered}">
 								<c:if test="${eachItemOrder.itemNumber == 4}">
 									<tr>
-										<td>${eachItemOrder.itemNumber}</td>
+										<td></td>
 										<td>${eachItemOrder.getMenuItemName()}</td>
 										<td>${eachItemOrder}<c:if
-												test="${not empty eachItemOrder.getIngredientId()}">
-								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())}
-								<c:if test="${eachItemOrder.modification == 1}">
+											test="${not empty eachItemOrder.getIngredientId()}">
+ 								${ingredientDAO.getIngredientNameByID(eachItemOrder.getIngredientId())} 
+ 								<c:if test="${eachItemOrder.modification == 1}">
 								 &nbsp;+ $${ingredientDAO.getIngredientPriceByID(eachItemOrder.getIngredientId())}
-								 </c:if>
-											</c:if></td>
+ 								 </c:if>
+ 											</c:if></td> 
 									</tr>
 								</c:if>
 							</c:forEach>
 						</table>
 					</div>
 				</div>
-			</div>
-			<div class="floorbackground">
-			<c:url var="confirmation" value="/confirmation">
-				<c:param name="userID" value="${userID}"/>
-				<c:param name="orderID" value="${orderID}"/>
-				<c:param name="subTotal" value="${subTotal}"/>
-				<c:param name="orderTax" value="${orderTax}"/>
-				<c:param name="orderTotalWithTax" value="${orderTotalWithTax}"/>
-<%-- 				<c:param name="allItemsOrdered" value="${allItemsOrdered}" /> --%>
-			</c:url>
-				<a href="${confirmation}" class="btn btn-outline-light" role="button" aria-pressed="true">Complete Order</a>
+				<br> <br>
+				<div class="floorbackground">
+					<c:url var="confirmation" value="/confirmation">
+						<c:param name="userID" value="${userID}" />
+						<c:param name="orderID" value="${orderID}" />
+						<c:param name="subTotal" value="${subTotal}" />
+						<c:param name="orderTax" value="${orderTax}" />
+						<c:param name="orderTotalWithTax" value="${orderTotalWithTax}" />
+						<%--                 <c:param name="allItemsOrdered" value="${allItemsOrdered}" /> --%>
+					</c:url>
+					<a href="${confirmation}" class="btn btn-outline-light"
+						role="button" aria-pressed="true">Complete Order</a>
+				</div>
 			</div>
 		</div>
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br>
+	<div class="footer floorbackground">
+			<table width="100%">
+			<tbody>
+				<tr>
+					<td class="aligncenter content-block">Questions? Email <a
+						href="mailto:">support@goodtimebobbys.inc</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	</div>
 </body>
 </html>

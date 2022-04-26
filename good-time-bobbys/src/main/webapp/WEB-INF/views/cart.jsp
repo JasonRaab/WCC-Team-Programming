@@ -41,6 +41,9 @@ table td, th, tr {
 	border: none !important;
 	padding: 8px;
 	font: #ffffff;
+	font-family: "Georgia", serif;
+	font-size: 18px;
+
 }
 
 /* #table tr:nth-child(even) { */
@@ -76,19 +79,31 @@ table td, th, tr {
 #p {
 	color: white;
 }
+
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+}
 </style>
 <meta charset="ISO-8859-1">
 <title>Cart</title>
 </head>
 <body>
+	<header class="masthead"></header>
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
-				<h1>WELCOME TO GOOD TIME BOBBY'S</h1>
+				<h1>GOOD TIME BOBBY'S</h1>
 			</div>
-
 		</div>
-
 		<div class="container floorbackground">
 			<div class="card  floorbackground">
 				<form:form action="orderDetails" method="post"
@@ -96,7 +111,6 @@ table td, th, tr {
 					<table class="table tabcontent floorbackground">
 						<c:choose>
 							<c:when test="${not empty menuItemList}">
-
 								<c:forEach var="eachMenuItem" items="${menuItemList}"
 									varStatus="myIndex">
 									<c:url var="addMoreToOrder" value="/backToMenu">
@@ -110,20 +124,16 @@ table td, th, tr {
 										<td>${eachMenuItem.itemDescription}</td>
 										<td></td>
 										<td>$${eachMenuItem.itemPrice}</td>
-
 										<c:url var="modify" value="/modify">
 											<c:param name="userID" value="${user.userId}" />
 											<c:param name="menuItemID" value="${eachMenuItem.itemId}" />
 											<c:param name="orderID" value="${orderID}" />
 											<c:param name="itemNumber" value="${eachMenuItem.itemNumber}" />
-											<%-- 								<c:param name="menuItemList" value="${menuItemList}" /> --%>
 										</c:url>
-
 										<td>
 										<td style="text-align: right;"><a href="${modify}"
 											class="btn btn-outline-light btn-sm" role="button"
 											aria-pressed="true">Modify Item</a></td>
-										<!-- 									style="color: black; background-color: gray; font-size: medium;" -->
 									</tr>
 								</c:forEach>
 								<tr>
@@ -144,18 +154,17 @@ table td, th, tr {
 										class="btn btn-outline-light btn-sm" role="button"
 										aria-pressed="true">Process Order</a></td>
 									<td></td>
-									<!-- 								style="color: black; background-color: gray; font-size: medium;" -->
 								</tr>
 							</c:when>
 							<c:otherwise>
 								<div class="empty-cart-parent">
-									<div class="empty-cart-child">
-										<h5>Your Cart is empty.</h5>
-									</div>
-									<div class="empty-cart-child">
-										<i style="font-size: 25px;" class='fa fa-shopping-cart'></i>
-									</div>
-								</div>
+                                    <div class="empty-cart-child">
+                                        <h5>
+                                            Your <i style="font-size: 25px;" class='fa fa-shopping-cart'></i>&nbsp;
+                                            is empty.
+                                        </h5>
+                                    </div>
+                                </div>
 							</c:otherwise>
 						</c:choose>
 					</table>
@@ -164,13 +173,28 @@ table td, th, tr {
 					<c:param name="userID" value="${userID}" />
 					<c:param name="orderID" value="${orderID}" />
 				</c:url>
-				<a href="${addMoreToOrder}" class="btn btn-outline-light btn-sm"
-					role="button" aria-pressed="true">Continue Shopping</a>
-				<!-- 					style="color: white; background-color: black; font-size: medium;" -->
-
+				<a href="${addMoreToOrder}" class="btn btn-primary btn-sm active"
+                    style="color: white; background-color: black; font-size: medium;"
+                    role="button" aria-pressed="true">Continue Shopping</a>
 			</div>
 		</div>
-
+		
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br>
+		<br>
 	</div>
+	<div class="footer floorbackground">
+			<table width="100%">
+			<tbody>
+				<tr>
+					<td class="aligncenter content-block">Questions? Email <a
+						href="mailto:">support@goodtimebobbys.inc</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
 </body>
 </html>

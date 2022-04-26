@@ -1,10 +1,13 @@
 package com.wccnet.goodTimeBobbys.entity;
 
+
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,11 +19,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "user")
 public class User {
 
-	// For the order info table (one user to many orderInfo's) 
+	// For the order info table (one user to many orderInfo's)
 	// For the user address table(one user to many addresses)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,23 +44,20 @@ public class User {
 	private String password;
 
 	@Column(name = "create_time")
-	private Timestamp create_time;
+	private Timestamp createTime;
 
 	// One Role for Many User(s)
 	@Column(name = "role")
 	private int userRoleId;
-	
+
 	@Column(name = "is_active")
 	private int isActive;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "user_address",
-			joinColumns = { @JoinColumn(name = "user_id") },
-			inverseJoinColumns = {@JoinColumn(name = "address_id")}
-			)
-			List<Address> addresses = new ArrayList<Address>();
-	
+	@JoinTable(name = "user_address", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "address_id") })
+	List<Address> addresses = new ArrayList<Address>();
+
 	public List<Address> getAddresses() {
 		return addresses;
 	}
@@ -68,10 +69,10 @@ public class User {
 	public void addAddress(Address address) {
 		addresses.add(address);
 	}
-	
-	//set isActive to 0
+
+	// set isActive to 0
 	public void removeAddress(Address address) {
-		//This will need to be changed to isActive = 0 in the database
+		// This will need to be changed to isActive = 0 in the database
 		addresses.remove(address);
 	}
 
@@ -83,6 +84,24 @@ public class User {
 
 	public User() {
 		this.userRoleId = 3; // The RoleId is hard coded to auto designate new users as Customers
+		this.isActive = 1;
+
+		try {
+			this.setCreateTime(getDate());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public Timestamp getDate() throws ParseException {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(new Date());
+		Date parsedDate = sdf.parse(currentTime);
+
+		Timestamp timestamp = new Timestamp(parsedDate.getTime());
+		return timestamp;
 	}
 
 	/**
@@ -93,16 +112,23 @@ public class User {
 	 * @param create_time
 	 * @param userRoleId
 	 */
-	public User(String firstName, String lastName, String email, String password, Timestamp create_time,
-			int userRoleId, int isActive) {
+	public User(String firstName, String lastName, String email, String password, Timestamp create_time, int userRoleId,
+			int isActive) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.create_time = create_time;
+		this.createTime = create_time;
 		this.userRoleId = 3; // The RoleId is hard coded to auto designate new users as Customers
 		this.isActive = isActive;
+
+		try {
+			this.setCreateTime(getDate());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -114,6 +140,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.userRoleId = 3; // The RoleId is hard coded to auto designate new users as Customers
+		this.isActive = 1;
 	}
 
 	public User(String firstName, String lastName, String email, String password) {
@@ -122,14 +149,16 @@ public class User {
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.isActive = 1;
 		this.userRoleId = 3; // The RoleId is hard coded to auto designate new users as Customers
 	}
-	
+
 	public User(String firstName, String lastName, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.isActive = 1;
 		this.userRoleId = 3; // The RoleId is hard coded to auto designate new users as Customers
 	}
 
@@ -167,18 +196,19 @@ public class User {
 
 	public String getPassword() {
 		return password;
+
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public Timestamp getCreate_time() {
-		return create_time;
+	public Timestamp getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreate_time(Timestamp create_time) {
-		this.create_time = create_time;
+	public void setCreateTime(Timestamp create_time) {
+		this.createTime = create_time;
 	}
 
 	public int getUserRoleId() {
@@ -196,9 +226,5 @@ public class User {
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
 	}
-
-	
-	
-	
 
 }

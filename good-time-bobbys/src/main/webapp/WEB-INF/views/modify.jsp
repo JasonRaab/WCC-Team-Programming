@@ -15,9 +15,8 @@ html {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-attachment: fixed;
-	background-size: cover
+	background-size: cover;
 }
-
 
 .floorbackground {
 	background-image:
@@ -27,6 +26,10 @@ html {
 	background-attachment: fixed;
 	text-align: center;
 	color: #ffffff;
+}
+.jumbotron {
+	font-family: "Georgia", serif;
+	font-size: 55px;
 }
 /* Style the tab */
 .tab {
@@ -74,6 +77,9 @@ table td, th, tr {
 	border: none !important;
 	padding: 8px;
 	font: #ffffff;
+	font-family: "Georgia", serif;
+	font-size: 18px;
+
 }
 
 #table {
@@ -89,6 +95,18 @@ table td, th, tr {
 	text-align: left;
 	background-color: #04AA6D;
 	color: white;
+}
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
 }
 </style>
 <meta charset="ISO-8859-1">
@@ -118,25 +136,30 @@ table td, th, tr {
 <title>Cart</title>
 </head>
 <body>
+	<header class="masthead"></header>
+
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
-				<h1>WELCOME TO GOOD TIME BOBBY'S
-					${user.firstName}&nbsp;${user.lastName}</h1>
-				<h2>${menuItem.itemName}</h2>
-				<h3>${orderID}</h3>
-				<h4>${itemNumber}</h4>
+				<h1>GOOD TIME BOBBY'S</h1>
+				<h4>${menuItem.itemName}</h4>
 			</div>
 		</div>
 		<div class="container floorbackground">
 			<div>
 				<div class="tab floorbackground">
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Breads')">Breads</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Dairy')">Dairy</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Fruit')">Fruit</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Vegetables')">Vegetables</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Proteins')">Proteins</button>
-					<button class="tablinks floorbackground" onclick="openMenu(event, 'Condiments')">Condiments</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Breads')">Breads</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Dairy')">Dairy</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Fruit')">Fruit</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Vegetables')">Vegetables</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Proteins')">Proteins</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Condiments')">Condiments</button>
 				</div>
 			</div>
 			<c:url var="testing" value="testing">
@@ -147,19 +170,19 @@ table td, th, tr {
 				<%-- 			<c:param name="menuItem" value="${menuItem}"></c:param> --%>
 			</c:url>
 			<form:form action="${testing}" modelAttribute="user" method="post">
+
 				<fieldset>
-					<legend> Choose Ingredients to Add: </legend>
+					<legend> </legend>
 					<div id="Breads" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Breads</h3>
 						<div class="card floorbackground">
 							<table class="table floorbackground">
-							<tr>
+								<tr>
 									<c:forEach var="defaultIngredients"
 										items="${defaultIngredientList}">
 										<c:if
 											test="${defaultIngredients.ingredientCategory.equals('Bread')}">
 											<tr>
-												<td>${defaultIngredients.ingredientId}</td>
+												<td></td>
 												<td>${defaultIngredients.ingredientName}</td>
 												<td>$${defaultIngredients.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -176,7 +199,7 @@ table td, th, tr {
 										<c:if
 											test="${eachIngredient.ingredientCategory.equals('Bread')}">
 											<tr>
-												<td>${eachIngredient.ingredientId}</td>
+												<td></td>
 												<td>${eachIngredient.ingredientName}</td>
 												<td>$${eachIngredient.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -188,12 +211,11 @@ table td, th, tr {
 										</c:if>
 									</c:forEach>
 								</tr>
-								
+
 							</table>
 						</div>
 					</div>
 					<div id="Vegetables" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Vegetables</h3>
 						<div class="card floorbackground">
 							<table class="table floorbackground">
 								<tr>
@@ -202,7 +224,7 @@ table td, th, tr {
 										<c:if
 											test="${defaultIngredients.ingredientCategory.equals('Vegetable')}">
 											<tr>
-												<td>${defaultIngredients.ingredientId}</td>
+												<td></td>
 												<td>${defaultIngredients.ingredientName}</td>
 												<td>$${defaultIngredients.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -219,7 +241,7 @@ table td, th, tr {
 										<c:if
 											test="${eachIngredient.ingredientCategory.equals('Vegetable')}">
 											<tr>
-												<td>${eachIngredient.ingredientId}</td>
+												<td></td>
 												<td>${eachIngredient.ingredientName}</td>
 												<td>$${eachIngredient.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -235,7 +257,6 @@ table td, th, tr {
 						</div>
 					</div>
 					<div id="Proteins" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Proteins</h3>
 						<div class="card floorbackground">
 							<table class="table floorbackground">
 								<tr>
@@ -244,7 +265,7 @@ table td, th, tr {
 										<c:if
 											test="${defaultIngredients.ingredientCategory.equals('Protein')}">
 											<tr>
-												<td>${defaultIngredients.ingredientId}</td>
+												<td></td>
 												<td>${defaultIngredients.ingredientName}</td>
 												<td>$${defaultIngredients.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -261,7 +282,7 @@ table td, th, tr {
 										<c:if
 											test="${eachIngredient.ingredientCategory.equals('Protein')}">
 											<tr>
-												<td>${eachIngredient.ingredientId}</td>
+												<td></td>
 												<td>${eachIngredient.ingredientName}</td>
 												<td>$${eachIngredient.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -277,7 +298,6 @@ table td, th, tr {
 						</div>
 					</div>
 					<div id="Fruit" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Fruit</h3>
 						<div class="card floorbackground">
 							<table class="table floorbackground">
 								<tr>
@@ -286,7 +306,7 @@ table td, th, tr {
 										<c:if
 											test="${defaultIngredients.ingredientCategory.equals('Fruit')}">
 											<tr>
-												<td>${defaultIngredients.ingredientId}</td>
+												<td></td>
 												<td>${defaultIngredients.ingredientName}</td>
 												<td>$${defaultIngredients.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -303,7 +323,7 @@ table td, th, tr {
 										<c:if
 											test="${eachIngredient.ingredientCategory.equals('Fruit')}">
 											<tr>
-												<td>${eachIngredient.ingredientId}</td>
+												<td></td>
 												<td>${eachIngredient.ingredientName}</td>
 												<td>$${eachIngredient.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -319,7 +339,6 @@ table td, th, tr {
 						</div>
 					</div>
 					<div id="Dairy" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Dairy</h3>
 						<div class="card floorbackground">
 							<table class="table floorbackground">
 								<tr>
@@ -328,7 +347,7 @@ table td, th, tr {
 										<c:if
 											test="${defaultIngredients.ingredientCategory.equals('Dairy')}">
 											<tr>
-												<td>${defaultIngredients.ingredientId}</td>
+												<td></td>
 												<td>${defaultIngredients.ingredientName}</td>
 												<td>$${defaultIngredients.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -345,7 +364,7 @@ table td, th, tr {
 										<c:if
 											test="${eachIngredient.ingredientCategory.equals('Dairy')}">
 											<tr>
-												<td>${eachIngredient.ingredientId}</td>
+												<td></td>
 												<td>${eachIngredient.ingredientName}</td>
 												<td>$${eachIngredient.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -361,7 +380,6 @@ table td, th, tr {
 						</div>
 					</div>
 					<div id="Condiments" class="tabcontent floorbackground">
-						<h3 class="header floorbackground">Condiments</h3>
 						<div class="card floorbackground">
 							<table class="table floorbackground">
 								<tr>
@@ -370,7 +388,7 @@ table td, th, tr {
 										<c:if
 											test="${defaultIngredients.ingredientCategory.equals('Condiment')}">
 											<tr>
-												<td>${defaultIngredients.ingredientId}</td>
+												<td></td>
 												<td>${defaultIngredients.ingredientName}</td>
 												<td>$${defaultIngredients.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -387,7 +405,7 @@ table td, th, tr {
 										<c:if
 											test="${eachIngredient.ingredientCategory.equals('Condiment')}">
 											<tr>
-												<td>${eachIngredient.ingredientId}</td>
+												<td></td>
 												<td>${eachIngredient.ingredientName}</td>
 												<td>$${eachIngredient.ingredientPrice}</td>
 												<td><input type="checkbox"
@@ -403,12 +421,29 @@ table td, th, tr {
 						</div>
 					</div>
 					<div>
-						<input class="btn btn-outline-light" type="submit" value="Submit Changes" name="submit" />
+						<br>
+						<br> <input class="btn btn-outline-light" type="submit"
+							value="Submit Changes" name="submit" />
 					</div>
 				</fieldset>
 			</form:form>
-
 		</div>
+		
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br>
+		<br>
+	<div class="footer floorbackground">
+			<table width="100%">
+			<tbody>
+				<tr>
+					<td class="aligncenter content-block">Questions? Email <a
+						href="mailto:">support@goodtimebobbys.inc</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	</div>
 </body>
 </html>

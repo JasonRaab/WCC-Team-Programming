@@ -25,6 +25,14 @@ public class UserDAOImpl implements IUserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(User.class, userId);
 	}
+	
+	
+	@Override
+    @Transactional
+    public void saveUser(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(user);
+    }
 
 	@Override
 	@Transactional

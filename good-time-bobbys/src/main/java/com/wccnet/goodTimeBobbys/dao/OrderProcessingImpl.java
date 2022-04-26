@@ -76,13 +76,7 @@ public class OrderProcessingImpl {
 	public void processItemsOrdered(ArrayList<ItemOrdered> itemOrderedArrayList) {
 		Session session = sessionFactory.getCurrentSession();
 		for (ItemOrdered itemOrdered : itemOrderedArrayList) {
-			//ItemOrdered sendToDataBase = new ItemOrdered();
 			System.out.println("in the forloop to send the items" + itemOrdered);
-//			sendToDataBase.setOrderInfo(itemOrdered.getOrderInfo());
-//			 sendToDataBase.setItemNumber(itemOrdered.getItemNumber());
-//			 sendToDataBase.setMenuItem(itemOrdered.getMenuItem());
-//			 sendToDataBase.setIngredientId(itemOrdered.getIngredientId());
-//			 sendToDataBase.setModification( itemOrdered.getModification());
 			session.merge(itemOrdered);
 			
 		}

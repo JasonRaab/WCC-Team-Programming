@@ -14,4 +14,6 @@ public interface IUserDAO {
 	public List<User> getUsers();
 
 	public Integer getUserByEmailAndPassword(String userEmail, String password);
+
+	public void saveUser(User user);
 }
