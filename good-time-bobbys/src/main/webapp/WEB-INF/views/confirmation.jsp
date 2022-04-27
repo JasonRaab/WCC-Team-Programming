@@ -102,7 +102,8 @@ header.masthead {
 				<div>
 
 					<br> <a href="${login}" class="btn btn-outline-light btn-md"
-						role="button" aria-pressed="true">Logout</a> ${closeSession}
+						role="button" aria-pressed="true">Logout</a>
+					<div style="display: none;">${closeSession}</div>
 				</div>
 			</div>
 		</div>

@@ -120,11 +120,13 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Transactional
 	public Session closeSession() {
 		Session session = sessionFactory.getCurrentSession();
+		System.out.println(session);
 		System.out.println("in closeSession() about to check status");
 		if (session.isOpen()) {
 			session.flush();
 			session.clear();
 			System.out.println("flushed session and about to open new one");
+			System.out.println(session);
 			return sessionFactory.openSession();
 		} else {
 			System.out.println("about to return existing session - meaning check for open session failed");

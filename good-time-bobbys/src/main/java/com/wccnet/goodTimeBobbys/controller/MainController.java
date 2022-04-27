@@ -54,6 +54,7 @@ public class MainController {
 	//	beginSession();
 		OrderInfo order = new OrderInfo();
 		restaurantDAO.saveOrder(order);
+		orderProcessingImpl.getMenuItemInCart().clear();
 		model.addAttribute("users", userDAO.getUsers());
 		model.addAttribute("order", order);
 		return "login";
