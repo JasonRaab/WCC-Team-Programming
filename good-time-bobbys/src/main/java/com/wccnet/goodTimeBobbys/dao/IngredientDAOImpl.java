@@ -135,8 +135,6 @@ public class IngredientDAOImpl implements IIngredientDAO {
 		Ingredient ingredient = session.get(Ingredient.class, ingredientID);
 		String ingredientName = ingredient.getIngredientName();
 
-		System.out.println(ingredientName);
-
 		return ingredientName;
 	}
 	

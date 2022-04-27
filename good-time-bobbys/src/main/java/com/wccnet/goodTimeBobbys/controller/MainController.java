@@ -51,7 +51,7 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String loginOne(Model model) {
-	//	beginSession();
+		// beginSession();
 		OrderInfo order = new OrderInfo();
 		restaurantDAO.saveOrder(order);
 		orderProcessingImpl.getMenuItemInCart().clear();
@@ -59,10 +59,6 @@ public class MainController {
 		model.addAttribute("order", order);
 		return "login";
 	}
-
-//	public void beginSession() {
-//		restaurantDAO.beginSession();
-//	}
 
 	@RequestMapping(value = "/loginConfirmation")
 	public String loginConfirmationRedirect(Model model, @RequestParam("userEmail") String userEmail,
@@ -74,7 +70,6 @@ public class MainController {
 		Integer validUserAndPW = userDAO.getUserByEmailAndPassword(userEmail, password);
 
 		if (validUserAndPW != -1) {
-			System.out.println("user id " + validUserAndPW);
 			redirectAttribute.addAttribute("userID", validUserAndPW);
 			redirectAttribute.addAttribute("orderID", orderIdInt);
 
@@ -289,10 +284,8 @@ public class MainController {
 
 			if (orderListCreator.getModifiedIngredientIdSet().contains(ingredientID)) {
 				// DO NOTHING
-				System.out.println("in REMOVED - Do nothing for ingredientID: " + ingredientID);
 			} else {
 				menuService.addToRemovedIngredientByUser(ingredientDAO.getIngredientByID(ingredientID));
-				System.out.println("in REMOVED - add ingredient: " + ingredientID);
 
 				ItemOrdered itemOrdered = new ItemOrdered(orderInfo, itemNumberInt, menuItem, ingredientID, 0);
 				orderProcessingImpl.addItemOrderedToList(itemOrdered);
@@ -374,13 +367,11 @@ public class MainController {
 		}
 
 		for (ItemOrdered itemOrdered : sendItemOrderedList) {
-			System.out.println(itemOrdered + "this is the sendItemOrderedList");
 			orderInfo.addItemsOrdered(itemOrdered);
 			orderProcessingImpl.processItemsOrdered(itemOrdered);
 		}
 
 		for (ItemOrdered itemOrdered : itemsOrderedList) {
-			System.out.println(itemOrdered + "this is the itemsOrderedList");
 
 			itemOrdered.getIngredientId();
 			orderInfo.addItemsOrdered(itemOrdered);
@@ -390,7 +381,6 @@ public class MainController {
 		for (ItemOrdered itemOrdered : orderInfo.getItemsOrdered()) {
 			System.out.println(itemOrdered);
 		}
-		System.out.println("orderinfo should be in the DB!");
 
 		model.addAttribute("orderDate", date);
 		model.addAttribute("userID", userIdInt);
@@ -428,10 +418,10 @@ public class MainController {
 		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
 		String date = orderInfo.getOrderDate();
 		orderInfo.setOrderTax(orderTaxDouble);
- 		orderInfo.setOrderSubtotal(subTotalDouble);
- 		orderInfo.setOrderTotal(orderTotalDouble);
+		orderInfo.setOrderSubtotal(subTotalDouble);
+		orderInfo.setOrderTotal(orderTotalDouble);
 
- 		restaurantDAO.saveOrder(orderInfo);
+		restaurantDAO.saveOrder(orderInfo);
 
 		model.addAttribute("randomPickupTime", generateRandom());
 		model.addAttribute("user", user);
@@ -444,7 +434,6 @@ public class MainController {
 		model.addAttribute("closeSession", restaurantDAO.closeSession());
 		return "confirmation";
 	}
-
 
 	@ModelAttribute
 	public int generateRandom() {

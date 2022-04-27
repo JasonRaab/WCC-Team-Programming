@@ -30,7 +30,6 @@ public class UserDAOImpl implements IUserDAO {
 	public List<User> getUsers() {
 		Session session = sessionFactory.getCurrentSession();
 		Query<User> query = session.createQuery("from User", User.class);
-		System.out.println("smelly IMPLEMENTION");
 		return query.getResultList();
 	}
 
@@ -39,7 +38,6 @@ public class UserDAOImpl implements IUserDAO {
 	public List<Address> getAddress() {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Address> query = session.createQuery("from Address", Address.class);
-		System.out.println("smelly IMPLEMENTION");
 		return query.getResultList();
 	}
 
@@ -53,7 +51,6 @@ public class UserDAOImpl implements IUserDAO {
 				.setParameter("userEmail", userEmail).setParameter("password", password);
 		List<User> results = query.getResultList();
 
-		System.out.println("after query in UserDAO");
 		if ((results != null) && (results.size() > 0)) {
 			User user = query.getSingleResult();
 			Integer userIdInteger = user.getUserId();
