@@ -19,6 +19,19 @@ html {
 	background-size: cover;
 }
 
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+}
+
 .floorbackground {
 	background-image:
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
@@ -42,13 +55,6 @@ table td, th, tr {
 	font: #ffffff;
 }
 
-/* #table tr:nth-child(even) { */
-/* 	background-color: #f2f2f2; */
-/* } */
-
-/* #table tr:hover { */
-/* 	background-color: #ddd; */
-/* } */
 #table th {
 	padding-top: 12px;
 	padding-bottom: 12px;
@@ -80,6 +86,7 @@ table td, th, tr {
 <title>Cart</title>
 </head>
 <body>
+	<header class="masthead"></header>
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
@@ -122,7 +129,6 @@ table td, th, tr {
 										<td style="text-align: right;"><a href="${modify}"
 											class="btn btn-outline-light btn-sm" role="button"
 											aria-pressed="true">Modify Item</a></td>
-										<!-- 									style="color: black; background-color: gray; font-size: medium;" -->
 									</tr>
 								</c:forEach>
 								<tr>
@@ -149,10 +155,10 @@ table td, th, tr {
 							<c:otherwise>
 								<div class="empty-cart-parent">
 									<div class="empty-cart-child">
-										<h5>Your Cart is empty.</h5>
-									</div>
-									<div class="empty-cart-child">
-										<i style="font-size: 25px;" class='fa fa-shopping-cart'></i>
+										<h5>
+											Your <i style="font-size: 25px;" class='fa fa-shopping-cart'></i>&nbsp;
+											is empty.
+										</h5>
 									</div>
 								</div>
 							</c:otherwise>
@@ -168,6 +174,17 @@ table td, th, tr {
 					role="button" aria-pressed="true">Continue Shopping</a>
 				<!-- 					style="color: white; background-color: black; font-size: medium;" -->
 
+			</div>
+			<div class="footer floorbackground">
+				<table width="100%">
+					<tbody>
+						<tr>
+							<td class="aligncenter content-block">Questions? Email <a
+								href="mailto:">support@goodtimebobbys.inc</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 

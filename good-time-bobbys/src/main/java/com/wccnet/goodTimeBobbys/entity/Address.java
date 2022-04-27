@@ -18,7 +18,6 @@ import javax.persistence.Table;
 @Table(name = "address")
 public class Address {
 
-	// To user table @OneToMany AddressId -> User Address Table
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_id")
@@ -39,9 +38,6 @@ public class Address {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_address", joinColumns = @JoinColumn(name = "address_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users = new ArrayList<User>();
-
-//	@ManyToMany(fetch = FetchType.EAGER)
-//	private List<User> users = new ArrayList<User>();
 
 	public void addUser(User user) {
 		users.add(user);

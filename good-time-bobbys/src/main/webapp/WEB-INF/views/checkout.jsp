@@ -78,9 +78,7 @@
 						<td>$${eachIngredient.ingredientPrice}</td>
 					</tr>
 				</c:forEach>
-				<!-- 				not sure how this is going to look - INVESTIGATE -->
 			</table>
-			<%-- 			</form:form> --%>
 		</div>
 
 	</div>

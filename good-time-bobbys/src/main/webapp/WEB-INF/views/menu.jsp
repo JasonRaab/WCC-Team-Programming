@@ -18,6 +18,19 @@
 	box-sizing: border-box;
 }
 
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+}
+
 html {
 	background-image:
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
@@ -101,6 +114,12 @@ padding
 
 
 
+
+
+
+
+
+
 :
 
 
@@ -123,7 +142,19 @@ padding
 
 
 
+
+
+
+
+
+
 0
+
+
+
+
+
+
 
 
 
@@ -170,7 +201,19 @@ padding
 
 
 
+
+
+
+
+
+
 :border-box
+
+
+
+
+
+
 
 
 
@@ -218,7 +261,19 @@ box-sizing
 
 
 
+
+
+
+
+
+
 :border-box
+
+
+
+
+
+
 
 
 
@@ -362,7 +417,7 @@ table.classname td {
 <title>Good Time Bobby's Menu</title>
 </head>
 <body>
-
+	<header class="masthead"></header>
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
@@ -374,7 +429,7 @@ table.classname td {
 					<c:param name="orderID" value="${orderID}" />
 				</c:url>
 				<a class="btn btn-outline-light btn-sm" href="${cart}"
-					style="text-align: center; font-size: 21px;"><i
+					style="width: 55px; text-align: center; font-size: 21px;"><i
 					style="font-size: 25px;" class='fa fa-shopping-cart'></i></a>
 			</div>
 		</div>

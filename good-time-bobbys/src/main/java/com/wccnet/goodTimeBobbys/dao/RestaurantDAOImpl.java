@@ -26,7 +26,8 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Transactional
 	public List<MenuItem> getMenuItems() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<MenuItem> menuItems = session.createQuery("from MenuItem mi where mi.isActive = 1", MenuItem.class);
+		Query<MenuItem> menuItems = session.createQuery("from MenuItem mi where mi.isActive = 1 AND mi.itemStock > 0",
+				MenuItem.class);
 
 		return menuItems.getResultList();
 
@@ -85,8 +86,9 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Transactional
 	public OrderInfo getOrderInfoByID(int orderID) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<OrderInfo> query = session.createQuery("from OrderInfo oi where orderId = :orderID", OrderInfo.class).setParameter("orderID", orderID);
-		
+		Query<OrderInfo> query = session.createQuery("from OrderInfo oi where orderId = :orderID", OrderInfo.class)
+				.setParameter("orderID", orderID);
+
 		return query.getSingleResult();
 	}
 
@@ -100,6 +102,7 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<Double> getMenuItemPriceByID(Integer menuItemID) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<MenuItem> query = session
@@ -113,5 +116,27 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 		return priceList;
 	}
 
+	@Override
+	@Transactional
+	public Session closeSession() {
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("in closeSession() about to check status");
+		if (session.isOpen()) {
+			session.flush();
+			session.clear();
+			System.out.println("flushed session and about to open new one");
+			return sessionFactory.openSession();
+		} else {
+			System.out.println("about to return existing session - meaning check for open session failed");
+			return session;
+		}
+	}
+
+//	@Override
+//	@Transactional
+//	public void beginSession() {
+//		sessionFactory.getCurrentSession();
+//
+//	}
 
 }

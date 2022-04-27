@@ -51,12 +51,17 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String loginOne(Model model) {
+	//	beginSession();
 		OrderInfo order = new OrderInfo();
 		restaurantDAO.saveOrder(order);
 		model.addAttribute("users", userDAO.getUsers());
 		model.addAttribute("order", order);
 		return "login";
 	}
+
+//	public void beginSession() {
+//		restaurantDAO.beginSession();
+//	}
 
 	@RequestMapping(value = "/loginConfirmation")
 	public String loginConfirmationRedirect(Model model, @RequestParam("userEmail") String userEmail,
@@ -65,19 +70,16 @@ public class MainController {
 
 		Integer orderIdInt = orderID;
 
-		if (userDAO.getUserByEmailAndPassword(userEmail, password) != -1) {
-			Integer userIdInt = userDAO.getUserByEmailAndPassword(userEmail, password);
+		Integer validUserAndPW = userDAO.getUserByEmailAndPassword(userEmail, password);
 
-			System.out.println("user id: " + userEmail + "   password: " + password);
-
-			System.out.println("user id " + userIdInt);
-			redirectAttribute.addAttribute("userID", userIdInt);
+		if (validUserAndPW != -1) {
+			System.out.println("user id " + validUserAndPW);
+			redirectAttribute.addAttribute("userID", validUserAndPW);
 			redirectAttribute.addAttribute("orderID", orderIdInt);
 
 			return "redirect:/menu";
 		} else {
-
-			return "redirect:/";
+			return "failedLogin";
 		}
 	}
 
@@ -133,7 +135,6 @@ public class MainController {
 		model.addAttribute("itemIdList", orderListCreator.getItemIdList());
 
 		return "redirect:/menu";
-
 	}
 
 	@RequestMapping("/backToMenu")
@@ -296,7 +297,6 @@ public class MainController {
 				orderProcessingImpl.addItemOrderedToList(itemOrdered);
 			}
 		}
-
 		orderListCreator.clearModifiedIngredientIdSet();
 
 		redirectAttribute.addAttribute("userID", userIdInt);
@@ -340,8 +340,6 @@ public class MainController {
 		int itemNumberInt = itemNumber;
 
 		User user = userDAO.getUserByID(orderIdInt);
-
-		// OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderIdInt);
 
 		Double subTotalDouble = menuService.getSubTotal(menuItemList);
 		Double taxDouble = menuService.getTax(subTotalDouble);
@@ -390,13 +388,7 @@ public class MainController {
 
 		for (ItemOrdered itemOrdered : orderInfo.getItemsOrdered()) {
 			System.out.println(itemOrdered);
-			// orderProcessingImpl.processItemsOrdered(itemOrdered);
 		}
-//		ArrayList<MenuItem> menuItemOrdered = new ArrayList<>();
-//		for (ItemOrdered itemOrdered : sendItemOrderedList) {
-//			menuItemOrdered.add(restaurantDAO.getMenuItemByID(itemOrdered.getMenuItem().getItemId()));
-//		}
-
 		System.out.println("orderinfo should be in the DB!");
 
 		model.addAttribute("orderDate", date);
@@ -434,6 +426,11 @@ public class MainController {
 		Double orderTotalDouble = orderTotal;
 		OrderInfo orderInfo = restaurantDAO.getOrderInfoByID(orderID);
 		String date = orderInfo.getOrderDate();
+		orderInfo.setOrderTax(orderTaxDouble);
+ 		orderInfo.setOrderSubtotal(subTotalDouble);
+ 		orderInfo.setOrderTotal(orderTotalDouble);
+
+ 		restaurantDAO.saveOrder(orderInfo);
 
 		model.addAttribute("randomPickupTime", generateRandom());
 		model.addAttribute("user", user);
@@ -443,15 +440,15 @@ public class MainController {
 		model.addAttribute("subTotal", subTotalDouble);
 		model.addAttribute("orderTax", orderTaxDouble);
 		model.addAttribute("orderTotal", orderTotalDouble);
-
+		model.addAttribute("closeSession", restaurantDAO.closeSession());
 		return "confirmation";
 	}
+
 
 	@ModelAttribute
 	public int generateRandom() {
 		int min = 15;
 		int max = 25;
-
 		int randomInt = (int) Math.floor(Math.random() * (max - min + 1) + min);
 
 		return randomInt;
@@ -469,7 +466,6 @@ public class MainController {
 	public String getIngerdientList(Model model, @ModelAttribute("ingredient") Ingredient ingredient,
 			BindingResult result) {
 		model.addAttribute("ingredient", restaurantDAO.getIngredient());
-
 		return "fullIngredientList";
 	}
 

@@ -16,6 +16,19 @@
 	box-sizing: border-box;
 }
 
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+}
+
 html {
 	background-image:
 		url(https://paliorestaurant.com/wp-content/uploads/2021/08/wood.jpg);
@@ -82,11 +95,23 @@ html {
 padding
 
 
+
+
+
+
 :
 
 
 
+
+
+
+
 0
+
+
+
+
 
 
 
@@ -96,7 +121,15 @@ padding
 
 
 
+
+
+
+
 :border-box
+
+
+
+
 
 
 
@@ -105,7 +138,15 @@ box-sizing
 
 
 
+
+
+
+
 :border-box
+
+
+
+
 
 
 
@@ -223,7 +264,7 @@ table.classname td {
 <title>Good Time Bobby's Menu</title>
 </head>
 <body>
-
+	<header class="masthead"></header>
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">

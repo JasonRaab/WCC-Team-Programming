@@ -102,14 +102,6 @@ public class User {
 		}
 	}
 
-	/**
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param password
-	 * @param create_time
-	 * @param userRoleId
-	 */
 	public User(String firstName, String lastName, String email, String password, Timestamp create_time, int userRoleId,
 			int isActive) {
 		super();
@@ -129,10 +121,6 @@ public class User {
 		}
 	}
 
-	/**
-	 * @param email
-	 * @param password
-	 */
 	public User(String email, String password) {
 		super();
 		this.email = email;

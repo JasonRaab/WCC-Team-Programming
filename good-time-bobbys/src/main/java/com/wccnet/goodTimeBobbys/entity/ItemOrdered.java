@@ -24,19 +24,7 @@ import com.wccnet.goodTimeBobbys.dao.IIngredientDAO;
 //@IdClass(ItemOrdered.class)
 public class ItemOrdered implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * 
-	 */
-
-	// One OrderInfo to many menuItem(s)
-//	@Id
-//	@Column(name = "order_id")
-//	private int orderId;
 
 	@Id
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
@@ -49,18 +37,11 @@ public class ItemOrdered implements Serializable {
 	@Column(name = "item_number")
 	private int itemNumber;
 
-	// One MenuItem to many ItemOrdered
-//	@Id
-//	@Column(name = "menu_item")
-//	private int menuItemId;
-
 	@Id
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinColumn(name = "menu_item")
 	private MenuItem menuItem;
 
-	// Not sure how to link this up to the datebase
-	// **************************************************************
 	@Nullable
 	@Column(name = "ingredient_id")
 	private Integer ingredientId;
@@ -86,13 +67,6 @@ public class ItemOrdered implements Serializable {
 
 	}
 
-	/**
-	 * @param orderId
-	 * @param itemNumber
-	 * @param menuItemId
-	 * @param ingredientId
-	 * @param modification
-	 */
 	public ItemOrdered(OrderInfo orderInfo, Integer itemNumber, MenuItem menuItem, Integer ingredientId,
 			Integer modification) {
 		super();
@@ -109,10 +83,6 @@ public class ItemOrdered implements Serializable {
 		this.itemNumber = itemNumber;
 		this.menuItem = menuItem;
 	}
-
-//	public ItemOrdered(int orderID, int itemNumber, int menuItem, int ingredientID, int modification) {
-//		
-//	}
 
 	public Integer getItemNumber() {
 		return itemNumber;
@@ -156,7 +126,8 @@ public class ItemOrdered implements Serializable {
 
 	@Override
 	public String toString() {
-		return "&nbsp;&nbsp; " + ((modification != null) ? ((modification == 1) ? "+" : "-") : "") + ((ingredientId != null) ? " " : "");
+		return "&nbsp;&nbsp; " + ((modification != null) ? ((modification == 1) ? "+" : "-") : "")
+				+ ((ingredientId != null) ? " " : "");
 	}
 
 	// ((modification == 1) ? "Added" : "Removed")

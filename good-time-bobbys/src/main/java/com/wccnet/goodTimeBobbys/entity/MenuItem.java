@@ -44,8 +44,6 @@ public class MenuItem {
 	@Column(name = "item_category")
 	private String itemCategory;
 
-	// Is this the total that is in current stock or is it a
-	// True/False?*********************************************************************
 	@Column(name = "item_stock")
 	private int itemStock;
 

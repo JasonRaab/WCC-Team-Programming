@@ -3,6 +3,8 @@ package com.wccnet.goodTimeBobbys.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.MenuItem;
 import com.wccnet.goodTimeBobbys.entity.OrderInfo;
@@ -30,4 +32,8 @@ public interface IRestaurantDAO {
 	void saveOrder(OrderInfo order);
 
 	public OrderInfo getOrderInfoByID(int orderID);
+
+	public Session closeSession();
+
+	//public void beginSession();
 }

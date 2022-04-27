@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "order_info")
 public class OrderInfo {
@@ -26,71 +27,58 @@ public class OrderInfo {
 	@Column(name = "user_id")
 	private int userId;
 
-	// pass in NOW() to the database to get the correct format - this returns a String
+	// pass in NOW() to the database to get the correct format - this returns a
+	// String
 	@Column(name = "order_date")
 	private String orderDate;
 
-	//To get this value - add all of the prices of the MenuItems on the order
+	// To get this value - add all of the prices of the MenuItems on the order
 	@Column(name = "order_subtotal")
 	private Double orderSubtotal;
 
-	//To get this value - multiply the order by .06
+	// To get this value - multiply the order by .06
 	@Column(name = "order_tax")
 	private Double orderTax;
 
-	//To get this value - add the orderSubtotal and the orderTax
+	// To get this value - add the orderSubtotal and the orderTax
 	@Column(name = "order_total")
 	private Double orderTotal;
-	
-	//This is in-store, pick-up, or delivery
+
+	// This is in-store, pick-up, or delivery
 	@Column(name = "order_type")
 	private String orderType;
-	
-	//This is the table # for in-store orders
+
+	// This is the table # for in-store orders
 	@Column(name = "table_number")
 	private String tableNumber;
-	
-	//this column is allowing us to track if the order is open = 1 or closed = 0
-	
+
+	// this column is allowing us to track if the order is open = 1 or closed = 0
+
 	@Column(name = "is_open")
 	private int isOpen;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy = "orderInfo", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "orderInfo", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	private List<ItemOrdered> itemsOrdered;
-	
+
 	public void addItemsOrdered(ItemOrdered itemOrdered) {
 		itemsOrdered.add(itemOrdered);
 		itemOrdered.setOrderInfo(this);
 	}
-	
+
 	public void removeItemsOrdered(ItemOrdered itemOrdered) {
 		itemsOrdered.remove(itemOrdered);
 	}
-	
+
 	public void clearItemsOrderedList() {
 		itemsOrdered.clear();
 	}
-	
-	
-	
+
 	public OrderInfo() {
 
 	}
-	
-	
 
-	/**
-	 * @param userId
-	 * @param orderDate
-	 * @param orderSubtotal
-	 * @param orderTax
-	 * @param orderTotal
-	 * @param orderType
-	 * @param tableNumber
-	 * @param isOpen
-	 * @param itemsOrdered
-	 */
 	public OrderInfo(int userId, String orderDate, Double orderSubtotal, Double orderTax, Double orderTotal,
 			String orderType, String tableNumber, int isOpen, List<ItemOrdered> itemsOrdered) {
 		super();
@@ -105,14 +93,6 @@ public class OrderInfo {
 		this.itemsOrdered = itemsOrdered;
 	}
 
-	/**
-	 * @param userId
-	 * @param order_date
-	 * @param order_subtotal
-	 * @param orderTax
-	 * @param orderTotal
-	 * @param orderType
-	 */
 	public OrderInfo(int userId, String orderDate, Double orderSubtotal, Double orderTax, Double orderTotal) {
 		super();
 		this.userId = userId;
@@ -121,7 +101,7 @@ public class OrderInfo {
 		this.orderTax = orderTax;
 		this.orderTotal = orderTotal;
 		this.orderType = "pickup";
-		//this.isOpen = 1;
+		this.isOpen = 1;
 	}
 
 	public int getOrderId() {
@@ -148,7 +128,6 @@ public class OrderInfo {
 		this.userId = userId;
 	}
 
-
 	public Double getOrderTax() {
 		return orderTax;
 	}
@@ -164,8 +143,6 @@ public class OrderInfo {
 	public void setOrderTotal(Double orderTotal) {
 		this.orderTotal = orderTotal;
 	}
-	
-	
 
 	public String getOrderDate() {
 		return orderDate;

@@ -58,13 +58,27 @@ table td, th, tr {
 }
 
 .totals {
-		font-size: 19px;
+	font-size: 19px;
+}
+
+header.masthead {
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #ffffff;
+	background-image:
+		url(https://paliorestaurant.com/wp-content/uploads/2021/08/palio-hero-3.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
 }
 </style>
 <meta charset="ISO-8859-1">
 <title>Order Confirmation</title>
 </head>
 <body>
+	<header class="masthead"></header>
 	<div class="floorbackground">
 		<div class="container floorbackground">
 			<div class="jumbotron text-center floorbackground">
@@ -82,11 +96,13 @@ table td, th, tr {
 					<div>Tax: ${orderTax}</div>
 					<div>Total: ${orderTotal}</div>
 				</div>
-				<c:url var="login" value="/"></c:url>
+				<c:url var="login" value="/">
+				</c:url>
 
 				<div>
+
 					<br> <a href="${login}" class="btn btn-outline-light btn-md"
-						role="button" aria-pressed="true">Logout</a>
+						role="button" aria-pressed="true">Logout</a> ${closeSession}
 				</div>
 			</div>
 		</div>

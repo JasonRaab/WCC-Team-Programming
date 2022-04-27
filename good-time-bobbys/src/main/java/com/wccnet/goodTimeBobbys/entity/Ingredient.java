@@ -29,9 +29,6 @@ public class Ingredient {
 	@Column(name = "ingredient_name")
 	private String ingredientName;
 
-	// What is this referring to? Is it the same as MenuItem.category or is it
-	// something
-	// else?**********************************************************************
 	@Column(name = "ingredient_category")
 	private String ingredientCategory;
 
@@ -94,13 +91,6 @@ public class Ingredient {
 	public void removeMenuItem(MenuItem item) {
 		menuItems.remove(item);
 	}
-
-//	@Override
-//	public String toString() {
-//		return "{ Ingredient Table }\nIngredient Id: " + ingredientId + "\nIngredient Name: " + ingredientName
-//				+ "\nIngredient Stock: " + ingredientStock + "\nIngredient Price: " + ingredientPrice;
-//	}
-	
 	@Override
 	public String toString() {	
 		return "Ingredient Name: " + ingredientName + " \n" + "Price: " + ingredientPrice;
