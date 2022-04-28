@@ -6,17 +6,141 @@
       xmlns:local="clr-namespace:POS"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="OrderSelectionPage" Width="1272" Height="689" Loaded="Page_Loaded">
-    <Grid Width="1272" Height="689" Background="#FFCBC9C9">
-        <Rectangle Fill="Black" HorizontalAlignment="Left" Height="669" Margin="434,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="28"/>
-        <Label Content="To Go Orders" HorizontalAlignment="Left" Margin="96,16,0,0" VerticalAlignment="Top" Height="78" Width="242" FontSize="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="1110,622,0,0" VerticalAlignment="Top" Width="130" Height="50" RenderTransformOrigin="0.252,0.196" FontSize="18"/>
-        <Button x:Name="btnTable1" Content="1" HorizontalAlignment="Left" Margin="625,184,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
-        <Button x:Name="btnTable2" Content="2" HorizontalAlignment="Left" Margin="818,184,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
-        <Button x:Name="btnTable3" Content="3" HorizontalAlignment="Left" Margin="625,338,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
-        <Button x:Name="btnTable4" Content="4" HorizontalAlignment="Left" Margin="818,338,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="White" BorderBrush="Black" FontSize="36"/>
-        <Label x:Name="lblUserName" Content="No Pin Gotten" HorizontalAlignment="Left" Margin="1121,26,0,0" VerticalAlignment="Top" Height="44" Width="89"/>
-        <Grid x:Name="onlineOrdersGrid" HorizontalAlignment="Left" Height="563" Margin="38,109,0,0" VerticalAlignment="Top" Width="374">
+      Title="OrderSelectionPage" Width="1920" Height="1080" Loaded="Page_Loaded">
+    <Page.Background>
+        <RadialGradientBrush>
+            <GradientStop Color="Black"/>
+            <GradientStop Color="#FF2C2CEA" Offset="1"/>
+            <GradientStop Color="#FFA7A7FF" Offset="0.37"/>
+        </RadialGradientBrush>
+    </Page.Background>
+    <Grid x:Name="mainGrid" Width="1272" Height="689">
+        <Grid.Background>
+            <ImageBrush ImageSource="woodFloor.jpg"/>
+        </Grid.Background>
+        <Rectangle HorizontalAlignment="Left" Height="689" Stroke="Black" VerticalAlignment="Top" Width="462">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF263BFF" Offset="1"/>
+                    <GradientStop Color="#FF808CFF"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Fill="#FF7986FD" HorizontalAlignment="Left" Height="45" Stroke="Black" VerticalAlignment="Top" Width="1272"/>
+        <Label Content="Online Orders" HorizontalAlignment="Left" Margin="97,0,0,0" VerticalAlignment="Top" Height="45" Width="242" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="btnExit" Content="Exit" Margin="0,0,10,10" VerticalAlignment="Bottom" Height="50" RenderTransformOrigin="0.252,0.196" FontSize="18" Style="{DynamicResource RoundedButtonStyle}" HorizontalAlignment="Right" Width="130"/>
+        <Button x:Name="btnTable101" Content="101" HorizontalAlignment="Left" Margin="515,85,0,0" VerticalAlignment="Top" Width="150" Height="74" Background="White" BorderBrush="Black" FontSize="36" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource RoundedButtonStyle}"/>
+        <Button x:Name="btnTable102" Content="102" HorizontalAlignment="Left" Margin="515,247,0,0" VerticalAlignment="Top" Width="150" Height="76" Background="White" BorderBrush="Black" FontSize="36" Style="{DynamicResource RoundedButtonStyle}"/>
+        <Button x:Name="btnTable103" Content="103" HorizontalAlignment="Left" Margin="515,400,0,0" VerticalAlignment="Top" Width="150" Height="76" Background="White" BorderBrush="Black" FontSize="36" Style="{DynamicResource RoundedButtonStyle}"/>
+        <Button x:Name="btnTable104" Content="104" HorizontalAlignment="Left" Margin="515,563,0,0" VerticalAlignment="Top" Width="150" Height="74" Background="White" BorderBrush="Black" FontSize="36" Style="{DynamicResource RoundedButtonStyle}"/>
+        <Label x:Name="lblUserName" Content="" HorizontalAlignment="Left" Margin="550,0,0,0" VerticalAlignment="Top" Height="50" Width="369" FontSize="24" HorizontalContentAlignment="Center"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="515,50,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="575,50,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="635,50,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="515,164,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="575,164,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="635,164,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="515,214,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="575,214,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="635,214,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="515,328,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="575,328,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="635,328,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="515,368,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="575,368,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="635,368,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="515,482,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="575,482,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="635,482,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="515,528,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="575,528,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="635,528,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="515,642,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="575,642,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="635,642,0,0"/>
+        <Button x:Name="btnTable301" Content="301" HorizontalAlignment="Left" Margin="925,576,0,0" VerticalAlignment="Top" Width="74" Height="74" Background="White" BorderBrush="Black" FontSize="36" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource RoundedButtonStyle}">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="45"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1018,446,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="907,636,0,0"/>
+        <Button x:Name="btnTable302" Content="302" HorizontalAlignment="Left" Margin="1040,464,0,0" VerticalAlignment="Top" Width="74" Height="74" Background="White" BorderBrush="Black" FontSize="36" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource RoundedButtonStyle}">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="45"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="btnTable303" Content="303" HorizontalAlignment="Left" Margin="1159,354,0,0" VerticalAlignment="Top" Width="74" Height="74" Background="White" BorderBrush="Black" FontSize="36" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource RoundedButtonStyle}">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="45"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1142,415,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="991,563,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1104,528,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="907,563,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="991,636,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1104,446,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1018,528,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1219,338,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1142,338,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1219,415,0,0"/>
+        <Button x:Name="btnTable401" Content="401" HorizontalAlignment="Left" Margin="787,214,0,0" VerticalAlignment="Top" Width="150" Height="281" Background="White" BorderBrush="Black" FontSize="36" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource RoundedButtonStyle}"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="752,219,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="752,264,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="752,313,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="752,361,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="752,406,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="752,455,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="937,219,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="937,264,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="937,313,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="937,361,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="937,406,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="937,455,0,0"/>
+        <Button x:Name="btnTable201" Content="201" HorizontalAlignment="Left" Margin="787,82,0,0" VerticalAlignment="Top" Width="74" Height="74" Background="White" BorderBrush="Black" FontSize="36" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource RoundedButtonStyle}"/>
+        <Button x:Name="btnTable202" Content="202" HorizontalAlignment="Left" Margin="947,82,0,0" VerticalAlignment="Top" Width="74" Height="74" Background="White" BorderBrush="Black" FontSize="36" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource RoundedButtonStyle}"/>
+        <Button x:Name="btnTable203" Content="203" HorizontalAlignment="Left" Margin="1098,82,0,0" VerticalAlignment="Top" Width="74" Height="74" Background="White" BorderBrush="Black" FontSize="36" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource RoundedButtonStyle}"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="791,156,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="831,156,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="791,47,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="831,47,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="951,47,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="991,47,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1102,50,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1142,50,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="951,156,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="991,156,0,0"/>
+        <Ellipse Fill="#FF956429" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1101,158,0,0"/>
+        <Ellipse Fill="#FF956429" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1141,158,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1101,158,0,0"/>
+        <Ellipse Fill="#FFFF9B24" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" Margin="1141,158,0,0" RenderTransformOrigin="0.5,0.5">
+            <Ellipse.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-92.288"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Ellipse.RenderTransform>
+        </Ellipse>
+        <Label x:Name="lblClock" Content="" HorizontalAlignment="Left" Margin="924,0,0,0" VerticalAlignment="Top" Height="50" Width="251" FontSize="24"/>
+        <Grid x:Name="onlineOrdersGrid" HorizontalAlignment="Left" Height="597" Margin="37,82,0,0" VerticalAlignment="Top" Width="374">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="130*"/>
                 <ColumnDefinition Width="130*"/>

@@ -86,6 +86,9 @@
       <DependentUpon>OrderSelectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="POSApp.vb" />
+    <Compile Include="TakePaymentPopup.xaml.vb">
+      <DependentUpon>TakePaymentPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User.vb" />
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
@@ -114,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OrderSelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TakePaymentPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -179,6 +186,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Resources\xBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\woodFloor.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="woodFloor.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\woodFloor2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="woodFloor2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

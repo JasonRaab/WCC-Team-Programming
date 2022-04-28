@@ -34,6 +34,9 @@ C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\OrderPage.baml
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\LoginPage.g.vb
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\LoginPage.baml
-C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS.vbprojAssemblyReference.cache
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\ModifiersPopup.g.vb
 C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\ModifiersPopup.baml
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\POS.vbprojAssemblyReference.cache
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\Application.baml
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\TakePaymentPopup.g.vb
+C:\Users\Jason\Desktop\Desktop\School\CPS298\WCC-Team-Programming\POS\obj\Debug\TakePaymentPopup.baml

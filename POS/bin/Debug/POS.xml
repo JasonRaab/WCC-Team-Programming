@@ -54,6 +54,16 @@ POS
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="P:POS.My.Resources.Resources.woodFloor">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:POS.My.Resources.Resources.woodFloor2">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="T:POS.LoginPage">
 <summary>
 LoginPage
@@ -94,23 +104,15 @@ OrderSelectionPage
 InitializeComponent
 </summary>
 </member>
-<member name="T:POS.POSApp">
- <summary>
- To Do Front End:
- Display totals in a nicer way. Probably a dataTemplate like in ticket
- Make it so that sent items are highlighted and can no longer be deleted
- 
- To Do Backend
- Send orders to database
- Change the itemSource of lstBoxTicket from lstBoxTicket.Items to selectedOrder.Items
-     This will require adjustments in a lot of functions
- Create PIN pad on login page
-     Bring user_id that is entered to where ever it is needed. Just in POSApp?
- Clean up OrderPage.XAML there are bits of old attempts to make sent items turn blue
- Make modifyer popup page when an item is selected
- 
- Extra Functionality - Make it store menu in XML so that it can run without db connection.
- </summary>
+<member name="T:POS.TakePaymentPopup">
+<summary>
+TakePaymentPopup
+</summary>
+</member>
+<member name="M:POS.TakePaymentPopup.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
 </member>
 <member name="T:POS.Application">
 <summary>

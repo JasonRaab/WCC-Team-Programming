@@ -23,11 +23,11 @@
     End Sub
 
     Private Sub btnTakePayment_Click(sender As Object, e As RoutedEventArgs) Handles btnTakePayment.Click
-        posApp.TakePayment()
+        posApp.ShowTakePaymentPopup()
     End Sub
 
     Private Sub btnExit_Click(sender As Object, e As RoutedEventArgs) Handles btnExit.Click
-        posApp.ExitOrderPage()
+        posApp.ShowOrderSelectionPage()
     End Sub
 
     Private Sub lstBoxTicket_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles lstBoxTicket.MouseDoubleClick

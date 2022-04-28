@@ -1,21 +1,4 @@
-﻿'Imports System.Drawing
-Imports System.Windows.Media.Brushes
-''' <summary>
-''' To Do Front End:
-''' Display totals in a nicer way. Probably a dataTemplate like in ticket
-''' Make it so that sent items are highlighted and can no longer be deleted
-''' 
-''' To Do Backend
-''' Send orders to database
-''' Change the itemSource of lstBoxTicket from lstBoxTicket.Items to selectedOrder.Items
-'''     This will require adjustments in a lot of functions
-''' Create PIN pad on login page
-'''     Bring user_id that is entered to where ever it is needed. Just in POSApp?
-''' Clean up OrderPage.XAML there are bits of old attempts to make sent items turn blue
-''' Make modifyer popup page when an item is selected
-''' 
-''' Extra Functionality - Make it store menu in XML so that it can run without db connection.
-''' </summary>
+﻿Imports System.Windows.Media.Brushes
 Public Class POSApp
 
     Private dctOpenOnlineOrdersButtons As New Dictionary(Of Button, Order)
@@ -34,6 +17,10 @@ Public Class POSApp
     Private modifiersPopupValue As ModifiersPopup
     Private addIngredientMode As Boolean = True
     Private lstAllOpenOnlineOrders As New List(Of Order)
+    Private lstTableNumbers As New List(Of String)
+    Private lstTableButtons As New List(Of Button)
+    Private lstButtonColors As New List(Of Brush)
+    Private takePaymentPopup As TakePaymentPopup
 
     Public Property User() As User
         Get
@@ -99,16 +86,30 @@ Public Class POSApp
         OrderSelectionPage = New OrderSelectionPage(Me)
         orderPage = New OrderPage(Me)
         ModifiersPopup = New ModifiersPopup(Me)
+        takePaymentPopup = New TakePaymentPopup(Me)
         dao = New DAO("datasource=167.172.242.79;port=3306;username=pos;password=PASSword@cps298")
+        PopulateCategoryColors()
         PopulateItemCategoryButtons()
         PopulateItemButtons()
         PopulateLstBoxTotals()
-        PopulateOpenOnlineOrders()
+        PopulateTableButtons()
         MainWindow.Content = LoginPage
     End Sub
 
 
     '''''''''' Populating Functions ''''''''''
+
+    Public Sub PopulateCategoryColors()
+        lstButtonColors.Add(Brushes.SteelBlue)
+        lstButtonColors.Add(Brushes.DarkSalmon)
+        lstButtonColors.Add(Brushes.LightYellow)
+        lstButtonColors.Add(Brushes.Teal)
+        lstButtonColors.Add(Brushes.Purple)
+        lstButtonColors.Add(Brushes.LightBlue)
+        lstButtonColors.Add(Brushes.Pink)
+        lstButtonColors.Add(Brushes.Cyan)
+        lstButtonColors.Add(Brushes.Green)
+    End Sub
 
     Public Sub PopulateIngredientButtons()
         dctIngredientButtons.Clear()
@@ -125,10 +126,12 @@ Public Class POSApp
             Dim btn As New Button
             btn.Content = ingredient.Name.Replace(" ", Environment.NewLine)
             btn.HorizontalContentAlignment = HorizontalAlignment.Center
+            'btn.VerticalAlignment = VerticalAlignment.Bottom
             btn.Name = "btn" & ingredient.Name.Replace(" ", "")
-            btn.Height = 70
-            btn.Width = 70
+            btn.Height = 100
+            btn.Width = 100
             btn.FontSize = 14
+            btn.Style = CType(Application.Current.FindResource("RoundedButtonStyle"), Style)
             If lstDefaultIngredientIds.Contains(ingredient.Id) Then
                 btn.Background = Brushes.Green
             Else
@@ -140,22 +143,32 @@ Public Class POSApp
     End Sub
 
     Public Sub PopulateItemCategoryButtons()
-        Dim intRow As Integer
+        Dim intRow As Integer = 0
+        Dim intColumn As Integer = 0
+        Dim colorIndex As Integer = 0
         Dim lstCateGories As List(Of String)
-        intRow = 0
         lstCateGories = dao.GetItemCategories()
 
         For Each category As String In lstCateGories
             Dim btn As New Button
             btn.Content = category
             btn.Name = "btn" & category.Replace(" ", "")
-            btn.Height = 125
-            btn.Width = 125
-            btn.FontSize = 18
+            btn.Height = 100
+            btn.Width = 100
+            btn.FontSize = 14
+            btn.Style = CType(Application.Current.FindResource("RoundedButtonStyle"), Style)
+            btn.Background = lstButtonColors(colorIndex)
+            colorIndex += 1
             AddHandler btn.Click, AddressOf CategoryBtn_Click
+            Grid.SetColumn(btn, intColumn)
             Grid.SetRow(btn, intRow)
             orderPage.categoryGridPanel.Children.Add(btn)
-            intRow += 1
+            Debug.WriteLine(btn.Name & " " & intColumn, intRow)
+            intColumn += 1
+            If intColumn >= 2 Then
+                intColumn = 0
+                intRow += 1
+            End If
         Next
 
     End Sub
@@ -172,9 +185,10 @@ Public Class POSApp
                 btn.Content = item.Name.Replace(" ", Environment.NewLine)
                 btn.HorizontalContentAlignment = HorizontalAlignment.Center
                 btn.Name = "btn" & item.Name.Replace(" ", "")
-                btn.Height = 125
-                btn.Width = 125
-                btn.FontSize = 18
+                btn.Height = 100
+                btn.Width = 100
+                btn.FontSize = 14
+                btn.Style = CType(Application.Current.FindResource("RoundedButtonStyle"), Style)
                 AddHandler btn.Click, AddressOf StartItem
                 DctItemButtons.Add(btn, item)
             Catch ex As Exception
@@ -189,38 +203,59 @@ Public Class POSApp
     End Sub
 
     Public Sub PopulateOpenOnlineOrders()
-        Dim intRow As Integer
-        Dim intColumn As Integer
+        'Reset everything
+        Dim intRow As Integer = 0
+        Dim intColumn As Integer = 0
+        dctOpenOnlineOrdersButtons.Clear()
+        lstAllOpenOnlineOrders.Clear()
+        OrderSelectionPage.onlineOrdersGrid.Children.Clear()
+        'Get all the open online orders
         lstAllOpenOnlineOrders = dao.GetAllOpenOnlineOrders()
-
         'Makes a button for each open online order
         For Each order As Order In lstAllOpenOnlineOrders
             Try
+                Dim user As New User
+                user = dao.GetUser(order.UserId)
                 Dim btn As New Button
-                btn.Content = order.OrderId
+                btn.Content = user.FirstName & " " & user.LastName & vbCrLf & order.OrderDate
                 btn.HorizontalContentAlignment = HorizontalAlignment.Center
                 btn.Name = "btn" & order.OrderId
-                btn.Height = 60
-                btn.Width = 150
-                btn.FontSize = 12
+                btn.Height = 70
+                btn.Width = 160
+                btn.FontSize = 14
+                btn.Background = Brushes.Yellow
+                btn.Style = CType(Application.Current.FindResource("RoundedButtonStyle"), Style)
                 AddHandler btn.Click, AddressOf ViewOrderPageOnline
                 dctOpenOnlineOrdersButtons.Add(btn, order)
             Catch ex As Exception
             End Try
         Next
-
         'Adds the button to the onlineOrdersGrid on the OrderSelectionpage
         For Each pair As KeyValuePair(Of Button, Order) In dctOpenOnlineOrdersButtons
             Grid.SetColumn(pair.Key, intColumn)
             Grid.SetRow(pair.Key, intRow)
             OrderSelectionPage.onlineOrdersGrid.Children.Add(pair.Key)
             intColumn += 1
-            If intColumn > 2 Then
+            If intColumn >= 2 Then
                 intColumn = 0
                 intRow += 1
             End If
         Next
 
+    End Sub
+
+    Public Sub PopulateTableButtons()
+        lstTableButtons.Add(OrderSelectionPage.btnTable101)
+        lstTableButtons.Add(OrderSelectionPage.btnTable102)
+        lstTableButtons.Add(OrderSelectionPage.btnTable103)
+        lstTableButtons.Add(OrderSelectionPage.btnTable104)
+        lstTableButtons.Add(OrderSelectionPage.btnTable201)
+        lstTableButtons.Add(OrderSelectionPage.btnTable202)
+        lstTableButtons.Add(OrderSelectionPage.btnTable203)
+        lstTableButtons.Add(OrderSelectionPage.btnTable301)
+        lstTableButtons.Add(OrderSelectionPage.btnTable302)
+        lstTableButtons.Add(OrderSelectionPage.btnTable303)
+        lstTableButtons.Add(OrderSelectionPage.btnTable401)
     End Sub
 
     Public Sub DisplayOpenOrder(order As Order)
@@ -234,21 +269,29 @@ Public Class POSApp
     Public Sub UpdateCategory(categoryName As String)
         Dim intRow As Integer
         Dim intColumn As Integer
+        Dim buttonColor As Brush
         intRow = 0
         intColumn = 0
 
+        For Each button As Button In orderPage.categoryGridPanel.Children
+            If button.Content.Equals(categoryName) Then
+                buttonColor = button.Background
+            End If
+        Next
+
         'Remove all item buttons, change category header
         orderPage.itemGridPanel.Children.Clear()
-        orderPage.lblCategoryHeader.Content = categoryName & "s"
+        orderPage.lblCategoryHeader.Content = categoryName
 
         'If an item's category matches the string passed in then display its button
         For Each pair As KeyValuePair(Of Button, Item) In dctItemButtonsValue
             If pair.Value.Category.Equals(categoryName) Then
+                pair.Key.Background = buttonColor
                 Grid.SetColumn(pair.Key, intColumn)
                 Grid.SetRow(pair.Key, intRow)
                 orderPage.itemGridPanel.Children.Add(pair.Key)
                 intColumn += 1
-                If intColumn > 3 Then
+                If intColumn > 4 Then
                     intColumn = 0
                     intRow += 1
                 End If
@@ -292,7 +335,19 @@ Public Class POSApp
     End Sub
 
     '''''''''' Navigation Functions ''''''''''
-    Public Sub ExitOrderPage()
+    Public Sub ShowOrderSelectionPage()
+        PopulateOpenOnlineOrders()
+        lstOpenLocalOrders.Clear()
+        lstOpenLocalOrders = dao.GetAllOpenLocalOrders()
+        For Each tableButton As Button In lstTableButtons
+            If GetLocalOrder(tableButton.Content) IsNot Nothing Then
+                tableButton.Background = Brushes.Yellow
+            Else
+                tableButton.Background = Brushes.White
+            End If
+        Next
+        OrderSelectionPage.lblClock.Content = DateTime.Now.ToString("hh:mm tt")
+        OrderSelectionPage.lblUserName.Content = "Hello " & User.FirstName & " " & User.LastName
         MainWindow.Content = OrderSelectionPage
     End Sub
 
@@ -303,14 +358,12 @@ Public Class POSApp
     Public Sub LoginPageGo(pin As String)
         'Takes in pin from login page
         'Calls DAO method to get user based on pin which is user_id
-        dao.GetAllOpenOnlineOrders()
         If pin.Equals("") Then
             InvalidPin()
         Else
-            If dao.Login(CType(pin, Integer)) IsNot Nothing Then
-                MainWindow.Content = OrderSelectionPage
-                User = New User(dao.Login(CType(pin, Integer)))
-                OrderSelectionPage.lblUserName.Content = User.FirstName & " " & User.LastName
+            If dao.GetUser(CType(pin, Integer)) IsNot Nothing Then
+                User = New User(dao.GetUser(CType(pin, Integer)))
+                ShowOrderSelectionPage()
             Else
                 InvalidPin()
             End If
@@ -322,6 +375,7 @@ Public Class POSApp
         'Display the selected online order in the order page
         orderPage.lstBoxTicket.Items.Clear()
         orderPage.lblEmployeeName.Content = User.FirstName & " " & User.LastName
+        orderPage.lblClock.Content = DateTime.Now.ToString("hh:mm tt")
 
         'Set selecetd order to the order associated with the clicked button
         selectedOrder = dctOpenOnlineOrdersButtons.Item(CType(clickedBtn, Button))
@@ -330,7 +384,7 @@ Public Class POSApp
             item.Sent = True
         Next
         DisplayOpenOrder(selectedOrder)
-        UpdateCategory("Entree")
+        UpdateCategory("Sandwich")
         ClearLables()
         UpdateTotals()
         MainWindow.Content = orderPage
@@ -340,22 +394,24 @@ Public Class POSApp
         Dim orderFound As Boolean = False
         orderPage.lstBoxTicket.Items.Clear()
         orderPage.lblEmployeeName.Content = User.FirstName & " " & User.LastName
+        orderPage.lblClock.Content = DateTime.Now.ToString("hh:mm tt")
 
         'If there is already an open local order at that location then load that order
-        For Each order As Order In lstOpenLocalOrders
-            If order.Location.Equals(location) Then
-                selectedOrder = order
-                DisplayOpenOrder(order)
-                orderFound = True
-                Debug.WriteLine("Order found location " & location)
-                Exit For
-            End If
-        Next
+        If GetLocalOrder(location) IsNot Nothing Then
+            selectedOrder = GetLocalOrder(location)
+            For Each item As Item In selectedOrder.LstItems
+                item.BuildTicketViewStrings()
+                item.Sent = True
+            Next
+            DisplayOpenOrder(selectedOrder)
+            orderFound = True
+            Debug.WriteLine("Order found location " & location)
+        End If
 
         'If there is not an open order at that location then make one
         If orderFound = False Then
             Dim order As New Order(location)
-            lstOpenLocalOrders.Add(order)
+            'lstOpenLocalOrders.Add(order)
             selectedOrder = order
             dao.CreateOrder(selectedOrder, User.UserID)
             selectedOrder.OrderId = dao.GetHighestOrderId()
@@ -363,13 +419,35 @@ Public Class POSApp
         End If
 
         'Either way, clean up and display the order page
-        UpdateCategory("Entree")
+        UpdateCategory("Sandwich")
         ClearLables()
         UpdateTotals()
         MainWindow.Content = orderPage
     End Sub
 
+    Public Sub ShowTakePaymentPopup()
+        If selectedOrder.LstItems.Count > 0 Then
+            takePaymentPopup.lblTotal.Content = "Total: $" & Math.Round(selectedOrder.Total, 2).ToString
+            takePaymentPopup.Owner = Me.MainWindow
+            takePaymentPopup.WindowStartupLocation = WindowStartupLocation.CenterOwner
+            takePaymentPopup.ShowDialog()
+        End If
+    End Sub
+
     ''''''''''' Other Functions '''''''''''''
+
+    Public Function GetLocalOrder(location As String) As Order
+        'Return the order if one exists at the location
+        'lstOpenLocalOrders.Clear()
+        'lstOpenLocalOrders = dao.GetAllOpenLocalOrders()
+
+        For Each order As Order In lstOpenLocalOrders
+            If order.Location.Equals(location) Then
+                Return order
+            End If
+        Next
+        Return Nothing
+    End Function
 
     Public Sub ToggleAddRemove()
         If addIngredientMode = True Then
@@ -466,6 +544,8 @@ Public Class POSApp
             ModifiersPopup.btnAddRemove.Background = Brushes.Green
             ModifiersPopup.btnAddRemove.Content = "Add"
             addIngredientMode = True
+            ModifiersPopup.Owner = Me.MainWindow
+            ModifiersPopup.WindowStartupLocation = WindowStartupLocation.CenterOwner
             ModifiersPopup.ShowDialog()
         End If
     End Sub
@@ -491,7 +571,7 @@ Public Class POSApp
                         Grid.SetColumn(pair.Key, intColumn)
                         ModifiersPopup.ingredientGridPanel.Children.Add(pair.Key)
                         intColumn += 1
-                        If intColumn >= 4 Then
+                        If intColumn >= 7 Then
                             intRow += 1
                             intColumn = 0
                         End If
@@ -505,7 +585,7 @@ Public Class POSApp
                     Grid.SetColumn(pair.Key, intColumn)
                     ModifiersPopup.ingredientGridPanel.Children.Add(pair.Key)
                     intColumn += 1
-                    If intColumn >= 4 Then
+                    If intColumn >= 7 Then
                         intRow += 1
                         intColumn = 0
                     End If
@@ -561,10 +641,16 @@ Public Class POSApp
     End Sub
 
     Public Sub TakePayment()
+        'Dim result As MessageBoxResult
+        'result = MessageBox.Show("Cashout Order?" & vbCrLf & "Total: $" & Math.Round(selectedOrder.Total, 2).ToString, "Take Payment", MessageBoxButton.YesNo)
+        'If result = MessageBoxResult.Yes Then
+        'Close the order
         selectedOrder.IsOpen = 0
-        dao.CloseOrder(selectedOrder)
-        lstOpenLocalOrders.Remove(selectedOrder)
-        MainWindow.Content = OrderSelectionPage
+            dao.CloseOrder(selectedOrder)
+            lstOpenLocalOrders.Remove(selectedOrder)
+            'Go back to the order selection page
+            ShowOrderSelectionPage()
+        'End If
     End Sub
 
     Private Sub InvalidPin()

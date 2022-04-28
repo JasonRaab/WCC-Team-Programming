@@ -7,7 +7,7 @@
         Me.posApp = posApp
     End Sub
 
-    Private Sub btnTable_Click(sender As Object, e As RoutedEventArgs) Handles btnTable1.Click, btnTable2.Click, btnTable3.Click, btnTable4.Click
+    Private Sub btnTable_Click(sender As Object, e As RoutedEventArgs) Handles btnTable101.Click, btnTable102.Click, btnTable103.Click, btnTable104.Click, btnTable201.Click, btnTable202.Click, btnTable203.Click, btnTable301.Click, btnTable302.Click, btnTable303.Click, btnTable401.Click
         posApp.ViewOrderPageLocal(CType(sender, Button).Content)
     End Sub
 
