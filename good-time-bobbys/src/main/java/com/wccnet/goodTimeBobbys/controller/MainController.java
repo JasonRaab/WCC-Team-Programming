@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,9 +50,20 @@ public class MainController {
 
 	@Autowired
 	private OrderProcessingImpl orderProcessingImpl;
+	
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	@RequestMapping("/")
 	public String loginOne(Model model) {
+
+		orderProcessingImpl.clearMenuItemInCart();
+		orderProcessingImpl.clearItemOrderedHolder();
+		menuService.clearAddedIngredientsByUser();
+		menuService.clearRemovedIngredientsByUser();
+		orderListCreator.clearAllLists();
+		orderProcessingImpl.setNextItemNumber(1);
+		
 		OrderInfo order = new OrderInfo();
 		restaurantDAO.saveOrder(order);
 		model.addAttribute("users", userDAO.getUsers());
@@ -102,8 +115,6 @@ public class MainController {
 	@RequestMapping("/menu")
 	public String getMenuItems(Model model, @RequestParam(name = "userID", defaultValue = "0") int userID,
 			@RequestParam(name = "orderID") int orderID) {
-
-		// TODO: create insert of UserID where orderId = orderID
 		orderProcessingImpl.createOrderInfo(orderID, userID);
 
 		model.addAttribute("user", userDAO.getUserByID(userID));
@@ -306,17 +317,6 @@ public class MainController {
 		redirectAttribute.addAttribute("userID", userIdInt);
 		redirectAttribute.addAttribute("orderID", orderIDint);
 
-//		
-//		model.addAttribute("addedIngredientsByUser", menuService.getAddedIngredientsByUser());
-//		model.addAttribute("removedIngredientsByUser", menuService.getRemovedIngredientsByUser());
-//		model.addAttribute("user", user);
-//		model.addAttribute("userID", userIdInt);
-//		model.addAttribute("menuItem", menuItem);
-//		model.addAttribute("menuItemID", menuItemIdInt);
-//		model.addAttribute("orderID", orderIDint);
-//		model.addAttribute("itemNumber", itemNumberInt);
-//		model.addAttribute("ingredientPriceString", menuService.getIngredientsAddedPriceTotal());
-
 		return "redirect:/backToCart";
 	}
 
@@ -353,10 +353,6 @@ public class MainController {
 		return "fullIngredientList";
 	}
 
-	// this is ALEXS PROJECT
-
-	// ADD THIS TO THE FUNCTION PARAMS WHEN WE ARE ABLE!!!
-	// @RequestParam("ingredientCatagory") String ingredientCategotry,
 	@RequestMapping("/filteredIngredientList")
 	public String getFilteredIngredientList(Model model, @ModelAttribute("ingredients") Ingredient ingredient,
 			BindingResult result) {
@@ -451,10 +447,6 @@ public class MainController {
 			System.out.println(itemOrdered);
 			// orderProcessingImpl.processItemsOrdered(itemOrdered);
 		}
-//		ArrayList<MenuItem> menuItemOrdered = new ArrayList<>();
-//		for (ItemOrdered itemOrdered : sendItemOrderedList) {
-//			menuItemOrdered.add(restaurantDAO.getMenuItemByID(itemOrdered.getMenuItem().getItemId()));
-//		}
 
 		System.out.println("orderinfo should be in the DB!");
 
@@ -509,8 +501,6 @@ public class MainController {
 		orderInfo.setOrderSubtotal(subTotalDouble);
 		orderInfo.setOrderTotal(orderTotalDouble);
 		
-		restaurantDAO.saveOrder(orderInfo);
-		
 		//restaurantDAO.finishOrderInfo(orderID, userID, date, subTotalDouble, orderTax, orderTotalDouble);
 
 		model.addAttribute("menuItemList", menuItemList);
@@ -525,5 +515,10 @@ public class MainController {
 
 		return "confirmation";
 	}
+	
+//	@RequestMapping("/logout")
+//	public String logout(Model model) {
+//		return "/";
+//	}
 
 }

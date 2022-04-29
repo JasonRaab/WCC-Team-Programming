@@ -28,6 +28,12 @@ public class OrderProcessingImpl {
 	private IIngredientDAO ingredientDAO;
 
 	ArrayList<MenuItem> menuItemInCart = new ArrayList<>();
+	ArrayList<ItemOrdered> itemOrderedHolder = new ArrayList<ItemOrdered>();
+	
+	public void setNextItemNumber(int nextItemNumber) {
+		this.nextItemNumber = nextItemNumber;
+	}
+
 	int nextItemNumber = 1;
 
 	public void addMenuItemInCart(MenuItem menuItem) {
@@ -36,6 +42,14 @@ public class OrderProcessingImpl {
 		menuItemInCart.add(menuItem);
 		nextItemNumber++;
 
+	}
+	
+	public void clearMenuItemInCart() {
+		menuItemInCart.clear();
+	}
+	
+	public void clearItemOrderedHolder() {
+		itemOrderedHolder.clear();
 	}
 
 	public ArrayList<MenuItem> getMenuItemInCart() {
@@ -46,7 +60,7 @@ public class OrderProcessingImpl {
 		this.menuItemInCart = menuItemInCart;
 	}
 
-	ArrayList<ItemOrdered> itemOrderedHolder = new ArrayList<ItemOrdered>();
+	
 	
 
 	public Ingredient getIngredientInfo(int ingredientID) {
@@ -117,22 +131,5 @@ public class OrderProcessingImpl {
 		OrderInfo orderInfoObject = session.get(OrderInfo.class, orderID);
 		
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

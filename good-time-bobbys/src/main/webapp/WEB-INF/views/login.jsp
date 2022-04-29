@@ -152,7 +152,7 @@ header.masthead {
 	}
 </script>
 <meta charset="ISO-8859-1">
-<title>Welcome</title>
+<title>Welcome to Good Time Bobby's</title>
 </head>
 
 

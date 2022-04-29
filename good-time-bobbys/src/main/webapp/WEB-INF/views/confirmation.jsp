@@ -97,10 +97,10 @@ header.masthead {
 					<div>Tax: ${orderTax}</div>
 					<div>Total: ${orderTotal}</div>
 				</div>
-				<c:url var="login" value="/"></c:url>
+				<c:url var="logout" value="/"></c:url>
 
 				<div>
-					<br> <a href="${login}" class="btn btn-outline-light btn-md"
+					<br> <a href="${logout}" class="btn btn-outline-light btn-md"
 						role="button" aria-pressed="true">Logout</a>
 				</div>
 			</div>

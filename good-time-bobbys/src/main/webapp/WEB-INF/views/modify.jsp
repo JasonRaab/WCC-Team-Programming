@@ -160,6 +160,8 @@ header.masthead {
 						onclick="openMenu(event, 'Proteins')">Proteins</button>
 					<button class="tablinks floorbackground"
 						onclick="openMenu(event, 'Condiments')">Condiments</button>
+					<button class="tablinks floorbackground"
+						onclick="openMenu(event, 'Desserts')">Desserts</button>
 				</div>
 			</div>
 			<c:url var="testing" value="testing">
@@ -404,6 +406,47 @@ header.masthead {
 									<c:forEach var="eachIngredient" items="${ingredients}">
 										<c:if
 											test="${eachIngredient.ingredientCategory.equals('Condiment')}">
+											<tr>
+												<td></td>
+												<td>${eachIngredient.ingredientName}</td>
+												<td>$${eachIngredient.ingredientPrice}</td>
+												<td><input type="checkbox"
+													id="${eachIngredient.ingredientName}"
+													name="ingredientAdded"
+													value="${eachIngredient.ingredientId}"> <label
+													for="ingredientAdded">Add Ingredient</label></td>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="Desserts" class="tabcontent floorbackground">
+						<div class="card floorbackground">
+							<table class="table floorbackground">
+								<tr>
+									<c:forEach var="defaultIngredients"
+										items="${defaultIngredientList}">
+										<c:if
+											test="${defaultIngredients.ingredientCategory.equals('Dessert')}">
+											<tr>
+												<td></td>
+												<td>${defaultIngredients.ingredientName}</td>
+												<td>$${defaultIngredients.ingredientPrice}</td>
+												<td><input type="checkbox"
+													id="${defaultIngredients.ingredientName}"
+													name="ingredientAdded"
+													value="${defaultIngredients.ingredientId}" checked>
+													<label for="ingredientAdded">Remove Ingredient</label></td>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</tr>
+								<tr>
+									<c:forEach var="eachIngredient" items="${ingredients}">
+										<c:if
+											test="${eachIngredient.ingredientCategory.equals('Dessert')}">
 											<tr>
 												<td></td>
 												<td>${eachIngredient.ingredientName}</td>
