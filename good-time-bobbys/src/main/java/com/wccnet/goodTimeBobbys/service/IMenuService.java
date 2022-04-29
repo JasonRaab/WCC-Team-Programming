@@ -29,6 +29,10 @@ public interface IMenuService {
 	public void clearAddedIngredientsByUser();
 
 	public void clearRemovedIngredientsByUser();
+
+	public void setItemNumber(ArrayList<MenuItem> menuItemList);
+
+	public void setIngredientPriceTotal(Double ingredientPriceTotal);
 	
 
 }

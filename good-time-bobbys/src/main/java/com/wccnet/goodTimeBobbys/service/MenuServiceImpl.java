@@ -22,6 +22,11 @@ public class MenuServiceImpl implements IMenuService {
 	Double ingredientPriceTotal = 0.00;
 
 	@Override
+	public void setIngredientPriceTotal(Double ingredientPriceTotal) {
+		this.ingredientPriceTotal = ingredientPriceTotal;
+	}
+
+	@Override
 	public void clearAddedIngredientsByUser() {
 		addedIngredientsByUser.clear();
 	}
@@ -114,6 +119,13 @@ public class MenuServiceImpl implements IMenuService {
 		}
 
 		return itemNumber;
+	}
+
+	@Override
+	public void setItemNumber(ArrayList<MenuItem> menuItemList) {
+		for (MenuItem menuItem : menuItemList) {
+			menuItem.setItemNumber(0);
+		}
 	}
 
 	@Override

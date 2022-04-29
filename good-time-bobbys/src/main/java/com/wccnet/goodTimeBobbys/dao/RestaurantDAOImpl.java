@@ -119,20 +119,16 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 	@Transactional
 	public Session closeSession() {
 		Session session = sessionFactory.getCurrentSession();
+		System.out.println(session);
 		if (session.isOpen()) {
 			session.flush();
 			session.clear();
-			return sessionFactory.openSession();
+			Session newSession = sessionFactory.openSession();
+			newSession = sessionFactory.getCurrentSession();
+			System.out.println(newSession);
+			return newSession;
 		} else {
 			return session;
 		}
 	}
-
-//	@Override
-//	@Transactional
-//	public void beginSession() {
-//		sessionFactory.getCurrentSession();
-//
-//	}
-
 }

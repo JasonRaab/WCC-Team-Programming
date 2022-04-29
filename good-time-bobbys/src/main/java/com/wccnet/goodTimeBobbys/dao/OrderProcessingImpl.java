@@ -21,7 +21,7 @@ public class OrderProcessingImpl {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Autowired
 	private IIngredientDAO ingredientDAO;
 
@@ -33,7 +33,14 @@ public class OrderProcessingImpl {
 		menuItem.setItemNumber(nextItemNumber);
 		menuItemInCart.add(menuItem);
 		nextItemNumber++;
+	}
 
+	public void setNextItemNumber(int nextItemNumber) {
+		this.nextItemNumber = nextItemNumber;
+	}
+
+	public void resetItemNumber(MenuItem menuItem) {
+		menuItem.setItemNumber(0);
 	}
 
 	public ArrayList<MenuItem> getMenuItemInCart() {
@@ -45,11 +52,10 @@ public class OrderProcessingImpl {
 	}
 
 	ArrayList<ItemOrdered> itemOrderedHolder = new ArrayList<ItemOrdered>();
-	
 
 	public Ingredient getIngredientInfo(int ingredientID) {
 		Ingredient ingredient = ingredientDAO.getIngredientByID(ingredientID);
-		
+
 		return ingredient;
 	}
 
@@ -61,11 +67,10 @@ public class OrderProcessingImpl {
 		}
 	}
 
-
 	public ArrayList<ItemOrdered> getItemOrderedHolder() {
 		return itemOrderedHolder;
 	}
-	
+
 	public void setItemOrderedHolder(ArrayList<ItemOrdered> itemOrderedHolder) {
 		this.itemOrderedHolder = itemOrderedHolder;
 	}
@@ -76,15 +81,16 @@ public class OrderProcessingImpl {
 		for (ItemOrdered itemOrdered : itemOrderedArrayList) {
 			System.out.println("in the forloop to send the items" + itemOrdered);
 			session.merge(itemOrdered);
-			
+
 		}
 //		session.close();
 	}
+
 	@Transactional
 	public void processItemsOrdered(ItemOrdered itemOrdered) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(itemOrdered);
-		
+
 	}
 
 	// This happens upon User Log-in
@@ -106,13 +112,20 @@ public class OrderProcessingImpl {
 			session.saveOrUpdate(orderInfoObject);
 		}
 	}
-	
+
 	@Transactional
 	public void getAllOrderInformation(int orderID) {
 		Session session = sessionFactory.getCurrentSession();
 		OrderInfo orderInfoObject = session.get(OrderInfo.class, orderID);
-		
+
 	}
 
+	public void clearMenuItemInCart() {
+		menuItemInCart.clear();
+	}
+
+	public void clearItemOrderedHolder() {
+		itemOrderedHolder.clear();
+	}
 
 }

@@ -51,10 +51,17 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String loginOne(Model model) {
-		// beginSession();
+
+		orderProcessingImpl.clearMenuItemInCart();
+		orderProcessingImpl.clearItemOrderedHolder();
+		menuService.clearAddedIngredientsByUser();
+		menuService.clearRemovedIngredientsByUser();
+		orderListCreator.clearAllLists();
+		orderProcessingImpl.setNextItemNumber(1);
+		menuService.setIngredientPriceTotal(0.00);
+
 		OrderInfo order = new OrderInfo();
 		restaurantDAO.saveOrder(order);
-		orderProcessingImpl.getMenuItemInCart().clear();
 		model.addAttribute("users", userDAO.getUsers());
 		model.addAttribute("order", order);
 		return "login";
@@ -123,6 +130,7 @@ public class MainController {
 		orderListCreator.menuItemIdListCreator(menuItemID);
 
 		MenuItem menuItemHolder = restaurantDAO.getMenuItemByID(menuItemID);
+
 		orderProcessingImpl.addMenuItemInCart(menuItemHolder);
 
 		model.addAttribute("itemNumber", menuItemHolder.getItemNumber());
@@ -431,7 +439,7 @@ public class MainController {
 		model.addAttribute("subTotal", subTotalDouble);
 		model.addAttribute("orderTax", orderTaxDouble);
 		model.addAttribute("orderTotal", orderTotalDouble);
-		model.addAttribute("closeSession", restaurantDAO.closeSession());
+
 		return "confirmation";
 	}
 

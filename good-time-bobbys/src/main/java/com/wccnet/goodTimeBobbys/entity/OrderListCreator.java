@@ -14,40 +14,28 @@ public class OrderListCreator {
 
 	public void menuItemIdListCreator(Integer itemID) {
 		itemIdList.add(itemID);
-		
+
 	}
-	
+
 	ArrayList<Integer> ingredientIdList = new ArrayList<>();
 
 	Set<Integer> defaultIngredientIdSet = new HashSet<>();
-	
+
 	public void addToDefaultIngredientIdSet(int ingredientID) {
 		defaultIngredientIdSet.add(ingredientID);
 	}
-	
+
 	Set<Integer> modifiedIngredientIdSet = new HashSet<>();
 
 	List<Ingredient> modifiedIngredientList = new ArrayList<>();
 
 	ArrayList<Integer> editedMenuItems = new ArrayList<>();
-	
+
 	public void clearModifiedIngredientIdSet() {
 		if (!modifiedIngredientIdSet.isEmpty()) {
 			modifiedIngredientIdSet.clear();
 		}
 	}
-	
-//	ArrayList<Object> fullOrderBuilder = new ArrayList<>();
-//	ArrayList<Object> fullOrder = new ArrayList<>();
-	
-//	public void addItemToOrder(int orderID, int itemNumber, int menuItemID, int ingredientID, int modification) {
-//		ItemOrdered itemOrdered = new ItemOrdered();
-//		itemOrdered.setIngredientId(ingredientID);
-//		itemOrdered.setItemNumber(itemNumber);
-//		itemOrdered.setMenuItemId(menuItemID);
-//		itemOrdered.setModification(modification);
-//		itemOrdered.setOrderId(orderID);
-//	}
 
 	public List<Ingredient> getModifiedIngredientList() {
 		return modifiedIngredientList;
@@ -69,7 +57,14 @@ public class OrderListCreator {
 		return modifiedIngredientIdSet;
 	}
 
-
+	public void clearAllLists() {
+		itemIdList.clear();
+		ingredientIdList.clear();
+		defaultIngredientIdSet.clear();
+		modifiedIngredientIdSet.clear();
+		modifiedIngredientList.clear();
+		editedMenuItems.clear();
+	}
 
 	public void ingredientIdListCreator(Integer ingredientID) {
 		ingredientIdList.add(ingredientID);
@@ -79,7 +74,7 @@ public class OrderListCreator {
 	public void ingredientIdSetCreator(Integer ingredientID) {
 		modifiedIngredientIdSet.add(ingredientID);
 	}
-	
+
 	public void addToModifiedIngredientList(Ingredient ingredient) {
 		modifiedIngredientList.add(ingredient);
 	}

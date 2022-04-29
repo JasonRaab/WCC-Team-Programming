@@ -86,7 +86,8 @@ header.masthead {
 			</div>
 			<div>
 				<br>
-				<h2>${user.firstName},&nbsp;your&nbsp;order&nbsp;will&nbsp;be&nbsp;ready&nbsp;for&nbsp;pick&nbsp;up&nbsp;in&nbsp;${randomPickupTime}&nbsp;minutes.</h2>
+				<h2>${user.firstName},your order will be ready for pick up in
+					${randomPickupTime} minutes. Please pay upon arrival.</h2>
 			</div>
 		</div>
 		<div class="card  floorbackground">
@@ -96,16 +97,28 @@ header.masthead {
 					<div>Tax: ${orderTax}</div>
 					<div>Total: ${orderTotal}</div>
 				</div>
-				<c:url var="login" value="/">
-				</c:url>
+				<c:url var="logout" value="/"></c:url>
 
 				<div>
-
-					<br> <a href="${login}" class="btn btn-outline-light btn-md"
+					<br> <a href="${logout}" class="btn btn-outline-light btn-md"
 						role="button" aria-pressed="true">Logout</a>
-					<div style="display: none;">${closeSession}</div>
 				</div>
 			</div>
+		</div>
+
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br>
+		<div class="footer floorbackground">
+			<table width="100%">
+				<tbody>
+					<tr>
+						<td class="aligncenter content-block">Questions? Email <a
+							href="mailto:">support@goodtimebobbys.inc</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </body>
