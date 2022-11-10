@@ -1,21 +1,34 @@
 package com.wccnet.goodTimeBobbys.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.wccnet.goodTimeBobbys.entity.Address;
 import com.wccnet.goodTimeBobbys.entity.Ingredient;
 import com.wccnet.goodTimeBobbys.entity.MenuItem;
-import com.wccnet.goodTimeBobbys.entity.User;
+import com.wccnet.goodTimeBobbys.entity.OrderInfo;
 
 public interface IRestaurantDAO {
 
-	public List<User> getUsers();
+//	public List<User> getUsers();
 	
 	public List<MenuItem> getMenuItems();
 	
 	public List<Ingredient> getIngredient(); //List Ingredients in ingredient Table
 	
-	public List<Ingredient> getMenuItemIngredients(); //List Ingredients for specific MenuItem - will this just be a list of String?
+	public MenuItem getMenuItemByID(int menuItemID);
+
+//	public List<Ingredient> getMenuItemIngredientsByMenuItemID(int menuItemID);
 	
-	public List<Address> getAddress();
+	public List<MenuItem> getMenuItemByMenuItemID(ArrayList<Integer> menuItemID);
+
+	public List<Ingredient> getIngredientsByIngredientCategory(String category);
+
+	public List<MenuItem> getMenuItemByCategory(String string);
+
+	public List<Double> getMenuItemPriceByID(Integer menuItemID);
+
+	void saveOrder(OrderInfo order);
+
+	public OrderInfo getOrderInfoByID(int orderID);
+
 }
